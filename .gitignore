@@ -12,3 +12,5 @@ angular.js.tmproj
 node_modules
 angular.xcodeproj
 .idea
+logs/*
+!.gitkeep
