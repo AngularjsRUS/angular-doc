@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 AngularJS
 =========
 
@@ -38,7 +37,10 @@ To execute end-to-end (e2e) tests, use:
 
 To learn more about the grunt tasks, run `grunt --help` and also read our
 [contribution guidelines](http://docs.angularjs.org/misc/contribute).
-=======
+
+
+# CloudBees Info
+
 # angular-seed — the seed for AngularJS apps
 
 This project is an application skeleton for a typical [AngularJS](http://angularjs.org/) web app.
@@ -190,4 +192,3 @@ fetch the changes and merge them into your project with git.
 ## Contact
 
 For more information on AngularJS please check out http://angularjs.org/
->>>>>>> e21c5467ced7b5ca8d49c26800645324766e2fd4
