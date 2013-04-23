@@ -2,23 +2,26 @@
 @name Directives
 @description
 
-Directives are a way to teach HTML new tricks. During DOM compilation directives are matched
-against the HTML and executed. This allows directives to register behavior, or transform the DOM.
+Директивы описывают изменения поведения или преобразование DOM модели,
+связанное с пользовательским атрибутом, именем элемента, или css классом.
+Директивы позволяют расширить HTML синтаксис в декларативной форме.
 
-Angular comes with a built in set of directives which are useful for building web applications but
-can be extended such that HTML can be turned into a declarative domain specific language (DSL).
+Angular поставляется со встроенным набором директив, полезных для создания веб-приложений,
+но может быть расширен так, чтобы превратить HTML в декларативный предметно-ориентированный язык (DSL).
 
-# Invoking directives from HTML
+# Вызов директив из HTML
 
-Directives have camel cased names such as `ngBind`. The directive can be invoked by translating
-the camel case name into snake case with these special characters `:`, `-`, or `_`. Optionally the
-directive can be prefixed with `x-`, or `data-` to make it HTML validator compliant. Here is a
-list of some of the possible directive names: `ng:bind`, `ng-bind`, `ng_bind`, `x-ng-bind` and
-`data-ng-bind`.
+Для наименований директив используется camel case нотация, например `ngBind`.
+Для того что бы использовать директиву необходимо перевести ее из camel case в
+snake case нотацию (нижний регистр) с использованием специальных символов `:`, `-`, или `_` в
+качестве разделителя. Для совместимости с HTML валидатором вы можете использовать
+префикс `x-`, или `data-` при вызове директивы. Вот несколько примеров вызова
+директив: `ng:bind`, `ng-bind`, `ng_bind`, `x-ng-bind` and `data-ng-bind`.
 
-The directives can be placed in element names, attributes, class names, as well as comments. Here
-are some equivalent examples of invoking `myDir`. (However, most directives are restricted to
-attribute only.)
+Директивы могут быть размешены в названиях элементов, атрибутов, как имена классов, а
+также внутри комментариев.
+Ниже примеры эквивалентных вызовов директивы myDir.
+(Тем не менее, большинство директив ограничивается только атрибутами.)
 
 <pre>
   <span my-dir="exp"></span>
@@ -27,8 +30,8 @@ attribute only.)
   <!-- directive: my-dir exp -->
 </pre>
 
-Directives can be invoked in many different ways, but are equivalent in the end result as shown in
-the following example.
+Директивы могут быть вызваны различными способами, но, в конечном счете,
+это будет эквивалентно тому, что показано в следующем примере.
 
 <doc:example>
   <doc:source >
@@ -53,68 +56,71 @@ the following example.
   </doc:scenario>
 </doc:example>
 
-# Text and attribute bindings
+# Обработка строк (связывание текста и атрибутов)
 
-During the compilation process the {@link api/ng.$compile compiler} matches text and
-attributes using the {@link api/ng.$interpolate $interpolate} service to see if they
-contain embedded expressions. These expressions are registered as {@link
-api/ng.$rootScope.Scope#$watch watches} and will update as part of normal {@link
-api/ng.$rootScope.Scope#$digest digest} cycle. An example of interpolation is shown
-here:
+Во время компиляции {@link api/ng.$compile компилятор} сканирует текст и атрибуты,
+используя сервис {@link api/ng.$interpolate $interpolate} для того чтобы узнать,
+содержат ли они встроенные выражения.
+Эти выражения регистрируются как {@link api/ng.$rootScope.Scope#$watch наблюдаемые} и
+будут обновляться во время цикла обновления {@link api/ng.$rootScope.Scope#$digest digest}.
+Пример обработки строк:
 
 <pre>
 <a href="img/{{username}}.jpg">Hello {{username}}!</a>
 </pre>
 
 
-# ngAttr attribute bindings
+# Связывание атрибута ngAttr
 
-If an attribute with a binding is prefixed with `ngAttr` prefix (denormalized prefix: 'ng-attr-',
-'ng:attr-') then during the compilation the prefix will be removed and the binding will be applied
-to an unprefixed attribute. This allows binding to attributes that would otherwise be eagerly
-processed by browsers in their uncompiled form (e.g. `img[src]` or svg's `circle[cx]` attributes).
+Если связанный атрибут имеет префикс `ngAttr` (денормализованный вид: 'ng-attr-',
+'ng:attr-'), то во время компиляции префикс будет удален, и
+связывание применится как к атрибуту без префикса.
+Это обеспечивает связывание с атрибутами, которые иначе некорректно
+обрабатываются в браузерами в неоткомпилированной
+форме (например, `img[src]` или svg's `circle[cx]` атрибуты).
 
-For example, considering template:
+Рассмотрим на примере:
 
     <svg>
       <circle ng-attr-cx="{{cx}}"></circle>
     </svg>
 
-and model cx set to 5, will result in rendering this dom:
+и модель cx устанавливает 5, будет результатом рендеринга dom:
 
     <svg>
       <circle cx="5"></circle>
     </svg>
 
-If you were to bind `{{cx}}` directly to the `cx` attribute, you'd get the following error:
-`Error: Invalid value for attribute cx="{{cx}}"`. With `ng-attr-cx` you can work around this
-problem.
+Если была применена связь `{{cx}}` непосредственно к установленному атрибуту `cx`,
+вы получите следующее сообщение об ошибке:
+`Error: Invalid value for attribute cx="{{cx}}"`. С `ng-attr-cx` можно обойти эту проблему.
 
 
-# Compilation process, and directive matching
+# Компиляция и сканирование директив
 
-Compilation of HTML happens in three phases:
+Компиляция HTML разделяется на три фазы:
 
-  1. First the HTML is parsed into DOM using the standard browser API. This is important to
-  realize because the templates must be parsable HTML. This is in contrast to most templating
-  systems that operate on strings, rather than on DOM elements.
+  1. Сначала HTML преобразуется в DOM-структуру, с помощью стандартного API браузера.
+  Важно понимать это, потому что шаблоны должны представлять интерпретируемый HTML,
+  в отличие от шаблонов большинства шаблонизаторов, работающих со строками, а не с DOM-элементами.
 
-  2. The compilation of the DOM is performed by the call to the {@link api/ng.$compile
-  $compile()} method. The method traverses the DOM and matches the directives. If a match is found
-  it is added to the list of directives associated with the given DOM element. Once all directives
-  for a given DOM element have been identified they are sorted by priority and their `compile()`
-  functions are executed. The directive compile function has a chance to modify the DOM structure
-  and is responsible for producing a `link()` function explained next. The {@link
-  api/ng.$compile $compile()} method returns a combined linking function, which is a
-  collection of all of the linking functions returned from the individual directive compile
-  functions.
+  2. Компиляция DOM производится вызовом метода {@link api/ng.$compile $compile()}.
+  Метод обходит DOM и ищет директивы. Если директива найдена, она будет добавлена
+  в список директив, связанных с данным элементом DOM. После того как все директивы
+  для данного элемента DOM были выявлены они сортируются по приоритету и запускаются
+  функции их компиляции `compile()`. Функция компиляции директивы может изменить структуру
+  DOM и отвечает за передачу функции `link()` дальнейших указаний.
+  Метод {@link api/ng.$compile $compile()} возвращает
+  комбинированную связующую функцию, которая представляет собой коллекцию всех
+  связующих функций (link), возвращенных каждой функцией компиляции каждой директивы.
 
-  3. Link the template with scope by calling the linking function returned from the previous step.
-  This in turn will call the linking function of the individual directives allowing them to
-  register any listeners on the elements and set up any {@link
-  api/ng.$rootScope.Scope#$watch watches} with the {@link
-  api/ng.$rootScope.Scope scope}. The result of this is a live binding between the
-  scope and the DOM. A change in the scope is reflected in the DOM.
+  3. Привязка шаблона к области видимости (scope) осуществляется
+  с помощью вызова связывающей функции, возвращенной из предыдущего шага.
+  Это в свою очередь вызовет связующие функции отдельных директив, разрешит
+  им установить {@link api/ng.$rootScope.Scope#$watch наблюдателей} на элементы
+  и начать наблюдение за {@link api/ng.$rootScope.Scope областью видимости}.
+  В результате образуется динамическая связь между областями видимости и DOM. Изменение
+  в области видимости отражается в DOM.
 
 <pre>
   var $compile = ...; // injected into your code
@@ -132,10 +138,11 @@ Compilation of HTML happens in three phases:
   linkFn(scope);
 </pre>
 
-## Reasons behind the compile/link separation
+## Причины разделения стадии компиляции и связывания
 
-At this point you may wonder why the compile process is broken down to a compile and link phase.
-To understand this, let's look at a real world example with a repeater:
+Дочитав до данного раздела можно удивиться,
+зачем разделять процесс на стадию компиляции и стадию связывания.
+Для понимания этого давайте посмотрим на реальный пример с репитером (repeater):
 
 <pre>
   Hello {{user}}, you have these actions:
@@ -146,8 +153,8 @@ To understand this, let's look at a real world example with a repeater:
   </ul>
 </pre>
 
-The short answer is that compile and link separation is needed any time a change in model causes
-a change in DOM structure such as in repeaters.
+Короткий ответ - функции компиляции и связывания разделены потому что
+в любой момент изменение модели приводит к изменению в DOM структуре, в данном случае - репитера.
 
 When the above example is compiled, the compiler visits every node and looks for directives. The
 `{{user}}` is an example of an {@link api/ng.$interpolate interpolation} directive. {@link
