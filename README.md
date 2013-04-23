@@ -17,7 +17,7 @@
 
 Перевод есть но не добавлен в файлы 'ngdoc'
 ---------
-Для некоторых страниц уже есть перевод (**Все благодарности** за перевод [tamtakoe](https://github.com/tamtakoe)!), но он не в формате `ngdoc`!
+Для некоторых страниц уже есть перевод (список переводчиков ниже), но он не в формате `ngdoc`!
 Находится он [тут](https://github.com/maksimr/docs.angularjs.ru/wiki). Смело можно брать и переносить его в
 файлы `ngdoc`.
 
@@ -46,24 +46,22 @@
 
 Пример сообщения:
 
-    translate(guide:bootstrap): Добавил перевод раздела Обзор
-
-Можно просто (???)
-
     translate(guide:bootstrap): Добавил перевод
 
 
-Как происходит сборка AngularJS
+Как происходит сборка документации
 ---------
-После добавления изменений в основной репозиторий
-автоматически запускается сборка сайта на `cloudbees`.
+Для того чтобы добавленные переводы появились на [сайте](http://doc.angularjs.cloudbees.net/index.html)
+необходимо пересобрать html страницы. Сейчас это сделано автоматически после
+добавления изменений в основной репозиторий (принятие request pull'ов или добавление commit'ов).
 Сборка занимает порядка 1 - 2 минут.
 
-Изменения можно будет посмотреть [тут](http://doc.angularjs.cloudbees.net).
+Изменения можно будет посмотреть [тут](http://doc.angularjs.cloudbees.net/index.html).
 Сейчас это не production host!
 
-Сборка AngularJS локально
+Локальная сборка документации
 ---------
+
 [После того как настроили среду](http://docs.angularjs.org/misc/contribute) запустите команду:
 
     grunt package
@@ -80,11 +78,26 @@
 * Developer Guide: http://docs.angularjs.org/guide
 * Contribution guidelines: http://docs.angularjs.org/misc/contribute
 
-Участники
+Благодарности
 ---------
 
-+ [tamtakoe](https://github.com/tamtakoe)
-+ [maksimr](https://github.com/maksimr)
+ + [tamtakoe](https://github.com/tamtakoe) — 7770 очков
+ + altbog — 2476 очков
+ + alvas — 2057 очков
+ + madhead — 1699 очков
+ + DWand — 1585 очков
+ + Chiuaua — 716 очков
+ + Alexander — 646 очков
+ + dublicator — 331 очко
+ + aksenov — 80 очков
+ + leshaogonkov — 57 очков
+ + iketari — 56 очков
+ + pegas — 44 очка
+ + jalners — 37 очков
+ + piumosso — 30 очков
+ + fearmear — 12 очков
+ + gcolor — 37 очков
+ + semigradsky — 2 очка
 
 ### Continuous Integration
 
