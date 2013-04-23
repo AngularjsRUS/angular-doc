@@ -541,9 +541,10 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
 
   function loadDisqus(currentPageId) {
     // http://docs.disqus.com/help/2/
-    window.disqus_shortname = 'angularjs-next';
+    //window.disqus_shortname = 'angularjs-next';
+    window.disqus_shortname = 'angularjs-ru';
     window.disqus_identifier = currentPageId;
-    window.disqus_url = 'http://docs.angularjs.org' + currentPageId;
+    window.disqus_url = 'http://angularjs.ru' + currentPageId;
 
     if ($location.host() == 'localhost') {
       return; // don't display disqus on localhost, comment this out if needed
@@ -553,7 +554,8 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
     // http://docs.disqus.com/developers/universal/
     (function() {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-      dsq.src = 'http://angularjs.disqus.com/embed.js';
+      //dsq.src = 'http://angularjs.disqus.com/embed.js';
+      dsq.src = '//' + window.disqus_shortname + '.disqus.com/embed.js';
       (document.getElementsByTagName('head')[0] ||
         document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
