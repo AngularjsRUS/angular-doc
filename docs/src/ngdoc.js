@@ -316,7 +316,7 @@ Doc.prototype = {
     dom.h(title(this.name), function() {
 
       notice('deprecated', 'Deprecated API', self.deprecated);
-      dom.tag('a', {href: 'http://github.com/maksimr/cloudbees-test/edit/master/' + self.file, class: 'improve-docs btn btn-primary'}, 'Improve translate');
+      dom.tag('a', {href: 'http://github.com/maksimr/angular-doc/edit/master/' + self.file, class: 'improve-docs btn btn-primary'}, 'Improve translate');
       if (self.ngdoc != 'overview') {
         dom.h('Description', self.description, dom.html);
       }
