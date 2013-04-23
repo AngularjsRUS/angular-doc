@@ -1,4 +1,5 @@
 build/
+app/
 angularjs.netrc
 jstd.log
 .DS_Store
