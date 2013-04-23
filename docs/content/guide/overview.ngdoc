@@ -11,10 +11,10 @@ AngularJS — структурированный фреймворк для ди�
 Используя Data-binding и Dependency injection (идущие из коробки), вы так же уменьшаете количество своего кода.
 И все это на браузерном JavaScript и работает с любой серверной технологией.
 
-Angular is what HTML would have been had it been designed for applications. HTML is a great
-declarative language for static documents. It does not contain much in the way of creating
-applications, and as a result building web applications is an exercise in *what do I have to do, so
-that I trick the browser in to doing what I want.*
+Angular это то, чем был бы HTML, будь он предназначен для приложений.
+HTML замечательный декларативный язык для статических документов.
+Он не содержит многого для создания приложений, и, как результат, построение в нем web-приложений сводится
+к тому чтобы обмануть браузер, заставив его делать то, что я хочу.
 
 The impedance mismatch between dynamic applications and static documents is often solved as:
 
