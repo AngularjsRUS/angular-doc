@@ -2,48 +2,41 @@
 @name Conceptual Overview
 @description
 
-# Overview
+# Обзор
 
-This document gives a quick overview of the main angular components and how they work together.
-These are:
+Этот документ дает представление об основных компонентах Angular и о том, как они работают вместе.
+Вот они:
 
-  * {@link concepts#startup startup} - bring up hello world
-  * {@link concepts#runtime runtime} - overview of angular runtime
-  * {@link concepts#scope scope} - the glue between the view and the controller
-  * {@link concepts#controller controller} - application behavior
-  * {@link concepts#model model} - your application data
-  * {@link concepts#view view} - what the user sees
-  * {@link concepts#directives directives} - extend HTML vocabulary
-  * {@link concepts#filters filters} - format the data in user locale
-  * {@link concepts#injector injector} - assembles your application
-  * {@link concepts#module module} - configures the injector
-  * {@link concepts#angular_namespace `$`} - angular namespace
+  * {@link concepts#startup быстрый старт (startup)} - программа Hello world
+  * {@link concepts#runtime среда исполнения (runtime)} - обзор среды исполнения Angular
+  * {@link concepts#scope область видимости (scope)} - связующее звено между представлением и контроллером
+  * {@link concepts#controller контроллер (controller)} - поведение програмы
+  * {@link concepts#model модель (model)} - данные програмы
+  * {@link concepts#view вид или представление (view)} - то что выидит пользователь
+  * {@link concepts#directives директивы (directives)} - расширение HTML-синтаксиса
+  * {@link concepts#filters фильтры (filters)} - форматируют данные в соответствии с пользовательской локалью
+  * {@link concepts#injector ижектор (injector)} - собирает приложение
+  * {@link concepts#module модуль (module)} - настраивает инжектор
+  * {@link concepts#angular_namespace `$`} - пространство имен Angular
 
 <a name="startup"></a>
-# Startup
+# Быстрый старт
 
-This is how we get the ball rolling (refer to the diagram and example below):
+Для начала, сдвинемся с мертвой точки (см. схему и пример ниже):
 
 <img class="pull-right" style="padding-left: 3em;" src="img/guide/concepts-startup.png">
 
-  1. The browser loads the HTML and parses it into a DOM
-  2. The browser loads `angular.js` script
-  3. Angular waits for `DOMContentLoaded` event
-  4. Angular looks for {@link api/ng.directive:ngApp ng-app}
-    {@link guide/directive directive}, which designates the application boundary
-  5. The {@link guide/module Module} specified in {@link
-     api/ng.directive:ngApp ng-app} (if any) is used to configure
-     the {@link api/AUTO.$injector $injector}
-  6. The {@link api/AUTO.$injector $injector} is used to create the {@link
-     api/ng.$compile $compile} service as well as {@link
+  1. Браузер загружает HTML-документ и строит DOM.
+  2. Браузер загружает скрипт angular.js
+  3. Angular ожидает события `DOMContentLoaded`
+  4. Angular ищет {@link api/ng.directive:ngApp ng-app} {@link guide/directive директиву}, которая определяет область действия фреймворка
+  5. {@link guide/module Модуль}, указанный в директиве {@link api/ng.directive:ngApp ng-app} (если таковой имеется), используется для конфигурации {@link api/AUTO.$injector $injector}
+  6. {@link api/AUTO.$injector $injector} используется для создания сервиса {@link
+     api/ng.$compile $compile}, а за одно и {@link
      api/ng.$rootScope $rootScope}
-  7. The {@link api/ng.$compile $compile} service is used to compile the DOM and link
-     it   with {@link api/ng.$rootScope $rootScope}
-  8. The {@link api/ng.directive:ngInit ng-init} {@link
-     guide/directive directive} assigns `World` to the `name` property on the {@link guide/scope
-     scope}
-  9. The `{{name}}` {@link api/ng.$interpolate interpolates} the expression to
-     `Hello World!`
+  7. Сервис {@link api/ng.$compile $compile} используется для компиляции DOM и связки его с {@link api/ng.$rootScope $rootScope}
+  8. {@link guide/directive Директива} {@link api/ng.directive:ngInit ng-init}  присваивает значение `World` свойству `name` в области видимости {@link guide/scope (scope)}
+  9. `{{name}}` {@link api/ng.$interpolate преобразует} выражение в `Hello World!`
 
 <div class="clear">
 </div>
