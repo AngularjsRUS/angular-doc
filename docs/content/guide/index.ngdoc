@@ -1,12 +1,12 @@
 @ngdoc overview
-@name Developer Guide
+@name Руководство разработчика
 @description
 
-Welcome to the angular Developer Guide. If you are here to learn the details of how to use angular
-to develop web apps, you've come to the right place.
+Добро пожаловать в руководство разработчика по angular. Если вы здесь, чтобы узнать подробности 
+использования angular для разработки веб приложений, то вы пришли в нужное место.
 
-If you are completely or relatively unfamiliar with angular, you may want to check out one or both
-of the following documents before returning here to the Developer Guide:
+Если вы полностью или относительно не знакомы с angular, то перед прочтением этого руководства,
+вам может быть интересно ознакомиться с одним или с двумя следующими документами:
 
-* {@link misc/started Getting Started}
-* {@link tutorial/index Angular Tutorial}
+* {@link misc/started Начало работы}
+* {@link tutorial/index Учебное пособие по Angular}
