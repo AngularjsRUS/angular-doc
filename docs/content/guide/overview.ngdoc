@@ -112,52 +112,53 @@ Angular предназначен для CRUD-приложений. К счаст
   </file>
 </example>
 
-Try out the Live Preview above, and then let's walk through the example and describe what's going
-on.
+Попробуйте живой пример выше, а затем разберем его и опишем что происходит.
 
-In the `<html>` tag, we specify that it is an Angular
-application with the `ng-app` directive. The `ng-app` will cause Angular to {@link
-bootstrap auto initialize} your application.
+Используя `ng-app` директиву внутри `<html>` теге мы указываем
+что это Angular приложение. Так же, директива `ng-app` заставит Angular
+произвести {@link bootstrap автоматическую инициализацию} приложения.
 
     <html ng-app>
 
-We load Angular using the  `<script>` tag:
+Загружаем Angular используя тег `<script>`:
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/?.?.?/angular.min.js"></script>
 
-From the `ng-model` attribute of the `<input>` tags, Angular automatically sets up two-way data
-binding, and we also demonstrate some easy input validation:
+Используя атрибут `ng-model` внутри тегов `<input>`, Angular автоматически установит
+двустороннюю привязку данных, также мы продемонстрировали простую проверку вводимых
+данных:
 
     Quantity: <input type="number" ng-pattern="/\d+/" step="1" min="0" ng-model="qty" required >
     Cost: <input type="number" ng-model="cost" required >
 
-These input widgets look normal enough, but consider these points:
+Эти виджеты выглядят довольно просто, но учтите следующие моменты:
 
-  * When this page loaded, Angular bound the names of the input widgets (`qty` and `cost`) to
-    variables of the same name. Think of those variables as the "Model" component of the
-    Model-View-Controller design pattern.
-  * Note that the HTML widget {@link api/ng.directive:input input}
-    has special powers. The input invalidates itself by turning red when you enter invalid data or
-    leave the the input fields blank. These new widget behaviors make it easier to implement field
-    validation common in CRUD applications.
+  * Когда страница загрузится, Angular привяжет имена виджетов (`qty` и `cost`) к
+    переменным с такими же именами. Думайте о этих переменных как о "Моделях"(Model), одной из составляющих
+    шаблона Model-View-Controller.
+  * Обратите внимание что HTML виджет {@link api/ng.directive:input input}
+    имеет особые полномочия. Когда вы вводите недопустимые значения или оставляете
+    поля ввода пустыми, они сами указывают на ошибку подсвечиваясь красным цветом.
+    Это новое поведение виджетов упрощает создание проверки(validation) значения поля, которая часто используется
+    в CRUD приложениях.
 
-And finally, the mysterious `{{ double curly braces }}`:
+И наконец, магические `{{ двойные фигурные скобки }}`:
 
          Total: {{qty * cost | currency}}
 
-This notation, `{{ _expression_ }}`, is Angular markup for data-binding. The expression itself can
-be a combination of both an expression and a {@link dev_guide.templates.filters filter}: `{{
-expression | filter }}`. Angular provides filters for formatting display data.
+Такая запись, `{{ _выражение_ }}`, является Angular разметкой для привязки данных(data-binding).
+Выражение само по себе может быть комбинацией выражения и {@link dev_guide.templates.filters фильтра}: `{{
+Выражение | фильтр }}`. Angular предоставляет набор фильтров для форматирования выводимых данных.
 
-In the example above, the expression in double-curly braces directs Angular to "bind the data we
-got from the input widgets to the display, multiply them together, and format the resulting number
-into output that looks like money."
+В примере выше, выражение внутри двойных фигурных скобок говорит Angular "привяжи данные которые мы
+получаем из виджетов к этому месту, перемножь их, и отформатируй полученный результат так что бы он
+был похож на деньги".
 
-Notice that we achieved this application behavior not by calling Angular methods, nor by
-implementing application specific behavior as a framework. We achieved the behavior because the
-browser behaved more in line with what is needed for a dynamic web application rather then what is
-needed for a static document. Angular has lowered the impedance mismatch to the point where no
-library/framework calls are needed.
+Обратите внимание, что мы добились такого поведения программы, не вызывая Angular методов,
+ни создавая специфического поведение в качестве основы. Мы достигли
+такого поведения потому что браузер вел себя в соответствии с тем, что нужно
+для динамических web-приложений, а не для статичных документов. Angular has lowered the
+impedance mismatch to the point where no library/framework calls are needed.
 
 
 # The Zen of Angular
@@ -204,8 +205,9 @@ Angular frees you from the following pain:
     initialization process in automated tests.
 
 
-# Watch a Presentation About Angular
+# Видео презентация про Angular
 
-Here is a presentation on Angular from May 2012. The {@link http://mhevery.github.io/angular-demo-slides/index.html#/list corresponding slides} are also available.
+Презентация про Angular на английском языке, от Мая 2012 года. Слайды с презентации можно
+посмотреть {@link http://mhevery.github.io/angular-demo-slides/index.html#/list здесь}.
 
 <iframe width="560" height="315" src="http://www.youtube.com/embed/bfrn5VNpwsg" frameborder="0" allowfullscreen></iframe>
