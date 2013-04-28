@@ -887,21 +887,19 @@ function encodeUriQuery(val, pctEncodeSpaces) {
  * @name ng.directive:ngApp
  *
  * @element ANY
- * @param {angular.Module} ngApp an optional application
- *   {@link angular.module module} name to load.
+ * @param {angular.Module} ngApp имя {@link angular.module модуля} для загрузки.
  *
  * @description
  *
- * Use this directive to auto-bootstrap an application. Only
- * one directive can be used per HTML document. The directive
- * designates the root of the application and is typically placed
- * at the root of the page.
+ * Используйте эту директиву для авто-загрузки приложения. Эта директива
+ * может быть использована только один раз в одном HTML документе. Директива
+ * обозначает корень приложения и обычно располагается в корне страницы.
  *
- * In the example below if the `ngApp` directive would not be placed
- * on the `html` element then the document would not be compiled
- * and the `{{ 1+2 }}` would not be resolved to `3`.
+ * В примере ниже, если директива `ngApp` не была бы помещена в `html`
+ * элементе, тогда приложение не скомпилировалось бы и `{{ 1+2 }}`
+ * не заменилось бы на `3`.
  *
- * `ngApp` is the easiest way to bootstrap an application.
+ * `ngApp` самый простой способ загрузки приложения.
  *
  <doc:example>
    <doc:source>
