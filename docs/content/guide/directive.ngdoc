@@ -1,5 +1,5 @@
 @ngdoc overview
-@name Directives
+@name Директивы
 @description
 
 Директивы описывают изменения поведения или преобразование DOM модели,
