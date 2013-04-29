@@ -887,7 +887,7 @@ function encodeUriQuery(val, pctEncodeSpaces) {
  * @name ng.directive:ngApp
  *
  * @element ANY
- * @param {angular.Module} ngApp имя {@link angular.module модуля} для загрузки.
+ * @param {angular.Module} ngApp необязательное имя {@link angular.module модуля} для загрузки.
  *
  * @description
  *
