@@ -1,36 +1,32 @@
 @ngdoc overview
-@name Developer Guide: Angular Services: Understanding Angular Services
+@name Developer Guide: Сервисы Angular: Понимание сервисов
 @description
 
-Angular services are singletons that carry out specific tasks common to web apps, such as the
-{@link api/ng.$http $http service} that provides low level access to the browser's
-`XMLHttpRequest` object.
+Сервисы Angular это синглтоны singletons, которые выполняют конкретные задачи, общие для веб-приложений, такие как
+{@link api/ng.$http $http service} который предоставяет низкоуровневый доступ к брауерному объекту `XMLHttpRequest`.
 
-To use an Angular service, you identify it as a dependency for the dependent (a controller, or
-another service) that depends on the service.  Angular's dependency injection subsystem takes care
-of the rest. The Angular injector subsystem is in charge of service instantiation, resolution of
-dependencies, and provision of dependencies to factory functions as requested.
+Чтобы использовать сервис Angular, необходимо обозначить его в списке зависимостей контроллера или
+друго сервиса. Подсистема внедрения зависимости в Angular позаботится об остальном. Подсистема инжектора отвечает за создание экземпляра сервиса, разрешение
+зависимостей и предоставление зависимостей фабричным функциям по запросу.
 
-Angular injects dependencies using "constructor" injection (the service is passed in via a factory
-function). Because JavaScript is a dynamically typed language, Angular's dependency injection
-subsystem cannot use static types to identify service dependencies. For this reason a dependent
-must explicitly define its dependencies by using the `$inject` property.  For example:
+Angular внедряет зависимости, используя «конструктор» инъекций (этот сервим передан через фабричную
+функцию). Поскольку JavaScript динамически типизированный язык, подсистема внедрения зависимотси в Angular
+не может использовать статические типы для определения зависимости сервисов. По этой причине необходимо
+явно определить зависимости с помощью свойства `$inject`. Например:
 
         myController.$inject = ['$location'];
 
-The Angular web framework provides a set of services for common operations. Like other core Angular
-variables and identifiers, the built-in services always start with `$` (such as `$http` mentioned
-above). You can also create your own custom services.
+Фреймворк Angular поставляется с сервисами для стандартных операций. Как и другие основные переменные и идентификаторы, встроенные сервисы всегда начинаются с `$` (например, `$http` упомянутый выше). Также можно создавать свои собственные сервисы.
 
 
-## Related Topics
+## Связанные разделы
 
-* {@link di About Angular Dependency Injection}
-* {@link dev_guide.services.creating_services Creating Angular Services}
-* {@link dev_guide.services.managing_dependencies Managing Service Dependencies}
-* {@link dev_guide.services.testing_services Testing Angular Services}
+* {@link di About Angular Внедрение зависимости}
+* {@link dev_guide.services.creating_services Создание сервисов в Angular}
+* {@link dev_guide.services.managing_dependencies Управление зависимостями сервисов}
+* {@link dev_guide.services.testing_services Тестирование сервисов в Angular}
 
-## Related API
+## Связанное API
 
 * {@link api/ng Angular Service API}
 * {@link api/angular.injector Injector API}
