@@ -1,42 +1,30 @@
 @ngdoc overview
-@name Developer Guide: Introduction
+@name Developer Guide: Введение
 @description
 
-Angular is pure client-side technology, written entirely in JavaScript. It works with the
-long-established technologies of the web (HTML, CSS, and JavaScript) to make the development of
-web apps easier and faster than ever before.
+Angular это сугубо клиентская технология, полностью написанная на JavaScript. Он использует широко распространенные веб-технологии (HTML, CSS и JavaScript), делая разработку веб-приложений проще и быстрее, чем когда-либо прежде.
 
-One important way that Angular simplifies web development is by increasing the level of abstraction
-between the developer and most low-level web app development tasks. Angular automatically takes
-care of many of these tasks, including:
+Одним из важных способов, которым Angular упрощает веб-разработку, является увеличение уровня абстракции между разработчиком и большинством низкоуровневых веб-разработки приложений. Angular автоматически берет на себя многие из этих задач, в том числе:
 
-  * DOM Manipulation
-  * Setting Up Listeners and Notifiers
-  * Input Validation
+  * Манипуляции с DOM
+  * Установка наблюдателей и уведомителей
+  * Валидация входных данных
 
-Because Angular handles much of the work involved in these tasks, developers can concentrate more
-on application logic and less on repetitive, error-prone, lower-level coding.
+Потому обработчики Angular делают большую часть работы, связанной с этими задачами, а разработчики могут сконцентрироваться на логике приложения, а не на монотонном, подверженном ошибкам, более низком уровне кодирования.
 
-At the same time that Angular simplifies the development of web apps, it brings relatively
-sophisticated techniques to the client-side, including:
+В то время как Angular упрощает разработку веб-приложений, он задействует сравнительно сложные технологии на стороне клиента, в том числе:
 
-  * Separation of data, application logic, and presentation components
-  * Data Binding between data and presentation components
-  * Services (common web app operations, implemented as substitutable objects)
-  * Dependency Injection (used primarily for wiring together services)
-  * An extensible HTML compiler (written entirely in JavaScript)
-  * Ease of Testing
+  * Отделение данных от логики приложения и представления
+  * Связывание данных между данными и представлением
+  * Сервисы (стандартные операции веб-приложения, реализованные в виде замещения объектов)
+  * Внедрение зависимости (используется в основном для связи вместе с сервисами)
+  * Расширяемый компилятор HTML (полностью написан на JavaScript)
+  * Простота тестирования
 
-These techniques have been for the most part absent from the client-side for far too long.
+Раньше подобные методы по большей части отсутствовали на стороне клиента. 
 
-## Single-page / Round-trip Applications
+## Одностраничные / многостраничные приложения
 
-You can use Angular to develop both single-page and round-trip apps, but Angular is designed
-primarily for developing single-page apps. Angular supports browser history, forward and back
-buttons, and bookmarking in single-page apps.
+Можно использовать Angular для разработки как одностраничных, так и многостраничных приложений, но Angular предназначен в первую очередь для разработки одностраничного приложения. Angular поддерживает историю браузера, кнопки вперед / назад и закладки на одностраничное приложение.
 
-You normally wouldn't want to load Angular with every page change, as would be the case with using
-Angular in a round-trip app. However, it would make sense to do so if you were adding a subset of
-Angular's features (for example, templates to leverage angular's data-binding feature) to an
-existing round-trip app. You might follow this course of action if you were migrating an older app
-to a single-page Angular app.
+Разумеется вы не хотите загружать Angular для каждой измененной страницы, как было бы в случае с использованием Angular в многостраничном приложении. Тем не менее, это имело бы смысл, если добавить подмножество особенностей Angular (например, шаблоны для трансляции особенностей связывания данных в Angular), в существующие многостраничные приложения. Можете прочитать этот курс действий, если вы перешли со старого приложения к одностраничному приложению Angular.
