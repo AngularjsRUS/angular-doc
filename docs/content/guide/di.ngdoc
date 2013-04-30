@@ -1,35 +1,27 @@
 @ngdoc overview
-@name Developer Guide: Dependency Injection
+@name Developer Guide: Внедрение зависимости
 @description
 
-# Dependency Injection
+# Внедрение зависимости (Dependency Injection)
 
-Dependency Injection (DI) is a software design pattern that deals with how code gets hold of its
-dependencies.
+Внедрение зависимостей (DI) - это шаблон проектирования программного обеспечения, связанный с захватом кодом его зависимостей.
 
-For in-depth discussion about DI, see {@link http://en.wikipedia.org/wiki/Dependency_injection
-Dependency Injection} at Wikipedia, {@link http://martinfowler.com/articles/injection.html
-Inversion of Control} by Martin Fowler, or read about DI in your favorite software design pattern
-book.
+Для детального ознакомления с DI, посмотрите статью {@link http://ru.wikipedia.org/wiki/%C2%ED%E5%E4%F0%E5%ED%E8%E5_%E7%E0%E2%E8%F1%E8%EC%EE%F1%F2%E8 Внедрение зависимостей} в Википедии, {@link http://martinfowler.com/articles/injection.html Inversion of Control} Мартина Фаулера (Martin Fowler), или почитайте про DI в вашей любимой книге про шаблоны проектирования ПО.
 
-## DI in a nutshell
+## DI в двух словах
 
-There are only three ways how an object or a function can get a hold of its dependencies:
+Существует всего 3 способа, как объект или функция может захватить зависимости:
 
-  1. The dependency can be created, typically using the `new` operator.
+  1. Зависимость может быть создана посредством обычного вызова оператора `new`.
 
-  2. The dependency can be looked up by referring to a global variable.
+  2. Зависимость может быть найдена при помощи ссылки на глобальную переменную.
 
-  3. The dependency can be passed in to where it is needed.
+  3. Зависимость может быть передана туда, где она необходима.
 
 
-The first two options of creating or looking up dependencies are not optimal, because they hard
-code the dependency, making it difficult, if not impossible, to modify the dependencies.
-This is especially problematic in tests, where it is often desirable to provide mock dependencies
-for test isolation.
+Первые два способа создания или поиска зависимостей не оптимальны, потому что они четко задают зависимость, усложняя (или делая невозможным) изменение зависимости. Это особенно проблематично при тестировании, где всегда желательно включать имитаторы зависимостей для изоляции тестов.
 
-The third option is the most viable, since it removes the responsibility of locating the
-dependency from the component. The dependency is simply handed to the component.
+Третий способ наиболее пригоден, так как он снимает с компонента ответственность за поиск зависимости. Она просто передается компоненту.
 
 <pre>
   function SomeClass(greeter) {
@@ -41,27 +33,23 @@ dependency from the component. The dependency is simply handed to the component.
   }
 </pre>
 
-In the above example the `SomeClass` is not concerned with locating the `greeter` dependency, it
-is simply handed the `greeter` at runtime.
+В примере выше класс `SomeClass` не заботится о том, где расположена зависимость `greeter`, он просто получает `greeter` во время выполнения.
 
-This is desirable, but it puts the responsibility of getting hold of the dependency onto the
-code responsible for the construction of `SomeClass`.
+Это приятно, но ответственность за захват зависимости перекладывается на код, отвечающий за создание `SomeClass`.
 
-To manage the responsibility of dependency creation, each Angular application has an {@link
-api/angular.injector injector}. The injector is a service locator that is responsible for
-construction and lookup of dependencies.
+Для управления ответственностью за создание зависимостей в каждом Angular-приложении есть {@link api/angular.injector инжектор}. Инжектор - это локатор служб отвечающий за создание и поиск зависимостей.
 
 
-Here is an example of using  the injector service. 
+Вот пример использования инжектора.
 <pre>
-  // Provide the wiring information in a module
+  // Обеспечение обвязки информации в модуле
   angular.module('myModule', []).
   
-    // Teach the injector how to build a 'greeter'
-    // Notice that greeter itself is dependent on '$window'
+    // Обучение инжектора построению 'greeter'а
+    // Заметьте, что greeter сам по себе зависит от '$window'
     factory('greeter', function($window) {
-      // This is a factory function, and is responsible for 
-      // creating the 'greet' service.
+      // Это фабричная функция, которая отвечает за
+      // создание 'greet' службы.
       return {
         greet: function(text) {
           $window.alert(text);
@@ -69,18 +57,15 @@ Here is an example of using  the injector service.
       };
     });
 
-  // New injector is created from the module. 
-  // (This is usually done automatically by angular bootstrap)
+  // Создание нового инжектора из модуля
+  // (Это обычно производится автоматически загрузчиком Angular)
   var injector = angular.injector(['myModule', 'ng']);
   
-  // Request any dependency from the injector
+  // Запрашивает какую-либо зависимость у инжектора
   var greeter = injector.get('greeter');
 </pre>
 
-Asking for dependencies solves the issue of hard coding, but it also means that the injector needs
-to be passed throughout the application. Passing the injector breaks the {@link
-http://en.wikipedia.org/wiki/Law_of_Demeter Law of Demeter}. To remedy this, we turn the
-dependency lookup responsibility to the injector by declaring the dependencies as in this example:
+Запрос зависимостей решает проблему четкого прописывания их в коде, но так же это означает, что инжектор должен быть доступен в любом месте приложения, что противоречит {@link http://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%BA%D0%BE%D0%BD_%D0%94%D0%B5%D0%BC%D0%B5%D1%82%D1%80%D1%8B Закону Деметры}. Для того, чтобы это исправить, мы передаем ответственность за поиск зависимостей инжектору описывая их следующим образом:
 
 <pre>
   <!-- Given this HTML -->
@@ -89,36 +74,28 @@ dependency lookup responsibility to the injector by declaring the dependencies a
   </div>
 </pre>  
 <pre>
-  // And this controller definition
+  // Добавляем определение этого контролера
   function MyController($scope, greeter) {
     $scope.sayHello = function() {
       greeter.greet('Hello World');
     };
   }
   
-  // The 'ng-controller' directive does this behind the scenes
+  // Директива 'ng-controller' делает это за кулисами
   injector.instantiate(MyController);
 </pre>
 
-Notice that by having the `ng-controller` instantiate the class, it can satisfy all of the
-dependencies of the `MyController` without the controller ever knowing about the injector. This is
-the best outcome. The application code simply ask for the dependencies it needs, without having to
-deal with the injector. This setup does not break the Law of Demeter.
+Заметьте, что, так как `ng-controller` создает экземпляр класса, то он может удовлетворить и все зависимости `MyController`, который при этом даже не догадывается про инжектор. Это лучшее решение. Код приложения просто запрашивает необходимые зависимости, не используя инжектор. Такая структура не противоречит Закону Деметры.
 
-# Dependency Annotation
+# Аннотация зависимости
 
-How does the injector know what service needs to be injected? 
+Как инжектор узнает, какой сервис должен быть внедрен?
 
-The application developer needs to provide annotation information that the injector uses in order
-to resolve the dependencies. Throughout Angular certain API functions are invoked using the
-injector, as per the API documentation. The injector needs to know what services to inject into
-the function. Below are three equivalent ways of annotating your code with service name
-information. These can be used interchangeably as you see fit and are equivalent.
+Разработчик приложения должен предоставить пояснение, что инжектор используется для разрешения зависимостей. Через Angular некоторые функции API вызываются с помощью инжектора, в соответствии с документацией API. Инжектор должен знать, какие сервисы внедряются в функцию. Ниже приведены три эквивалентных способа разметки кода с информацией о именах сервисов. Они могут использоваться как взаимозаменяемые, если вы считаете это нужным, и быть эквивалентными.
 
-# Inferring Dependencies
+# Выводы о зависимостях
 
-The simplest way to get hold of the dependencies, is to assume that the function parameter names
-are the names of the dependencies.
+Самый простой способ захватить зависимости - это использовать названия зависимостей в качестве названий параметров метода.
 
 <pre>
   function MyController($scope, greeter) {
@@ -126,19 +103,13 @@ are the names of the dependencies.
   }
 </pre>
 
-Given a function the injector can infer the names of the service to inject by examining the
-function declaration and extracting the parameter names. In the above example `$scope`, and
-`greeter` are two services which need to be injected into the function.
+Получив метод инжектор может узнать, какие зависимости нужно внедрить, исследуя объявление метода и выделяя названия параметров. В коде выше `$scope` и `greeter` являются сервисами, которые нужно внедрить в метод.
 
-While straightforward, this method will not work with JavaScript minifiers/obfuscators as they
-rename the method parameter names. This makes this way of annotating only useful for {@link
-http://www.pretotyping.org/ pretotyping}, and demo applications.
+Не смотря на простоту, этот способ не будет работать при использовании JavaScript минимизаторов/обфускаторов, так как они изменяют названия параметров метода. Таким образом, этот способ описания может быть полезен только для {@link http://www.pretotyping.org/ прототипирования} и демо приложений.
 
-# `$inject` Annotation
+# аннотация `$inject`
 
-To allow the minifers to rename the function parameters and still be able to inject right services
-the function needs to be annotate with the `$inject` property. The `$inject` property is an array
-of service names to inject.
+Для того, чтобы разрешить минимизаторам изменять названия параметров и при этом внедрять правильные сервисы, метод должен быть описан со свойством `$inject`. Свойство `$inject` - это массив названий внедряемых сервисов.
 
 <pre>
   var MyController = function(renamed$scope, renamedGreeter) {
@@ -147,25 +118,22 @@ of service names to inject.
   MyController.$inject = ['$scope', 'greeter'];
 </pre>
 
-Care must be taken that the `$inject` annotation is kept in sync with the actual arguments in the
-function declaration.
+Необходимо позаботиться о том, что `$inject` аннотация синхронизировалась только с фактическими аргументами в объявлении функции.
 
-This method of annotation is useful for controller declarations since it assigns the annotation
-information with the function.
+Этот метод аннотации полезен для деклараций контроллера, поскольку он назначает аннотационную информацию с функцией.
 
-# Inline Annotation
+# Встроенная аннотация
 
-Sometimes using the `$inject` annotation style is not convenient such as when annotating
-directives.
+Иногда использование `$inject` аннотации стиля не удобно, например, когда аннотируются директивы.
 
-For example:
+Например:
 <pre>
   someModule.factory('greeter', function($window) {
     ...;
   });
 </pre>
 
-Results in code bloat due to the need of temporary variable:
+Результаты в разрастание кода в связи с необходимостью временной переменной:
 <pre>
   var greeterFactory = function(renamed$window) {
     ...;
@@ -176,24 +144,24 @@ Results in code bloat due to the need of temporary variable:
   someModule.factory('greeter', greeterFactory);
 </pre>
 
-For this reason the third annotation style is provided as well.
+По этой причине третий стиль аннотация точно такой же.
 <pre>
   someModule.factory('greeter', ['$window', function(renamed$window) {
     ...;
   }]);
 </pre>
 
-Keep in mind that all of the annotation styles are equivalent and can be used anywhere in Angular
-where injection is supported.
+Имейте в виду, что все стили аннотации эквивалентны и могут быть использованы в любом месте Angular, где поддерживаются инъекции.
 
-# Where can I use DI?
+# Как использовать внедрение зависимости?
 
-DI is pervasive throughout Angular. It is typically used in controllers and factory methods. 
+Внедрение зависимости встречается в Angular повсеместно, но чаще используется в контроллерах и фабричных методах.
 
-## DI in controllers
+## Внедрение зависимости в контроллерах
 
 Controllers are classes which are responsible for application behavior. The recommended way of 
 declaring controllers is:
+Контроллеры имеют классы, которые отвечают поведение приложения. Рекомендуем объявлять контроллеры так:
 
 <pre>
   var MyController = function($scope, dep1, dep2) {
@@ -206,11 +174,13 @@ declaring controllers is:
 </pre>
 
 
-## Factory methods
+## Фабричные методы
 
 Factory methods are responsible for creating most objects in Angular. Examples are directives,
 services, and filters. The factory methods are registered with the module, and the recommended way
 of declaring factories is:
+
+Фабричные методы отвечают за создание большинства объектов в Angular. Например, директив, сервисов и фильтров. Рекомендуем регистрировать фабричные методы в модуле так:
 
 <pre>
   angular.module('myModule', []).
