@@ -1,71 +1,62 @@
 @ngdoc overview
-@name Developer Guide: About MVC in Angular: Understanding the Model Component
+@name Developer Guide: MVC в Angular: Модель
 @description
 
-Depending on the context of the discussion in the Angular documentation, the term _model_ can refer to
-either a single object representing one entity (for example, a model called "phones" with its value
-being an array of phones) or the entire data model for the application (all entities).
+В зависимости от контекста обсуждения в документации Angular термин модель может относиться как к одному объекту, представляющих одну сущность (например, модель под названием «Телефоны» содержащую в качестве значения массив телефонов) или всей модели данных для приложения (все объекты).
 
-In Angular, a model is any data that is reachable as a property of an angular {@link
-scope Scope} object. The name of the property is the model identifier and the value is
-any JavaScript object (including arrays and primitives).
+В Angular, модель это любые данные, доступные как свойство объекта {@link scope области видимости}. Имя свойства это идентификатор модели, а значение — любой объект JavaScript (включая массивы и примитивы).
 
 The only requirement for a JavaScript object to be a model in Angular is that the object must be
 referenced by an Angular scope as a property of that scope object. This property reference can be
 created explicitly or implicitly.
 
-You can create models by explicitly creating scope properties referencing JavaScript objects in the
-following ways:
+Единственное требование к объекту JavaScript, чтобы быть моделью в Angular в том, что на объект должна быть ссылка из области видимости Angular как на свойство этой области. Это свойство может быть ссылкой, созданной явно или неявно.
 
-* Make a direct property assignment to the scope object in JavaScript code; this most commonly
-occurs in controllers:
+Можно создавать модели, явно объявляя ссылки на свойства области JavaScript объектов следующими способами:
+
+* Создайте прямую ссылку, присвойте код JavaScript объекту в области видимости; это чаще всего происходит в контроллерах:
 
          function MyCtrl($scope) {
-             // create property 'foo' on the MyCtrl's scope
-             // and assign it an initial value 'bar'
+             // создание свойства 'foo' в области видимости MyCtrl
+             // и инициализация его свойством 'bar'
              $scope.foo = 'bar';
          }
 
-* Use an {@link expression angular expression} with an assignment operator in templates:
+* Используйте {@link expression выражение} с оператором присваивания в шаблоне:
 
          <button ng-click="{{foos='ball'}}">Click me</button>
 
-* Use {@link api/ng.directive:ngInit ngInit directive} in templates (for toy/example apps
-only, not recommended for real applications):
+* Используйте директиву {@link api/ng.directive:ngInit ngInit} в шаблонах (только для учебных приложений. Для реальных приложений не рекомендуется):
 
          <body ng-init=" foo = 'bar' ">
 
-Angular creates models implicitly (by creating a scope property and assigning it a suitable value)
-when processing the following template constructs:
+Angular неявно объявит модели (путем создания области видимсоти и присвоения ей подходящего значения) при обработке следующих конструкций шаблона:
 
-* Form input, select, textarea and other form elements:
+* Поместите input, select, textarea и другие элементы формы:
 
          <input ng-model="query" value="fluffy cloud">
 
-   The code above creates a model called "query" on the current scope with the value set to "fluffy
-cloud".
+   Приведенный выше код создает модель под названием "query" в текущей области видимости со значением, установленным в "fluffy cloud".
 
-* An iterator declaration in {@link api/ng.directive:ngRepeat ngRepeater}:
+* Объявите итератор {@link api/ng.directive:ngRepeat ngRepeater}:
 
          <p ng-repeat="phone in phones"></p>
 
-   The code above creates one child scope for each item in the "phones" array and creates a "phone"
-object (model) on each of these scopes with its value set to the value of "phone" in the array.
+   Приведенный выше код создает по одному потомку области видимости для каждого элемента в массиве «Телефоны» и создает по объекту «телефон» в каждой из этих областей со значением, установленным в «телефон» в массиве.
 
-In Angular, a JavaScript object stops being a model when:
+В Angular, объект JavaScript перестает быть моделью, когда:
 
-* No Angular scope contains a property that references the object.
+* Никакие области видимости в Angular не содержат свойств, которые ссылаются на объект.
 
-* All Angular scopes that contain a property referencing the object become stale and eligible for
-garbage collection.
+* Все области видимости Angular, содержащие свойства, ссылающийся объект устарели и ожидают удаления сборщиком мусора.
 
-The following illustration shows a simple data model created implicitly from a simple template:
+На следующем рисунке показана простая модель данных, которая создается неявно из простого шаблона:
 
 <img src="img/guide/about_model_final.png">
 
 
-## Related Topics
+## Связанные разделы
 
-* {@link dev_guide.mvc About MVC in Angular}
-* {@link dev_guide.mvc.understanding_controller Understanding the Controller Component}
-* {@link dev_guide.mvc.understanding_view Understanding the View Component}
+* {@link dev_guide.mvc MVC в Angular}
+* {@link dev_guide.mvc.understanding_controller Контроллер}
+* {@link dev_guide.mvc.understanding_view Вид}
