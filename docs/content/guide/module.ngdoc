@@ -1,39 +1,35 @@
 @ngdoc overview
-@name Developer Guide: Modules
+@name Developer Guide: Модули
 @description
 
-# What is a Module?
+# Что такое модуль?
 
-Most applications have a main method which instantiates, wires, and bootstraps the application.
-Angular apps don't have a main method. Instead modules declaratively specify how an application
-should be bootstrapped. There are several advantages to this approach:
+В большинстве приложений есть главный метод, который создает экземпляр, связывает и загружает приложение. Приложения в Angular не имеют главного исполняемого метода. Модуль выполняет роль декларативного описания того, как приложение должно быть загружено. Есть несколько преимуществ такого подхода:
 
-  * The process is more declarative which is easier to understand
-  * In unit-testing there is no need to load all modules, which may aid in writing unit-tests.
-  * Additional modules can be loaded in scenario tests, which can override some of the
-    configuration and help end-to-end test the application
-  * Third party code can be packaged as reusable modules.
-  * The modules can be loaded in any/parallel order (due to delayed nature of module execution).
+  * Процесс более декларативен, поэтому легче для понимания
+  * Для модульного тестирования нет необходимости загружать все модули, использующиеся в написании юнит-тестов.
+  * Можно подгрузить дополнительные модули, которые переопределят какие-то настройки, облегчая тем самым комплексное (end-to-end) тестирование
+  * Сторонний код можно упаковать в модуль и использовать многократно.
+  * Модули могут быть загружены в произвольном порядке/параллельно (в связи с задержкой при выполнении модуля).
 
 
-# The Basics
+# Основы
 
-Ok, I'm in a hurry. How do I get a Hello World module working?
+Идем дальше. Как нам создать приложение, выводящее Hello World?
 
-Important things to notice:
+Важные вещи:
 
-  * {@link api/angular.Module Module} API
-  * Notice the reference to the `myApp` module in the `<html ng-app="myApp">`, it is what
-    bootstraps the app using your module.
+  * API {@link api/angular.Module модуля}
+  * Обратите внимание на ссылку на модулль `myApp` в `<html ng-app="myApp">`, это то, что загрузит приложение, с помощью вашего модуля.
 
 <doc:example module='myApp'>
   <doc:source>
     <script>
-      // declare a module
+      // объявление модуля
       var myAppModule = angular.module('myApp', []);
 
-      // configure the module.
-      // in this example we will create a greeting filter
+      // настройка модуля.
+      // в примере мы создаем приветственный фильтр
       myAppModule.filter('greet', function() {
        return function(name) {
           return 'Hello, ' + name + '!';
@@ -49,23 +45,18 @@ Important things to notice:
 
 
 
-# Recommended Setup
+# Рекомендуемая установка
 
-While the example above is simple, it will not scale to large applications. Instead we recommend
-that you break your application to multiple modules like this:
+Приведенный выше пример достаточно прост и плохо подходит для сложных приложений. Вместо этого мы рекомендуем вам разбить приложение на несколько модулей, например так:
 
-  * A service module, for service declaration
-  * A directive module, for directive declaration
-  * A filter module, for filter declaration
-  * And an application level module which depends on the above modules, and which has
-    initialization code.
+  * Сервичный модуль для описания сервисов
+  * Директивный модуль для описания директив
+  * Фильтрующий модуль для описания фильтров
+  * И модуль всего приложения, который зависит от вышеуказанных модулей и содержит код инициализации.
 
-The reason for this breakup is that in your tests, it is often necessary to ignore the
-initialization code, which tends to be difficult to test. By putting it into a separate module it
-can be easily ignored in tests. The tests can also be more focused by only loading the modules
-that are relevant to tests.
+Причина этого разделения в том, что в тестах зачастую необходимо проигнорировать код инициализации, который, как правило, трудно проверить. Выделив этот код в отдельный модуль, его можно легко убрать из тестов. Так же тестирование станет более сфокусированным только на те модули, которые имеют отношения к тестам.
 
-The above is only a suggestion, so feel free to tailor it to your needs.
+Сказанное выше является лишь предложением, поэтому не стесняйтесь адаптировать это к собственным потребностям.
 
 <doc:example module='xmpl'>
   <doc:source>
@@ -92,7 +83,7 @@ The above is only a suggestion, so feel free to tailor it to your needs.
 
       angular.module('xmpl', ['xmpl.service', 'xmpl.directive', 'xmpl.filter']).
         run(function(greeter, user) {
-          // This is effectively part of the main method initialization code
+          // Это, в сущности, часть с кодом основного метода
           greeter.localize({
             salutation: 'Bonjour'
           });
@@ -100,7 +91,7 @@ The above is only a suggestion, so feel free to tailor it to your needs.
         })
 
 
-      // A Controller for your app
+      // Контроллер приложения
       var XmplController = function($scope, greeter, user) {
         $scope.greeting = greeter.greet(user.name);
       }
@@ -113,39 +104,32 @@ The above is only a suggestion, so feel free to tailor it to your needs.
 
 
 
-# Module Loading & Dependencies
+# Модуль загрузки и зависимостей
 
-A module is a collection of configuration and run blocks which get applied to the application
-during the bootstrap process. In its simplest form the module consist of collection of two kinds
-of blocks:
+Модуль представляет собой набор конфигурационных и исполняемых блоков, которые применяются к приложению в процессе загрузки. В своей простейшей форме модуль состоит из двух видов блоков:
 
-  1. **Configuration blocks** - get executed during the provider registrations and configuration
-    phase. Only providers and constants can be injected into configuration blocks. This is to
-    prevent accidental instantiation of services before they have been fully configured.
-  2. **Run blocks** - get executed after the injector is created and are used to kickstart the
-    application. Only instances and constants can be injected into run blocks. This is to prevent
-    further system configuration during application run time.
+  1. **Конфигурационные блоки** - выполняются в фазе регистрации и конфигурации. Только источники и константы могут быть внедрены в конфигурационные блоки. Это сделано для предотвращения случайного создания экземпляров сервисов, до их окончательной настройки.
+  2. **Исполняемые блоки** - выполняются после того как инжектор создаст и запустит приложение. Только экземпляры и константы могут быть введены в исполняемые блоки. Это необходимо для предотвращения дальнейшей настройки системы во время работы приложения.
 
 <pre>
 angular.module('myModule', []).
   config(function(injectables) { // provider-injector
-    // This is an example of config block.
-    // You can have as many of these as you want.
-    // You can only inject Providers (not instances)
-    // into the config blocks.
+    // Пример конфигурационного блока.
+    // Их может быть сколько угодно.
+    // Можно внедрять только источники (не экземпляры)
+    // внутрь конфигурационного блока.
   }).
   run(function(injectables) { // instance-injector
-    // This is an example of a run block.
-    // You can have as many of these as you want.
-    // You can only inject instances (not Providers)
-    // into the run blocks
+    // Пример исполняемого блока.
+    // Их может быть сколько угодно.
+    // Можно внедрять только экземпляры (не источники)
+    // внутрь исполняемого блока
   });
 </pre>
 
-## Configuration Blocks
+## Конфигурационные блоки
 
-There are some convenience methods on the module which are equivalent to the config block. For
-example:
+Некоторые удобные методы модуля, эквивалентные конфигурации блока. Например:
 
 <pre>
 angular.module('myModule', []).
@@ -154,7 +138,7 @@ angular.module('myModule', []).
   directive('directiveName', ...).
   filter('filterName', ...);
 
-// is same as
+// а так же
 
 angular.module('myModule', []).
   config(function($provide, $compileProvider, $filterProvider) {
@@ -165,42 +149,26 @@ angular.module('myModule', []).
   });
 </pre>
 
-The configuration blocks get applied in the order in which they are registered. The only exception
-to it are constant definitions, which are placed at the beginning of all configuration blocks.
+Конфигурационные блоки применяются в том порядке, в котором они зарегистрированы. Единственным исключением из этого являются предопределенные константы, которые размещены в начале всех конфигурационных блоков.
 
-## Run Blocks
+## Исполняемые блоки
 
-Run blocks are the closest thing in Angular to the main method. A run block is the code which
-needs to run to kickstart the application. It is executed after all of the service have been
-configured and the injector has been created. Run blocks typically contain code which is hard
-to unit-test, and for this reason should be declared in isolated modules, so that they can be
-ignored in the unit-tests.
+Исполняемые блоки ближе всего к главному методу Angular. Исполняемый блок содержит код, который должен выполниться при запуске приложения. Он выполняется после того, как все службы настроены и создан инжектор. Исполняемые блоки обычно содержат код, усложняющий модульное тестирование, и по этой причине должны быть объявлены в изолированных модулях, так чтобы их можно было исключить из юнит-тестов.
 
-## Dependencies
+## Зависимости
 
-Modules can list other modules as their dependencies. Depending on a module implies that required
-module needs to be loaded before the requiring module is loaded. In other words the configuration
-blocks of the required modules execute before the configuration blocks of the requiring module.
-The same is true for the run blocks. Each module can only be loaded once, even if multiple other
-modules require it.
+Одни модули могут зависеть от других модулей. Зависимость от модуля означает, что необходимый модуль должен быть загружен перед требующим его загрузки модулем. Другими словами, настройку блоков с необходимыми модулями нужно выполнить до настройки блоков которым требуются эти модули. То же самое верно и для исполняемых блоков. Каждый модуль может быть загружен только один раз, даже если он требуется для нескольких других модулей.
 
-## Asynchronous Loading
+## Асинхронная загрузка
 
-Modules are a way of managing $injector configuration, and have nothing to do with loading of
-scripts into a VM. There are existing projects which deal with script loading, which may be used
-with Angular. Because modules do nothing at load time they can be loaded into the VM in any order
-and thus script loaders can take advantage of this property and parallelize the loading process.
+Модули это способ управления настройкой инжектора $injector, и не имеют ничего общего с загрузкой скриптов в VM. Существуют проекты, подгружающие необходимые скрипты извне, что может быть сделано и в Angular. Поскольку модули ничего не делают во время загрузки они могут быть загружены в VM в любом порядке и таким образом загрузчики скрипта могут воспользоваться этим свойством и распараллелить процесс загрузки.
 
 
-# Unit Testing
+# Модульное тестирование
 
-In its simplest form a unit test is a way of instantiating a subset of the application in test and
-then applying a stimulus to it. It is important to realize that each module can only be loaded
-once per injector. Typically an app has only one injector. But in tests, each test has its own
-injector, which means that the modules are loaded multiple times per VM. Properly structured
-modules can help with unit testing, as in this example:
+В простейшей форме модульное тестирование это выделение части из приложения и моделирование воздействий на эту часть. Важно понимать, что каждый модуль может быть загружен в инжектор только один раз. Обычно приложение имеет только один инжектор. Но в тестах, каждый тест имеет свой собственный инжектор, это означает, что модули загружаются несколько раз в VM. Правильно структурированные модули могут помочь провести модульное тестирование, как в этом примере:
 
-In all of these examples we are going to assume this module definition:
+Во всех этих примерах будем считать определение модуля таким:
 <pre>
   angular.module('greetMod', []).
 
@@ -222,27 +190,27 @@ In all of these examples we are going to assume this module definition:
 Let's write some tests:
 <pre>
 describe('myApp', function() {
-  // load the relevant application modules then load a special
-  // test module which overrides the $window with a mock version,
-  // so that calling window.alert() will not block the test
-  // runner with a real alert box. This is an example of overriding
-  // configuration information in tests.
+  // Загружаем соответствующие модули приложения затем загружаем
+  // специальный тестовый модуль, который перекрывает $window фиктивной версией,
+  // так что вызов window.alert () не будет блокировать тест
+  // выполняющийся с окном предупреждения.  Это пример переопределения
+  // конфигурации в тестах.
   beforeEach(module('greetMod', function($provide) {
     $provide.value('$window', {
       alert: jasmine.createSpy('alert')
     });
   }));
 
-  // The inject() will create the injector and inject the greet and
-  // $window into the tests. The test need not concern itself with
-  // wiring of the application, only with testing it.
+  // Функция inject() создаст инжектор, внедрив все что нужно,
+  // и $window в тестах. Тесты не должны самостоятельно решать проблемы
+  // со связями в приложении, только если тестируют их.
   it('should alert on $window', inject(function(greet, $window) {
     greet('World');
     expect($window.alert).toHaveBeenCalledWith('Hello World!');
   }));
 
-  // this is another way of overriding configuration in the
-  // tests using an inline module and inject methods.
+  // другой способ переопределения конфигурации в
+  // тестах использующих встроенный модуль и внедрение методов.
   it('should alert using the alert service', function() {
     var alertSpy = jasmine.createSpy('alert');
     module(function($provide) {
