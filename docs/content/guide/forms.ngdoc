@@ -1,20 +1,14 @@
 @ngdoc overview
-@name Forms
+@name Формы
 @description
 
-Controls (`input`, `select`, `textarea`) are a way for user to enter data.
-Form is a collection of controls for the purpose of grouping related controls together.
+Элементы управления (`input`, `select`, `textarea`), являются одним из способов для ввода пользовательских данных. Форма представляет собой коллекцию элементов управления с целью группировки связанных элементов вместе.
 
-Form and controls provide validation services, so that the user can be notified of invalid input.
-This provides a better user experience, because the user gets instant feedback on how to correct the error.
-Keep in mind that while client-side validation plays an important role in providing good user experience, it can easily be circumvented and thus can not be trusted.
-Server-side validation is still necessary for a secure application.
+Форма и элементы управления обеспечивают валидацию сервисов, так что пользователь может быть уведомлен о некорректном вводе. Это улучшает пользовательский опыт, так как пользователь получает мгновенную обратную связь о том, как исправить ошибку. Имейте в виду, что в то время как проверка на стороне клиента играет важную роль в обеспечении хорошего пользовательского опыта, это можно легко обойти, и, следовательно, не стоит полагаться только на эту проверку. Проверка на стороне сервера по-прежнему необходима в целях безопасности.
 
 
-# Simple form
-The key directive in understanding two-way data-binding is {@link api/ng.directive:ngModel ngModel}.
-The `ngModel` directive provides the two-way data-binding by synchronizing the model to the view, as well as view to the model.
-In addition it provides an {@link api/ng.directive:ngModel.NgModelController API} for other directives to augment its behavior.
+# Простая форма
+Основной директивой понимающей двустороннее связывание данных является {@link api/ng.directive:ngModel ngModel}. Директива `NgModel` предусматривает двустороннее связывание данных путем синхронизации модели с представлением, а также вида с моделью. Кроме того, она предоставляет {@link api/ng.directive:ngModel.NgModelController API} для других директив, чтобы расширить их поведение.
 
 <doc:example>
 <doc:source>
@@ -50,22 +44,20 @@ In addition it provides an {@link api/ng.directive:ngModel.NgModelController API
 </doc:example>
 
 
-Note that `novalidate` is used to disable browser's native form validation.
+Заметьте, что `novalidate` используется для отключения нативной проверки формы браузером.
 
 
 
-# Using CSS classes
+# Использование CSS классов
 
-To allow styling of form as well as controls, `ngModel`  add these CSS classes:
+Для предоставления возможности оформления форм так же, как и элементов управления, `ngModel` добавляется такие CSS классы:
 
 - `ng-valid`
 - `ng-invalid`
 - `ng-pristine`
 - `ng-dirty`
 
-The following example uses the CSS to display validity of each form control.
-In the example both `user.name` and `user.email` are required, but are rendered with red background only when they are dirty.
-This ensures that the user is not distracted with an error until after interacting with the control, and failing to satisfy its validity.
+Пример ниже использует CSS для отображения валидности каждого элемента формы. В примере поля `user.name` и `user.email` обязательны к заполнению, но красный фон у них отображается только когда с ними уже взаимодествовали. Это помогает пользователю не отвлекаться на ошибку пока он не введет в поле данные, которые не удовлетворяют правилам валидации этого поля.
 
 <doc:example>
 <doc:source>
@@ -111,19 +103,15 @@ This ensures that the user is not distracted with an error until after interacti
 
 
 
-# Binding to form and control state
+# Связь формы с элементами управления
 
-A form is an instance of {@link api/ng.directive:form.FormController FormController}.
-The form instance can optionally be published into the scope using the `name` attribute.
-Similarly control is an instance of {@link api/ng.directive:ngModel.NgModelController NgModelController}.
-The control instance can similarly be published into the form instance using the `name` attribute.
-This implies that the internal state of both the form and the control is available for binding in the view using the standard binding primitives.
+Форма - это экземпляр объекта {@link api/ng.directive:form.FormController FormController}. Экземпляр формы может быть опционально опубликован в область видимости с использованием атрибута `name`. Также элемент управления является экземпляром {@link api/ng.directive:ngModel.NgModelController NgModelController}. Экземпляр элемента управления также может быть опубликован в экземпляре формы с использованием атрибута `name`. Это означает, что внутреннее состояние и формы и элемента управления доступны для связывания в представлении путем использования стандартных примитивов.
 
-This allows us to extend the above example with these features:
+Это позволяет нам расширить пример выше такой функциональностью:
 
-- RESET button is enabled only if form has some changes
-- SAVE button is enabled only if form has some changes and is valid
-- custom error messages for `user.email` and `user.agree`
+- кнопка RESET активизируется только если в форме что-то изменилось
+- кнопка SAVE активизируется только если в форме что-то изменилось и форма при этом валидна
+- собственные сообщения об ошибках для `user.email` и `user.agree`
 
 <doc:example>
 <doc:source>
@@ -176,33 +164,23 @@ This allows us to extend the above example with these features:
 
 
 
-# Custom Validation
+# Параметры валидации
 
-Angular provides basic implementation for most common html5 {@link api/ng.directive:input input}
-types: ({@link api/ng.directive:input.text text}, {@link api/ng.directive:input.number number}, {@link api/ng.directive:input.url url}, {@link api/ng.directive:input.email email}, {@link api/ng.directive:input.radio radio}, {@link api/ng.directive:input.checkbox checkbox}), as well as some directives for validation (`required`, `pattern`, `minlength`, `maxlength`, `min`, `max`).
+Angular предоставляет базовый функционал для наиболее распространённых типов html5-{@link api/ng.directive:input полей} - {@link api/ng.directive:input.text text}, {@link api/ng.directive:input.number number}, {@link api/ng.directive:input.url url}, {@link api/ng.directive:input.email email}, {@link api/ng.directive:input.radio radio}, {@link api/ng.directive:input.checkbox checkbox}. Также он поддерживает некоторые директивы для валидации (`required`, `pattern`, `minlength`, `maxlength`, `min`, `max`).
 
-Defining your own validator can be done by defining your own directive which adds a custom validation function to the `ngModel` {@link api/ng.directive:ngModel.NgModelController controller}.
-To get a hold of the controller the directive specifies a dependency as shown in the example below.
-The validation can occur in two places:
+Для того чтобы определить собственный валидатор, вы должны определить директиву, которая добавит настраиваемую валидационную функцию в {@link api/ng.directive:ngModel.NgModelController контроллер} `ngModel`. Чтобы получить этот контроллер, просто укажите его среди зависимостей, как на примере ниже. Валидация происходит в два шага:
 
-  * **Model to View update** -
-    Whenever the bound model changes, all functions in {@link api/ng.directive:ngModel.NgModelController#$formatters NgModelController#$formatters} array are pipe-lined, so that each of these functions has an opportunity to format the value and change validity state of the form control through {@link api/ng.directive:ngModel.NgModelController#$setValidity NgModelController#$setValidity}.
+  * **Обновление модели согласно представления Model to View update** -
+    всякий раз когда связанная модель меняется, все функции в массиве {@link api/ng.directive:ngModel.NgModelController#$formatters NgModelController#$formatters} выполняются по очереди, и, таким образом, каждая из этих функций имеет возможность отформатировать значение и изменить состояние валидации элемента управления на форма посредством {@link api/ng.directive:ngModel.NgModelController#$setValidity NgModelController#$setValidity}.
 
-  * **View to Model update** -
-    In a similar way, whenever a user interacts with a control it calls {@link api/ng.directive:ngModel.NgModelController#$setViewValue NgModelController#$setViewValue}.
-This in turn pipelines all functions in the {@link api/ng.directive:ngModel.NgModelController#$parsers NgModelController#$parsers} array, so that each of these functions has an opportunity to convert the value and change validity state of the form control through {@link api/ng.directive:ngModel.NgModelController#$setValidity NgModelController#$setValidity}.
+  * **Обновление представления согласно модели** -
+    действует похожим образом. Всякий раз, когда пользователь взаимодействует с элементом управления, вызывается функция {@link api/ng.directive:ngModel.NgModelController#$setViewValue NgModelController#$setViewValue}. Она в свою очередь вызывает последовательно все функции в массиве {@link api/ng.directive:ngModel.NgModelController#$parsers NgModelController#$parsers}, и, таким образом, каждая из этих функций имеет возможность преобразовать значение и поменять состояние валидации элемента управления через вызов {@link api/ng.directive:ngModel.NgModelController#$setValidity NgModelController#$setValidity}.
 
-In the following example we create two directives.
+В следующем примере создаются две директивы.
 
-  * The first one is `integer` and it validates whether the input is a valid integer.
-    For example `1.23` is an invalid value, since it contains a fraction.
-    Note that we unshift the array instead of pushing.
-    This is because we want to be first parser and consume the control string value, as we need to execute the validation function before a conversion to number occurs.
+  * Первая хранит `integer` и проверяет, чтобы введенное значение было целым числом. Для примера `1.23` - это неправильное значение, поскольку содержит дробную часть. Заметьте, что мы вызываем функцию unshift() для массива, вместо простой вставки. Это делается потому, что мы хотим чтобы наш парсер получал значение элемента управления первым, до конвертации значения в число. 
 
-  * The second directive is a `smart-float`.
-    It parses both `1.2` and `1,2` into a valid float number `1.2`.
-    Note that we can't use input type `number` here as HTML5 browsers would not allow the user to type what it would consider an invalid number such as `1,2`.
-
+  * Вторая директива обрабатывает `smart-float`. Она парсит `1.2` и `1,2` в одинаково правильное дробное значение `1.2`. Заметьте, что мы не можем использовать тут тип imput-элемента `number`, поскольку HTML5 -браузеры не позволяют пользователю ввести `1,2`. Такое значение будет рассматриваться как ошибочное. 
 
 <doc:example module="form-example1">
 <doc:source>
@@ -272,18 +250,17 @@ In the following example we create two directives.
 </doc:example>
 
 
-# Implementing custom form controls (using `ngModel`)
-Angular implements all of the basic HTML form controls ({@link api/ng.directive:input input}, {@link api/ng.directive:select select}, {@link api/ng.directive:textarea textarea}), which should be sufficient for most cases.
-However, if you need more flexibility, you can write your own form control as a directive.
+# Реализация собственных элементов управления формы (с использованием `ngModel`)
+Angular реализует все базовые элементы управления HTML формой ({@link api/ng.directive:input input}, {@link api/ng.directive:select select}, {@link api/ng.directive:textarea textarea}), которых должно быть достаточно в большинстве случаев. Тем не менее, если нужна большая гибкость, можно описать собственный элемент управления формы в виде директивы.
 
-In order for custom control to work with `ngModel` and to achieve two-way data-binding it needs to:
+Для работы стандартных элементов управления с `ngModel` и чтобы добиться двухстороннего связывания необходимо:
 
-  - implement `$render` method, which is responsible for rendering the data after it passed the {@link   api/ng.directive:ngModel.NgModelController#$formatters NgModelController#$formatters},
-  - call `$setViewValue` method, whenever the user interacts with the control and model needs to be updated. This is usually done inside a DOM Event listener.
+  - выполнить метод `$render`, который отвечает за отображение данных после того, как осуществился {@link   api/ng.directive:ngModel.NgModelController#$formatters NgModelController#$formatters},
+  - вызывать метод `$setViewValue`, когда пользователь взаимодействует с элементом управления и модель должна быть обновлена. Обычно это делается внутри наблюдателя DOM-событий.
 
-See {@link guide/directive $compileProvider.directive} for more info.
+См. так же {@link guide/directive $compileProvider.directive}
 
-The following example shows how to add two-way data-binding to contentEditable elements.
+В следующем примере показано, как сделать двухстороннее связывание данных с элементом contentEditable.
 
 <doc:example module="form-example2">
 <doc:source>
