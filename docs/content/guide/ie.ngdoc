@@ -1,18 +1,16 @@
 @ngdoc overview
-@name Developer Guide: Internet Explorer Compatibility
+@name Developer Guide: Совместимость с Internet Explorer
 @description
 
-# Overview
+# Обзор
 
-This document describes the Internet Explorer (IE) idiosyncrasies when dealing with custom HTML
-attributes and tags. Read this document if you are planning on deploying your Angular application
-on IE v8.0 or earlier.
+Этот документ описывает особенности работы с пользовательскими атрибутами HTML и тегами в Internet Explorer (IE). Прочитайте, если планируете разрабатывать приложения на Angular для IE v8.0 или более ранней.
 
-# Short Version
+# Упрощенная версия
 
-To make your Angular application work on IE please make sure that:
+Для того, чтобы Angular работал в IE пожалуйста, убедитесь, что:
 
-  1. You polyfill JSON.stringify if necessary (IE7 will need this). You can use
+  1. Библиотечная функция JSON.stringify в случае необходимости (необходимо для IE7). Можно использовать [JSON2](https://github.com/douglascrockford/JSON-js) или [JSON3](http://bestiejs.github.com/json3/) библиотеки.
      [JSON2](https://github.com/douglascrockford/JSON-js) or
      [JSON3](http://bestiejs.github.com/json3/) polyfills for this.
      <pre>
@@ -29,7 +27,7 @@ To make your Angular application work on IE please make sure that:
        </html>
      </pre>
 
-  2. add `id="ng-app"` to the root element in conjunction with `ng-app` attribute
+  2. добавлен `id="ng-app"` в корневой элемент в сочетании с `ng-app` атрибутом
      <pre>
        <!doctype html>
        <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="optionalModuleName">
@@ -37,10 +35,9 @@ To make your Angular application work on IE please make sure that:
        </html>
      </pre>
 
-  3. you **do not** use custom element tags such as `<ng:view>` (use the attribute version
-     `<div ng-view>` instead), or
+  3. **не используются** пользовательские теги наподобие `<ng:view>` (вместо этого используйте атрибут вида `<div ng-view>`), или
 
-  4. if you **do use** custom element tags, then you must take these steps to make IE happy:
+  4. если **используются** пользовательские теги, то предпринято следующее, чтобы IE правильно их обработал:
      <pre>
        <!doctype html>
        <html xmlns:ng="http://angularjs.org" id="ng-app" ng-app="optionalModuleName">
@@ -64,42 +61,32 @@ To make your Angular application work on IE please make sure that:
        </html>
      </pre>
 
-The **important** parts are:
+**Важные** части::
 
-  * `xmlns:ng` - *namespace* - you need one namespace for each custom tag you are planning on
-    using.
+  * `xmlns:ng` - *пространство имен* — для каждого пользовательского тега, который планируется использовать, необходимо отдельное пространство имен.
 
-  * `document.createElement(yourTagName)` - *creation of custom tag names* - Since this is an
-    issue only for older version of IE you need to load it conditionally. For each tag which does
-    not have namespace and which is not defined in HTML you need to pre-declare it to make IE
-    happy.
+  * `document.createElement(yourTagName)` - *создание пользовательских имен тегов* — Так как это актуально только для старых версий IE нужно загрузить его условно. Для каждого тега, который не имеет имени и который не определен в HTML Вы должны предварительно объявить чтобы IE не ругался.
 
 
-# Long Version
+# Расширенная версия
 
-IE has issues with element tag names which are not standard HTML tag names. These fall into two
-categories, and each category has its own fix.
+IE имеет проблемы с именами тегов, которые не являются стандартными именами тегов HTML. Эти проблемы делятся на две категории, и каждая категория имеет свое собственное решение.
 
-  * If the tag name starts with `my:` prefix than it is considered an XML namespace and must
-    have corresponding namespace declaration on `<html xmlns:my="ignored">`
+  * Если имя тега начинается с префикса `my:`, то это считается пространством имен XML и должно иметь соответствующее объявление пространства имен `<html xmlns:my="ignored">`
 
-  * If the tag has no `:` but it is not a standard HTML tag, then it must be pre-created using
-    `document.createElement('my-tag')`
+  * Если тег не имеет `:` то он не является стандартным тегом HTML, поэтому должен быть предварительно создан с помощью `document.createElement('my-tag')`
 
-  * If you are planning on styling the custom tag with CSS selectors, then it must be
-    pre-created using `document.createElement('my-tag')` regardless of XML namespace.
+  * Если планируется стилизация пользовательского тега CSS-селектором, то она должна быть предварительно объявлена с помощью `document.createElement('my-tag')` независимо от пространства имен XML.
 
 
-## The Good News
+## Хорошие новости
 
-The good news is that these restrictions only apply to element tag names, and not to element
-attribute names. So this requires no special handling in IE: `<div my-tag your:tag></div>`.
+Хорошей новостью является то, что эти ограничения относятся только к именам тегов элемента, а не к именам атрибутов элемента. Так что специальная обработка в IE не требуется: `<div my-tag your:tag></div>`.
 
 
-## What happens if I fail to do this?
+## Что произойдет, если будет допущена ошибка?
 
-Suppose you have HTML with unknown tag `mytag` (this could also be `my:tag` or `my-tag` with same
-result):
+Предположим, есть HTML с неизвестным тегом `mytag` (с таким же результатом могут использоваться теги `my:tag` или `my-tag`):
 
 <pre>
   <html>
@@ -109,7 +96,7 @@ result):
   </html>
 </pre>
 
-It should parse into the following DOM:
+Парсер преобразует это в следующий DOM:
 
 <pre>
 #document
@@ -119,10 +106,9 @@ It should parse into the following DOM:
            +- #text: some text
 </pre>
 
-The expected behavior is that the `BODY` element has a child element `mytag`, which in turn has
-the text `some text`.
+Ожидается, что элемент `BODY` имеет дочерний элемент `mytag`, который в свою очередь имеет `some text`.
 
-But this is not what IE does (if the above fixes are not included):
+Но IE сделает по-другому (если не использовались вышеуказанные решения):
 
 <pre>
 #document
@@ -133,23 +119,18 @@ But this is not what IE does (if the above fixes are not included):
         +- /mytag
 </pre>
 
-In IE, the behavior is that the `BODY` element has three children:
+В IE решит, что элемент `BODY` имеет троих потомков:
 
-  1. A self closing `mytag`. Example of self closing tag is `<br/>`. The trailing `/` is optional,
-  but the `<br>` tag is not allowed to have any children, and browsers consider `<br>some
-  text</br>` as three siblings not a `<br>` with `some text` as child.
+  1. Самостоятельно закрытый `mytag`. Пример самостоятельно закрытого тега `<br/>`.Завершающий слэш `/` не является обязательным, но тег `<br>` не может иметь потомков, и браузер, увидев `<br>some text</br>`, не определит его как `<br>` с текстом внутри.
 
-  2. A text node with `some text`. This should have been a child of `mytag` above, not a sibling.
+  2. Текстовый узел с `some text` должен быть потомком выше `mytag`, а не элементом одного с ним уровня.
 
-  3. A corrupt self closing `/mytag`. This is corrupt since element names are not allowed to have
-  the `/` character. Furthermore this closing element should not be part of the DOM since it is
-  only used to delineate the structure of the DOM.
+  3. Неправильно закрытый тег `/mytag`. Это недопустимо в именах элементов, которые не могут иметь слэш `/`. Кроме этого закрывающий элемент не должен быть частью DOM, так как он используется только чтобы очертить структуру DOM.
 
 
-## CSS Styling of Custom Tag Names
+## CSS-стилизация пользовательских тегов
 
-To make CSS selectors work with custom elements, the custom element name must be pre-created with 
-`document.createElement('my-tag')` regardless of XML namespace.
+Чтобы создать рабочие CSS-селекторы для пользовательских элементов, имя пользовательского элемента должно быть предварительно объявлено с помощью `document.createElement('my-tag')` независимо от пространства имен XML.
 
 <pre>
   <html xmlns:ng="needed for ng: namespace">
