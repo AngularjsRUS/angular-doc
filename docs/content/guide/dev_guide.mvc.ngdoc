@@ -1,24 +1,18 @@
 @ngdoc overview
-@name Developer Guide: About MVC in Angular
+@name Developer Guide: MVC в Angular
 @description
 
-While Model-View-Controller (MVC) has acquired different shades of meaning over the years since it
-first appeared, Angular incorporates the basic principles behind the original {@link
-http://en.wikipedia.org/wiki/Model–view–controller MVC} software design pattern into its way of
-building client-side web applications.
+Термин Модель–Представление–Контроллер (MVC) с момента создания приобрел различные интерпретации {@link http://martinfowler.com/tags/model-view-controller.html}. Angular по своему использует основные принципы оригинального {@link http://en.wikipedia.org/wiki/Model–view–controller MVC} для построения клиентских веб-приложений.
 
-The MVC pattern summarized:
+Кратко о шаблоне MVC:
 
-* Separate applications into distinct presentation, data, and logic components
-* Encourage loose coupling between these components
+* Разделение приложения на отдельные представления, данные и логику компонентов
+* Поощрение слабой связи между этими компонентами
 
-Along with {@link dev_guide.services services} and {@link di dependency injection}, MVC
-makes angular applications better structured, easier to maintain and more testable.
+Вместе с {@link dev_guide.services сервисами} и {@link di внедрением зависимости}, MVC делает Angular-приложения хорошо структурированными, простыми в поддержке и тестировании.
 
-The following topics explain how angular incorporates the MVC pattern into the angular way of
-developing web applications:
+Следующие разделы описывают, как Angular интерпретирует основные компоненты MVC:
 
-* {@link dev_guide.mvc.understanding_model Understanding the Model Component}
-* {@link dev_guide.mvc.understanding_controller Understanding the Controller Component}
-* {@link dev_guide.mvc.understanding_view Understanding the View Component}
-
+* {@link dev_guide.mvc.understanding_model Модель}
+* {@link dev_guide.mvc.understanding_controller Контроллер}
+* {@link dev_guide.mvc.understanding_view Вид}
