@@ -8,12 +8,11 @@ notifications:
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
-  - npm install --quiet -g karma
-  - ./scripts/web-server.js > /dev/null &
-  - sleep 1
+  - npm install -g grunt-cli
+  - grunt package
+  - grunt webserver > /dev/null &
 script:
-  - karma start config/karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Firefox
-  - karma start config/karma-e2e.conf.js --reporters=dots --browsers=Firefox
+  - grunt test --browsers Firefox --reporters=dots
 after_success:
   - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - git remote add heroku git@heroku.com:angular-doc.git

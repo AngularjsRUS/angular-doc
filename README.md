@@ -1,5 +1,7 @@
 ![AngularJS](http://angularjs.org/img/AngularJS-large.png)
 
+[![Build Status](https://travis-ci.org/maksimr/angular-doc.png?branch=master)](https://travis-ci.org/maksimr/angular-doc)
+
 Русская документация по AngularJS
 
 Есть что добавить (важно)
