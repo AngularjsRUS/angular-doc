@@ -5,7 +5,6 @@
 # @log startup time
 START_SERVER_TEIM=$(date +%s)
 
-npm install
 grunt package
 
 rm -rf app
@@ -18,24 +17,6 @@ cp build/*.js app/
 # copy home page
 cp docs/src/templates/home.html app/
 cd app
-
-cat > "package.json" << EOF
-{
-  "name": "Angularjs",
-  "description": "Angularjs documentation",
-  "version": "0.0.1",
-  "engines":{
-    "node": "0.8.6",
-    "npm": "1.2.x"
-  },
-  "private": true,
-  "dependencies": {
-    "npm": "1.2.x",
-    "express": "3.x",
-    "connect" : "2.x"
-  }
-}
-EOF
 
 cat > "main.js" << EOF
   var express = require('express');
@@ -55,8 +36,6 @@ cat > "main.js" << EOF
   console.log('SERVER RUN ON PORT: ', port);
   app.listen(port);
 EOF
-
-npm install
 
 END_SERVER_TEIM=$(date +%s)
 
