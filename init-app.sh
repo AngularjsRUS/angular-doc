@@ -26,12 +26,13 @@ cat > "package.json" << EOF
   "version": "0.0.1",
   "engines":{
     "node": "0.8.6",
-    "npm": "1.1.65"
+    "npm": "1.2.x"
   },
   "private": true,
   "dependencies": {
-  "express": "3.x",
-  "connect" : "2.x"
+    "npm": "1.2.x",
+    "express": "3.x",
+    "connect" : "2.x"
   }
 }
 EOF
