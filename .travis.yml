@@ -12,7 +12,7 @@ before_script:
   - grunt package
   - grunt webserver > /dev/null &
 script:
-  - grunt test --browsers Firefox --reporters=dots
+  - grunt test:unit --browsers Firefox --reporters=dots
 after_success:
   - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - git remote add heroku git@heroku.com:angular-doc.git
