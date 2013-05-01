@@ -176,5 +176,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test:e2e', ['connect:testserver', 'test:end2end']);
   grunt.registerTask('webserver', ['connect:devserver']);
   grunt.registerTask('package', ['clean', 'buildall', 'minall', 'docs', 'copy', 'write', 'compress']);
+  grunt.registerTask('heroku', ['package']);
   grunt.registerTask('default', ['package']);
 };

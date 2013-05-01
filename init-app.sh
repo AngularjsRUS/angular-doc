@@ -5,8 +5,6 @@
 # @log startup time
 START_SERVER_TEIM=$(date +%s)
 
-grunt package
-
 rm -rf app
 
 # copy doc directory resolve symlinks
