@@ -50,8 +50,9 @@ cat > "main.js" << EOF
   app.get('^\/?(guide|api|cookbook|misc|tutorial)(/)?*$', function(req, res) {
     res.sendfile('index.html');
   });
-  console.log('SERVER RUN ON PORT: ', process.env.PORT);
-  app.listen(process.env.PORT);
+  var port = process.env.PORT || 80000;
+  console.log('SERVER RUN ON PORT: ', port);
+  app.listen(port);
 EOF
 
 npm install
