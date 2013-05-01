@@ -1,14 +1,33 @@
 language: node_js
 node_js:
   - 0.8
-
+notifications:
+  email:
+    - rv.maksim@gmail.com
+    - angularjs.rus@gmail.com
 before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - npm install --quiet -g karma
   - ./scripts/web-server.js > /dev/null &
-  - sleep 1 # give server time to start
-
+  - sleep 1
 script:
   - karma start config/karma.conf.js --no-auto-watch --single-run --reporters=dots --browsers=Firefox
   - karma start config/karma-e2e.conf.js --reporters=dots --browsers=Firefox
+after_success:
+  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+  - git remote add heroku git@heroku.com:angular-doc.git
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+  - heroku keys:clear
+  - yes | heroku keys:add
+  - yes | git push heroku master
+env:
+  global:
+  - secure: ! 'YxUgd7mlHqvYwdFBfMr82uoUup48l8RzSToqdX/N/mazZQZjY9e4U7CGuU4j
+
+      60CoHfZmje4NXWatX7fj0UfJDn53yCSztPNA9t09toLIT3bDbtMSqu3g/AE7
+
+      MPzoXjtlbIXGS6wO4U+zWY+mMyEg2rQftmrjPQugZsvk105LtNM='
