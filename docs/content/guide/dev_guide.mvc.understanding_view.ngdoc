@@ -1,5 +1,5 @@
 @ngdoc overview
-@name Developer Guide: About MVC in Angular: Understanding the View Component
+@name Developer Guide: MVC в Angular: Представление
 @description
 
 In Angular, the view is the DOM loaded and rendered in the browser, after Angular has transformed
