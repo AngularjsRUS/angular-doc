@@ -15,25 +15,24 @@
 
 # Установка начального состояния объекта области видимости
 
-Typically, when you create an application you need to set up an initial state for an Angular scope.
+Как правило, при создании приложения, нужно определить его начальное состояние для области видимости Angular.
 
-Angular applies (in the sense of JavaScript's `Function#apply`) the controller constructor function
-to a new Angular scope object, which sets up an initial scope state. This means that Angular never
-creates instances of the controller type (by invoking the `new` operator on the controller
-constructor). Constructors are always applied to an existing scope object.
+Angular применяет (`Function#apply` в JavaScript) функцию-конструктор контроллера
+на новом объекте области видимости, который устанавливает начальное состояние области. Это означает, что Angular никогда
+не создает экземпляры типа контроллера (путем вызова оператора на `new` в конструкторе контроллера). Конструкторы всегда применяются к существующему объекту области.
 
-You set up the initial state of a scope by creating model properties. For example:
+Установим начальное состояние области видимости путем создания свойства модели. Например:
 
 function GreetingCtrl($scope) {
  $scope.greeting = 'Hola!';
 }
 
-The `GreetingCtrl` controller creates a `greeting` model which can be referred to in a template.
+Контроллер `GreetingCtrl` создает модель приветствия `greeting` которая может относится к шаблону.
 
-**NOTE**: Many of the examples in the documentation show the creation of functions
-in the global scope. This is only for demonstration purposes - in a real
-application you should use the `.controller` method of your Angular module for
-your application as follows:
+** Замечание **: Во многих примерах в документации показано создание функций
+в глобальной области видимости. Что сделано только в демонстрационных целях - в реальном
+приложений необходимо использовать метод `.controller` Angular-модуля для
+приложения следующим образом:
 
 var myApp = angular.module('myApp',[]);
 
@@ -41,10 +40,10 @@ myApp.controller('GreetingCtrl', ['$scope', function($scope) {
   $scope.greeting = 'Hola!';
 }]);
 
-Note also that we use the array notation to explicitly specify the dependency
-of the controller on the `$scope` service provided by Angular.
+Отметим также, что мы используем нотацию массива чтобы явно указать зависимость
+контроллера от сервиса `$scope`, предоставляемого Angular.
 
-# Adding Behavior to a Scope Object
+# Добавление поведения к объекту области видимости
 
 Behavior on an Angular scope object is in the form of scope method properties available to the
 template/view. This behavior interacts with and modifies the application model.
