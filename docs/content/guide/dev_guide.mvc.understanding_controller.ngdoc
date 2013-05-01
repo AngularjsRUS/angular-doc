@@ -45,8 +45,8 @@ myApp.controller('GreetingCtrl', ['$scope', function($scope) {
 
 # Добавление поведения к объекту области видимости
 
-Behavior on an Angular scope object is in the form of scope method properties available to the
-template/view. This behavior interacts with and modifies the application model.
+Поведение на объекте области видимости Angular в виде свойств метода области доступным в
+шаблоне/виде. Такое поведение взаимодействует и вносит изменения в модель.
 
 As discussed in the {@link dev_guide.mvc.understanding_model Model} section of this guide, any
 objects (or primitives) assigned to the scope become model properties. Any functions assigned to
