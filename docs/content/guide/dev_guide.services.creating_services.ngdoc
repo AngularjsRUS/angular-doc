@@ -1,62 +1,60 @@
 @ngdoc overview
-@name Developer Guide: Angular Services: Creating Services
+@name Руководство разработчика: Сервисы Angular: Создание сервисов
 @description
 
-While Angular offers several useful services, for any nontrivial application you'll find it useful
-to write your own custom services. To do this you begin by registering a service factory function
-with a module either via the {@link api/angular.module Module#factory api} or directly
-via the {@link api/AUTO.$provide $provide} api inside of module config function.
+Не смотря на то, что Angular предлагает несколько полезных сервисов, для любого нетривиального
+приложения вы найдёте полезным написать свои сервисы. Для этого вам нужно зарегистрировать
+фабричную функцию сервиса в модуле. Либо через {@link api/angular.module Модуль#factory api}, либо
+прямо через {@link api/AUTO.$provide $provide} api внутри конфигурационной функции модуля.
 
-All Angular services participate in {@link di dependency injection (DI)} by registering
-themselves with Angular's DI system (injector) under a `name` (id) as well as by declaring
-dependencies which need to be provided for the factory function of the registered service. The
-ability to swap dependencies for mocks/stubs/dummies in tests allows for services to be highly
-testable.
+Все сервисы Angular участвуют в {@link di внедрении зависимости (DI)}, регистрируя себя в
+системе зависимостей Angular (injector) с помощью своего `имени` (id), вместе с указанием
+требуемых зависимостей для фабричной функции сервиса. Возможность подменять зависимости для
+mock/stub/dummies в тестах позволяет сервисам быть очень тестируемыми.
 
 
-# Registering Services
+# Регистрация сервисов
 
-To register a service, you must have a module that this service will be part of. Afterwards, you
-can register the service with the module either via the {@link api/angular.Module Module api} or
-by using the {@link api/AUTO.$provide $provide} service in the module configuration
-function.The following pseudo-code shows both approaches:
+Для регистрации сервиса у вас должен быть модуль, частью которого будет этот сервис. После этого
+вы можете зарегистрировать сервис в модуле через {@link api/angular.Module api Модуля} или
+используя {@link api/AUTO.$provide $provide} сервис в конфигурационной функции модуля.
+Следующий псевдо-код демонстрирует оба способа:
 
-Using the angular.Module api:
+Используя angular.Module api:
 <pre>
 var myModule = angular.module('myModule', []);
 myModule.factory('serviceId', function() {
   var shinyNewServiceInstance;
-  //factory function body that constructs shinyNewServiceInstance
+  //тело фабричной функции модуля, которая конструирует shinyNewServiceInstance
   return shinyNewServiceInstance;
 });
 </pre>
 
-Using the $provide service:
+Используя сервис $provide:
 <pre>
 angular.module('myModule', [], function($provide) {
   $provide.factory('serviceId', function() {
     var shinyNewServiceInstance;
-    //factory function body that constructs shinyNewServiceInstance
+    //тело фабричной функции, которая конструирует shinyNewServiceInstance
     return shinyNewServiceInstance;
   });
 });
 </pre>
 
-Note that you are not registering a service instance, but rather a factory function that will
-create this instance when called.
+Заметьте, что регистрируете не экземпляр сервиса, а фабричную функцию, которая создаст экземпляр
+при вызове.
 
 
-# Dependencies
+# Зависимости
 
-Services can not only be depended upon, but can also have their own dependencies. These can be specified
-as arguments of the factory function. {@link di Read more} about dependency injection (DI)
-in Angular and the use of array notation and the $inject property to make DI annotation
-minification-proof.
+Сервисы могут не только являться зависимостями, но и сами иметь зависимости. Они могут быть
+указаны в аргументах фабричной функции. {@link di Прочитайте больше} о внедрении зависимостей (DI)
+в Angular и использовании нотации с массивом и свойства $inject для защиты внедрения зависимостей
+от минификации кода.
 
-Following is an example of a very simple service. This service depends on the `$window` service
-(which is passed as a parameter to the factory function) and is just a function. The service simply
-stores all notifications; after the third one, the service displays all of the notifications by
-window alert.
+Ниже представлен пример очень простого сервиса. Этот сервис зависит от сервиса `$window` (который
+передаётся в качестве параметра в фабричную функцию) и является просто функцией. Сервис просто
+записывает все уведомления, а после третьего он показывает все уведомления во всплывающем окне.
 
 <pre>
 angular.module('myModule', [], function($provide) {
@@ -74,31 +72,31 @@ angular.module('myModule', [], function($provide) {
 </pre>
 
 
-# Instantiating Angular Services
+# Создание экземпляров сервисов в Angular
 
-All services in Angular are instantiated lazily. This means that a service will be created
-only when it is needed for instantiation of a service or an application component that depends on it.
-In other words, Angular won't instantiate services unless they are requested directly or
-indirectly by the application.
-
-
-# Services as singletons
-
-Lastly, it is important to realize that all Angular services are application singletons. This means
-that there is only one instance of a given service per injector. Since Angular is lethally allergic
-to global state, it is possible to create multiple injectors, each with its own instance of a
-given service, but that is rarely needed, except in tests where this property is crucially
-important.
+Для всех сервисов в Angular экземпляры создаются лениво. Это означает, что сервис будет создан только
+в том случае, если он нужен для создания экземпляра другого сервиса или компонента приложения, который
+зависит от него. Другими словами, Angular не создаст экземпляр сервиса, если только он не потребовался
+приложению явным или неявным образом.
 
 
+# Сервисы как синглтоны
 
-## Related Topics
+В заключение, важно понимать, что все сервисы Angular - синглтоны приложения. Это означает, что
+есть только один экземпляр какого-то конкретного сервиса на один инжектор. Так как у Angular
+смертельная аллергия на global state, возможно создать несколько инжектеров, каждый со своим
+собственным экземпляром сервиса, но это редко бывает необходимым, за исключением тестов, где
+это свойство жизненно необходимо.
 
-* {@link dev_guide.services.understanding_services Understanding Angular Services}
-* {@link dev_guide.services.managing_dependencies Managing Service Dependencies}
-* {@link dev_guide.services.injecting_controllers Injecting Services Into Controllers }
-* {@link dev_guide.services.testing_services Testing Angular Services}
 
-## Related API
+
+## Связанные темы
+
+* {@link dev_guide.services.understanding_services Понимание сервисов}
+* {@link dev_guide.services.managing_dependencies Управление зависимостями сервисов}
+* {@link dev_guide.services.injecting_controllers Внедрение сервисов в контроллеры}
+* {@link dev_guide.services.testing_services Тестирование сервисов в Angular}
+
+## Связанное API
 
 * {@link api/ng Angular Service API}
