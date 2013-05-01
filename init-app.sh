@@ -24,6 +24,10 @@ cat > "package.json" << EOF
   "name": "Angularjs",
   "description": "Angularjs documentation",
   "version": "0.0.1",
+  "engines":{
+    "node": "0.8.6",
+    "npm": "1.1.65"
+  },
   "private": true,
   "dependencies": {
   "express": "3.x",

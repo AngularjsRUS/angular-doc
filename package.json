@@ -15,6 +15,10 @@
     "karma": "0.8.4",
     "yaml-js": "0.0.5"
   },
+  "engines":{
+    "node": "0.8.6",
+    "npm": "1.1.65"
+  },
   "licenses": [
     {
       "type": "MIT",
