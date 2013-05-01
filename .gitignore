@@ -14,5 +14,6 @@ angular.js.tmproj
 node_modules
 angular.xcodeproj
 .idea
+.tern-port
 logs/*
 !.gitkeep

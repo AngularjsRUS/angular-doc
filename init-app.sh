@@ -2,9 +2,11 @@
 #
 # Script to initialize angular app
 
+# @log startup time
+START_SERVER_TEIM=$(date +%s)
+
 npm install
 grunt package
-
 
 rm -rf app
 
@@ -22,10 +24,15 @@ cat > "package.json" << EOF
   "name": "Angularjs",
   "description": "Angularjs documentation",
   "version": "0.0.1",
+  "engines":{
+    "node": "0.8.6",
+    "npm": "1.2.x"
+  },
   "private": true,
   "dependencies": {
-  "express": "3.x",
-  "connect" : "2.x"
+    "npm": "1.2.x",
+    "express": "3.x",
+    "connect" : "2.x"
   }
 }
 EOF
@@ -44,7 +51,16 @@ cat > "main.js" << EOF
   app.get('^\/?(guide|api|cookbook|misc|tutorial)(/)?*$', function(req, res) {
     res.sendfile('index.html');
   });
-  app.listen(process.env.PORT);
+  var port = process.env.PORT || 80000;
+  console.log('SERVER RUN ON PORT: ', port);
+  app.listen(port);
 EOF
 
 npm install
+
+END_SERVER_TEIM=$(date +%s)
+
+# @log startup time
+echo "SERVER START TIME: $((END_SERVER_TEIM - START_SERVER_TEIM))"
+
+node main.js
