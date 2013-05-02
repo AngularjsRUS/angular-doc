@@ -53,54 +53,56 @@ objects (or primitives) assigned to the scope become model properties. Any funct
 the scope are available in the template/view, and can be invoked via angular expressions
 and `ng` event handler directives (e.g. {@link api/ng.directive:ngClick ngClick}).
 
-# Using Controllers Correctly
+Как уже говорилось в разделе {@link dev_guide.mvc.understanding_model Модель} данного руководства, любые
+объекты (или примитивы), расположенные в области видимости, становятся свойствами модели. Любые функции, расположенные
+в области видимости доступны в шаблоне/представление, и их можно вызывать через angular-выражения и директивы `ng` обработчиков событий
+(например, @link api/ng.directive:ngClick ngClick}).
 
-In general, a controller shouldn't try to do too much. It should contain only the business logic
-needed for a single view.
+# Правильное использование контроллеров
 
-The most common way to keep controllers slim is by encapsulating work that doesn't belong to
-controllers into services and then using these services in controllers via dependency injection.
-This is discussed in the {@link di Dependency Injection} {@link dev_guide.services
-Services} sections of this guide.
+В общем, контроллер не должен пытаться делать слишком много. Он должен содержать только бизнес-логику,
+необходимую для одного вида.
 
-Do not use controllers for:
+Наиболее распространенный способ не захламлять контроллеры заключается в инкапсуляции работы не характерной для контроллеров в сервисы, а затем использовать эти сервисы в контроллерах через внедрение зависимости.
+Это обсуждается в разделах {@link di Внедрении зависимости} и {@link dev_guide.services Сервисы}.
 
-- Any kind of DOM manipulation — Controllers should contain only business logic. DOM
-manipulation—the presentation logic of an application—is well known for being hard to test.
-Putting any presentation logic into controllers significantly affects testability of the business
-logic. Angular offers {@link dev_guide.templates.databinding databinding} for automatic DOM manipulation. If
-you have to perform your own manual DOM manipulation, encapsulate the presentation logic in
-{@link guide/directive directives}.
-- Input formatting — Use {@link forms angular form controls} instead.
-- Output filtering — Use {@link dev_guide.templates.filters angular filters} instead.
-- To run stateless or stateful code shared across controllers — Use {@link dev_guide.services angular
-services} instead.
-- To instantiate or manage the life-cycle of other components (for example, to create service
-instances).
+Не используйте контроллеры для:
+
+- Любых манипуляций с DOM - контроллеры должны содержать только бизнес-логику. Логика DOM-манипуляций хорошо известна 
+тем, что ее сложно протестировать. Ввод любой логики представления в контроллеры существенно влияет на тестирование бизнес-логики.
+Angular предоставляет {@ ссылка dev_guide.templates.databinding связывание данных} для автоматических манипуляций DOM. Если
+необходимо изменять DOM вручную, включите логику представления в {@link guide/directive директивы}.
+- Форматирования ввода - вместо этого используйте {@link forms элементы управления формой}.
+- Фильтрации вывода - вместо этого используйте {@link dev_guide.templates.filters фильтры}.
+- Для запуска кода с или без сохранения состояния - вместо этого используйте {@link dev_guide.services angular сервисы}
+- Чтобы создать экземпляр или управлять жизненным циклом других компонентов (например, для создания экземпляров сервиса).
 
 
-# Associating Controllers with Angular Scope Objects
+
+# Связь контроллеров с объектами областей видимости
 
 You can associate controllers with scope objects explicitly via the {@link api/ng.$rootScope.Scope#$new
 scope.$new} api or implicitly via the {@link api/ng.directive:ngController ngController
 directive} or {@link api/ng.$route $route service}.
 
-
-## Controller Constructor and Methods Example
-
-To illustrate how the controller component works in angular, let's create a little app with the
-following components:
-
-- A {@link dev_guide.templates template} with two buttons and a simple message
-- A model consisting of a string named `spice`
-- A controller with two functions that set the value of `spice`
-
-The message in our template contains a binding to the `spice` model, which by default is set to the
-string "very". Depending on which button is clicked, the `spice` model is set to `chili` or
-`jalapeño`, and the message is automatically updated by data-binding.
+Можно связать контроллеры с объектами областей явно через {@link api/ng.$rootScope.Scope#$new
+scope.$new} API или неявно через директиву {@link api/ng.directive:ngController ngController} или сервис {@link api/ng.$route $route}.
 
 
-## A Spicy Controller Example
+## Пример конструктора и методов контроллера
+
+Чтобы проиллюстрировать, как работает контроллер, давайте создадим небольшое приложение, включающее
+следующие компоненты:
+
+- {@link dev_guide.templates Шаблон} с двумя кнопками и простым сообщением
+- Модель, состоящая из строки с именем `spice`
+- Контроллер с двумя функциями, установливающими значение `spice`
+
+Сообщение в нашем шаблоне содержит привязки к модели `spice`, в которой по умолчанию установлена строка «very». 
+В зависимости от того, какая кнопка нажата, модель `spice` установливается в `chili` или `jalapeño`, и сообщение 
+автоматически обновляется с помощью связывания данных.
+
+## Пример Spicy-контроллера
 
 <pre>
 <body ng-controller="SpicyCtrl">
@@ -122,29 +124,25 @@ function SpicyCtrl($scope) {
 
 </pre>
 
-Things to notice in the example above:
+На что следует обратить внимание в приведенном выше примере:
 
-- The `ngController` directive is used to (implicitly) create a scope for our template, and the
-scope is augmented (managed) by the `SpicyCtrl` controller.
-- `SpicyCtrl` is just a plain JavaScript function. As an (optional) naming convention the name
-starts with capital letter and ends with "Ctrl" or "Controller".
-- Assigning a property to `$scope` creates or updates the model.
-- Controller methods can be created through direct assignment to scope (the `chiliSpicy` method)
-- Both controller methods are available in the template (for the `body` element and and its
-children).
-- NB:  Previous versions of Angular (pre 1.0 RC) allowed you to use `this` interchangeably with
-the $scope method, but this is no longer the case.  Inside of methods defined on the scope
-`this` and $scope are interchangeable (angular sets `this` to $scope), but not otherwise
+- Директива `ngController` используется чтобы (неявно) создать область видимости для нашего шаблона, а так же 
+область видимости используемую (управляемую) с помощью контроллера `SpicyCtrl`.
+- `SpicyCtrl` это обычная plain-функция JavaScript, имя которой (опционально) начинается с заглавной и заканчивается 
+на "Ctrl" или "Controller".
+- Задание свойств `$scope` создает или обновляет модель.
+- Методы контроллера могут быть созданы через через прямое указание области видимости (метод `chiliSpicy`)
+- Методы контроллера доступны в шаблоне (для элемента `body` и его потомков).
+- Примечание: В предыдущих версиях Angular (до 1.0 RC) позволялось использовать `this` вперемешку с методом $scope, 
+но теперь это не так. Внутри методов, определенных в области видимости, `this` и $scope являются взаимозаменяемыми (Angular устанавливает `this` в $scope), 
+но не наоборот.
 inside your controller constructor.
-- NB:  Previous versions of Angular (pre 1.0 RC) added prototype methods into the scope
-automatically, but this is no longer the case; all methods need to be added manually to
-the scope.
+- Примечание: В предыдущих версиях Angular (до 1.0 RC) прототип методов добавлялся в область видимости автоматически, 
+но теперь это не так; все методы должны добавляться в области видимости вручную.
 
+Методы контроллеров могут принимать аргументы, как показано в следующем варианте предыдущего примера.
 
-Controller methods can also take arguments, as demonstrated in the following variation of the
-previous example.
-
-## Controller Method Arguments Example
+## Пример аргументов метода контроллера
 
 <pre>
 <body ng-controller="SpicyCtrl">
@@ -166,12 +164,14 @@ Notice that the `SpicyCtrl` controller now defines just one method called `spicy
 argument called `spice`. The template then refers to this controller method and passes in a string
 constant `'chili'` in the binding for the first button and a model property `spice` (bound to an
 input box) in the second button.
+Обратите внимание, что контроллер `SpicyCtrl` теперь определяет только один метод `spicy`, который принимает один
+аргумент называется `` специи.Шаблон ссылается на этом контроллере метода и передает его в строке
+постоянная `'chili'` связанный с первой кнопкой и свойством `spice` модели (связанного с полем ввода) со второй кнопкой.
 
 
-## Controller Inheritance Example
+## Пример наследования контроллера
 
-Controller inheritance in Angular is based on {@link api/ng.$rootScope.Scope Scope} inheritance. Let's
-have a look at an example:
+Наследование контроллера в Angular основано на наследовании {@link api/ng.$rootScope.Scope области видимости}. Разберем на примере:
 
 <pre>
 <body ng-controller="MainCtrl">
@@ -197,30 +197,31 @@ function BabyCtrl($scope) {
 }
 </pre>
 
-Notice how we nested three `ngController` directives in our template. This template construct will
-result in 4 scopes being created for our view:
+Обратите внимание на три вложенные директивы `ngController` в нашем шаблоне. Такая конструкция шаблона приведет к тому, что 
+для представления создадутся 4 области видимости:
 
-- The root scope
-- The `MainCtrl` scope, which contains `timeOfDay` and `name` models
-- The `ChildCtrl` scope, which shadows the `name` model from the previous scope and inherits the
-`timeOfDay` model
-- The `BabyCtrl` scope, which shadows both the `timeOfDay` model defined in `MainCtrl` and `name`
-model defined in the ChildCtrl
+- корневая область
+- область `MainCtrl`, которая содержит модели `timeOfDay` и `name`
+- область `ChildCtrl`, которая перекрывает модель `name` из предыдущей области и наследует модель `timeOfDay`
+- область `BabyCtrl`, которая перекрывает и модель `timeOfDay`, определенную в `MainCtrl` и модель `name`, 
+определенную в `ChildCtrl`
 
-Inheritance works between controllers in the same way as it does with models. So in our previous
-examples, all of the models could be replaced with controller methods that return string values.
+Наследование между контроллерами работает таким же образом, как это происходит с моделями. Таким образом, в наших предыдущих
+примерах все модели можно заменить на методы контроллера, которые возвращают строку значений.
 
-Note: Standard prototypical inheritance between two controllers doesn't work as one might expect,
-because as we mentioned earlier, controllers are not instantiated directly by Angular, but rather
-are applied to the scope object.
+Примечание: Стандартное прототипое наследование между двумя контроллерами не работает, как и следовало ожидать,
+потому что, как мы упоминали ранее, контроллеры не создаются непосредственно Angular, а скорее
+применяются к объекту области видимости.
 
-
-## Testing Controllers
+## Тестирование контроллеров
 
 Although there are many ways to test a controller, one of the best conventions, shown below,
 involves injecting the `$rootScope` and `$controller`
 
-Controller Function:
+Хотя существует много способов протестировать контроллер, один из лучших, показанный ниже,
+предполагает внедрение `$rootScope` и `$controller`
+
+Функция контроллера:
 <pre>
 function myController($scope) {
    $scope.spices = [{"name":"pasilla", "spiciness":"mild"},
@@ -231,7 +232,7 @@ function myController($scope) {
 }
 </pre>
 
-Controller Test:
+Тест контроллера:
 <pre>
 describe('myController function', function() {
 
@@ -257,6 +258,7 @@ describe('myController function', function() {
 
 If you need to test a nested controller you need to create the same scope hierarchy
 in your test that exists in the DOM.
+Если вам необходимо проверить вложенные контроллеры, необходимо восздать ту же иерархию областей видимости в тесте, которая существует в DOM.
 
 <pre>
 describe('state', function() {
@@ -283,10 +285,10 @@ describe('state', function() {
 </pre>
 
 
-## Related Topics
+## Связанные разделы
 
-* {@link dev_guide.mvc About MVC in Angular}
-* {@link dev_guide.mvc.understanding_model Understanding the Model Component}
-* {@link dev_guide.mvc.understanding_view Understanding the View Component}
+* {@link dev_guide.mvc About MVC в Angular}
+* {@link dev_guide.mvc.understanding_model Модель}
+* {@link dev_guide.mvc.understanding_view Вид}
 
 
