@@ -1,5 +1,5 @@
 @ngdoc overview
-@name Developer Guide: Templates: Filters: Использование фильтров
+@name Developer Guide: Templates: Filters: Применение фильтров
 @description
 
 Фильтры могут быть частью вычисления любой {@link api/ng.$rootScope.Scope области видимости}, но, как правило, используются для форматирования
@@ -14,9 +14,7 @@
 
         {{ expression | filter1 | filter2 }}
 
-You can also pass colon-delimited arguments to filters, for example, to display the number 123 with
-2 decimal points:
-Также моно передать через двоеточие аргументы, например, для отображения номера 123 с двумя знаками после запятой:
+Также можно передать через двоеточие аргументы, например, для отображения номера 123 с двумя знаками после запятой:
 
         123 | number:2
 
