@@ -1,16 +1,15 @@
 @ngdoc overview
-@name Developer Guide: Angular Services: Managing Service Dependencies
+@name Developer Guide: Angular Services: Зависимости сервисов
 @description
 
-Angular allows services to declare other services as dependencies needed for construction of their
-instances.
+Angular позволяет сервисам объявить другие сервисы, в зависимости от того, что необходимо для создания их экземпляров.
 
-To declare dependencies, you specify them in the factory function signature and annotate the
-function with the inject annotations either using by setting the `$inject` property, as an array of
-string identifiers or using the array notation. Optionally the `$inject` property declaration can be
-dropped (see "Inferring `$inject`" but note that that is currently an experimental feature).
+Чтобы объявить зависимости, их следует указать в подписи к фабричной функции и прокомментировать в 
+функции в которую внедренв аннотации либо с помощью настройки свойства `$inject`, в виде массива
+строк с идентификаторами или с помощью нотации массива. Опционально объявление `$inject`, может быть
+сброшено (см. "Вывод `$inject`", но обратите внимание, что пока это экспериментальная возможность).
 
-Using the array notation:
+Использование нотации массива:
 
 <pre>
 function myModuleCfgFn($provide) {
@@ -19,7 +18,7 @@ function myModuleCfgFn($provide) {
 </pre>
 
 
-Using the $inject property:
+Использование свойства $inject:
 
 <pre>
 function myModuleCfgFn($provide) {
@@ -30,7 +29,7 @@ function myModuleCfgFn($provide) {
 </pre>
 
 
-Using DI inference (incompatible with minifiers):
+Использование вывода DI (несовместимо с минификаторами):
 
 <pre>
 function myModuleCfgFn($provide) {
@@ -39,15 +38,16 @@ function myModuleCfgFn($provide) {
 </pre>
 
 
-Here is an example of two services, one of which depends on the other and both
-of which depend on other services that are provided by the Angular framework:
+Ниже приведен пример двух сервисов, один из которых зависит от другого, и оба
+зависят от других сервисов, которые предоставляются фреймворком Angular:
 
+batchLog услуга позволяет для сообщений в очередь в памяти и сбрасываются на console.log каждые 50 секунд.
 <pre>
 /**
- * batchLog service allows for messages to be queued in memory and flushed
- * to the console.log every 50 seconds.
+ * сервис batchLog помещает сообщения в очередь в памяти и записывает
+ * в console.log каждые 50 секунд.
  *
- * @param {*} message Message to be logged.
+ * @param {*} message Сообщение для регистрации.
  */
   function batchLogModule($provide){
     $provide.factory('batchLog', ['$timeout', '$log', function($timeout, $log) {
@@ -70,8 +70,8 @@ of which depend on other services that are provided by the Angular framework:
     }]);
 
     /**
-     * routeTemplateMonitor monitors each $route change and logs the current
-     * template via the batchLog service.
+     * routeTemplateMonitor контролирует каждое изменение $route и регистрирует
+     * текущий шаблон через сервис batchLog.
      */
     $provide.factory('routeTemplateMonitor',
                 ['$route', 'batchLog', '$rootScope',
@@ -82,33 +82,29 @@ of which depend on other services that are provided by the Angular framework:
     }]);
   }
 
-  // get the main service to kick of the application
+  // получение главного сервиса для начала применения
   angular.injector([batchLogModule]).get('routeTemplateMonitor');
 </pre>
 
-Things to notice in this example:
+На что следует обратить внимание в этом примере:
 
-* The `batchLog` service depends on the built-in {@link api/ng.$timeout $timeout} and
-{@link api/ng.$log $log} services, and allows messages to be logged into the
-`console.log` in batches.
-* The `routeTemplateMonitor` service depends on the built-in {@link api/ng.$route
-$route} service as well as our custom `batchLog` service.
-* Both of our services use the factory function signature and array notation for inject annotations
-to declare their dependencies. It is important that the order of the string identifiers in the array
-is the same as the order of argument names in the signature of the factory function. Unless the
-dependencies are inferred from the function signature, it is this array with IDs and their order
-that the injector uses to determine which services and in which order to inject.
+* Сервис `batchLog` зависит от встроенных сервисов {@link api/ng.$timeout $timeout} и
+{@link api/ng.$log $log}, и дает возможность сообщениям регистрироваться в `console.log` в пакетном режиме.
+* Сервис `routeTemplateMonitor` зависит от встроенного сервиса {@link api/ng.$route
+$route}, а так же нашего сервиса `batchLog`.
+* Оба наших сервиса используют сигнатуру фабричной функции и нотацию массива для внедрения аннотации для заявление о своих зависимостях. 
+Важно, что порядок строк с идентификаторами в массиве такой же, как и порядок имен аргументов в сигнатуре фабричной функции которую инжектор использует, чтобы определить, какие сервисы и в каком порядке внедрять.
 
 
-## Related Topics
+## Связанные разделы
 
-* {@link dev_guide.services.understanding_services Understanding Angular Services}
-* {@link dev_guide.services.creating_services Creating Angular Services}
-* {@link dev_guide.services.injecting_controllers Injecting Services Into Controllers }
-* {@link dev_guide.services.testing_services Testing Angular Services}
+* {@link dev_guide.services.understanding_services Понимание сервисов}
+* {@link dev_guide.services.creating_services Создание сервисов}
+* {@link dev_guide.services.injecting_controllers Внедрение сервисов в контроллеры}
+* {@link dev_guide.services.testing_services Тестирование сервисов}
 
 
-## Related API
+## Связанное API
 
-* {@link api/ng Angular Service API}
-* {@link api/angular.injector Angular Injector API}
+* {@link api/ng API сервисов}
+* {@link api/angular.injector API инжектора}
