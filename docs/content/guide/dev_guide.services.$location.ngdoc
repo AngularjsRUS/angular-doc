@@ -83,40 +83,39 @@ https://developer.mozilla.org/en/window.location window.location}) и делае
 
 Как только сервис `$location` создастся, вы можете взаимодействовать с ним через геттеры и сеттеры JQuery-стиля, которые позволяют получить или изменить текущий URL в браузере.
 
-## $location service configuration
+## Настройка сервиса $location
 
-To configure the `$location` service, retrieve the
-{@link api/ng.$locationProvider $locationProvider} and set the parameters as follows:
+Чтобы настроить сервис `$location`, верните {@link api/ng.$locationProvider $locationProvider} and и установите следующие параметры:
 
 
 - **html5Mode(mode)**: {boolean}<br />
-  `true` - see HTML5 mode<br />
-  `false` - see Hashbang mode<br />
+  `true` - см. режим HTML5<br />
+  `false` - см. режим Hashbang<br />
   default: `false`
 
 - **hashPrefix(prefix)**: {string}<br />
-  prefix used for Hashbang URLs (used in Hashbang mode or in legacy browser in Html5 mode)<br />
+  prefix используется для Hashbang URL (используется в режиме Hashbang или в устаревших браузерах в режиме HTML5)<br />
   default: `""`
 
-### Example configuration
+### Пример настройки
 <pre>
 $locationProvider.html5Mode(true).hashPrefix('!');
 </pre>
 
-## Getter and setter methods
+## Метод геттеров и сеттеров
 
-`$location` service provides getter methods for read-only parts of the URL (absUrl, protocol, host,
-port) and getter / setter methods for url, path, search, hash:
+Сервис `$location` предоставляет метод геттера только для чтения частей URL (absUrl, protocol, host,
+port) и методы геттера/сеттера для url, path, search, hash:
 <pre>
-// get the current path
+// получение текущего пути
 $location.path();
 
-// change the path
+// изменение пути
 $location.path('/newValue')
 </pre>
 
-All of the setter methods return the same `$location` object to allow chaining. For example, to
-change multiple segments in one go, chain setters like this:
+Все сеттеры возвращют тот же объект `$location` для применения в цепочке. Например, чтобы
+изменить несколько сегментов цепочкой сеттеров так:
 <pre>$location.path('/newValue').search({key: value});</pre>
 
 There is a special `replace` method which can be used to tell the $location service that the next
