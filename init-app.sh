@@ -30,7 +30,7 @@ cat > "main.js" << EOF
   app.get('^\/?(guide|api|cookbook|misc|tutorial)(/)?*$', function(req, res) {
     res.sendfile('index.html');
   });
-  var port = process.env.PORT || 80000;
+  var port = process.env.PORT || 8000;
   console.log('SERVER RUN ON PORT: ', port);
   app.listen(port);
 EOF
