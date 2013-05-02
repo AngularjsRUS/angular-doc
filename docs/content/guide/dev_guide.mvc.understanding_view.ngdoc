@@ -1,22 +1,19 @@
 @ngdoc overview
-@name Developer Guide: MVC в Angular: Представление
+@name Developer Guide: MVC в Angular: Вид
 @description
 
-In Angular, the view is the DOM loaded and rendered in the browser, after Angular has transformed
-the DOM based on information in the template, controller and model.
+В Angular, видом (или представлением) является DOM загруженный и отображаженный в браузере, после того как Angular преобразовал его
+на основе информации в шаблоне, контроллере и модели.
 
 <img src="img/guide/about_view_final.png">
 
-In the Angular implementation of MVC, the view has knowledge of both the model and the controller.
-The view knows about the model where two-way data-binding occurs. The view has knowledge of the
-controller through Angular directives, such as {@link api/ng.directive:ngController
-ngController} and {@link api/ng.directive:ngView ngView}, and through bindings of this form:
-`{{someControllerFunction()}}`. In these ways, the view can call functions in an associated
-controller function.
+В реализации MVC в Angular, вид знает и о модели, и о контроллере.
+Вид знает о модели через двухстороннее связывание данных. Вид знает о контроллере через директивы, такие как {@link api/ng.directive:ngController
+ngController} и {@link api/ng.directive:ngView ngView}, и через привязки этой форме:
+`{{какаятоФункцияКонтроллера()}}`. В этом смысле, вид может вызывать функции в связанной Функцияи контроллера.
 
+## Связанные разделы
 
-## Related Topics
-
-* {@link dev_guide.mvc About MVC in Angular}
-* {@link dev_guide.mvc.understanding_model Understanding the Model Component}
-* {@link dev_guide.mvc.understanding_controller Understanding the Controller Component}
+* {@link dev_guide.mvc About MVC в Angular}
+* {@link dev_guide.mvc.understanding_model Модель}
+* {@link dev_guide.mvc.understanding_controller Контроллер}
