@@ -55,13 +55,13 @@ https://developer.mozilla.org/en/window.location window.location}) и делае
   <tr>
     <td class="head">бесшовная интерграция HTML5 API</td>
     <td>нет</td>
-    <td>да (скостылями для старых браузеров)</td>
+    <td>да (с костылями для старых браузеров)</td>
   </tr>
 
   <tr>
     <td class="head"> осведомленность о корневой директории/контексте, из которого загружено приложение</td>
-    <td>no - window.location.path возвращает «/docroot/actual/path»</td>
-    <td>yes - $location.path() возвращает «/actual/path»</td>
+    <td>нет - window.location.path возвращает «/docroot/actual/path»</td>
+    <td>да - $location.path() возвращает «/actual/path»</td>
   </tr>
 
 </tbody>
@@ -118,15 +118,15 @@ $location.path('/newValue')
 изменить несколько сегментов цепочкой сеттеров так:
 <pre>$location.path('/newValue').search({key: value});</pre>
 
-There is a special `replace` method which can be used to tell the $location service that the next
-time the $location service is synced with the browser, the last history record should be replaced
-instead of creating a new one. This is useful when you want to implement redirection, which would
-otherwise break the back button (navigating back would retrigger the redirection). To change the
-current URL without creating a new browser history record you can call:
+Существует специальный метод `replace`, который может быть использован для вызова сервиса $location, чтобы, когда сервис 
+$location синхронизируется с браузером, последняя запись в истории была бы заменена
+вместо создания новой. Это полезно, когда вы хотите реализовать перенаправление, которое
+в противном случае сломает кнопку возврата (переход назад вернул бы перенаправление). Изменить
+текущий URL без создания новой записи в истории браузера можно вызвав:
 <pre>
   $location.path('/someNewPath');
   $location.replace();
-  // or you can chain these as: $location.path('/someNewPath').replace();
+  // или можно выстроить в цепочку: $location.path('/someNewPath').replace();
 </pre>
 
 Note that the setters don't update `window.location` immediately. Instead, the `$location` service is
