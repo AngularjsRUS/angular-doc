@@ -1,44 +1,46 @@
 @ngdoc overview
-@name Developer Guide: Templates: Filters: Using Angular Filters
+@name Developer Guide: Templates: Filters: Использование фильтров
 @description
 
-Filters can be part of any {@link api/ng.$rootScope.Scope} evaluation but are typically used to format
-expressions in bindings in your templates:
+Фильтры могут быть частью вычисления любой {@link api/ng.$rootScope.Scope области видимости}, но, как правило, используются для форматирования
+выражений в связанных шаблонах:
 
         {{ expression | filter }}
 
-Filters typically transform the data to a new data type, formatting the data in the process.
-Filters can also be chained, and can take optional arguments.
+Фильтры, как правило, преобразуют данные из одного типа в другой, форматируя их в процессе.
+Фильтры могут быть соединены в цепочку, и могут принимать дополнительные аргументы.
 
-You can chain filters using this syntax:
+Можно объединить фильтры, используя следующий синтаксис:
 
         {{ expression | filter1 | filter2 }}
 
 You can also pass colon-delimited arguments to filters, for example, to display the number 123 with
 2 decimal points:
+Также моно передать через двоеточие аргументы, например, для отображения номера 123 с двумя знаками после запятой:
 
         123 | number:2
 
-Use the same syntax for multiple arguments:
+Тот же синтаксис используется для передачи нескольких аргументов:
 
         myArray | orderBy:'timestamp':true
 
-Here are some examples that show values before and after applying different filters to an
-expression in a binding:
+Несколько примеров, которые показывают значения до и после применения различных фильтров к связанным выражениям:
 
-* No filter: `{{1234.5678}}` => `1234.5678`
-* Number filter: `{{1234.5678|number}}` => `1,234.57`. Notice the "," and rounding to two
-significant digits.
-* Filter with arguments: `{{1234.5678|number:5}}` => `1,234.56780`. Filters can take optional
+* Без фильтра: `{{1234.5678}}` => `1234.5678`
+* Числовой фильтр: `{{1234.5678|number}}` => `1,234.57`. Заметьте "," и округление до двух знаков.
+* Фильтр с аргументами: `{{1234.5678|number:5}}` => `1,234.56780`. Filters can take optional
 arguments, separated by colons in a binding. For example, the "number" filter takes a number
 argument that specifies how many digits to display to the right of the decimal point.
 
+Фильтры могут дополнительно принять аргументы, разделенные двоеточиями в связке. Например, числовой фильтр принимает числовой
+аргумент, который определяет, сколько цифр показывать после запятой.
 
-## Related Topics
 
-* {@link dev_guide.templates.filters Understanding Angular Filters}
-* {@link dev_guide.templates.filters.creating_filters Creating Angular Filters}
+## Связанные разделы
 
-## Related API
+* {@link dev_guide.templates.filters Понимание фильтров}
+* {@link dev_guide.templates.filters.creating_filters Создание фильтров}
 
-* {@link api/ng.$filter Angular Filter API}
+## Связанное API
+
+* {@link api/ng.$filter API фильтров}
