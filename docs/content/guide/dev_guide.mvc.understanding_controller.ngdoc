@@ -48,11 +48,6 @@ myApp.controller('GreetingCtrl', ['$scope', function($scope) {
 Поведение на объекте области видимости Angular в виде свойств метода области доступным в
 шаблоне/виде. Такое поведение взаимодействует и вносит изменения в модель.
 
-As discussed in the {@link dev_guide.mvc.understanding_model Model} section of this guide, any
-objects (or primitives) assigned to the scope become model properties. Any functions assigned to
-the scope are available in the template/view, and can be invoked via angular expressions
-and `ng` event handler directives (e.g. {@link api/ng.directive:ngClick ngClick}).
-
 Как уже говорилось в разделе {@link dev_guide.mvc.understanding_model Модель} данного руководства, любые
 объекты (или примитивы), расположенные в области видимости, становятся свойствами модели. Любые функции, расположенные
 в области видимости доступны в шаблоне/представление, и их можно вызывать через angular-выражения и директивы `ng` обработчиков событий
@@ -80,10 +75,6 @@ Angular предоставляет {@ ссылка dev_guide.templates.databindi
 
 
 # Связь контроллеров с объектами областей видимости
-
-You can associate controllers with scope objects explicitly via the {@link api/ng.$rootScope.Scope#$new
-scope.$new} api or implicitly via the {@link api/ng.directive:ngController ngController
-directive} or {@link api/ng.$route $route service}.
 
 Можно связать контроллеры с объектами областей явно через {@link api/ng.$rootScope.Scope#$new
 scope.$new} API или неявно через директиву {@link api/ng.directive:ngController ngController} или сервис {@link api/ng.$route $route}.
@@ -160,10 +151,6 @@ function SpicyCtrl($scope) {
 }
 </pre>
 
-Notice that the `SpicyCtrl` controller now defines just one method called `spicy`, which takes one
-argument called `spice`. The template then refers to this controller method and passes in a string
-constant `'chili'` in the binding for the first button and a model property `spice` (bound to an
-input box) in the second button.
 Обратите внимание, что контроллер `SpicyCtrl` теперь определяет только один метод `spicy`, который принимает один
 аргумент называется `` специи.Шаблон ссылается на этом контроллере метода и передает его в строке
 постоянная `'chili'` связанный с первой кнопкой и свойством `spice` модели (связанного с полем ввода) со второй кнопкой.
@@ -215,9 +202,6 @@ function BabyCtrl($scope) {
 
 ## Тестирование контроллеров
 
-Although there are many ways to test a controller, one of the best conventions, shown below,
-involves injecting the `$rootScope` and `$controller`
-
 Хотя существует много способов протестировать контроллер, один из лучших, показанный ниже,
 предполагает внедрение `$rootScope` и `$controller`
 
@@ -256,8 +240,6 @@ describe('myController function', function() {
 </pre>
 
 
-If you need to test a nested controller you need to create the same scope hierarchy
-in your test that exists in the DOM.
 Если вам необходимо проверить вложенные контроллеры, необходимо восздать ту же иерархию областей видимости в тесте, которая существует в DOM.
 
 <pre>
