@@ -66,16 +66,16 @@ exports.Example.prototype.disableAnimations = function() {
 };
 
 exports.Example.prototype.toHtml = function() {
-  var html = "<h2>Source</h2>\n";
+  var html = "<h2>Исходный код</h2>\n";
   html += this.toHtmlEdit();
   html += this.toHtmlTabs();
   if(this.animations) {
     html += '<div class="pull-right">';
-    html += ' <button class="btn btn-primary" ng-click="animationsOff=true" ng-hide="animationsOff">Animations on</button>';
-    html += ' <button class="btn btn-primary disabled" ng-click="animationsOff=false" ng-show="animationsOff">Animations off</button>';
+    html += ' <button class="btn btn-primary" ng-click="animationsOff=true" ng-hide="animationsOff">Анимация вкл.</button>';
+    html += ' <button class="btn btn-primary disabled" ng-click="animationsOff=false" ng-show="animationsOff">Анимация выкл.</button>';
     html += '</div>';
   }
-  html += "<h2>Demo</h2>\n";
+  html += "<h2>Демонстрация</h2>\n";
   html += this.toHtmlEmbed();
   return html;
 };
