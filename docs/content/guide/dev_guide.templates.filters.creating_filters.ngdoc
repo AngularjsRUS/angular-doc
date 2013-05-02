@@ -1,14 +1,14 @@
 @ngdoc overview
-@name Developer Guide: Templates: Filters: Creating Angular Filters
+@name Developer Guide: Templates: Filters: Создание фильтров
 @description
 
-Writing your own filter is very easy: just register a new filter (injectable) factory function with
-your module. This factory function should return a new filter function which takes the input value
-as the first argument. Any filter arguments are passed in as additional arguments to the filter
-function.
+Написать собственный фильтр очень просто: достаточно зарегистрировать новый фильтр (внедренный) фабричной функцией в ваш модуль. Фабричная функция должна возвращать новую функцию фильтра, которая принимает входное значение
+в качестве первого аргумента. Любые аргументы фильтра передаются в качестве дополнительных аргументов в функцию фильтра.
 
 The following sample filter reverses a text string. In addition, it conditionally makes the
 text upper-case and assigns color.
+
+Следующий пример фильтра переворачивает текстовую строку. Кроме того, он опционально преобразует текст в верхний регистр и назначает цвет.
 
 <doc:example module="MyReverseModule">
 <doc:source>
@@ -20,7 +20,7 @@ text upper-case and assigns color.
         for (var i = 0; i < input.length; i++) {
           out = input.charAt(i) + out;
         }
-        // conditional based on optional argument
+        // условная часть для необязательного аргумента
         if (uppercase) {
           out = out.toUpperCase();
         }
@@ -50,11 +50,11 @@ text upper-case and assigns color.
 </doc:example>
 
 
-## Related Topics
+## Связанные разделы
 
-* {@link dev_guide.templates.filters Understanding Angular Filters}
-* {@link compiler Angular HTML Compiler}
+* {@link dev_guide.templates.filters Понимание фильтров}
+* {@link compiler HTML-компилятор в Angular}
 
-## Related API
+## Связанное API
 
-* {@link api/ng.$filter Angular Filter API}
+* {@link api/ng.$filter API фильтров}
