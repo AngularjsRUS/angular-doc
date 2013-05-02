@@ -2,11 +2,6 @@
 @name Developer Guide: Templates: Связывание данных
 @description
 
-Data-binding in Angular web apps is the automatic synchronization of data between the model and view
-components.  The way that Angular implements data-binding lets you treat the model as the
-single-source-of-truth in your application.  The view is a projection of the model at all times.
-When the model changes, the view reflects the change, and vice versa.
-
 Связывание данных в веб-приложений Angular это автоматическая синхронизация данных между моделью и представлением. 
 То как Angular реализует связывание позволяет рассматривать модель в качестве единственного источника истины в приложении. 
 В любое время вид это проекция модели. При изменении модели вид отражает изменения, и наоборот.
