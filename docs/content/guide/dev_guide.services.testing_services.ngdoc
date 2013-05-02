@@ -1,10 +1,10 @@
 @ngdoc overview
-@name Developer Guide: Angular Services: Testing Angular Services
+@name Developer Guide: Angular Services: Тестирование сервисов
 @description
 
-The following is a unit test for the 'notify' service in the 'Dependencies' example in {@link
-dev_guide.services.creating_services Creating Angular Services}. The unit test example uses Jasmine
-spy (mock) instead of a real browser alert.
+Ниже приведен модульный тест для сервиса «notify» в примере «Зависимостей» в разделе {@link
+dev_guide.services.creating_services Создание сервисов}. Пример модульного теста использует Jasmine
+spy (макет) вместо реальных браузерных сообщений (alert).
 
 <pre>
 var mock, notify;
@@ -50,13 +50,13 @@ it('should clear messages after alert', function() {
 </pre>
 
 
-## Related Topics
+## Связанные разделы
 
-* {@link dev_guide.services.understanding_services Understanding Angular Services}
-* {@link dev_guide.services.creating_services Creating Angular Services}
-* {@link dev_guide.services.managing_dependencies Managing Service Dependencies}
-* {@link dev_guide.services.injecting_controllers Injecting Services Into Controllers}
+* {@link dev_guide.services.understanding_services Понимание сервисов}
+* {@link dev_guide.services.creating_services Создание сервисов}
+* {@link dev_guide.services.managing_dependencies Управление зависимостями сервисов}
+* {@link dev_guide.services.injecting_controllers Внедрение сервисов в контроллеры}
 
-## Related API
+## Связанное API
 
-* {@link api/ng Angular Service API}
+* {@link api/ng API сервисов}
