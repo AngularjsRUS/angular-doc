@@ -28,61 +28,60 @@ https://developer.mozilla.org/en/window.location window.location}) и делае
   <tr>
     <th class="empty-corner-lt"></th>
     <th>window.location</th>
-    <th>$location service</th>
+    <th>сервис $location</th>
   </tr>
 
 </thead>
 <tbody>
 
   <tr>
-    <td class="head">purpose</td>
-    <td>allow read/write access to the current browser location</td>
-    <td>same</td>
+    <td class="head">задача</td>
+    <td>разрешение на чтение/запись текущего адреса в браузере</td>
+    <td>та же</td>
   </tr>
 
   <tr>
     <td class="head">API</td>
-    <td>exposes "raw" object with properties that can be directly modified</td>
-    <td>exposes jQuery-style getters and setters</td>
+    <td>предоставляет «сырой» Объект со свойствами, которые могут быть непосредственно изменены</td>
+    <td>представляет геттеры и сеттеры в jQuery-стиле</td>
   </tr>
 
   <tr>
-    <td class="head">integration with angular application life-cycle</td>
-    <td>none</td>
-    <td>knows about all internal life-cycle phases, integrates with $watch, ...</td>
+    <td class="head">интеграция с жизненным циклом angular-приложения</td>
+    <td>нет</td>
+    <td>знает обо всех внутренних фазах жизненного цикла, интегрируется с $watch, ...</td>
   </tr>
 
   <tr>
-    <td class="head">seamless integration with HTML5 API</td>
-    <td>no</td>
-    <td>yes (with a fallback for legacy browsers)</td>
+    <td class="head">бесшовная интерграция HTML5 API</td>
+    <td>нет</td>
+    <td>да (скостылями для старых браузеров)</td>
   </tr>
 
   <tr>
-    <td class="head">aware of docroot/context from which the application is loaded</td>
-    <td>no - window.location.path returns "/docroot/actual/path"</td>
-    <td>yes - $location.path() returns "/actual/path"</td>
+    <td class="head"> осведомленность о корневой директории/контексте, из которого загружено приложение</td>
+    <td>no - window.location.path возвращает «/docroot/actual/path»</td>
+    <td>yes - $location.path() возвращает «/actual/path»</td>
   </tr>
 
 </tbody>
 </table>
 
-## When should I use $location?
-Any time your application needs to react to a change in the current URL or if you want to change
-the current URL in the browser.
+## Когда следует использовать $location?
+Каждый раз, когда приложение должно реагировать на изменения в текущем URL или если необходимо изменить
+текущий URL в браузере.
 
-## What does it not do?
-It does not cause a full page reload when the browser URL is changed. To reload the page after
-changing the URL, use the lower-level API, `$window.location.href`.
+## Чего не происходит?
+Изменение URL в браузере не вызовет полной перезагрузки страницы. Для обновления страницы после
+изменения URL, используйте API более низкого уровня, `$ window.location.href`.
 
-# General overview of the API
+# Основной обзор API
 
-The `$location` service can behave differently, depending on the configuration that was provided to
-it when it was instantiated. The default configuration is suitable for many applications, for
-others customizing the configuration can enable new features.
+Сервис `$location` может вести себя по-разному, в зависимости от настроек, заданных при его создании. 
+Настройки по умолчанию подходят большинству приложений,
+другие настройки конфигурации могут включить новые особенности.
 
-Once the `$location` service is instantiated, you can interact with it via jQuery-style getter and
-setter methods that allow you to get or change the current URL in the browser.
+Как только сервис `$location` создастся, вы можете взаимодействовать с ним через геттеры и сеттеры JQuery-стиля, которые позволяют получить или изменить текущий URL в браузере.
 
 ## $location service configuration
 
