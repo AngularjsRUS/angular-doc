@@ -1,23 +1,20 @@
 @ngdoc overview
-@name Developer Guide: Templates: Working With CSS in Angular
+@name Developer Guide: Templates: Работа с CSS
 @description
 
 
 Angular sets these CSS classes. It is up to your application to provide useful styling.
+Angular устанавливает собственные CSS-классы. Это делается для того, чтобы приложение можно было удобно стилизовать.
 
-# CSS classes used by angular
+# CSS-класс, которые использует Angular
 
 * `ng-invalid`, `ng-valid`
-  - **Usage:** angular applies this class to an input widget element if that element's input does
-    not pass validation. (see {@link api/ng.directive:input input} directive).
+  - **Применение:** Angular применяет этот класс для виджета поля ввода, если введенное значение проходит или не проходит проверку (см. директиву {@link api/ng.directive:input input}).
 
 * `ng-pristine`, `ng-dirty`
-  - **Usage:** angular {@link api/ng.directive:input input} directive applies `ng-pristine` class
-    to a new input widget element which did not have user interaction. Once the user interacts with
-    the input widget the class is changed to `ng-dirty`.
+  - **Применение:** директива {@link api/ng.directive:input input} применяет класс `ng-pristine` к новым виджетам полей ввода, которые еще не изменялись пользователем. После того как пользователь что-то изменит, класс поменяется на `ng-dirty`.
 
+## Связанные разделы
 
-## Related Topics
-
-* {@link dev_guide.templates Angular Templates}
-* {@link forms Angular Forms}
+* {@link dev_guide.templates Шаблоны}
+* {@link forms Формы}
