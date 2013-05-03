@@ -19,14 +19,13 @@ AngularJS на 100% JavaScript, 100% на стороне клиента и со�
 Так что это определенно не плагин или другое родное расширение браузера.
 
 
-### Is AngularJS a templating system?
+### AngularJS это шаблонизатор?
 
-At the highest level, Angular does look like a just another templating system. But there is one
-important reason why the Angular templating system is different, that makes it very good fit for
-application development: bidirectional data binding. The template is compiled in the browser and
-the compilation step produces a live view. This means you, the developers, don't need to write
-code to constantly sync the view with the model and the model with the view as in other
-templating systems.
+Свысока Angular выглядит просто как еще один шаблонизатор. Но есть одна
+важная причина, из-за которой Angular отличается от шаблонизаторов, что делает его пригодным для
+разработки приложений: двунаправленное связывание данных. Шаблон скомпилирован в браузере и
+этап компиляции производит в живом виде. Это означает, что вам, как разработчику, не нужно писать
+код, который постоянно синхронизирует вид с моделью и модель с видом, как в других шаблонизаторах.
 
 
 ### Do I need to worry about security holes in AngularJS?
