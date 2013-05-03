@@ -172,8 +172,8 @@
           </div>
           <div class="center">
             <h1>Супер-героический фреймворк для веб-приложений!</h1>
-            <div>
-              <a href="http://angularjs.org/">Оригинальный сайт на английском</a> <a href="https://github.com/maksimr/angular-doc">Русскоязычное сообщество</a>
+            <div style="margin-bottom: 10px">
+              <a href="http://angularjs.org/">Сайт на английском</a> &nbsp; &nbsp; <a href="https://github.com/maksimr/angular-doc">Русскоязычное сообщество</a>
             </div>
           </div>
           <div class="center">
@@ -540,9 +540,9 @@
         }
 
       , "todo.js":
-        { "TodoCtrl": "The controller is the code behind the view. You can clearly see your application behavior because there is no DOM manipulation or framework specific boilerplate. Just simple, readable JavaScript."
-        , "$scope": "<code>$scope</code> contains your model data. It is the glue between the controller and the view. The <code>$scope</code> is just one of the services that can be injected into the controller."
-        , "todos": "We are creating the model with two initial todo items. Notice that a you simply assign your model to the <code>$scope</code> and AngularJS reflects the state in the UI automatically. The model data is a Plain-Old-JavaScript-Object no need to wrap it in proxy or accesses the property through special setter methods."
+        { "TodoCtrl": "Контроллер это код, позади представления. Хорошо видно, как ведет себя приложение, потому что в нем нет никаких DOM-манипуляций или специальных шаблонов фреймворка. Только простой, читаемый JavaScript."
+        , "$scope": "<code>$scope</code> содержит данные модели. Это связующее звено между контроллером и видом. <code>$scope</code> всего лишь один из сервисов, внедренных в контроллер."
+        , "todos": "Мы создали модель с двумя делами в списке.Обратите внимание, что вашей модели нужно просто присвоить <code>$scope</code> и AngularJS отразитсостояние в пользовательском интерфейсе самостоятельно. Модель данных это старый-добрый объект JavaScript, который не нужно чем либо оборачивать или изменять свойства через специальные сеттеры."
         , "addTodo": "We are assigning the behavior into the <code>$scope</code> so that the <code>ng-click</code> can invoke it."
         , "push": "This is unmodified <code>Array.push</code> method. Calling it updates the model, which then updates the view through data-binding. The <code>ng&ndash;repeat</code> is bound to this array. It automatically unrolls the array and adds the new DOM element into the view. (see <code>ng&ndash;repeat</code> in <code>index.html</code> tab.)"
         , "todoText": "Because of  bi-directional data-binding, the model is always up to date. This means that we can simply read the state of the user input. No need for registering callbacks, event listeners or using framework dependent API."
