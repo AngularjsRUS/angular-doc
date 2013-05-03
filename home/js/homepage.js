@@ -298,9 +298,9 @@ angular.module('homepage', [])
 
   .directive('hint', function() {
     return {
-      template: '<em>Hint:</em> hover over ' +
-          '<code class="nocode" rel="popover" title="Hover" ' +
-          'data-content="Place your mouse over highlighted areas in the code for explanations.">me</code>.'
+      template: '<em>Подсказка:</em> наведите курсор на ' +
+          '<code class="nocode" rel="popover" title="Наведение" ' +
+          'data-content="Наведите курсор на выделенные участки в коде для подробного объяснения">меня</code>.'
     }
   })
 
