@@ -1,13 +1,13 @@
 @ngdoc overview
-@name Contributing
+@name Сотрудничество
 @description
 
 
-* <a href="#H1_1">License</a>
-* <a href="#H1_2">Contributing to Source Code</a>
-* <a href="#H1_3">Applying Code Standards</a>
-* <a href="#H1_4">Checking Out and Building `Angular`</a>
-* <a href="#H1_5">Submitting Your Changes</a>
+* <a href="#H1_1">Лицензия</a>
+* <a href="#H1_2">Работа над исходным кодом</a>
+* <a href="#H1_3">Использующийся стандарт кодирования</a>
+* <a href="#H1_4">Тестирование и сборка `Angular`</a>
+* <a href="#H1_5">Отправка изменений</a>
 
 
 <a name="H1_1"></a>
