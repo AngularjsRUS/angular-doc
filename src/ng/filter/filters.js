@@ -57,13 +57,13 @@ function currencyFilter($locale) {
  * @function
  *
  * @description
- * Formats a number as text.
+ * Преобразование числа в текст
  *
- * If the input is not a number an empty string is returned.
+ * Если ввод не является числом, возвращается пустая строка.
  *
- * @param {number|string} number Number to format.
- * @param {(number|string)=} [fractionSize=2] Number of decimal places to round the number to.
- * @returns {string} Number rounded to decimalPlaces and places a “,” after each third digit.
+ * @param {number|string} number Число для преобразования.
+ * @param {(number|string)=} [fractionSize=2] Количество знаков после запятой до которого произойдет округление.
+ * @returns {string} Число округленное дозаданного десятичного разряда с символом "," после каждой третьей цифры.
  *
  * @example
    <doc:example>
