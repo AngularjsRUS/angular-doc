@@ -1,8 +1,8 @@
 @ngdoc overview
-@name Downloading
+@name Загрузка
 @description
 
-# Including angular scripts from the Google CDN
+# Включение скрипта angular из Google CDN
 The quickest way to get started is to point your html `<script>` tag to a Google CDN URL.
 This way, you don't have to download anything or maintain a local copy.
 
