@@ -1,7 +1,7 @@
 @ngdoc overview
-@name API Reference
+@name Справочник API
 @description
 
-Use the API Reference documentation when you need more information about a specific feature. Check out
-{@link guide/ Developer Guide} for AngularJS concepts. If you are new to AngularJS we recommend the
-{@link tutorial/ Tutorial}.
+Используйте справочник API когда необходимо узнать больше о конкретной функции. Обратитесь к 
+{@link guide/ руководством разработчика} для получения информации о понятиях AngularJS. Если вы новичок 
+в AngularJS мы рекомендуем {@link tutorial/ учебник}.
