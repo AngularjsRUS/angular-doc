@@ -173,57 +173,55 @@ function FormController(element, attrs) {
  * @restrict E
  *
  * @description
- * Directive that instantiates
+ * Директива, которая создает экземпляр
  * {@link ng.directive:form.FormController FormController}.
  *
- * If `name` attribute is specified, the form controller is published onto the current scope under
- * this name.
+ * Если указан атрибут `name`, то форма будет доступна в текущем скопе(scope) под этим
+ * именем.
  *
  * # Alias: {@link ng.directive:ngForm `ngForm`}
  *
- * In angular forms can be nested. This means that the outer form is valid when all of the child
- * forms are valid as well. However browsers do not allow nesting of `<form>` elements, for this
- * reason angular provides {@link ng.directive:ngForm `ngForm`} alias
- * which behaves identical to `<form>` but allows form nesting.
+ * Angular позволяет создавать вложенные формы. Это означает что основная(внешняя) форма действительна(valid)
+ * когда все вложенные в нее формы действительны, т.е. не имеют ошибок. Так как браузеры не позволяют вкладывать элементы
+ * `<form>` друг в друга, angular для этих целей имеет alias(псевдоним) {@link ng.directive:ngForm `ngForm`}
+ * который ведет себя точно также как `<form>` но позволяет вам вкладывать формы друг в друга.
  *
  *
- * # CSS classes
- *  - `ng-valid` Is set if the form is valid.
- *  - `ng-invalid` Is set if the form is invalid.
- *  - `ng-pristine` Is set if the form is pristine.
- *  - `ng-dirty` Is set if the form is dirty.
+ * # CSS классы
+ *  - `ng-valid` проставляется если форма действительна(valid).
+ *  - `ng-invalid` проставляется если форма не действительна(invalid - имеет ошибки).
+ *  - `ng-pristine` проставляется если форму не меняли (не меняли значения полей внутри формы).
+ *  - `ng-dirty` проставляется если меняли форму (меняли значение полей внутри формы).
  *
  *
- * # Submitting a form and preventing default action
+ * # Отправка формы и отмена действия по умолчанию
  *
- * Since the role of forms in client-side Angular applications is different than in classical
- * roundtrip apps, it is desirable for the browser not to translate the form submission into a full
- * page reload that sends the data to the server. Instead some javascript logic should be triggered
- * to handle the form submission in application specific way.
+ * Поскольку роль форм в Angular приложениях отличается от классических приложений,
+ * желательно что бы отправка формы не приводила к перезагрузке браузером все страницы для
+ * отправки данных на сервер. Вместо этого должна отработать некоторая javascript логика в приложении,
+ * которая сама обработает отправку формы.
  *
- * For this reason, Angular prevents the default action (form submission to the server) unless the
- * `<form>` element has an `action` attribute specified.
+ * По этой причине Angular отменяет стандартное поведение по умолчанию (отправку формы на сервер)
+ * если только не указан атрибут `action` для элемента `form`.
  *
- * You can use one of the following two ways to specify what javascript method should be called when
- * a form is submitted:
+ * Вы можете использовать один из двух путей, описанных ниже, для того что бы определить
+ * какой javascript метод должен быть вызван при отправке формы:
  *
- * - {@link ng.directive:ngSubmit ngSubmit} directive on the form element
- * - {@link ng.directive:ngClick ngClick} directive on the first
-  *  button or input field of type submit (input[type=submit])
+ * - {@link ng.directive:ngSubmit ngSubmit} директива в элементе `form`
+ * - {@link ng.directive:ngClick ngClick} директива в первой кнопке или поле с типом submit (input[type=submit])
  *
- * To prevent double execution of the handler, use only one of ngSubmit or ngClick directives. This
- * is because of the following form submission rules coming from the html spec:
+ * Для того что бы предотвратить вызов обработчика два раза, используйте что то одно либо ngSubmit либо ngClick.
+ * Так происходит из за описанных ниже правил отправки формы в html спецификации:
  *
- * - If a form has only one input field then hitting enter in this field triggers form submit
- * (`ngSubmit`)
- * - if a form has has 2+ input fields and no buttons or input[type=submit] then hitting enter
- * doesn't trigger submit
- * - if a form has one or more input fields and one or more buttons or input[type=submit] then
- * hitting enter in any of the input fields will trigger the click handler on the *first* button or
- * input[type=submit] (`ngClick`) *and* a submit handler on the enclosing form (`ngSubmit`)
+ * - Если форма имеет только одно поле для ввода(input), тогда нажатие на enter внутри этого поля приведет
+ *   к отправке формы, событие submit (`ngSubmit`)
+ * - Если форма имеет больше одного поля для ввода и ни одной кнопки или input[type=submit] тогда нажатие на enter
+ *   внутри поля ввода не вызовет отправку формы
+ * - Если форма имеет больше одного поля для ввода и одну или больше кнопок или input[type=submit]
+ *   тогда нажатие на enter внутри любого поля для ввода вызовет событие click на *первой* кнопке
+ *   или input[type=submit] (`ngClick`) *и* событие submit(отправку формы) у ближайшей формы (`ngSubmit`)
  *
- * @param {string=} name Name of the form. If specified, the form controller will be published into
- *                       related scope, under this name.
+ * @param {string=} name Имя формы. Если определен, тогда форма будет доступна в текущем скопе(scope) под этим именем.
  *
  * @example
     <doc:example>
