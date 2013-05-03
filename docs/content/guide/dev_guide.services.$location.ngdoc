@@ -142,22 +142,21 @@ $location синхронизируется с браузером, последн
 Можно передать специальные в сервис `$location` и они закодируются в соответствии со спецификацией 
 {{@link http://www.ietf.org/rfc/rfc3986.txt RFC 3986}. При обращении к методам:
 
-- All values that are passed to `$location` setter methods, `path()`, `search()`, `hash()`, are
-encoded.
-- Getters (calls to methods without parameters) return decoded values for the following methods
+- Лбые згначения, передаваемые в `$location` сеттером, `path()`, `search()`, `hash()` кодируются.
+- Геттеры (вызванные без параметров) возвращают раскодированное значение для методов
 `path()`, `search()`, `hash()`.
-- When you call the `absUrl()` method, the returned value is a full url with its segments encoded.
-- When you call the `url()` method, the returned value is path, search and hash, in the form
-`/path?search=a&b=c#hash`. The segments are encoded as well.
+- при вызове метода `absUrl()`, возвращенное значение представляет собой полный url, все части которого закодированы.
+- При вызове метода `url()`, возвращенное значение представляет собой путь, парметры поиска или хэш в виде
+`/path?search=a&b=c#hash`. Части так же кодируются.
 
 
-# Hashbang and HTML5 Modes
+# Hashbang и режим HTML5
 
-`$location` service has two configuration modes which control the format of the URL in the browser
-address bar: **Hashbang mode** (the default) and the **HTML5 mode** which is based on using the
-HTML5 {@link http://www.w3.org/TR/html5/history.html History API}. Applications use the same API in
-both modes and the `$location` service will work with appropriate URL segments and browser APIs to
-facilitate the browser URL change and history management.
+У cервиса `$location` есть два режима конфигурации, которые управляют форматом URL в адресной 
+строке браузера: **режим Hashbang** (по умолчанию) и **режим HTML5**, которые основаны на использовании
+HTML5 {@ ссылка http://www.w3.org/TR/html5/history.html История API}. Приложения используют тот же интерфейс в
+обоих режимов и сервис `$location` будет работать с соответствующими частями URL и браузерным API для
+способствования изменению URL браузера и управления историей.
 
 <img src="img/guide/hashbang_vs_regular_url.jpg">
 
@@ -166,44 +165,44 @@ facilitate the browser URL change and history management.
 
   <tr>
     <th class="empty-corner-lt"></th>
-    <th>Hashbang mode</th>
-    <th>HTML5 mode</th>
+    <th>режим Hashbang</th>
+    <th>режим HTML5</th>
   </tr>
 
 </thead>
 <tbody>
 
   <tr>
-    <td class="head">configuration</td>
-    <td>the default</td>
+    <td class="head">конфигурация</td>
+    <td>по умолчанию</td>
     <td>{ html5Mode: true }</td>
   </tr>
 
   <tr>
-    <td class="head">URL format</td>
-    <td>hashbang URLs in all browsers</td>
-    <td>regular URLs in modern browser, hashbang URLs in old browser</td>
+    <td class="head">формат URL</td>
+    <td>hashbang URLs в любом браузере</td>
+    <td>постоянные URL в современном браузере, hashbang URL в старом браузере</td>
   </tr>
 
   <tr>
-    <td class="head">&lt;a href=""&gt; link rewriting</td>
-    <td>no</td>
-    <td>yes</td>
+    <td class="head">&lt;a href=""&gt; перезапись ссылок</td>
+    <td>нет</td>
+    <td>да</td>
   </tr>
 
   <tr>
-    <td class="head">requires server-side configuration</td>
-    <td>no</td>
-    <td>yes</td>
+    <td class="head">запрос серверных настроек</td>
+    <td>нет</td>
+    <td>да</td>
   </tr>
 </tbody>
 </table>
 
-## Hashbang mode (default mode)
+## Режим hashbang (режим по умолчанию)
 
-In this mode, `$location` uses Hashbang URLs in all browsers.
+В этом режиме `$location` использует Hashbang URL в любых браузерах.
 
-### Example
+### Пример
 
 <pre>
 it('should show example', inject(
@@ -212,7 +211,7 @@ it('should show example', inject(
     $locationProvider.hashPrefix = '!';
   },
   function($location) {
-    // open http://host.com/base/index.html#!/a
+    // открываем http://host.com/base/index.html#!/a
     $location.absUrl() == 'http://host.com/base/index.html#!/a'
     $location.path() == '/a'
 
@@ -229,30 +228,27 @@ it('should show example', inject(
 ));
 </pre>
 
-### Crawling your app
+### Индексация приложения
 
-To allow indexing of your AJAX application, you have to add special meta tag in the head section of
-your document:
+Чтобы разрешить индексацию AJAX-приложения, необходимо добавить специальный мета-тег в заголовок документа:
 <pre><meta name="fragment" content="!" /></pre>
 
-This will cause crawler bot to request links with `_escaped_fragment_` param so that your server
-can recognize the crawler and serve a HTML snapshots. For more information about this technique,
-see {@link http://code.google.com/web/ajaxcrawling/docs/specification.html Making AJAX Applications
-Crawlable}.
+Это приведет к тому что поисковый бот запросит ссылки упареметра `_escaped_fragment_`, чтобы ваш сервер
+мог распознать индексацию и выдал снимок HTML. Для получения дополнительной информации об этой технике см. {@link http://code.google.com/web/ajaxcrawling/docs/specification.html Making AJAX Applications
+Crawlable}
 
-## HTML5 mode
+## Режим HTML5
 
-In HTML5 mode, the `$location` service getters and setters interact with the browser URL address
-through the HTML5 history API, which allows for use of regular URL path and search segments,
-instead of their hashbang equivalents. If the HTML5 History API is not supported by a browser, the
-`$location` service will fall back to using the hashbang URLs automatically. This frees you from
-having to worry about whether the browser displaying your app supports the history API  or not; the
-`$location` service transparently uses the best available option.
+В режиме HTML5 геттеры и сеттеры сервиса `$location` взаимодействовуют с URL-адресом браузера
+через HTML5 history API, который позволяет использовать обычный путь URL и поиск частей 
+вместо их hashbang эквивалентов. Если HTML5 History API не поддерживается браузером, сервис `$location` 
+вернется к использованию hashbang URL-адресов автоматически. Это освобождает вас от
+беспокойства, поддерживает ли браузер history API или нет; сервис `$location` прозрачно воспользуется лучшим вариантом.
 
-- Opening a regular URL in a legacy browser -> redirects to a hashbang URL
-- Opening hashbang URL in a modern browser -> rewrites to a regular URL
+- Открытие постоянного URL в устаревшем браузере -> перенаправляет на hashbang URL
+- Открытие hashbang URL в современном браузере -> перезаписывает на постоянный URL
 
-### Example
+### Пример
 
 <pre>
 it('should show example', inject(
@@ -261,9 +257,9 @@ it('should show example', inject(
     $locationProvider.hashPrefix = '!';
   },
   function($location) {
-    // in browser with HTML5 history support:
-    // open http://host.com/#!/a -> rewrite to http://host.com/a
-    // (replacing the http://host.com/#!/a history record)
+    // в браузере с поддержкой HTML5 history:
+    // открываем http://host.com/#!/a -> перезаписываем на http://host.com/a
+    // (заменяем запись http://host.com/#!/a в истории)
     $location.path() == '/a'
 
     $location.path('/foo');
@@ -277,9 +273,9 @@ it('should show example', inject(
     $location.url() == 'new?x=y'
     $location.absUrl() == 'http://host.com/new?x=y'
 
-    // in browser without html5 history support:
-    // open http://host.com/new?x=y -> redirect to http://host.com/#!/new?x=y
-    // (again replacing the http://host.com/new?x=y history item)
+    // в браузере, не поддерживающем html5 history:
+    // открываем http://host.com/new?x=y -> перенаправляем на http://host.com/#!/new?x=y
+    // (вновь заменяем часть http://host.com/new?x=y в истории)
     $location.path() == '/new'
     $location.search() == {x: 'y'}
 
@@ -291,26 +287,26 @@ it('should show example', inject(
 ));
 </pre>
 
-### Fallback for legacy browsers
+### Поддержка старых браузеров
 
-For browsers that support the HTML5 history API, `$location` uses the HTML5 history API to write
-path and search. If the history API is not supported by a browser, `$location` supplies a Hasbang
-URL. This frees you from having to worry about whether the browser viewing your app supports the
-history API  or not; the `$location` service makes this transparent to you.
+Для браузеров, которые поддерживают HTML5 history API, `$location` использует HTML5 history API для записи 
+пути и поиска. Если history API не поддерживается браузером, `$location` подставляет Hasbang
+URL. Это освобождает вас от
+беспокойства, поддерживает ли браузер history API или нет; сервис `$location` прозрачно воспользуется лучшим вариантом.
 
-### Html link rewriting
+### Перезапист ссылок в html
 
-When you use HTML5 history API mode, you will need different links in different browsers, but all you
-have to do is specify regular URL links, such as: `<a href="/some?foo=bar">link</a>`
+При использовании режима HTML5 history API разным браузерам будут необходимы разные ссылки, но все, что 
+нужно сделать, это указать постоянные URL-ссылки, такие как: `<a href="/some?foo=bar">link</a>`
 
-When a user clicks on this link,
+Когда пользователь щелкает по ссылке,
 
-- In a legacy browser, the URL changes to `/index.html#!/some?foo=bar`
-- In a modern browser, the URL changes to `/some?foo=bar`
+- В старом браузере URL меняется на `/index.html#!/some?foo=bar`
+- В современном браузере URL меняется на `/some?foo=bar`
 
 
-In cases like the following, links are not rewritten; instead, the browser will perform a full page
-reload to the original link.
+В случаях как в примере ниже, ссылки не переписываются; вместо этого, браузер покажет целую страницу, загруженную по 
+первоначальной ссылке.
 
 - Links that contain `target` element<br>
   Example: `<a href="/ext/link?a=b" target="_self">link</a>`
