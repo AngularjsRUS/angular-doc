@@ -285,7 +285,7 @@ angular.module('homepage', [])
             hiddenField('js', fields.js) +
             '<button class="btn btn-primary">' +
               '<i class="icon-white icon-pencil"></i> ' +
-              'Edit Me' +
+              'Изменить' +
             '</button>' +
           '</form>');
 
@@ -298,7 +298,7 @@ angular.module('homepage', [])
 
   .directive('hint', function() {
     return {
-      template: '<em>Подсказка:</em> наведите курсор на ' +
+      template: '<em>Подсказка:</em> наведите на ' +
           '<code class="nocode" rel="popover" title="Наведение" ' +
           'data-content="Наведите курсор на выделенные участки в коде для подробного объяснения">меня</code>.'
     }
