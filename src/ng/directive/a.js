@@ -6,11 +6,11 @@
  * @restrict E
  *
  * @description
- * Modifies the default behavior of html A tag, so that the default action is prevented when href
- * attribute is empty.
+ * Изменяет стандартное поведение html тега A, если атрибут href пустой то действие по умолчанию будет
+ * отменено.
  *
- * The reasoning for this change is to allow easy creation of action links with `ngClick` directive
- * without changing the location or causing page reloads, e.g.:
+ * Смысл этого изменения в том, что бы можно было легко создавать ссылки с директивой
+ * `ngClick` и при этом не волноваться о перезагрузке страницы или изменении адреса. Пример:
  * `<a href="" ng-click="model.$save()">Save</a>`
  */
 var htmlAnchorDirective = valueFn({
