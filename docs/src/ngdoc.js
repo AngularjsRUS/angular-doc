@@ -315,12 +315,12 @@ Doc.prototype = {
 
     dom.h(title(this.name), function() {
 
-      notice('deprecated', 'Deprecated API', self.deprecated);
+      notice('не рекоммендуется', 'Не рекоммендуемое API', self.deprecated);
       dom.tag('a', {href: 'http://github.com/maksimr/angular-doc/edit/master/' + self.file, class: 'improve-docs btn btn-primary'}, 'Улучшить перевод');
       if (self.ngdoc != 'overview') {
-        dom.h('Description', self.description, dom.html);
+        dom.h('Описание', self.description, dom.html);
       }
-      dom.h('Dependencies', self.requires, function(require){
+      dom.h('Зависимости', self.requires, function(require){
         dom.tag('code', function() {
           dom.tag('a', {href: 'api/ng.' + require.name}, require.name);
         });
@@ -331,7 +331,7 @@ Doc.prototype = {
         throw new Error("Неизвестно как форматировать @ngdoc: " + self.ngdoc);
       }).call(self, dom);
 
-      dom.h('Example', self.example, dom.html);
+      dom.h('Пример', self.example, dom.html);
     });
 
     return dom.toString();
@@ -349,12 +349,12 @@ Doc.prototype = {
   },
 
   html_usage_parameters: function(dom) {
-    dom.h('Parameters', this.param, function(param){
+    dom.h('Параметры', this.param, function(param){
       dom.tag('code', function() {
         dom.text(param.name);
         if (param.optional) {
           dom.tag('i', function() {
-            dom.text('(optional');
+            dom.text('(опционально');
             if(param['default']) {
               dom.text('=' + param['default']);
             }
@@ -371,7 +371,7 @@ Doc.prototype = {
       dom.html(param.description);
     });
     if(this.animations) {
-      dom.h('Animations', this.animations, function(animations){
+      dom.h('Анимации', this.animations, function(animations){
         dom.html('<ul>');
         var animations = animations.split("\n");
         animations.forEach(function(ani) {
@@ -387,7 +387,7 @@ Doc.prototype = {
   html_usage_returns: function(dom) {
     var self = this;
     if (self.returns) {
-      dom.h('Returns', function() {
+      dom.h('Возвращает', function() {
         dom.tag('code', '{' + self.returns.type + '}');
         dom.text('– ');
         dom.html(self.returns.description);
@@ -410,7 +410,7 @@ Doc.prototype = {
     var self = this;
     var name = self.name.match(/^angular(\.mock)?\.(\w+)$/) ? self.name : self.name.split(/\./).pop()
 
-    dom.h('Usage', function() {
+    dom.h('Применение', function() {
       dom.code(function() {
         dom.text(name);
         dom.text('(');
@@ -427,7 +427,7 @@ Doc.prototype = {
 
   html_usage_property: function(dom){
     var self = this;
-    dom.h('Usage', function() {
+    dom.h('Применение', function() {
       dom.code(function() {
         dom.text(self.name);
       });
@@ -438,7 +438,7 @@ Doc.prototype = {
 
   html_usage_directive: function(dom){
     var self = this;
-    dom.h('Usage', function() {
+    dom.h('Применение', function() {
       var restrict = self.restrict || 'AC';
 
       if (restrict.match(/E/)) {
@@ -457,7 +457,7 @@ Doc.prototype = {
         });
       } else {
         if (restrict.match(/E/)) {
-          dom.text('as element:');
+          dom.text('как элемент:');
           dom.code(function() {
             dom.text('<');
             dom.text(dashCase(self.shortName));
@@ -469,7 +469,7 @@ Doc.prototype = {
         }
         if (restrict.match(/A/)) {
           var element = self.element || 'ANY';
-          dom.text('as attribute');
+          dom.text('как атрибут');
           dom.code(function() {
             dom.text('<' + element + ' ');
             dom.text(dashCase(self.shortName));
@@ -479,7 +479,7 @@ Doc.prototype = {
           });
         }
         if (restrict.match(/C/)) {
-          dom.text('as class');
+          dom.text('как класс');
           var element = self.element || 'ANY';
           dom.code(function() {
             dom.text('<' + element + ' class="');
@@ -562,8 +562,8 @@ Doc.prototype = {
 
   html_usage_filter: function(dom){
     var self = this;
-    dom.h('Usage', function() {
-      dom.h('In HTML Template Binding', function() {
+    dom.h('Применение', function() {
+      dom.h('В HTML-шаблоне', function() {
         dom.tag('code', function() {
           if (self.usage) {
             dom.text(self.usage);
@@ -578,7 +578,7 @@ Doc.prototype = {
         });
       });
 
-      dom.h('In JavaScript', function() {
+      dom.h('В JavaScript', function() {
         dom.tag('code', function() {
           dom.text('$filter(\'');
           dom.text(self.shortName);
@@ -596,7 +596,7 @@ Doc.prototype = {
 
   html_usage_inputType: function(dom){
     var self = this;
-    dom.h('Usage', function() {
+    dom.h('Применение', function() {
       dom.code(function() {
         dom.text('<input type="' + self.shortName + '"');
         (self.param||[]).forEach(function(param){
@@ -625,7 +625,7 @@ Doc.prototype = {
     }
 
     if (list.length) {
-      dom.h('Directive info', function() {
+      dom.h('Информация о директиве', function() {
         dom.ul(list);
       });
     }
@@ -667,7 +667,7 @@ Doc.prototype = {
     var self = this;
     if (self.methods.length) {
       dom.div({class:'member method'}, function(){
-        dom.h('Methods', self.methods, function(method){
+        dom.h('Методы', self.methods, function(method){
           var signature = (method.param || []).map(property('name'));
           dom.h(method.shortName + '(' + signature.join(', ') + ')', method, function() {
             dom.html(method.description);
@@ -675,46 +675,46 @@ Doc.prototype = {
             self.html_usage_this(dom);
             method.html_usage_returns(dom);
 
-            dom.h('Example', method.example, dom.html);
+            dom.h('Пример', method.example, dom.html);
           });
         });
       });
     }
     if (self.properties.length) {
       dom.div({class:'member property'}, function(){
-        dom.h('Properties', self.properties, function(property){
+        dom.h('Свойства', self.properties, function(property){
           dom.h(property.shortName, function() {
             dom.html(property.description);
             if (!property.html_usage_returns) {
               console.log(property);
             }
             property.html_usage_returns(dom);
-            dom.h('Example', property.example, dom.html);
+            dom.h('Пример', property.example, dom.html);
           });
         });
       });
     }
     if (self.events.length) {
       dom.div({class:'member event'}, function(){
-        dom.h('Events', self.events, function(event){
+        dom.h('События', self.events, function(event){
           dom.h(event.shortName, event, function() {
             dom.html(event.description);
             if (event.type == 'listen') {
               dom.tag('div', {class:'inline'}, function() {
-                dom.h('Listen on:', event.target);
+                dom.h('Слушает:', event.target);
               });
             } else {
               dom.tag('div', {class:'inline'}, function() {
-                dom.h('Type:', event.type);
+                dom.h('Тип:', event.type);
               });
               dom.tag('div', {class:'inline'}, function() {
-                dom.h('Target:', event.target);
+                dom.h('Цель:', event.target);
               });
             }
             event.html_usage_parameters(dom);
             self.html_usage_this(dom);
 
-            dom.h('Example', event.example, dom.html);
+            dom.h('Пример', event.example, dom.html);
           });
         });
       });
