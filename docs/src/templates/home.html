@@ -543,12 +543,12 @@
         { "TodoCtrl": "Контроллер это код, позади представления. Хорошо видно, как ведет себя приложение, потому что в нем нет никаких DOM-манипуляций или специальных шаблонов фреймворка. Только простой, читаемый JavaScript."
         , "$scope": "<code>$scope</code> содержит данные модели. Это связующее звено между контроллером и видом. <code>$scope</code> всего лишь один из сервисов, внедренных в контроллер."
         , "todos": "Мы создали модель с двумя делами в списке.Обратите внимание, что вашей модели нужно просто присвоить <code>$scope</code> и AngularJS отразитсостояние в пользовательском интерфейсе самостоятельно. Модель данных это старый-добрый объект JavaScript, который не нужно чем либо оборачивать или изменять свойства через специальные сеттеры."
-        , "addTodo": "We are assigning the behavior into the <code>$scope</code> so that the <code>ng-click</code> can invoke it."
-        , "push": "This is unmodified <code>Array.push</code> method. Calling it updates the model, which then updates the view through data-binding. The <code>ng&ndash;repeat</code> is bound to this array. It automatically unrolls the array and adds the new DOM element into the view. (see <code>ng&ndash;repeat</code> in <code>index.html</code> tab.)"
-        , "todoText": "Because of  bi-directional data-binding, the model is always up to date. This means that we can simply read the state of the user input. No need for registering callbacks, event listeners or using framework dependent API."
-        , "''": "Writing to the form controls is just as easy. The data-binding will clear the control for us."
-        , "remaining": "This is a computed property. No need to define its dependencies or worry about when it needs to be updated."
-        , "[]": "You can replace the model with new instance at any time, without doing any special model listener registration."
+        , "addTodo": "Мы назначаем поведение в <code>$scope</code> так чтобы <code>ng-click</code> мог его вызвать."
+        , "push": "Неизменяемый метод <code>Array.push</code>. Его вызов обновляет модель, которая затем обновляет вид посредством связывания данных. <code>ng&ndash;repeat</code> связан с этим массивом. Он автоматически проходится по массиву и добавляет новый DOM-элемент в вид. (см. <code>ng&ndash;repeat</code> на вкладке <code>index.html</code>.)"
+        , "todoText": "Из-за двунаправленного связывания данных модель всегда находится в актуальном состоянии. Это означает, что мы можем запросто читать состояние пользовательского ввода. Нет необходимости регистрировать колбэки, обработчики событий или зависимости из API фреймворка."
+        , "''": "Записать что-либо в поле ввода в форме так же легко. Связывание данных будет всё прозрачно контроллировать"
+        , "remaining": "Вычисленное свойство. Его не нужно определять и беспокоится о его обновлении."
+        , "[]": "В любое время можно заменить модель новым экземпляром без какой-либо регистрации наблюдателей за моделью"
         }
       }
     </script>
@@ -823,12 +823,12 @@
     </script>
     <script type="text/ng-template" id="tabs.html">
       <tabs>
-        <pane title="Localization">
-          Date: {{ '2012-04-01' | date:'fullDate' }} <br>
-          Currency: {{ 123456 | currency }} <br>
-          Number: {{ 98765.4321 | number }} <br>
+        <pane title="Локализация">
+          Дата: {{ '2012-04-01' | date:'fullDate' }} <br>
+          Валюта: {{ 123456 | currency }} <br>
+          Число: {{ 98765.4321 | number }} <br>
         </pane>
-        <pane title="Pluralization">
+        <pane title="Множественное число">
           <div ng-controller="BeerCounter">
             <div ng-repeat="beerCount in beers">
               <ng-pluralize count="beerCount" when="beerForms"></ng-pluralize>
