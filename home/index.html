@@ -7,17 +7,17 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="Description"
-  content="AngularJS это то, чем был бы HTML, если бы он проектировался для веб-приложений.
-           Декларативные шаблоны с data-binding, MVW, MVVM, MVC, dependency injection и превосходная
-           тестируемость всех иннструментов в чистом клиентском JavaScript">
+        content="AngularJS is what HTML would have been, had it been designed for building web-apps.
+                 Declarative templates with data-binding, MVW, MVVM, MVC, dependency injection and great
+                 testability story all implemented with pure client-side JavaScript!">
   <title>AngularJS — Superheroic JavaScript MVW Framework</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon">
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-  <link rel="stylesheet" href="home/css/bootstrap.min.css">
-  <link rel="stylesheet" href="home/css/docs.css">
-  <link rel="stylesheet" href="home/css/font-awesome.css">
-  <link href="home/google-code-prettify/prettify.css" type="text/css" rel="stylesheet">
-  <base href="/">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/docs.css">
+  <link rel="stylesheet" href="css/font-awesome.css">
+  <link href="google-code-prettify/prettify.css" type="text/css" rel="stylesheet">
+  <base href="/home">
 
   ﻿<!--[if lte IE 8]>
     <script>
@@ -100,12 +100,12 @@
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
-          <a class="brand" href="/" style="padding-top: 3px; padding-bottom: 0px;">
+          <a class="brand" href="/home.html" style="padding-top: 3px; padding-bottom: 0px;">
             <img class="AngularJS-small" src="/img/AngularJS-small.png" style="width: auto; height: auto;">
           </a>
           <ul class="nav">
             <li class="divider-vertical"></li>
-            <li class="active"><a href="/"><i class="icon-home icon-white"></i> Главная</a></li>
+            <li class="active"><a href="/home.html"><i class="icon-home icon-white"></i> Главная</a></li>
             <li class="divider-vertical"></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -136,7 +136,7 @@
             <li class="divider-vertical"></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="icon-comment icon-white"></i> Обсуждение <b class="caret"></b>
+                <i class="icon-comment icon-white"></i> Discuss <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
                 <li><a href="http://blog.angularjs.org/">Блог</a></li>
@@ -171,11 +171,11 @@
             <img class="AngularJS-large" src="home/img/AngularJS-large.png">
           </div>
           <div class="center">
-            <h1>Супер-героический HTML для веб-приложений!</h1>
+            <h1>HTML enhanced for web apps!</h1>
           </div>
           <div class="center">
             <a class="btn btn-large" href="https://github.com/angular/angular.js">
-              <i class="icon-github-sign"></i> Смотреть на GitHub
+              <i class="icon-github-sign"></i> View on GitHub
             </a>
             <span class="spacer"></span>
 
@@ -208,25 +208,27 @@
       <div class="span4">
         <h1>Почему AngularJS?</h1>
         <p>
-          HTML отлично подходит для описания статиченых документов, но он спотыкается, когда мы пытаемся 
-          использовать его для описания динамических видов в веб-приложениях. AngularJS позволяет расширить
-          синтаксис HTML. В результате код получается чрезвычайно выразительным, читаемым, и быстро развиваемым.
+          HTML is great for declaring static documents, but it falters when we try to use it for
+          declaring dynamic views in web-applications. AngularJS lets you extend HTML vocabulary
+          for your application. The resulting environment is extraordinarily expressive, readable,
+          and quick to develop.
         </p>
       </div>
       <div class="span4">
         <h1>Альтернативы</h1>
         <p>
-          Другие фреймворки преодолевают недостатки HTML либо абстрагируясь от HTML, CSS, и/или JavaScript, 
-          либо предоставляя обязательные инструменты для манипулирования DOM. Ни один из этих способов 
-          ни устраняет причину проблемы, а именно того, что HTML не предназначен для динамических представлений.
+          Other frameworks deal with HTML’s shortcomings by either abstracting away HTML, CSS,
+          and/or JavaScript or by providing an imperative way for manipulating the DOM. Neither of
+          these address the root problem that HTML was not designed for dynamic views.
         </p>
       </div>
       <div class="span4">
         <h1>Расширяемость</h1>
         <p>
-          AngularJS это набор инструментов для построения фреймворка, наиболее подходящего для создания вашего приложения. 
-          Оно полноценно расширяем и отлично работает с другими библиотеками. Любая особенность 
-          может быть изменена или заменена в соответствии с вашим уникальным путем развития и потребностями. Читайте дальше, чтобы узнать как.
+          AngularJS is a toolset for building the framework most suited to your application
+          development. It is fully extensible and works well with other libraries. Every feature
+          can be modified or replaced to suit your unique development workflow and feature needs.
+          Read on to find out how.
         </p>
       </div>
     </div>
@@ -248,30 +250,30 @@
 
 
 
-    <h1 id="add-some-control">Управление</h1>
+    <h1 id="add-some-control">Add Some Control</h1>
     <div class="row">
       <div class="span4">
-        <h3>Связывание данных</h3>
+        <h3>Data Binding</h3>
         <p>
-          Связывание данных это способ автоматического обновления вида при изменении модели, 
-          а также обновление модели при изменении вида. Что удивительно, потому что это 
-          исключает DOM-манипуляции из списка вещей, о которых вы должны беспокоиться.
+          Data-binding is an automatic way of updating the view whenever the model changes, as
+          well as updating the model whenever the view changes. This is awesome because it
+          eliminates DOM manipulation from the list of things you have to worry about.
         </p>
       </div>
       <div class="span4">
-        <h3>Контроллер</h3>
+        <h3>Controller</h3>
         <p>
-          Контроллеры добавляют поведение DOM-элементам. AngularJS позволяет выразить 
-          поведение в чистой читаемой форме без обычного шаблонного обновления DOM, 
-          регистрации обратных вызовов или просмотра изменений модели.
+          Controllers are the behavior behind the DOM elements. AngularJS lets you express the
+          behavior in a clean readable form without the usual boilerplate of updating the DOM,
+          registering callbacks or watching model changes.
         </p>
       </div>
       <div class="span4">
-        <h3>Ясный JavaScript</h3>
+        <h3>Plain JavaScript</h3>
         <p>
-          В отличие от других фреймворков, нет необходимости наследоваться от собственных типов; оборачивать 
-          модель методами доступа. Только старый добрый JavaScript. Это позволяет легко тестировать ваш код, 
-          обслуживать, повторно использовать и опять же освободить от шаблонов.
+          Unlike other frameworks, there is no need to inherit from proprietary types; to wrap the
+          model in accessors methods. Just plain old JavaScript here. This makes your code easy to
+          test, maintain, reuse, and again free from boilerplate.
         </p>
       </div>
     </div>
@@ -299,32 +301,32 @@
     </div>
 
 
-    <h1 id="wire-up-a-backend">Связь с сервером</h1>
+    <h1 id="wire-up-a-backend">Wire up a Backend</h1>
     <div class="row">
       <div class="span4">
-        <h3>Глубокое связывание</h3>
+        <h3>Deep Linking</h3>
         <p>
-          Глубокая связь показывает где находится пользователь в приложении, это полезно, так как пользователи могут создавать закладки 
-          и адреса электронной почты в пределах приложения. Многостраничные приложения имеют это автоматически, но 
-          AJAX-приложения по своей природе не такие. AngularJS сочетает в себе преимущества глубокого связывания с 
-          поведением приложения подобного настольному.
+          A deep link reflects where the user is in the app, this is useful so users can bookmark
+          and email links to locations within apps. Round trip apps get this automatically, but
+          AJAX apps by their nature do not. AngularJS combines the benefits of deep link with
+          desktop app-like behavior.
         </p>
       </div>
       <div class="span4">
-        <h3>Валидация форм</h3>
+        <h3>Form Validation</h3>
         <p>
-          На стороне клиента проверка форм является важной для улучшения пользовательского опыта. 
-          AngularJS позволяет задавать правила проверки формы без необходимости писать 
-          JavaScript код. Пишешь меньше кода — раньше пьешь пиво.
+          Client-side form validation is an important part of great user experience.
+          AngularJS lets you declare the validation rules of the form without having to write
+          JavaScript code. Write less code, go have beer sooner.
         </p>
       </div>
       <div class="span4">
-        <h3>Обмен данными</h3>
+        <h3>Server Communication</h3>
         <p>
-          AngularJS предоставляет сервисы высокоуроневого XHR, что существенно упрощает код. Мы обернули XHR, 
-          чтобы дать вам исключительное управление и обещания. Обещания еще больше упростить код при обработке 
-          асинхронно-полученных данных. Это позволяет назначать свойства синхронно когда получение на самом деле 
-          асинхронное.
+          AngularJS provides services on top of XHR, that dramatically simplify your code. We wrap
+          XHR to give you exception management and promises. Promises further simplify your code
+          by handling asynchronous return of data. This lets you assign properties synchronously
+          when the return is actually asynchronous.
         </p>
       </div>
     </div>
@@ -346,30 +348,29 @@
 
 
 
-    <h1 id="create-components">Создание компонентов</h1>
+    <h1 id="create-components">Create Components</h1>
     <div class="row">
       <div class="span4">
-        <h3>Директивы</h3>
+        <h3>Directives</h3>
         <p>
-          Директивы - это уникальная и мощная функциональность доступная только в Angular.
-          Директивы позволяют Вам изобретать новый HTML синтаксис, специально под Ваше приложение.
+          Directives is a unique and powerful feature available only in Angular. Directives let
+          you invent new HTML syntax, specific to your application.
         </p>
       </div>
       <div class="span4">
-        <h3>Повторное использование</h3>
+        <h3>Reusable Components</h3>
         <p>
-          Мы используем директивы для создания повторно используемых компонентов.
-          Компонент позволяет Вам скрывать сложную DOM структуру, CSS и поведение.
-          Это позволяет вам отдельно сфокусировать свое внимание, на том что приложение делает или
-          как оно выглядит.
+          We use directives to create reusable components. A component allows you to hide complex
+          DOM structure, CSS, and behavior. This lets you focus either on what the application
+          does or how the application looks separately.
         </p>
       </div>
       <div class="span4">
-        <h3>Локализация</h3>
+        <h3>Localization</h3>
         <p>
-          Одна из важнейших частей серьёзного приложения - это локализация.
-          Angular предоставляет фильтры и директивы которые помогут вам
-          сделать ваше приложение доступным для разных языков и культур.
+          An important part of serious apps is localization. Angular's locale aware filters and
+          stemming directives give you building blocks to make your application available in all
+          locales.
         </p>
       </div>
     </div>
@@ -389,39 +390,35 @@
 
 
 
-    <h1 id="embed-and-inject"> Встраивание и внедрение</h1>
+    <h1 id="embed-and-inject">Embed and Inject</h1>
     <div class="row">
       <div class="span4">
-        <h3>Встраиваемость</h3>
+        <h3>Embeddable</h3>
         <p>
-          AngularJS превосходно работает с другими технологиями.
-          Вы сами выбираете что использовать из AngularJS в вашем приложении.
-          Большинство фреймворков требуют полного контроля над всей страницей(приложением).
-          Эта же страница состоит из нескольких AngularJS приложений встроенных в нее.
-          Так как AngularJS не требует контроля над все страницей, то несколько приложений могут
-          быть запущены на одной странице без необходимости использовать <code>iframe</code>.
-          Мы рекомендуем открыть код этой страницы (view-source) и посмотреть как он выглядит.
+          AngularJS works great with other technologies. Add as much or as little of AngularJS to
+          an existing page as you like. Many other frameworks require full commitment. This page
+          has multiple AngularJS applications embedded in it. Because AngularJS has no global
+          state multiple apps can run on a single page without the use of <code>iframe</code>s. We
+          encourage you to view-source and look around.
         </p>
       </div>
       <div class="span4">
-        <h3>Внедряемость</h3>
+        <h3>Injectable</h3>
         <p>
-          Dependency injection(внедрение зависимостей) в AngularJS позволяет Вам
-          декларативно описывать взаимосвязи внутри вашего приложения. Это означает
-          что ваше приложение не нуждается в методе main(), который как правило создает беспорядок.
-          Dependency injection является одной из ключевых особенностей AngularJS. Это
-          означает что любой компонент который не соответствует вашим потребностям может
-          быть легко заменен.
+          The dependency injection in AngularJS allows you to declaratively describe how your
+          application is wired. This means that your application needs no <code>main()</code>
+          method which is usually an unmaintainable mess. Dependency injection is also a core to
+          AngularJS. This means that any component which does not fit your needs can easily be
+          replaced.
         </p>
       </div>
       <div class="span4">
-        <h3>Тестируемость</h3>
+        <h3>Testable</h3>
         <p>
-          AngularJS была спроектирована так, что бы быть лёгким в тестировании.
-          Он отделяет представление от поведения, уже имеет в комплекте mock'и, и
-          по полной использует dependency injection. Так же AngularJS имеет
-          свой движок для интеграционных текстов (end-to-end сценариев), который
-          изолирует вас от множества проблем, так он знает как устроен AngularJS внутри.
+          AngularJS was designed from ground up to be testable. It encourages behavior-view
+          separation, comes pre-bundled with mocks, and takes full advantage of dependency
+          injection. It also comes with end-to-end scenario runner which eliminates test flakiness
+          by understanding the inner workings of AngularJS.
         </p>
       </div>
     </div>
@@ -430,9 +427,9 @@
 
   <footer class="footer">
     <div class="container">
-      <p class="pull-right"><a href="http://angularjs.org/#" target="_self">Наверх</a></p>
-      <p>Супер-разработка Google, супер-перевод tamtakoe, maksimr, vsorlov, altbog, alvas, madhead, DWand, Chiuaua и др. ©2010-2013</p>
-      <p>Лицензия на исходный код
+      <p class="pull-right"><a href="#" target="_self">Back to top</a></p>
+      <p>Super-powered by Google  ©2010-2012</p>
+      <p>Code licensed under the
         <a href="https://github.com/angular/angular.js/blob/master/LICENSE" target="_blank">The
           MIT License</a>. Documentation licensed under <a
             href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
