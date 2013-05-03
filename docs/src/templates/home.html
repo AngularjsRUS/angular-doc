@@ -700,7 +700,7 @@
        , "ng-view": "Мы помечаем этот <code>&lt;div&gt;</code> как место куда загрузим части страниц или «вид». Остальная страница останется статичной в то время как изменения интерфейса будут происходить только в этой области. В нашем случае мы будем переключаться между списком «проектов» и формой добавления/изменения отдельного «проекта»."
        }
      , "project.js":
-       { "project": "This defines the <code>project</code> module. You use modules to configure existing services, and define new services, directives, filters, and so on. Here, we’ll set up ‘routes’ that map URLs to partials. AngularJS watches the browser location and automatically updates the partial when the URL changes."
+       { "project": "Определяет модуль <code>project</code> module. Можно использовать модули для настройки существующих сервисов, а так же определять новые сервисы, директивы, фильтры и т. д.. Здесь мы задаем «маршруты» URL-адресов, которые сопоставляются подгружаемым частям вида. AngularJS следит за адресной строкой и автоматически обновляет части вида при изменении URL."
        , "mongolab": "Modules can depend on other modules. Here, <code>project</code> needs <code>mongolab</code> which handles the persistence for this application."
        , "config": "You use <code>config()</code> to configure existing services. Here, we’re configuring the <code>$routeProvider</code> responsible for mapping URL paths to partials."
        , "when": "When the URL is <code>/</code> it will load <code>list.html</code> into the view and attach the <code>ListCtrl</code> controller. You can instantly get an overview of an app's structure by reading the route definitions."
@@ -816,6 +816,7 @@
             0: 'нет пива',
             one: '{} пиво',
             few: '{} пива',
+            many: '{} пив',
             other: '{} пив'
           };
         }
