@@ -167,7 +167,7 @@
             <img class="AngularJS-large" src="http://angularjs.org/img/AngularJS-large.png">
           </div>
           <div class="center">
-            <h1>Супер-героический HTML для веб-приложений!</h1>
+            <h1>Супер-героический фреймворк для веб-приложений!</h1>
           </div>
           <div class="center">
             <a class="btn btn-large" href="https://github.com/angular/angular.js">
@@ -390,27 +390,27 @@
       <div class="span4">
         <h3>Глубокое связывание</h3>
         <p>
-          A deep link reflects where the user is in the app, this is useful so users can bookmark
-          and email links to locations within apps. Round trip apps get this automatically, but
-          AJAX apps by their nature do not. AngularJS combines the benefits of deep link with
-          desktop app-like behavior.
+          Глубокая связь показывает где находится пользователь в приложении, это полезно, так как пользователи могут создавать закладки 
+          и адреса электронной почты в пределах приложения. Многостраничные приложения имеют это автоматически, но 
+          AJAX-приложения по своей природе не такие. AngularJS сочетает в себе преимущества глубокого связывания с 
+          поведением приложения подобного настольному.
         </p>
       </div>
       <div class="span4">
         <h3>Валидация форм</h3>
         <p>
-          Client-side form validation is an important part of great user experience.
-          AngularJS lets you declare the validation rules of the form without having to write
-          JavaScript code. Write less code, go have beer sooner.
+          На стороне клиента проверка форм является важной для улучшения пользовательского опыта. 
+          AngularJS позволяет задавать правила проверки формы без необходимости писать 
+          JavaScript код. Пишешь меньше кода — раньше пьешь пиво.
         </p>
       </div>
       <div class="span4">
         <h3>Обмен данными</h3>
         <p>
-          AngularJS provides services on top of XHR, that dramatically simplify your code. We wrap
-          XHR to give you exception management and promises. Promises further simplify your code
-          by handling asynchronous return of data. This lets you assign properties synchronously
-          when the return is actually asynchronous.
+          AngularJS предоставляет сервисы высокоуроневого XHR, что существенно упрощает код. Мы обернули XHR, 
+          чтобы дать вам исключительное управление и обещания. Обещания еще больше упростить код при обработке 
+          асинхронно-полученных данных. Это позволяет назначать свойства синхронно когда получение на самом деле 
+          асинхронное.
         </p>
       </div>
     </div>
@@ -556,7 +556,7 @@ angular.module(&#39;mongolab&#39;, [&#39;ngResource&#39;]).
       return Project;
     });
 
-"><button class="btn btn-primary"><i class="icon-white icon-pencil"></i> Edit Me</button></form></span>
+"><button class="btn btn-primary"><i class="icon-white icon-pencil"></i> Изменить</button></form></span>
         <div class="tabs-spacer"></div>
         <!--[if lt IE 10]>
           <div class="alert alert-error">
@@ -652,17 +652,17 @@ angular.module(&#39;mongolab&#39;, [&#39;ngResource&#39;]).
 
 
 
-    <h1 id="create-components">Create Components</h1>
+    <h1 id="create-components">Создание компонентов</h1>
     <div class="row">
       <div class="span4">
-        <h3>Directives</h3>
+        <h3>Директивы</h3>
         <p>
           Directives is a unique and powerful feature available only in Angular. Directives let
           you invent new HTML syntax, specific to your application.
         </p>
       </div>
       <div class="span4">
-        <h3>Reusable Components</h3>
+        <h3>Повторное использование</h3>
         <p>
           We use directives to create reusable components. A component allows you to hide complex
           DOM structure, CSS, and behavior. This lets you focus either on what the application
@@ -670,7 +670,7 @@ angular.module(&#39;mongolab&#39;, [&#39;ngResource&#39;]).
         </p>
       </div>
       <div class="span4">
-        <h3>Localization</h3>
+        <h3>Локализация</h3>
         <p>
           An important part of serious apps is localization. Angular's locale aware filters and
           stemming directives give you building blocks to make your application available in all
@@ -769,7 +769,7 @@ function BeerCounter($scope, $locale) {
   }
 }
 
-"><button class="btn btn-primary"><i class="icon-white icon-pencil"></i> Edit Me</button></form></span>
+"><button class="btn btn-primary"><i class="icon-white icon-pencil"></i> Изменить</button></form></span>
         <div class="tabs-spacer"></div>
         <h4>Locale: US</h4>
         <div app-run="tabs.html" module="components-us" class="well ng-scope"><div class="tabbable"><ul class="nav nav-tabs"><!-- ngRepeat: pane in panes --><li ng-repeat="pane in panes" ng-class="{active:pane.selected}" class="ng-scope active"><a href="" ng-click="select(pane)" class="ng-binding">Localization</a></li><li ng-repeat="pane in panes" ng-class="{active:pane.selected}" class="ng-scope"><a href="" ng-click="select(pane)" class="ng-binding">Pluralization</a></li></ul><div class="tab-content" ng-transclude="">
@@ -833,10 +833,10 @@ function BeerCounter($scope, $locale) {
 
 
 
-    <h1 id="embed-and-inject">Embed and Inject</h1>
+    <h1 id="embed-and-inject">Вложение и внедрение</h1>
     <div class="row">
       <div class="span4">
-        <h3>Embeddable</h3>
+        <h3>Вложенность</h3>
         <p>
           AngularJS works great with other technologies. Add as much or as little of AngularJS to
           an existing page as you like. Many other frameworks require full commitment. This page
@@ -846,7 +846,7 @@ function BeerCounter($scope, $locale) {
         </p>
       </div>
       <div class="span4">
-        <h3>Injectable</h3>
+        <h3>Внедряемость</h3>
         <p>
           The dependency injection in AngularJS allows you to declaratively describe how your
           application is wired. This means that your application needs no <code>main()</code>
@@ -856,7 +856,7 @@ function BeerCounter($scope, $locale) {
         </p>
       </div>
       <div class="span4">
-        <h3>Testable</h3>
+        <h3>Сестируемость</h3>
         <p>
           AngularJS was designed from ground up to be testable. It encourages behavior-view
           separation, comes pre-bundled with mocks, and takes full advantage of dependency
@@ -870,9 +870,9 @@ function BeerCounter($scope, $locale) {
 
   <footer class="footer">
     <div class="container">
-      <p class="pull-right"><a href="http://angularjs.org/#" target="_self">Back to top</a></p>
-      <p>Super-powered by Google  ©2010-2012</p>
-      <p>Code licensed under the
+      <p class="pull-right"><a href="http://angularjs.org/#" target="_self">Наверх</a></p>
+      <p>Супер-разработка Google, супер-перевод tamtakoe, maksimr, vsorlov, altbog, alvas, madhead, DWand, Chiuaua и др. ©2010-2013</p>
+      <p>Лицензия на исходный код
         <a href="https://github.com/angular/angular.js/blob/master/LICENSE" target="_blank">The
           MIT License</a>. Documentation licensed under <a href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.
       </p>
