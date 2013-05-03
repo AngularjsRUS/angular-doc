@@ -801,7 +801,6 @@
     <script>
       angular.module('components-us', ['components', 'ngLocal.us']);
       angular.module('components-ru', ['components', 'ngLocal.ru']);
-      angular.module('components-sk', ['components', 'ngLocal.sk']);
     </script>
     <script id="beers.js">
       function BeerCounter($scope, $locale) {
@@ -812,19 +811,12 @@
             one: '{} beer',
             other: '{} beers'
           };
-        } else if ($locale.id == 'ru-ru') {
+        } else {
           $scope.beerForms = {
             0: 'нет пива',
             one: '{} пиво',
             few: '{} пива',
             other: '{} пив'
-          };
-        } else {
-          $scope.beerForms = {
-            0: 'žiadne pivo',
-            one: '{} pivo',
-            few: '{} pivá',
-            other: '{} pív'
           };
         }
       }
