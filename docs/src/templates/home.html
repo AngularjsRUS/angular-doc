@@ -242,7 +242,7 @@
         <span class="pull-right" js-fiddle="hello.html"></span>
         <div class="tabs-spacer"></div>
         <div app-run="hello.html" class="well"></div>
-        <h3>Посмотрите, как сделано это приложение</h3>
+        <h3>Процесс разработки</h3>
         <div class="video-img" data-toggle="modal" data-video="http://www.youtube.com/embed/uFTFsKmkQnQ?&autoplay=1" href="#videoModal">
           <img class="video" src="home/img/video.png">
         </div>
@@ -285,7 +285,7 @@
         <span class="pull-right" js-fiddle="todo.html todo.js todo.css"></span>
         <div class="tabs-spacer"></div>
         <div app-run="todo.html" class="well"></div>
-        <h3>Посмотрите, как сделано это приложение</h3>
+        <h3>Процесс разработки</h3>
         <div class="video-img" data-toggle="modal" data-video="http://www.youtube.com/embed/WuiHuZq_cg4?&autoplay=1" href="#videoModal">
           <img class="video" src="home/img/video.png">
         </div>
@@ -451,18 +451,18 @@
 
     <script type="text/ng-template" id="hello.html">
       <div>
-        <label>Name:</label>
+        <label>Имя:</label>
         <input type="text" ng-model="yourName" placeholder="Введите свое имя">
         <hr>
-        <h1>Hello {{yourName}}!</h1>
+        <h1>Привет {{yourName}}!</h1>
       </div>
     </script>
     <script type="text/ng-template" id="hello.annotation">
       { "hello.html":
-          { "ng-app": "Tells AngularJS to be active in this portion of the page. In this case the entire document."
-          , "angular.min.js": "Load AngularJS."
-          , "ng-model": "This links the form and the model. This means that any changes to the control update the data in your model, and when you change the model it updates the control. Try it! Type in the control and see it update below."
-          , "{{yourName}}": "The <code>{{ }}</code> are a declarative way of specifying data binding locations in the HTML. AngularJS will automatically update this text whenever the <code>yourName</code> property changes."
+          { "ng-app": "Говорит AngularJS чтобы он обрабатывал эту часть страницы. В нашем случае весь документ."
+          , "angular.min.js": "Загрузка AngularJS."
+          , "ng-model": "Связывает форму с моделью. Это значит, что любые изменения в форме обновят данные модели, а при изменении модели обновится форма (в нашем случае поле ввода). Попробуйте! Введите текст в поле и увидите обновление строки ниже."
+          , "{{yourName}}": "Конструкция <code>{{ }}</code> указывает на место связывания данных в HTML. AngularJS будет автоматически обновлять это место при любом изменении свойства <code>yourName</code>."
           }
       }
     </script>
@@ -504,10 +504,10 @@
       }
     </script>
     <script type="text/ng-template" id="todo.html">
-      <h2>Todo</h2>
+      <h2>Список дел</h2>
       <div ng-controller="TodoCtrl">
-        <span>{{remaining()}} of {{todos.length}} remaining</span>
-        [ <a href="" ng-click="archive()">archive</a> ]
+        <span>Осталось {{remaining()}} из {{todos.length}}</span>
+        [ <a href="" ng-click="archive()">архив</a> ]
         <ul class="unstyled">
           <li ng-repeat="todo in todos">
             <input type="checkbox" ng-model="todo.done">
@@ -516,27 +516,27 @@
         </ul>
         <form ng-submit="addTodo()">
           <input type="text" ng-model="todoText"  size="30"
-                 placeholder="add new todo here">
-          <input class="btn-primary" type="submit" value="add">
+                 placeholder="впишите новое дело">
+          <input class="btn-primary" type="submit" value="добавить">
         </form>
       </div>
     </script>
     <script type="text/ng-template" id="todo.annotation">
       { "todo.html":
-        { "ng-app": "Tells AngularJS to be active in this portion of the page. In this case the entire document."
-        , "angular.min.js": "Load AngularJS."
-        , "todo.js": "Your behavior lives in JavaScript controllers."
-        , "ng-controller": "The behavior of content under this element will be managed using the <code>TodoCtrl</code> class defined in <code>todo.js</code>."
-        , "{{remaining()}}": "The <code>{{ }}</code> are a declarative way of specifying data binding locations in the HTML. AngularJS will automatically update this text whenever the <code>remaining()</code> function return value changes."
-        , "ng-click": "Instead of registering event-handlers, you declare which method on the controller to call. Here clicking the link will call <code>archive()</code> method."
-        , "ng-repeat": "Use <code>ng-repeat</code> to unroll a collection. Here, for every object in <code>todos</code>, AngularJS will create new copy of the <code>&lt;li&gt;</code> element. When objects are added to the <code>todos</code> collection the <code>ng-repeat</code> automatically adds new <code>&lt;li&gt;</code> elements into the DOM. Similarly when the objects are removed from <code>todos</code> then the corresponding <code>&lt;li&gt;</code> element is removed as well. This is one of the most versatile directives in AngularJS."
-        , "ng-model": "This links the form and the model. This means that any changes to the control update the data in your model, and when you change the model it updates the control. AngularJS automatically copies the state of the checkbox into <code>todo.done</code>. Conversely, if you update <code>todo.done</code> you will see the checkbox respond accordingly."
-        , "{{todo.done}}": "To show strikethroughs for completed tasks we have created a CSS class <code>done-true</code>. When the <code>todo.done</code> is <code>true</code> the resulting CSS selector is <code>done-true</code> which then applies the strikethrough."
-        , "ng-submit": "Intercepts form submission and instead calls <code>addTodo()</code>. Inside this method we read the <code>todoText</code> property and insert it into the <code>todos</code> collection."
+        { "ng-app": "Говорит AngularJS чтобы он обрабатывал эту часть страницы. В нашем случае весь документ."
+        , "angular.min.js": "Загрузка AngularJS."
+        , "todo.js": "Поведение списка описано в JavaScript-контроллерах."
+        , "ng-controller": "Поведение содержимого в рамках этого элемента будет управляться с помощью класса <code>TodoCtrl</code>, определенного в <code>todo.js</code>."
+        , "{{remaining()}}": "Конструкция <code>{{ }}</code> указывает на место связывания данных в HTML. AngularJS автоматически обновит  это место если функция <code>remaining()</code> вернет значение, отличное от предыдущего"
+        , "ng-click": "Вместо регистрации обработчиков событий определяется метод контроллера, который будет вызван. В этом примере при щелчке будет вызван метод <code>archive()</code>."
+        , "ng-repeat": "Используйте <code>ng-repeat</code> чтобы показать набор. Здесь для каждого элемента <code>todos</code>, AngularJS создаст копию элемента <code>&lt;li&gt;</code>. Когда объекты будут добавлены в набор <code>todos</code> <code>ng-repeat</code> автоматически добавит новые элементы <code>&lt;li&gt;</code> в DOM. Точно так же, при удалении объектов из <code>todos</code> соответствующие элементы <code>&lt;li&gt;</code> удалятся. Это одна изнаиболее универсальных директив AngularJS."
+        , "ng-model": "Связывает форму с моделью. Это значит, что любые изменения в форме обновят данные модели, а при изменении модели обновятся элементы формы. AngularJS автоматически копирует состояние чекбокса в <code>todo.done</code>. И наоборот, если обновится <code>todo.done</code> чекбокс изменится соответствующим образом."
+        , "{{todo.done}}": "Чтобыпоказать зачеркивание для завершенных задач, мы создали CSS-класс <code>done-true</code>. Когда <code>todo.done</code> становится <code>true</code>, то CSS-селектор становится <code>done-true</code> и к нему затем применяется зачеркивание."
+        , "ng-submit": "Перехватывает событие отправки формы и вместо этого вызывает <code>addTodo()</code>. В этом методе мы читаем свойство <code>todoText</code> и вставляем его в набор <code>todos</code>."
         }
 
       , "todo.css":
-        { ".done-true": "Add strikethrough decoration when the task is done."
+        { ".done-true": "Добавляет зачеркивание к выполненому делу."
         }
 
       , "todo.js":
@@ -636,7 +636,7 @@
       }
     </script>
     <script type="text/ng-template" id="project.html">
-      <h2>JavaScript Projects</h2>
+      <h2>JavaScript-проекты</h2>
       <div ng-view></div>
     </script>
     <script type="text/ng-template" id="list.html">
@@ -644,8 +644,8 @@
       <table>
         <thead>
         <tr>
-          <th>Project</th>
-          <th>Description</th>
+          <th>Проект</th>
+          <th>Описание</th>
           <th><a href="#/new"><i class="icon-plus-sign"></i></a></th>
         </tr>
         </thead>
@@ -663,30 +663,30 @@
     <script type="text/ng-template" id="detail.html">
       <form name="myForm">
         <div class="control-group" ng-class="{error: myForm.name.$invalid}">
-          <label>Name</label>
+          <label>Название</label>
           <input type="text" name="name" ng-model="project.name" required>
           <span ng-show="myForm.name.$error.required" class="help-inline">
-              Required</span>
+              не заполнено</span>
         </div>
 
         <div class="control-group" ng-class="{error: myForm.site.$invalid}">
-          <label>Website</label>
+          <label>Сайт</label>
           <input type="url" name="site" ng-model="project.site" required>
           <span ng-show="myForm.site.$error.required" class="help-inline">
-              Required</span>
+              не заполнено</span>
           <span ng-show="myForm.site.$error.url" class="help-inline">
-              Not a URL</span>
+              не URL</span>
         </div>
 
-        <label>Description</label>
+        <label>Описание</label>
         <textarea name="description" ng-model="project.description"></textarea>
 
         <br>
-        <a href="#/" class="btn">Cancel</a>
+        <a href="#/" class="btn">Отмена</a>
         <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
-                class="btn btn-primary">Save</button>
+                class="btn btn-primary">Сохранить</button>
         <button ng-click="destroy()"
-                ng-show="project._id" class="btn btn-danger">Delete</button>
+                ng-show="project._id" class="btn btn-danger">Удалить</button>
       </form>
     </script>
     <script type="text/ng-template" id="project.annotation">
