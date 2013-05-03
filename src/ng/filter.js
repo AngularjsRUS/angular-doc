@@ -5,32 +5,32 @@
  * @name ng.$filterProvider
  * @description
  *
- * Filters are just functions which transform input to an output. However filters need to be Dependency Injected. To
- * achieve this a filter definition consists of a factory function which is annotated with dependencies and is
- * responsible for creating a filter function.
+ * Фильтры это всего лишь функции, которые преобразуют входные данные в выходные. Однако в фильтры должны быть 
+ * внедрены зависимости. Поэтому определение фильтра содержит фабричную функцию, которая определяет зависимости 
+ * и отвечает за создание функции фильтрации.
  *
  * <pre>
- *   // Filter registration
+ *   // Регистрация фильтра
  *   function MyModule($provide, $filterProvider) {
- *     // create a service to demonstrate injection (not always needed)
+ *     // создание сервиса для демонстрации зависимости (нужно не всегда)
  *     $provide.value('greet', function(name){
  *       return 'Hello ' + name + '!';
  *     });
  *
- *     // register a filter factory which uses the
- *     // greet service to demonstrate DI.
+ *     // регистрация фабричной функции, которая использует
+ *     // сервис greet для демонстрации внедрения зависимости.
  *     $filterProvider.register('greet', function(greet){
- *       // return the filter function which uses the greet service
- *       // to generate salutation
+ *       // возврат функции фильтрации, которая использует сервис greet
+ *       // для создания приветственной фразы
  *       return function(text) {
- *         // filters need to be forgiving so check input validity
+ *         // фильтрам необходимо быть снисходительными при проверке входных данных
  *         return text && greet(text) || text;
  *       };
  *     });
  *   }
  * </pre>
  *
- * The filter function is registered with the `$injector` under the filter name suffixe with `Filter`.
+ * Функция фильтрации зарегистрирована в `$injector` под именем suffixe с `Filter`.
  * <pre>
  *   it('should be the same instance', inject(
  *     function($filterProvider) {
@@ -44,19 +44,18 @@
  * </pre>
  *
  *
- * For more information about how angular filters work, and how to create your own filters, see
- * {@link guide/dev_guide.templates.filters Understanding Angular Filters} in the angular Developer
- * Guide.
+ * Чтобы узнать больше о работе фильтров в Angular, и о создании собственных фильтров, см.
+ * {@link guide/dev_guide.templates.filters Фильтры} в руководстве разработчика.
  */
 /**
  * @ngdoc method
  * @name ng.$filterProvider#register
  * @methodOf ng.$filterProvider
  * @description
- * Register filter factory function.
+ * Регистрация функции фильтрации.
  *
- * @param {String} name Name of the filter.
- * @param {function} fn The filter factory function which is injectable.
+ * @param {String} name Название фильтра.
+ * @param {function} fn Внедренная фабричная функция фильтра.
  */
 
 
@@ -65,14 +64,14 @@
  * @name ng.$filter
  * @function
  * @description
- * Filters are used for formatting data displayed to the user.
+ * Фильтры используются для форматирования данных, показываемых пользователю.
  *
- * The general syntax in templates is as follows:
+ * Основной синтаксис:
  *
  *         {{ expression | [ filter_name ] }}
  *
- * @param {String} name Name of the filter function to retrieve
- * @return {Function} the filter function
+ * @param {String} name Имя функции фильтрации для поиска
+ * @return {Function} функция фильтрации
  */
 $FilterProvider.$inject = ['$provide'];
 function $FilterProvider($provide) {
