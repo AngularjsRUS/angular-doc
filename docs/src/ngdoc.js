@@ -259,7 +259,7 @@ Doc.prototype = {
           match = text.match(/^\{([^}]+)\}\s+(([^\s=]+)|\[(\S+)=([^\]]+)\])\s+(.*)/);
                              //  1      1    23       3   4   4 5      5  2   6  6
           if (!match) {
-            throw new Error("Not a valid 'param' format: " + text + ' (found in: ' + self.file + ':' + self.line + ')');
+            throw new Error("Неверный формат 'param': " + text + ' (найдено в: ' + self.file + ':' + self.line + ')');
           }
 
           var optional = (match[1].slice(-1) === '=');
@@ -274,7 +274,7 @@ Doc.prototype = {
         } else if (atName == 'returns' || atName == 'return') {
           match = text.match(/^\{([^}]+)\}\s+(.*)/);
           if (!match) {
-            throw new Error("Not a valid 'returns' format: " + text + ' (found in: ' + self.file + ':' + self.line + ')');
+            throw new Error("Неверный формат 'returns': " + text + ' (найдено в: ' + self.file + ':' + self.line + ')');
           }
           self.returns = {
             type: match[1],
@@ -289,7 +289,7 @@ Doc.prototype = {
         } else if(atName == 'property') {
           match = text.match(/^\{(\S+)\}\s+(\S+)(\s+(.*))?/);
           if (!match) {
-            throw new Error("Not a valid 'property' format: " + text + ' (found in: ' + self.file + ':' + self.line + ')');
+            throw new Error("Неверный формат 'property': " + text + ' (найдено в: ' + self.file + ':' + self.line + ')');
           }
           var property = new Doc({
             type: match[1],
@@ -328,7 +328,7 @@ Doc.prototype = {
       });
 
       (self['html_usage_' + self.ngdoc] || function() {
-        throw new Error("Don't know how to format @ngdoc: " + self.ngdoc);
+        throw new Error("Неизвестно как форматировать @ngdoc: " + self.ngdoc);
       }).call(self, dom);
 
       dom.h('Example', self.example, dom.html);
@@ -399,7 +399,7 @@ Doc.prototype = {
     var self = this;
     if (self['this']) {
       dom.h(function(dom){
-        dom.html("Method's <code>this</code>");
+        dom.html("<code>this</code> метода");
       }, function(dom){
         dom.html(self['this']);
       });
@@ -443,8 +443,8 @@ Doc.prototype = {
 
       if (restrict.match(/E/)) {
         dom.html('<p>');
-        dom.text('This directive can be used as custom element, but be aware of ');
-        dom.tag('a', {href:'guide/ie'}, 'IE restrictions');
+        dom.text('Эта директива может использоваться в качестве пользовательского элемента, но обратите внимание на ');
+        dom.tag('a', {href:'guide/ie'}, 'ограничения IE');
         dom.text('.');
         dom.html('</p>');
       }
@@ -496,10 +496,10 @@ Doc.prototype = {
             animations.push(name);
           });
 
-          dom.html('with <span id="animations">animations</span>');
+          dom.html('с <span id="animations">animations</span>');
           var comment;
           if(animations.length == 1) {
-            comment = 'The ' + animations[0] + ' animation is supported';
+            comment = animations[0] + ' анимация поддерживается';
           }
           else {
             var rhs = animations[animations.length-1];
@@ -510,7 +510,7 @@ Doc.prototype = {
               }
               lhs += animations[i];
             }
-            comment = 'The ' + lhs + ' and ' + rhs + ' animations are supported';
+            comment = lhs + ' и ' + rhs + ' анимации поддерживаются';
           }
           var element = self.element || 'ANY';
           dom.code(function() {
@@ -529,7 +529,7 @@ Doc.prototype = {
             dom.text('</' + element + '>');
           });
 
-          dom.html('<a href="api/ng.$animator#Methods">Click here</a> to learn more about the steps involved in the animation.');
+          dom.html('<a href="api/ng.$animator#Methods">Нажмите сюда</a> чтобы узнать больше об этапах анимации.');
         }
       }
       self.html_usage_directiveInfo(dom);
@@ -618,10 +618,10 @@ Doc.prototype = {
 
 
     if (self.scope !== undefined) {
-      list.push('This directive creates new scope.');
+      list.push('Эта директива создает новую область видимости.');
     }
     if (self.priority !== undefined) {
-      list.push('This directive executes at priority level ' + self.priority + '.');
+      list.push('Эта директива выполняется с приоритетом ' + self.priority + '.');
     }
 
     if (list.length) {
