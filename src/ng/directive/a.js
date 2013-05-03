@@ -18,23 +18,22 @@ var htmlAnchorDirective = valueFn({
   compile: function(element, attr) {
 
     if (msie <= 8) {
-
-      // turn <a href ng-click="..">link</a> into a stylable link in IE
-      // but only if it doesn't have name attribute, in which case it's an anchor
+      // превращение <a href ng-click="..">link</a> в стилизованную ссылку IE
+      // но только если она не имеет названия и никуда не ведет, в нашем случае не имеет якоря
       if (!attr.href && !attr.name) {
         attr.$set('href', '');
       }
 
-      // add a comment node to anchors to workaround IE bug that causes element content to be reset
-      // to new attribute content if attribute is updated with value containing @ and element also
-      // contains value with @
-      // see issue #1949
+      // добавление комментария для якоря, чтобы обойти IE баг, приводящий к сбросу содержания элемента
+      // к новому содержанию атрибута, если атрибут обновлялся значением, содержащим @ или
+      // содержал значение с @
+      // см. issue #1949
       element.append(document.createComment('IE fix'));
     }
 
     return function(scope, element) {
       element.bind('click', function(event){
-        // if we have no href url, then don't navigate anywhere.
+        // если в href не содержится url, то мы никуда не переходим
         if (!element.attr('href')) {
           event.preventDefault();
         }
