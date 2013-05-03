@@ -96,7 +96,7 @@ AngularJS учит браузер как делать внедрение зав�
 Основная задача запускать автоматически сборку документации на сайте после изменения основного
 репозитория на github'е.
 
-* Сайт на heroku: http://angular-doc.herokuapp.com/index.html
+* Сайт на heroku: http://angular-doc.herokuapp.com
 * Сайт на cloudbees:  http://doc.angularjs.cloudbees.net/index.html
 
 Если статус [![Build Status](https://travis-ci.org/maksimr/angular-doc.png?branch=master)](https://travis-ci.org/maksimr/angular-doc) зеленый (passing),
