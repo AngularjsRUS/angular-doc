@@ -129,18 +129,18 @@ $location синхронизируется с браузером, последн
   // или можно выстроить в цепочку: $location.path('/someNewPath').replace();
 </pre>
 
-Note that the setters don't update `window.location` immediately. Instead, the `$location` service is
-aware of the {@link api/ng.$rootScope.Scope scope} life-cycle and coalesces multiple `$location`
-mutations into one "commit" to the `window.location` object during the scope `$digest` phase. Since
-multiple changes to the $location's state will be pushed to the browser as a single change, it's
-enough to call the `replace()` method just once to make the entire "commit" a replace operation
-rather than an addition to the browser history. Once the browser is updated, the $location service
-resets the flag set by `replace()` method and future mutations will create new history records,
-unless `replace()` is called again.
+Обратите внимание, что сеттеры не обновляют `window.location` немедленно. Вместо этого сервис `$location`
+осведомляется {@link api/ng.$rootScope.Scope областью видимости} о жизненном цикле и сливает несколько изменений `$location`
+в один «коммит» для объекта `window.location` во время фазы `$digest`. С
+множественными изменениями состояния $location будет добавлено в браузер как одно изменение, это
+достаточно чтобы вызвать метод `replace()` только один раз, чтобы сделать в «коммите» операцию замены
+, а не дополнение истории браузера. Как только страница в браузере обновится, Сервис $location сбросит флаг, 
+установленный методом `replace()` и будущие изменения будут создавать новые записи в истории пока `replace()` не 
+будет вызван снова.
 
-### Setters and character encoding
-You can pass special characters to `$location` service and it will encode them according to rules
-specified in {@link http://www.ietf.org/rfc/rfc3986.txt RFC 3986}. When you access the methods:
+### Сеттеры и кодировка
+Можно передать специальные в сервис `$location` и они закодируются в соответствии со спецификацией 
+{{@link http://www.ietf.org/rfc/rfc3986.txt RFC 3986}. При обращении к методам:
 
 - All values that are passed to `$location` setter methods, `path()`, `search()`, `hash()`, are
 encoded.
