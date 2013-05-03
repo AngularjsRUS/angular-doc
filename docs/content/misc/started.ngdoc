@@ -26,14 +26,11 @@
 
 ##Подписка
 
-* Подпишитесь на {@link http://groups.google.com/forum/?fromgroups#!forum/angular список рассылки}.  Задавайте там свои вопросы!
-* Фолловите насв {@link https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fangularjs.org%2F&region=follow_link&screen_name=angularjs&source=followbutton&variant=2.0 Twitter}
+* Подпишитесь на {@link http://groups.google.com/forum/?fromgroups#!forum/angular список рассылки}. Задавайте там свои вопросы!
+* Фолловите нас в {@link https://twitter.com/intent/follow?original_referer=http%3A%2F%2Fangularjs.org%2F&region=follow_link&screen_name=angularjs&source=followbutton&variant=2.0 Twitter}
 * Добавьте нас в свои круги в {@link https://plus.google.com/110323587230527980117/posts Google+}
 
 ##Больше
-
-The AngularJS documentation includes the {@link guide/index Developer Guide} covering concepts and the
-{@link api/ API Reference} for syntax and usage.
 
 Документация AngularJS включает в себя {@link guide/index Руководство разработчика} охватывающее понятия и {@link api/ Справочник API} с описанием синтаксиса и его использования.
 
