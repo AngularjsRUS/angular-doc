@@ -496,7 +496,7 @@ Doc.prototype = {
             animations.push(name);
           });
 
-          dom.html('с <span id="animations">анимацией</span>');
+          dom.html('с <span id="animations">animations</span>');
           var comment;
           if(animations.length == 1) {
             comment = 'поддерживается ' + animations[0] + ' анимация';
