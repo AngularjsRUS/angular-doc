@@ -308,31 +308,31 @@ URL. Это освобождает вас от
 В случаях как в примере ниже, ссылки не переписываются; вместо этого, браузер покажет целую страницу, загруженную по 
 первоначальной ссылке.
 
-- Links that contain `target` element<br>
-  Example: `<a href="/ext/link?a=b" target="_self">link</a>`
-- Absolute links that go to a different domain<br>
-  Example: `<a href="http://angularjs.org/">link</a>`
-- Links starting with '/' that lead to a different base path when base is defined<br>
-  Example: `<a href="/not-my-base/link">link</a>`
+- Ссылки, которые содержат элемент `target`<br>
+  Пример: `<a href="/ext/link?a=b" target="_self">ссылка</a>`
+- Абсолютные ссылки на другой домен<br>
+  Пример: `<a href="http://angularjs.org/">ссылка</a>`
+- Ссылки, начинающиеся с '/', которые ведут различными основными путями, когда основа определена<br>
+  Пример: `<a href="/not-my-base/link">ссылка</a>`
 
 
-### Server side
+### Серверная сторона
 
-Using this mode requires URL rewriting on server side, basically you have to rewrite all your links
-to entry point of your application (e.g. index.html)
+Использование этого режима требует переписывания URL на стороне сервера, в основном необходимо перезаписывать все ссылки
+на точку входа в приложение (например, index.html)
 
-### Crawling your app
+### Индексация приложения
 
-If you want your AJAX application to be indexed by web crawlers, you will need to add the following
-meta tag to the HEAD section of your document:
+Если необходимо, чтобы Ajax-приложение было проиндексировано поисковиками, нужно добавить следующий
+мета-тег в заголовок страницы:
 <pre><meta name="fragment" content="!" /></pre>
 
-This statement causes a crawler to request links with an empty `_escaped_fragment_` parameter so that
-your server can recognize the crawler and serve it HTML snapshots. For more information about this
-technique, see {@link http://code.google.com/web/ajaxcrawling/docs/specification.html Making AJAX
+Этот тег говорит ботам запросить ссылки с пустым параметром `_escaped_fragment_` чтобы
+сервер мог распознать ботов передал бы снимки HTML. Для получения дополнительной информации об этом
+методе см. {@link http://code.google.com/web/ajaxcrawling/docs/specification.html Making AJAX
 Applications Crawlable}.
 
-### Relative links
+### Относительные ссылки
 
 Be sure to check all relative links, images, scripts etc. You must either specify the url base in
 the head of your main html file (`<base href="/my-base">`) or you must use absolute urls
