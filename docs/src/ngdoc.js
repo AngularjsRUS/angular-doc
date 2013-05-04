@@ -371,7 +371,7 @@ Doc.prototype = {
       dom.html(param.description);
     });
     if(this.animations) {
-      dom.h('Анимации', this.animations, function(animations){
+      dom.h('Анимация', this.animations, function(animations){
         dom.html('<ul>');
         var animations = animations.split("\n");
         animations.forEach(function(ani) {
@@ -496,10 +496,10 @@ Doc.prototype = {
             animations.push(name);
           });
 
-          dom.html('с <span id="animations">animations</span>');
+          dom.html('с <span id="animations">анимацией</span>');
           var comment;
           if(animations.length == 1) {
-            comment = animations[0] + ' анимация поддерживается';
+            comment = 'поддерживается ' + animations[0] + ' анимация';
           }
           else {
             var rhs = animations[animations.length-1];
@@ -510,7 +510,7 @@ Doc.prototype = {
               }
               lhs += animations[i];
             }
-            comment = lhs + ' и ' + rhs + ' анимации поддерживаются';
+            comment = 'поддерживается ' + lhs + ' и ' + rhs + ' анимация';
           }
           var element = self.element || 'ANY';
           dom.code(function() {
