@@ -1,31 +1,30 @@
 @workInProgress
 @ngdoc overview
-@name Developer Guide: E2E Testing
+@name Developer Guide: E2E тестирование
 @description
 
-As applications grow in size and complexity, it becomes unrealistic to rely on manual testing to
-verify the correctness of new features, catch bugs and notice regressions.
+Со временем сложность и размеры приложения растут, и становится нереально рассчитывать на ручное тестирование 
+для проверки корректности новых функций, отлова ошибок и объяснение регрессий.
 
-To solve this problem, we have built an Angular Scenario Runner which simulates user interactions
-that will help you verify the health of your Angular application.
+Для решения этой проблемы, мы сделали в Angular исполнитель сценариев, который имитирует взаимодействие с 
+пользователями, и поможет проверить работоспособность приложения.
 
-# Overview
-You will write scenario tests in JavaScript, which describe how your application should behave,
-given a certain interaction in a specific state. A scenario is comprised of one or more `it` blocks
-(you can think of these as the requirements of your application), which in turn are made of
-**commands** and **expectations**. Commands tell the Runner to do something with the application
-(such as navigate to a page or click on a button), and expectations tell the Runner to assert
-something about the state (such as the value of a field or the current URL). If any expectation
-fails, the runner marks the `it`  as "failed" and continues on to the next one. Scenarios may also
-have **beforeEach** and **afterEach** blocks, which will be run before (or after) each `it`  block,
-regardless of whether they pass or fail.
+# Обзор
+Вы будете писать JavaScript-сценарии тестов, которые описывают, как должно вести себя приложение, учитывая 
+определенные взаимодействия в определенном состоянии. Сценарий состоит из одного или более `it` блоков (можно 
+думать о них как о требованиях вашего приложения), которые, в свою очередь состоят из **команд** и **ожиданий**. 
+Команда говорит исполнителю сценария, что нужно сделать с приложением (например, перейти на страницу или 
+нажать на кнопку), и ожидает, пока исполнитель не сообщит значение текущего состояния (например, значение 
+поля или текущий URL-адрес). В случае несоответствия результата ожиданиям, исполнитель помечает блок `it` как «failed» 
+и продолжает следующий. Сценарии могут также иметь блоки **beforeEach** и **afterEach**, которые будут выполняться до 
+(или после) каждого блока `it`, независимо от того, пройден он или нет.
 
 <img src="img/guide/scenario_runner.png">
 
-In addition to the above elements, scenarios may also contain helper functions to avoid duplicating
-code in the `it` blocks.
+В дополнение к вышеперечисленному сценарии могут содержать вспомогательные функции, которые призваны исключить 
+дублирование кода в блоках `it`.
 
-Here is an example of a simple scenario:
+Пример простого сценария:
 <pre>
 describe('Buzz Client', function() {
 it('should filter results', function() {
@@ -37,22 +36,20 @@ it('should filter results', function() {
 });
 });
 </pre>
-This scenario describes the requirements of a Buzz Client, specifically, that it should be able to
-filter the stream of the user. It starts by entering a value in the 'user' input field, clicking
-the only button on the page, and then it verifies that there are 10 items listed. It then enters
-'Bees' in the 'filterText' input field and verifies that the list is reduced to a single item.
+Сценарий определяет блок требований Buzz Client, который проверяет работу фильтра для поля user. При старте 
+вводится значение в поле ввода 'user' и щелкается кнопка на странице, а затем проверяется наличие 10 элементов 
+всписке. Затем вводится 'Bees' в поле 'filterText' и проверяется, что остался один элемент.
 
-The API section below lists the available commands and expectations for the Runner.
+В секции API приведен список доступных команд и ожиданий для исполнителя.
 
 # API
-Source: {@link https://github.com/angular/angular.js/blob/master/src/ngScenario/dsl.js}
+Исходный код: {@link https://github.com/angular/angular.js/blob/master/src/ngScenario/dsl.js}
 
 ## pause()
-Pauses the execution of the tests until you call `resume()` in the console (or click the resume
-link in the Runner UI).
+Приостановка выполнения тестов до вызова функции `resume()` в консоли (или щелчке по ссылке resume в Runner UI).
 
 ## sleep(seconds)
-Pauses the execution of the tests for the specified number of `seconds`.
+Приостановка выполнения тестов через указанное количество секунд `seconds`.
 
 ## browser().navigateTo(url)
 Loads the `url` into the test frame.
