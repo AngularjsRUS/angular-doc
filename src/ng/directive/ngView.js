@@ -6,19 +6,18 @@
  * @restrict ECA
  *
  * @description
- * # Overview
- * `ngView` is a directive that complements the {@link ng.$route $route} service by
- * including the rendered template of the current route into the main layout (`index.html`) file.
- * Every time the current route changes, the included view changes with it according to the
- * configuration of the `$route` service.
+ * # Обзор
+ * Директива `ngView` дополняет сервис {@link ng.$route $route}, включая отображение шаблона по текущему адресу 
+ * в основном файле (`index.html`). Каждый раз, когда меняется адрес, меняется и представление в соответствии 
+ * с настройкой сервиса `$route`
  *
- * Additionally, you can also provide animations via the ngAnimate attribute to animate the **enter**
- * and **leave** effects.
+ * Дополнительно можно задать анимациючерез атрибут ngAnimate для анимации эффектов **enter**
+ * и **leave**.
  *
  * @animations
- * enter - happens just after the ngView contents are changed (when the new view DOM element is inserted into the DOM)
- * leave - happens just after the current ngView contents change and just before the former contents are removed from the DOM
- *
+ * enter - происходит только после того как изменилось содержимое ngView (когда DOM-элемент с новым видом вставляется в DOM)
+ * leave - происходит только после того как изменилось содержимое ngView и до того как прежнее содержимое удалится из DOM
+ * 
  * @scope
  * @example
     <example module="ngView" animations="true">
@@ -154,9 +153,9 @@
  * @ngdoc event
  * @name ng.directive:ngView#$viewContentLoaded
  * @eventOf ng.directive:ngView
- * @eventType emit on the current ngView scope
+ * @eventType задействует текущую область видимости ngView
  * @description
- * Emitted every time the ngView content is reloaded.
+ * Задействуется каждый раз когда содержимое ngView перезагружается.
  */
 var ngViewDirective = ['$http', '$templateCache', '$route', '$anchorScroll', '$compile',
                        '$controller', '$animator',
