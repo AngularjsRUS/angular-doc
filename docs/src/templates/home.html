@@ -700,9 +700,9 @@
        }
      , "project.js":
        { "project": "Определяет модуль <code>project</code> module. Можно использовать модули для настройки существующих сервисов, а так же определять новые сервисы, директивы, фильтры и т. д.. Здесь мы задаем «маршруты» URL-адресов, которые сопоставляются подгружаемым частям вида. AngularJS следит за адресной строкой и автоматически обновляет части вида при изменении URL."
-       , "mongolab": "Modules can depend on other modules. Here, <code>project</code> needs <code>mongolab</code> which handles the persistence for this application."
-       , "config": "You use <code>config()</code> to configure existing services. Here, we’re configuring the <code>$routeProvider</code> responsible for mapping URL paths to partials."
-       , "when": "When the URL is <code>/</code> it will load <code>list.html</code> into the view and attach the <code>ListCtrl</code> controller. You can instantly get an overview of an app's structure by reading the route definitions."
+       , "mongolab": "Модули могут зависить от других модулей. Здесь <code>project</code> нуждается в <code>mongolab</code> который обрабатывает сохранение данных приложения."
+       , "config": "<code>config()</code> используется для настройки существующих сервисов. Здесь настраивается <code>$routeProvider</code>, который отвечает за отображение URL-адресов для частей вида."
+       , "when": "Когда URL представляет собой <code>/</code> то <code>list.html</code> будет загружен в вид и прикреплен к контроллеру <code>ListCtrl</code>. Можно мгновенно обозрить структуру приложения, прочитав определения маршрутов."
        , "/edit/:projectId": "This route definition has a colon ':' in it. You use colons to make a component of the URL available to your controller. So now, <code>EditCtrl</code> can refer to the <code>projectId</code> property which tells it which project to edit."
        , "otherwise": "The <code>otherwise</code> route specifies which view to display when the URL doesn’t match any of the explicit routes. It’s the default."
        , "Project": "<code>Project</code> is a class for persisting and accessing the application data. It is defined in the <code>mongolab.js</code> module and it is automatically injected for us into the controller. Its purpose is to abstract the server communication. This lets the controller focus on the behavior rather than the complexities of server access."
