@@ -334,15 +334,15 @@ Applications Crawlable}.
 
 ### Относительные ссылки
 
-Be sure to check all relative links, images, scripts etc. You must either specify the url base in
-the head of your main html file (`<base href="/my-base">`) or you must use absolute urls
-(starting with `/`) everywhere because relative urls will be resolved to absolute urls using the
-initial absolute url of the document, which is often different from the root of the application.
+Не забудьте проверить все относительные ссылки, изображения, скрипты и т.д. Необходимо указать базовый URL в
+в заголовочном разделе HTML-файла (`<base href="/my-base">`) или необходимо везде использовать абсолютные URL-адреса
+(начинающиеся с `/`), потому что относительные URL-адреса будут приведены к абсолютным, с использованием 
+начального абсолютного адреса документа, который часто отличается от корня приложения.
 
-Running Angular apps with the History API enabled from document root is strongly encouraged as it
-takes care of all relative link issues.
+рекомендуется запускать Angular-приложения с включеным History API из корня документа, поскольку это
+снимает все вопросы, связанные с относительными ссылками.
 
-### Sending links among different browsers
+### Пересылка ссылок между различными браузерами
 
 Because of rewriting capability in HTML5 mode, your users will be able to open regular url links in
 legacy browsers and hashbang links in modern browser:
