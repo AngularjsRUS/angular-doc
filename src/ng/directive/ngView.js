@@ -153,7 +153,7 @@
  * @ngdoc event
  * @name ng.directive:ngView#$viewContentLoaded
  * @eventOf ng.directive:ngView
- * @eventType emit задействует текущую область видимости ngView
+ * @eventType emit on the current ngView scope(задействует текущую область видимости ngView)
  * @description
  * Задействуется каждый раз когда содержимое ngView перезагружается.
  */
