@@ -342,25 +342,25 @@ Applications Crawlable}.
 рекомендуется запускать Angular-приложения с включеным History API из корня документа, поскольку это
 снимает все вопросы, связанные с относительными ссылками.
 
-### Пересылка ссылок между различными браузерами
+### Перенаправление ссылок в различных браузерах
 
-Because of rewriting capability in HTML5 mode, your users will be able to open regular url links in
-legacy browsers and hashbang links in modern browser:
+Так как ссылки перезаписываются при включенном режиме HTML5, пользователи могут открывать оба вида ссылок 
+в различных браузерах:
 
-- Modern browser will rewrite hashbang URLs to regular URLs.
-- Older browsers will redirect regular URLs to hashbang URLs.
+- Современные браузеры перезаписывают hashbang URL на постоянные URL.
+- Старые браузеры перенаправляют с постоянного URL на hashbang URL.
 
-### Example
+### Пример
 
-Here you can see two `$location` instances, both in **Html5 mode**, but on different browsers, so
-that you can see the differences. These `$location` services are connected to a fake browsers. Each
-input represents address bar of the browser.
+Показаны два экземпляра `$location` в **режиме Html5**, но запущенных в разных браузерах, так, чтобы 
+были видны различия. Эти сервисы `$location` продемонстрированы в эмуляции браузеров, где каждый элемент input 
+представляет собой адресную строку браузера.
 
-Note that when you type hashbang url into first browser (or vice versa) it doesn't rewrite /
-redirect to regular / hashbang url, as this conversion happens only during parsing the initial URL
-= on page reload.
+Заметьте, что при использовании hashbang url в первом браузере (или наоборот) то перезапись/перенаправление 
+на постоянный/hashbang url не происходит, т.к. подобное преобразование случается только при разборе начального url 
+= перезагрузке страницы.
 
-In this examples we use `<base href="/base/index.html" />`
+В примере используется `<base href="/base/index.html" />`
 <doc:example>
 <doc:source source="false">
 
@@ -475,37 +475,32 @@ In this examples we use `<base href="/base/index.html" />`
 </doc:example>
 
 
-# Caveats
+# Предостережения
 
-## Page reload navigation
+## Перезагрузка страницы
 
-The `$location` service allows you to change only the URL; it does not allow you to reload the
-page. When you need to change the URL and reload the page or navigate to a different page, please
-use a lower level API, {@link api/ng.$window $window.location.href}.
+Сервис `$location` позволяет изменять только URL; он не позволяет перезагружать страницу. 
+Когда необходимо изменить URL и перезагрузить страницу или перейти на другию страницу, используйте более 
+низкоуровневое API {@link api/ng.$window $window.location.href}.
 
-## Using $location outside of the scope life-cycle
+## Использование $location вне жизненного цикла области видимости
 
-`$location` knows about Angular's {@link api/ng.$rootScope.Scope scope} life-cycle. When a URL changes in
-the browser it updates the `$location` and calls `$apply` so that all $watchers / $observers are
-notified.
-When you change the `$location` inside the `$digest` phase everything is ok; `$location` will
-propagate this change into browser and will notify all the $watchers / $observers.
-When you want to change the `$location` from outside Angular (for example, through a DOM Event or
-during testing) - you must call `$apply` to propagate the changes.
+$location знает о жизненном цикле {@link api/ng.$rootScope.Scope области видимости} Angular. Изменение URL 
+в браузере обновляет $location и вызывает функцию $apply для того чтобы уведомить все $watchers/$observers. 
+Когда $location менется в цикле $digest тоже всё хорошо; $location будет распространять свои изменения в браузере 
+и уведомлять о них все $watchers/$observers. При необходимости изменить $location из стороннего кода 
+(например, через события DOM или во время тестирования) нужно вызвать функцию $apply для распространения изменений.
 
-## $location.path() and ! or / prefixes
+## $location.path() и префиксы ! или /
 
-A path should always begin with forward slash (`/`); the `$location.path()` setter will add the
-forward slash if it is missing.
+Адрес всегда начинается со слеша (`/`); и сеттер `$location.path()` добавит его во всех случаях.
 
-Note that the `!` prefix in the hashbang mode is not part of `$location.path()`; it is actually
-hashPrefix.
+Заметьте, что префикс `!` в режиме hashbang не является частью `$location.path()`; это актуально для hashPrefix.
 
+# Тестирование сервиса $location
 
-# Testing with the $location service
-
-When using `$location` service during testing, you are outside of the angular's {@link
-api/ng.$rootScope.Scope scope} life-cycle. This means it's your responsibility to call `scope.$apply()`.
+Если сервис $location используется в тестировании, то вы находитесь вне жизненного цикла {@link api/ng.$rootScope.Scope 
+области видимости}. Это возлагает на вас ответственность за вызов `scope.$apply()`.
 
 <pre>
 describe('serviceUnderTest', function() {
@@ -526,20 +521,20 @@ describe('serviceUnderTest', function() {
 </pre>
 
 
-# Migrating from earlier AngularJS releases
+# Переход с более раних релизов AngularJS
 
-In earlier releases of Angular, `$location` used `hashPath` or `hashSearch` to process path and
-search methods. With this release, the `$location` service processes path and search methods and
-then uses the information it obtains to compose hashbang URLs (such as
-`http://server.com/#!/path?search=a`), when necessary.
+В ранних версиях Angular, `$location` использует методы `hashPath` или `hashSearch` для получения пути и строки поиска.
+В этой версии, сервис `$location` получает путь и строку поиска с помощью методов path и search, а затем использует 
+полученную информацию чтобысобрать адрес с использованием hashbang URL 
+(таких как `http://server.com/#!/path?search=a`), когда это необходимо.
 
-## Changes to your code
+## Изменения в коде
 
 <table class="table">
   <thead>
     <tr class="head">
-      <th>Navigation inside the app</th>
-      <th>Change to</th>
+      <th>Навигация внутри приложения</th>
+      <th>Замените на</th>
     </tr>
   </thead>
 
@@ -561,8 +556,8 @@ then uses the information it obtains to compose hashbang URLs (such as
     </tr>
 
     <tr class="head">
-      <td>Navigation outside the app</td>
-      <td>Use lower level API</td>
+      <td>Навигация вне приложения</td>
+      <td>Используйте более низкоуровневое API</td>
     </tr>
 
     <tr>
@@ -576,8 +571,8 @@ then uses the information it obtains to compose hashbang URLs (such as
     </tr>
 
     <tr class="head">
-      <td>Read access</td>
-      <td>Change to</td>
+      <td>Доступ для чтения</td>
+      <td>Замените на</td>
     </tr>
 
     <tr>
@@ -604,7 +599,7 @@ then uses the information it obtains to compose hashbang URLs (such as
   </tbody>
 </table>
 
-## Two-way binding to $location
+## Двунаправленое связывание с $location
 
 The Angular's compiler currently does not support two-way binding for methods (see {@link
 https://github.com/angular/angular.js/issues/404 issue}).  If you should require two-way binding
