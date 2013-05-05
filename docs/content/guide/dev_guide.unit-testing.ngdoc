@@ -1,57 +1,52 @@
 @ngdoc overview
-@name Developer Guide: Unit Testing
+@name Developer Guide: Модульное тестирование
 @description
 
-JavaScript is a dynamically typed language which comes with great power of expression, but it also
-comes with almost no-help from the compiler. For this reason we feel very strongly that any code
-written in JavaScript needs to come with a strong set of tests. We have built many features into
-Angular which makes testing your Angular applications easy. So there is no excuse for not testing.
+JavaScript – это динамически типизированный язык, который может выполнять любые выражения, но при этом 
+его компилятор практически не помогает в разработке. По этой причине код, написанный на JavaScript, должен пройти 
+через серию тестов. В Angular есть множество функций, которые облегчают тестирование приложений. Так что нет причин 
+для того чтобы не тестировать ваши приложения.
 
-# It is all about NOT mixing concerns
+# Всё о том, как не смешивать проблемы
 
-Unit testing as the name implies is about testing individual units of code. Unit tests try to
-answer questions such as "Did I think about the logic correctly?" or "Does the sort function order the list
-in the right order?"
+Модульное тестирование предназначено для тестирования блоков кода, как следует из его названия. Модульные тесты 
+пытаются задавать вопросы, такие как «Корректно ли работает данный блок кода?» или «Идет ли сортировка в 
+правильном порядке?»
 
-In order to answer such question it is very important that we can isolate the unit of code under test.
-That is because when we are testing the sort function we don't want to be forced into creating
-related pieces such as the DOM elements, or making any XHR calls in getting the data to sort.
+Для ответа на эти вопросы, очень важно иметь возможность изолировать блок кода в тесте. Потому что во время 
+тестирования функции сортировки, не нужно учитывать другие детали, такие как элементы DOM или производить любые 
+манипуляции с XHR для получения данных.
 
-While
-this may seem obvious it usually is very difficult to be able to call an individual function on a
-typical project. The reason is that the developers often mix concerns, and they end up with a
-piece of code which does everything. It reads the data from XHR, it sorts it and then it
-manipulates the DOM.
+Хотя это кажется очевидным, обычно бывает трудно вызывать отдельные функции в типичном объекте. Проблема в том, 
+что разработчики часто смешивают все в одно куске кода, который делает все. Он читает данные с помощью XHR, 
+сортирует их, а затем манипулирует DOM.
 
-With Angular we try to make it easy for you to do the right thing, and so we
-provide dependency injection for your XHR (which you can mock out) and we created abstraction which
-allow you to sort your model without having to resort to manipulating the DOM. So that in the end,
-it is easy to write a sort function which sorts some data, so that your test can create a data set,
-apply the function, and assert that the resulting model is in the correct order. The test does not
-have to wait for XHR, or create the right kind of DOM, or assert that your function has mutated the
-DOM in the right way.
+В Angular мы попытались сделать тестирование легким, для чего представили внедрение зависимостей для XHR 
+(который можно имитировать) и создали абстракции, которые позволяют сортировать модель без необходимости 
+прибегать к манипуляции с DOM. В итоге легко написать функцию сортировки некоторых данных 
+и при этом тест может создать эти данные, применить функцию, и проверить что результирующая модель отсортировна верно. 
+Тест не ждет XHR или создает правильный вид DOM, или утверждет что ваша функция изменила DOM как надо.
 
-## With great power comes great responsibility
+## Больше возможностей — больше ответственности
 
-Angular is written with testability in mind, but it still requires that you
-do the right thing. We tried to make the right thing easy, but Angular is not magic, which means if
-you don't follow these guidelines you may very well end up with an untestable application.
+Angular писался с учетом потребностей тестирования, но все же требуется чтобы и вы делали все верно. Мы попытались 
+облегчить работу, и если вы будете делать все правильно, то, в итоге, получите легко тестируемое приложение.
 
-## Dependency Injection
-There are several ways in which you can get a hold of a dependency:
-1. You could create it using the `new` operator.
-2. You could look for it in a well known place, also known as global singleton.
-3. You could ask a registry (also known as service registry) for it. (But how do you get a hold of
-the registry? Most likely by looking it up in a well known place. See #2)
-4. You could expect that it be handed to you.
+## Внедрение зависимости
+Существуют несколько способов внедрения зависимости:
+1. Можно создать ее с помощью оператора new.
+2. Можно найти ее в известном месте, например в глобальном объекте. 
+3. Можно запросить ее у реестра (известного как сервис реестра, но как получть доступ к этому сервису. 
+Скорее всего это вариант 2). 
+4. Можно попросить передать ее вам.
 
-Out of the four options in the list above, only the last one is testable. Let's look at why:
+Из четырех вариантов, только последний является тестируемым. Давайте посмотрим почему:
 
-### Using the `new` operator
+### Использование оператора `new`
 
-While there is nothing wrong with the `new` operator fundamentally the issue is that calling a new
-on a constructor permanently binds the call site to the type. For example lets say that we are
-trying to instantiate an `XHR` so that we can get some data from the server.
+Хотя нет ничего плохого, в применении оператора `new` принципиальным является вопрос, что вызывая его каждый раз, 
+вы привязываете вызов функции к типу. Например, можно сказать, что каждый раз когда мы хотим получить данные 
+с сервера, мы создаем экземпляр `XHR`.
 
 <pre>
 function MyClass() {
@@ -64,24 +59,24 @@ function MyClass() {
 }
 </pre>
 
-The issue becomes that in tests, we would very much like to instantiate a `MockXHR` which would
-allow us to return fake data and simulate network failures. By calling `new XHR()` we are
-permanently bound to the actual XHR, and there is no good way to replace it. Yes there is monkey
-patching. That is a bad idea for many reasons which are outside the scope of this document.
+Этот вопрос встает при тестировании, мы очень хотели бы создать экземпляр `MockXHR` который позволит использовать 
+нужные нам данные или имитировать сбой сети. Путем создания `new XHR()` мы постоянно связанны с фактическим XHR, 
+и нет хорошего способа заменить его. Да, можно пойти окольными путями, но это плохая идея по многим причинам, 
+которые выходят за рамки данного документа.
 
-The class above is hard to test since we have to resort to monkey patching:
+Класс выше трудно протетстировать, поэтому нужно использовать обходные пути:
 <pre>
 var oldXHR = XHR;
 XHR = function MockXHR() {};
 var myClass = new MyClass();
 myClass.doWork();
-// assert that MockXHR got called with the right arguments
-XHR = oldXHR; // if you forget this bad things will happen
+// утверждаем, что MockXHR вызван с верными аргументами
+XHR = oldXHR; // если забыть об этом, могут произойти неприятные вещи
 </pre>
 
 
-### Global look-up:
-Another way to approach the problem is to look for the service in a well known location.
+### Глобальный просмотр:
+Другой вариант решения проблемы это просмотр сервисов, расположение которых уже известно.
 
 <pre>
 function MyClass() {
@@ -95,28 +90,28 @@ function MyClass() {
 }
 </pre>
 
-While no new instance of the dependency is being created, it is fundamentally the same as `new`, in
-that there is no good way to intercept the call to `global.xhr` for testing purposes, other then
-through monkey patching. The basic issue for testing is that a global variable needs to be mutated in
-order to replace it with call to a mock method. For further explanation why this is bad see: {@link
+Хотя создается новый экземпляр зависимости, это восновном то же, что и создание нового с помощью `new`, так как 
+нет хорошего способа для перехвата вызова `global.xhr` в целях тестирования, опять придется что то придумывать. 
+Основной вопрос при тестировании в том, что глобальную переменную нужно изменить для того чтобы заменить ее макетом. 
+Чтобыузнать, почему это плохо, смотрите : {@link
 http://misko.hevery.com/code-reviewers-guide/flaw-brittle-global-state-singletons/ Brittle Global
 State & Singletons}
 
-The class above is hard to test since we have to change global state:
+Класс выше трудно тестировать, так как необходимо изменить глобальное состояние:
 <pre>
 var oldXHR = global.xhr;
 global.xhr = function mockXHR() {};
 var myClass = new MyClass();
 myClass.doWork();
-// assert that mockXHR got called with the right arguments
-global.xhr = oldXHR; // if you forget this bad things will happen
+// утверждаем, что MockXHR вызван с верными аргументами
+global.xhr = oldXHR; // если забыть об этом, могут произойти неприятные вещи
 </pre>
 
 
-### Service Registry:
+### Реестр сервисов:
 
-It may seem as that this can be solved by having a registry for all of the services, and then
-having the tests replace the services as needed.
+Как может показаться, проблема может быть решена путем ведения реестра для всех сервисов, а затем в тестах 
+заменять ими сервисы при необходимости.
 
 <pre>
 function MyClass() {
@@ -131,24 +126,24 @@ function MyClass() {
 }
 </pre>
 
-However, where does the serviceRegistry come from? if it is:
-* `new`-ed up, the the test has no chance to reset the services for testing
-*  global look-up, then the service returned is global as well (but resetting is easier, since
-there is only one global variable to be reset).
+Однако, откуда взять serviceRegistry? Если это: 
+* новый `new` объект, тогда тест не имеет никакой возможности сбросить сервисы тестирования 
+* глобальный просмотр, то также возвращается глобальный сервис (но произвести сброс легче, так как есть только 
+одна глобальная переменная для сброса).
 
-The class above is hard to test since we have to change global state:
+Класс выше трудно проверить, поскольку необходимо изменить глобальное состояние:
 <pre>
 var oldServiceLocator = global.serviceLocator;
 global.serviceLocator.set('xhr', function mockXHR() {});
 var myClass = new MyClass();
 myClass.doWork();
-// assert that mockXHR got called with the right arguments
-global.serviceLocator = oldServiceLocator; // if you forget this bad things will happen
+// утверждаем, что MockXHR вызван с верными аргументами
+global.serviceLocator = oldServiceLocator; // если забыть об этом, могут произойти неприятные вещи
 </pre>
 
 
-### Passing in Dependencies:
-Lastly the dependency can be passed in.
+### Передача зависимости:
+В конце концов, зависимость может быть передана в метод.
 
 <pre>
 function MyClass(xhr) {
@@ -161,32 +156,30 @@ function MyClass(xhr) {
 }
 </pre>
 
-This is the preferred way since the code makes no assumptions as to where the `xhr` comes from,
-rather that whoever created the class was responsible for passing it in. Since the creator of the
-class should be different code than the user of the class, it separates the responsibility of
-creation from the logic, and that is what dependency-injection is in a nutshell.
+Это предпочтительный способ, так как код не делает ни каких предположений о том, что за объект `xhr` пришел, 
+кто его создал и передал внутрь. Так как его создает другой код, а не использующий его класс, он отделяет 
+ответсвтенность создания от логики; это и есть внедрение зависимости в двух словах.
 
-The class above is very testable, since in the test we can write:
+Класс выше легко тестируется, поскольку млжно написать:
 <pre>
 function xhrMock(args) {...}
 var myClass = new MyClass(xhrMock);
 myClass.doWork();
-// assert that xhrMock got called with the right arguments
+// утверждаем, что MockXHR вызван с верными аргументами
 </pre>
 
-Notice that no global variables were harmed in the writing of this test.
+Заметьте, что глобальные переменные не изменялись при написании этого теста.
 
-Angular comes with {@link di dependency injection} built in which makes the right thing
-easy to do, but you still need to do it if you wish to take advantage of the testability story.
+Angular поставляется с {@link di внедрением зависимости} и в результате делать правильные вещи становится легче, 
+но все же их нужно делать.
 
-## Controllers
-What makes each application unique is its logic, which is what we would like to test. If the logic
-for your application is mixed in with DOM manipulation, it will be hard to test as in the example
-below:
+## Контроллеры
+В любом приложении уникальным является то что оно делает, т.е. логика, вот ее мы и хотим протестировать. 
+Если логика вашего приложения содержит манипуляции с DOM, его будет трудно протестировать, это показано ниже:
 
 <pre>
 function PasswordCtrl() {
-  // get references to DOM elements
+  // получение ссылок на элементы DOM
   var msg = $('.ex1 span');
   var input = $('.ex1 input');
   var strength;
@@ -209,8 +202,8 @@ function PasswordCtrl() {
 }
 </pre>
 
-The code above is problematic from a testability point of view, since it requires your test to have the right kind
-of DOM present when the code executes. The test would look like this:
+Приведенный выше код является проблемным с точки зрения пригодности для тестирования, так как тесту требуется 
+иметь правильное представление DOM, перед тем, как выполнить тест. Тест может выглядеть следующим образом:
 
 <pre>
 var input = $('<input type="text"/>');
@@ -226,8 +219,8 @@ expect(span.text()).toEqual('weak');
 $('body').html('');
 </pre>
 
-In angular the controllers are strictly separated from the DOM manipulation logic which results in
-a much easier testability story as can be seen in this example:
+В контроллерах Angular логика строго отделяется от манипуляций с DOM, что в итоге делает их более пригодными для 
+тестирования, что видно на примере ниже:
 
 <pre>
 function PasswordCtrl($scope) {
@@ -245,7 +238,7 @@ function PasswordCtrl($scope) {
 }
 </pre>
 
-and the test is straight forward
+и в тесте далее
 
 <pre>
 var pc = new PasswordCtrl();
@@ -254,13 +247,12 @@ pc.grade();
 expect(pc.strength).toEqual('weak');
 </pre>
 
-Notice that the test is not only much shorter but it is easier to follow what is going on. We say
-that such a test tells a story, rather then asserting random bits which don't seem to be related.
+Обратите внимание, что тест не только намного короче, но и легче для понимания что происходит. 
+Мы говорим, что тест рассказывает историю, а затем проверяет случайные свойства, которые не связаны между собой.
 
-## Filters
-{@link api/ng.$filter Filters} are functions which transform the data into user readable
-format. They are important because they remove the formatting responsibility from the application
-logic, further simplifying the application logic.
+## Фильтры
+{@link api/ng.$filter Фильтры} это функции, которые преобразуют данные в требуемый формат для чтения пользователем. 
+Они важны, поскольку освобождают логику приложения от необходимости форматирования данных, что упрощает её ещё больше.
 
 <pre>
 myModule.filter('length', function() {
@@ -274,23 +266,77 @@ expect(length(null)).toEqual(0);
 expect(length('abc')).toEqual(3);
 </pre>
 
-## Directives
-Directives in angular are responsible for updating the DOM when the state of the model changes.
+## Директивы
+Директивы в Angular отвечают за инкапсуляцию комплексной функциональности внутри пользовательского тега HTML,
+атрибута, класса или комментария. Модульные тесты очень важны для директив, поскольку компоненты, которые вы создаете 
+с помощью директив, могут быть использованы во всем приложении и во многих различных контекстах.
+
+### Простая директива HTML
+
+Давайте начнем с определение зависимости в приложении.
+
+<pre>
+var app = angular.module('myApp', []);
+</pre>
+
+Сейчас можно добавить директиву в приложение.
+
+<pre>
+app.directive('aGreatEye', function () {
+    return {
+        restrict: 'E',
+        replace:  true,
+        template: '<h1>lidless, wreathed in flame</h1>'
+    };
+});
+</pre>
+
+Эта директива использует тег `<a-great-eye></a-great-eye>`. Она заменяет входной тег на шаблон 
+`<h1>lidless, wreathed in flame</h1>`. Теперь напишем модульный тест на jasmine для тестирования функциональности.
+
+<pre>
+describe('Unit testing great quotes', function() {
+    var $compile;
+    var $rootScope;
+
+    // Загрузка модуля myApp, содержащего директиву
+    beforeEach(module('myApp'));
+
+    // Храним ссылки в $rootScope и $compile
+    // чтобы они были доступны для всех тестов, описанных в этом блоке
+    beforeEach(inject(function(_$compile_, _$rootScope_){
+      // При сопоставлении инжектор заменяет подчеркивание (_) вокруг имен параметров when matching
+      $compile = _$compile_;
+      $rootScope = _$rootScope_;
+    }));
+    
+    it('Replaces the element with the appropriate content', function() {
+        // Компиляция части HTML, содержащей директиву
+        var element = $compile("<a-great-eye></a-great-eye>")($rootScope);
+        // Убедитесь, что скомпилированный элемент содержит содержимое шаблонов
+        expect(element.html()).toContain("lidless, wreathed in flame");
+    });
+});
+</pre>
+
+Мы внедрили службы $compile и $rootScope перед каждым тестом jasmine. Сервис $compile используется для отображения 
+директивы aGreatEye. После визуализации директивы проверяется что директива заменила свое содержимое на «lidless, 
+wreathed in flame».
 
 ## Mocks
-oue
+Оу
 
-## Global State Isolation
-oue
+## Изоляция глобального состояния
+Оу
 
-# Preferred way of Testing
-uo
+# Предпочтительный способ тестирования
+ну
 
 ## JavaScriptTestDriver
-ou
+ну
 
 ## Jasmine
-ou
+ну
 
-## Sample project
+## Простой проект
 uoe
