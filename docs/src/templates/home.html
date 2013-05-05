@@ -717,30 +717,30 @@
        , "save": "Вызывается когда пользователь щелкает на кнопку «Сохранить»."
        }
      , "list.html":
-       { "ng-model": "Bind the input field to the <code>search</code> property. The property is then used to filter for only the projects which contain the text entered by the user."
-       , "#/new": "A link to a <code>/new</code> route defined in <code>projects.js</code>. Note that we follow the spirit of the web. There is no need to register callbacks on links, we are simply navigating to a new URL. This automatically updates the browser history, and enables deep-linking. But unlike a server round trip application, this navigation event gets rendered instantly in the browser."
-       , "ng-repeat": "Use <code>ng-repeat</code> to unroll a collection. Here, for every project in <code>projects</code>, AngularJS will create new copy of the <code>&lt;tr&gt;</code> element."
-       , "filter": "The <code>filter</code> uses the <code>search</code> to return only a subset of items in the <code>projects</code> array. As you enter text into the search box, the <code>filter</code> will narrow down the list according to your criteria. <code>ng-repeat</code> will then add or remove items from the table."
-       , "orderBy": "Returns the <code>project</code> list ordered by <code>name</code> property."
-       , "#/edit/{{project._id.$oid}}": "Creates individual edit links, by embedding the project id into the URL. The embedded project id serves the purpose of deep-linking, back button, as well as a way to communicate to <code>EditCtrl</code> which project should be edited."
+       { "ng-model": "Cвязывает поле ввода со свойством <code>search</code>. Свойство используется для фильтрации только в проектах, содержащих пользовательский текст."
+       , "#/new": "Ссылка на новый <code>/new</code> маршрут определена в <code>projects.js</code>. Обратите внимание, что мы следуем духу веб. Нет необходимости регистрироваться обратные вызовы на ссылки и мы просто перемещаемся на новый URL. Автоматически обновляется история браузера и создаются внешние связи. Но, в отличие от многостраничного приложения, всё это происходит без перезагрузки страницы."
+       , "ng-repeat": "Используйте <code>ng-repeat</code> для показа набора. Здесь для каждого проекта в <code>projects</code> AngularJS создаст копию элемента <code>&lt;tr&gt;</code>."
+       , "filter": "<code>filter</code> использует <code>search</code> чтобы вернуть подмножество элементов из массива <code>projects</code>. При вводе текста, <code>filter</code> сузит список в соответствии с заданными критериями. <code>ng-repeat</code> добавит или удалит элементы из таблицы."
+       , "orderBy": "Возвращает список <code>project</code>, отсортированный по свойству <code>name</code>."
+       , "#/edit/{{project._id.$oid}}": "Создает уникальные ссылки, путем внедрения id проектов в URL. Встроенный id проекта способствует внешнему связыванию, работе кнопки назад, а так же для связи с <code>EditCtrl</code>, позволяющим отредактировать проект."
        }
      , "detail.html":
-       { "myForm": "Create a form named <code>myForm</code>. We will declare form validation rules here which we'll use to show input errors and disable buttons."
-       , "ng-class": "Add an <code>error</code> CSS class when the <code>myForm</code>'s input <code>name</code> is invalid."
-       , "required": "Invalidate the input control when no text is entered."
-       , "ng-show": "Show this error message when the <code>myForm</code>'s input <code>name</code> has <code>required</code> validation error."
-       , "url": "The URL type automatically adds URL validation."
-       , "ng-disabled": "Disable the 'Save' button when the form has not been filled in or is invalid."
+       { "myForm": "Создание формы с именем <code>myForm</code>. Здесь объявим правила валидации формы, которые будем использовать, чтобы показать ошибки ввода и отключить кнопки."
+       , "ng-class": "CSS класс <code>error</code> добавляется когда в <code>myForm</code> поле ввода <code>name</code> некорректно."
+       , "required": "Поле ввода недействительно если не вводится текст."
+       , "ng-show": "Показать это сообщение об ошибке когда в <code>myForm</code> поле ввода <code>name</code> имеет <code>required</code> выдавший ошибку."
+       , "url": "Тип URL автоматически задействует специальную проверку для URL."
+       , "ng-disabled": "Отключает кнопку 'сохранить' когда форма не заполнена или некорректна."
        }
      , "mongolab.js":
-       { "'mongolab'": "Declares the <code>mongolab</code> module. You use modules to configure existing services, and define new services, directives, filters, and so on. Here, we’ll set up <code>Project</code> class to abstract server communication."
-       , "'ngResource'": "We depend on AngularJS <code>ngResource</code> module which provides a generic interface to RESTful services."
-       , "factory": "Use the module's <code>factory</code> method to define new services. Any service defined here will then be automatically injected anywhere your application requests it."
-       , "Project": "Here is a service definition for the <code>Project</code> resource class. The class will represent the data associated with each 'project'. It has methods for retrieving and storing the data."
-       , "$resource": "A <code>$resource</code> is a service used to create resource classes. The resource class comes preconfigured with <code>query()</code>, <code>get()</code>, <code>save()</code>, and <code>remove()</code>, methods as an API to communicate with persistence servers. Additionally, the class can be extended with behavior specific to your application."
-       , "apiKey": "URL query parameter which needs to be sent with all requests to the <code>mongolab</code> data storage engine."
-       , "update": "We are defining <code>update()</code> method on the resource. It will use HTTP <code>PUT</code> method for the request."
-       , "prototype": "Here we're extending the resource class with methods specific to our application's persistence engine."
+       { "'mongolab'": "Объявление модуля <code>mongolab</code>. Можно использовать модули для настройки существующих сервисов, а так же определить новые сервисы, директивы, фильтры, и т. д. Здесь мы создали класс <code>Project</code> для абстрагирования от связи с сервером."
+       , "'ngResource'": "Зависимость от AngularJS-модуля <code>ngResource</code> который обеспечивает общий интерфейс для RESTful сервисов."
+       , "factory": "Используйте метод модуля <code>factory</code> для определения новых сервисов. Любые, определенные здесь, сервисы  будут затем внедрены в любое место приложения, где они потребуются."
+       , "Project": "Определение сервисов для ресунсного класса <code>Project</code>. Класс будет представлять данные, связанные с каждым проектом 'project'. Так же в нем есть методы для хранения и получения данных."
+       , "$resource": "<code>$resource</code> это сервис, используемый для создания ресурсных классов. Ресурсные классы поставляются с предварительно настроенными методами <code>query()</code>, <code>get()</code>, <code>save()</code>, and <code>remove()</code> как API для связи с сервером. Кроме того, класс может быть расширен дополнительным поведением для вашего приложения."
+       , "apiKey": "Параметр URL-запроса, который должен быть отправлен со всеми запросами в движок хранилища данных <code>mongolab</code>."
+       , "update": "Определяем метод <code>update()</code> в ресурсе. Он будет использовать HTTP-метод <code>PUT</code> в запросе."
+       , "prototype": "Здесь мы расширяем класс ресурса методами, специфичными для движка нашего приложения."
        }
      }
     </script>
