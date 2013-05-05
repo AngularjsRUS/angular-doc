@@ -697,22 +697,22 @@ function checkboxInputType(scope, element, attr, ctrl) {
  * @restrict E
  *
  * @description
- * HTML input element control with angular data-binding. Input control follows HTML5 input types
- * and polyfills the HTML5 validation behavior for older browsers.
+ * HTML поле ввода, для которого работает связывание данных Angular. Поле ввода реализует все типы HTML5 полей 
+ * ввода и такие костыли как проверка ввода в старых браузерах.
  *
- * @param {string} ngModel Assignable angular expression to data-bind to.
- * @param {string=} name Property name of the form under which the control is published.
- * @param {string=} required Sets `required` validation error key if the value is not entered.
- * @param {boolean=} ngRequired Sets `required` attribute if set to true
- * @param {number=} ngMinlength Sets `minlength` validation error key if the value is shorter than
- *    minlength.
- * @param {number=} ngMaxlength Sets `maxlength` validation error key if the value is longer than
- *    maxlength.
- * @param {string=} ngPattern Sets `pattern` validation error key if the value does not match the
- *    RegExp pattern expression. Expected value is `/regexp/` for inline patterns or `regexp` for
- *    patterns defined as scope expressions.
- * @param {string=} ngChange Angular expression to be executed when input changes due to user
- *    interaction with the input element.
+ * @param {string} ngModel Ассоциированное angular-выражение для связывания данных.
+ * @param {string=} name Имя свойства, под которым элемент управления будет доступен в области видимости.
+ * @param {string=} required Устанавливает ключ `required` в ошибках проверки данных, когда поле не заполнено.
+ * @param {boolean=} ngRequired Устанавливает атрибут `required`, если выражение возвращает true
+ * @param {number=} ngMinlength Устанавливает ключ `minlength` в ошибках проверки данных если значение короче чем 
+ *    заданное количество знаков.
+ * @param {number=} ngMaxlength Устанавливает ключ `maxlength` в ошибках проверки данных, если значение длиннее чем
+ *    заданное количество знаков.
+ * @param {string=} ngPattern Устанавливает ключ `pattern` в ошибках проверки данных, если ввод не соответствует 
+ *    шаблону RegExp. Значение сравнивается с переданным паттерном, если он передается в формате `/regexp/`, в 
+ *    других случаях считается что передано свойство текущей области видимости, которое содержит нужный паттерн.
+ * @param {string=} ngChange Angular-выражение, которое будет выполненовыполнено, когда измениться содержимое 
+ *    элемента управления в результате взаимодействия с пользователем.
  *
  * @example
     <doc:example>
