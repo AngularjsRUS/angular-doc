@@ -32,11 +32,11 @@ docsApp.directive.sourceEdit = function(getEmbeddedTemplate) {
   return {
     template: '<div class="btn-group pull-right">' +
         '<a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href>' +
-        '  <i class="icon-pencil icon-white"></i> Edit<span class="caret"></span>' +
+        '  <i class="icon-pencil icon-white"></i> Изменить<span class="caret"></span>' +
         '</a>' +
         '<ul class="dropdown-menu">' +
-        '  <li><a ng-click="plunkr($event)" href="">In Plunkr</a></li>' +
-        '  <li><a ng-click="fiddle($event)" href="">In JsFiddle</a></li>' +
+        '  <li><a ng-click="plunkr($event)" href="">в Plunkr</a></li>' +
+        '  <li><a ng-click="fiddle($event)" href="">в JsFiddle</a></li>' +
         '</ul>' +
         '</div>',
     scope: true,
@@ -93,10 +93,10 @@ docsApp.directive.docTutorialNav = function(templateMerge) {
       element.addClass('btn-group');
       element.addClass('tutorial-nav');
       element.append(templateMerge(
-        '<li class="btn btn-primary"><a href="tutorial/{{prev}}"><i class="icon-step-backward"></i> Previous</a></li>\n' +
-        '<li class="btn btn-primary"><a href="http://angular.github.com/angular-phonecat/step-{{seq}}/app"><i class="icon-play"></i> Live Demo</a></li>\n' +
-        '<li class="btn btn-primary"><a href="https://github.com/angular/angular-phonecat/compare/step-{{diffLo}}...step-{{diffHi}}"><i class="icon-search"></i> Code Diff</a></li>\n' +
-        '<li class="btn btn-primary"><a href="tutorial/{{next}}">Next <i class="icon-step-forward"></i></a></li>', props));
+        '<li class="btn btn-primary"><a href="tutorial/{{prev}}"><i class="icon-step-backward"></i> Назад</a></li>\n' +
+        '<li class="btn btn-primary"><a href="http://angular.github.com/angular-phonecat/step-{{seq}}/app"><i class="icon-play"></i> Живой пример</a></li>\n' +
+        '<li class="btn btn-primary"><a href="https://github.com/angular/angular-phonecat/compare/step-{{diffLo}}...step-{{diffHi}}"><i class="icon-search"></i> Изменения в коде</a></li>\n' +
+        '<li class="btn btn-primary"><a href="tutorial/{{next}}">Вперед <i class="icon-step-forward"></i></a></li>', props));
     }
   };
 };
@@ -107,9 +107,9 @@ docsApp.directive.docTutorialReset = function() {
     return '' +
       '  <div class=\'tab-pane well\' title="' + name + '" value="' + id + '">\n' +
       '    <ol>\n' +
-      '      <li><p>Reset the workspace to step ' + step + '.</p>' +
+      '      <li><p>Откатите рабочую среду до шага ' + step + '.</p>' +
       '        <pre>' + command + '</pre></li>\n' +
-      '      <li><p>Refresh your browser or check the app out on <a href="http://angular.github.com/angular-phonecat/step-' + step + '/app">Angular\'s server</a>.</p></li>\n' +
+      '      <li><p>Перезагрузите страницу или проверьте приложение на <a href="http://angular.github.com/angular-phonecat/step-' + step + '/app">сервере Angular</a>.</p></li>\n' +
       '    </ol>\n' +
       '  </div>\n';
   }
@@ -119,7 +119,7 @@ docsApp.directive.docTutorialReset = function() {
       var step = attrs.docTutorialReset;
       element.html(
         '<div ng-hide="show">' +
-          '<p><a href="" ng-click="show=true;$event.stopPropagation()">Workspace Reset Instructions  ➤</a></p>' +
+          '<p><a href="" ng-click="show=true;$event.stopPropagation()">Инструкции по сбросу рабочей среды  ➤</a></p>' +
         '</div>\n' +
         '<div class="tabbable" ng-show="show" ng-model="$cookies.platformPreference">\n' +
           tab('Git on Mac/Linux', 'git checkout -f step-' + step, 'gitUnix', step) +
@@ -361,7 +361,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
       $scope.currentPage = sections.getPage(sectionId, partialId);
 
       if (!$scope.currentPage) {
-        $scope.partialTitle = 'Error: Page Not Found!';
+        $scope.partialTitle = 'Ошибка: страница не найдена!';
       }
 
       updateSearch();
