@@ -52,124 +52,121 @@ it('should filter results', function() {
 Приостановка выполнения тестов через указанное количество секунд `seconds`.
 
 ## browser().navigateTo(url)
-Loads the `url` into the test frame.
+Загрузка содержимого `url` в тестовую область.
 
 ## browser().navigateTo(url, fn)
-Loads the URL returned by `fn` into the testing frame. The given `url` is only used for the test
-output. Use this when the destination URL is dynamic (that is, the destination is unknown when you
-write the test).
+Загрузка URL, возвращенного функцией `fn` в тестовую область. Полученные `url` данные используются только для 
+тестового вывода. Используется когда URL создается динамичестки (может быть он просто не определен во время написания 
+теста).
 
 ## browser().reload()
-Refreshes the currently loaded page in the test frame.
+Обновление текущей загруженной страницы в тестовой области.
 
 ## browser().window().href()
-Returns the window.location.href of the currently loaded page in the test frame.
+Возвращает window.location.href для текущей страницы, загруженной в тестовую область.
 
 ## browser().window().path()
-Returns the window.location.pathname of the currently loaded page in the test frame.
+Возвращает window.location.pathname для текущей страницы, загруженной в тестовую область.
 
 ## browser().window().search()
-Returns the window.location.search of the currently loaded page in the test frame.
+Возвращает window.location.search для текущей страницы, загруженной в тестовую область.
 
 ## browser().window().hash()
-Returns the window.location.hash (without `#`) of the currently loaded page in the test frame.
+Возвращает window.location.hash (без `#`) для текущей страницы, загруженной в тестовую область.
 
 ## browser().location().url()
-Returns the {@link api/ng.$location $location.url()} of the currently loaded page in
-the test frame.
+Возвращает {@link api/ng.$location $location.url()} для текущей страницы, загруженной в тестовую область.
 
 ## browser().location().path()
-Returns the {@link api/ng.$location $location.path()} of the currently loaded page in
-the test frame.
+Возвращает {@link api/ng.$location $location.path()} для текущей страницы, загруженной в тестовую область.
 
 ## browser().location().search()
-Returns the {@link api/ng.$location $location.search()} of the currently loaded page
-in the test frame.
+Возвращает {@link api/ng.$location $location.search()} для текущей страницы, загруженной в тестовую область.
 
 ## browser().location().hash()
-Returns the {@link api/ng.$location $location.hash()} of the currently loaded page in
-the test frame.
+Возвращает {@link api/ng.$location $location.hash()} для текущей страницы, загруженной в тестовую область.
 
 ## expect(future).{matcher}
-Asserts the value of the given `future` satisfies the `matcher`. All API statements return a
-`future` object, which get a `value` assigned after they are executed. Matchers are defined using
-`angular.scenario.matcher`, and they use the value of futures to run the expectation. For example:
+Утверждение, что значение `future` должно удовлетворять условию `matcher`. Все методы API возвращают объект `future`, 
+который получает значение `value` после того как закончится выполнение. Вычислители определяются с помощью 
+`angular.scenario.matcher`, и используются для проверки будущих значений. Например: 
 `expect(browser().location().href()).toEqual('http://www.google.com')`
 
 ## expect(future).not().{matcher}
-Asserts the value of the given `future` satisfies the negation of the `matcher`.
+Утверждение, что значение `future` не должно удовлетворять `matcher`.
 
 ## using(selector, label)
-Scopes the next DSL element selection.
+Выбор области для следующего DSL элемента.
 
 ## binding(name)
-Returns the value of the first binding matching the given `name`.
+Возвращает значение первого связанного выражения с именем `name`.
 
 ## input(name).enter(value)
-Enters the given `value` in the text field with the given `name`.
+Вводит значение `value` в текстовое поле с именем `name`.
 
 ## input(name).check()
-Checks/unchecks the checkbox with the given `name`.
+Ставит/убирает флажок в чекбокс с именем `name`.
 
 ## input(name).select(value)
-Selects the given `value` in the radio button with the given `name`.
+Выбирает значение `value` в радио-кнопке с именем `name`.
 
 ## input(name).val()
-Returns the current value of an input field with the given `name`.
+Возвращается текущее значение элемента управления с именем `name`.
 
 ## repeater(selector, label).count()
-Returns the number of rows in the repeater matching the given jQuery `selector`. The `label` is
-used for test output.
+Возвращает количество строк, которые соответствуют переданному селектору jQuery в параметре `selector`. 
+`label` используется для тестового вывода.
 
 ## repeater(selector, label).row(index)
-Returns an array with the bindings in the row at the given `index` in the repeater matching the
-given jQuery `selector`. The `label` is used for test output.
+Возвращает из массива с привязками строку с индексом `index` в выражении повторителя с использованием селектора jQuery
+`selector`. `label` используется для тестового вывода.
 
 ## repeater(selector, label).column(binding)
-Returns an array with the values in the column with the given `binding` in the repeater matching
-the given jQuery `selector`. The `label` is used for test output.
+Возвращает из массива со значениями столбец `binding` для которого значение соответствует переданному jQuery селектору
+`selector`. `label` используется для тестового вывода.
 
 ## select(name).option(value)
-Picks the option with the given `value` on the select with the given `name`.
+Проверка, что значение `value` выбрано в элементе select с именем `name`.
 
 ## select(name).option(value1, value2...)
-Picks the options with the given `values` on the multi select with the given `name`.
+Проверка, что все значения `values` выбраны в мультиселекте с именем `name`.
 
 ## element(selector, label).count()
-Returns the number of elements that match the given jQuery `selector`. The `label` is used for test
-output.
+Возвращает количество элементов, которые соответствуют jQuery селектору `selector`. `label` использутся 
+для тестового вывода.
 
 ## element(selector, label).click()
-Clicks on the element matching the given jQuery `selector`. The `label` is used for test output.
+Щелчки по элементу, найденному по jQuery селектору `selector`. `label` используется для тестового вывода.
 
 ## element(selector, label).query(fn)
-Executes the function `fn(selectedElements, done)`, where selectedElements are the elements that
-match the given jQuery `selector` and `done` is a function that is called at the end of the `fn`
-function.  The `label` is used for test output.
+Выполнение функции `fn(selectedElements, done)`, со значениями selectedElements которые находятся по jQuery селектору
+`selector` и `done` — это функция, которая выполняется, когда завершается функция `fn`. `label` используется для 
+тестового вывода.
 
 ## element(selector, label).{method}()
-Returns the result of calling `method` on the element matching the given jQuery `selector`, where
-`method` can be any of the following jQuery methods: `val`, `text`, `html`, `height`,
-`innerHeight`, `outerHeight`, `width`, `innerWidth`, `outerWidth`, `position`, `scrollLeft`,
-`scrollTop`, `offset`. The `label` is used for test output.
+Возвращает результат выполнения метода `method` на элемента, найденом с помощью jQuery селектор `selector`, 
+где `method` может быть любой из jQuery методов: `val`, `text`, `html`, `height`, `innerHeight`, `outerHeight`, 
+`width`, `innerWidth`, `outerWidth`, `position`, `scrollLeft`, `scrollTop`, `offset`. `label` используется для 
+тестового вывода.
 
 ## element(selector, label).{method}(value)
-Executes the `method` passing in `value` on the element matching the given jQuery `selector`, where
-`method` can be any of the following jQuery methods: `val`, `text`, `html`, `height`,
-`innerHeight`, `outerHeight`, `width`, `innerWidth`, `outerWidth`, `position`, `scrollLeft`,
-`scrollTop`, `offset`.  The `label` is used for test output.
+Выполняет `method`, передавая в качестве параметра `value` на элементе, найденом с помощью jQuery селектора `selector`, 
+где `method` может быть любым из следующих методов jQuery: `val`, `text`, `html`, `height`, `innerHeight`, 
+`outerHeight`, `width`, `innerWidth`, `outerWidth`, `position`, `scrollLeft`, `scrollTop`, `offset`. `label` 
+используется для тестового вывода.
 
 ## element(selector, label).{method}(key)
-Returns the result of calling `method` passing in `key` on the element matching the given jQuery
-`selector`, where `method` can be any of the following jQuery methods: `attr`, `prop`, `css`. The
-`label` is used for test output.
+Возвращает результат выполнения метода `method` которому в качестве параметра передаются ключ `key` на элементе, 
+найденом с помощью jQuery селектора `selector`, где `method` может быть любым и следующих jQuery методов: `attr`, 
+`prop`, `css`. `label` используется для тестового вывода.
 
 ## element(selector, label).{method}(key, value)
-Executes the `method` passing in `key` and `value` on the element matching the given jQuery
-`selector`, where `method` can be any of the following jQuery methods: `attr`,  `prop`, `css`.  The
-`label` is used for test output.
+Выполняет метод `method` которому в качестве параметров передаются ключ `key` и значение `value` на элементе, 
+найденом с помощью jQuery селектора `selector`, где `method` может быть любым и следующих jQuery методов: `attr`, 
+`prop`, `css`. `label` используется для тестового вывода.
 
-JavaScript is a dynamically typed language which comes with great power of expression, but it also
-come with almost no-help from the compiler. For this reason we feel very strongly that any code
-written in JavaScript needs to come with a strong set of tests. We have built many features into
-angular which makes testing your angular applications easy. So there is no excuse for not testing.
+JavaScript — это динамически типизированный язык, который включает множество выражений, но от его компилятора 
+практически нулевая помощь. По этой причине мы считаем очень хорошей практикой, что любой код, написанный на 
+JavaScript необходимо пропустить через хороший набор тестов. Мы построили множество функций в Angular, которые 
+делают тестирование Angular-приложений легким. Так что не может быть никаких оправданий, если вы не занимаетесь 
+тестированием.
