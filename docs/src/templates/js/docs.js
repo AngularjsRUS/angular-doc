@@ -95,7 +95,7 @@ docsApp.directive.docTutorialNav = function(templateMerge) {
       element.append(templateMerge(
         '<li class="btn btn-primary"><a href="tutorial/{{prev}}"><i class="icon-step-backward"></i> Назад</a></li>\n' +
         '<li class="btn btn-primary"><a href="http://angular.github.com/angular-phonecat/step-{{seq}}/app"><i class="icon-play"></i> Демо</a></li>\n' +
-        '<li class="btn btn-primary"><a href="https://github.com/angular/angular-phonecat/compare/step-{{diffLo}}...step-{{diffHi}}"><i class="icon-search"></i> Изменения в коде</a></li>\n' +
+        '<li class="btn btn-primary"><a href="https://github.com/angular/angular-phonecat/compare/step-{{diffLo}}...step-{{diffHi}}"><i class="icon-search"></i> Изм. в коде</a></li>\n' +
         '<li class="btn btn-primary"><a href="tutorial/{{next}}">Вперед <i class="icon-step-forward"></i></a></li>', props));
     }
   };
