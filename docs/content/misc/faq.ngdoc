@@ -28,22 +28,20 @@ AngularJS на 100% JavaScript, 100% на стороне клиента и со�
 код, который постоянно синхронизирует вид с моделью и модель с видом, как в других шаблонизаторах.
 
 
-### Do I need to worry about security holes in AngularJS?
+### Нужно ли беспокоиться по поводу дыры в безопасности в AngularJS?
 
-Like any other technology, AngularJS is not impervious to attack. Angular does, however, provide
-built-in protection from basic security holes including cross-site scripting and HTML injection
-attacks. AngularJS does round-trip escaping on all strings for you and even offers XSRF protection
-for server-side communication.
+Как и любая другая технология, AngularJS проницаем для атак. Angular, тем не менее, обеспечивают
+встроенную защиту от основных дыр в безопасности, в том числе от межсайтового скриптинга и HTML инъекций. 
+AngularJS делает круговое скрытие для всех строк и даже предлагает XSRF защиту для связи с сервером.
 
-AngularJS was designed to be compatible with other security measures like Content Security Policy
-(CSP), HTTPS (SSL/TLS) and server-side authentication and authorization that greatly reduce the
-possible attack vectors and we highly recommended their use.
+AngularJS был разработан, чтобы быть совместимым с другими мерами безопасности, как политика безопасности содержания
+(CSP), HTTPS (SSL/TLS) и серверная аутентификация и авторизация, которые серьезно препятствуют возможным атакам, 
+и мы настоятельно рекомендуем их использование.
 
 
-### Can I download the source, build, and host the AngularJS environment locally?
+### Могу ли я скачать исходные коды, сборки и хосты AngularJS среды на свой компьютер?
 
-Yes. See instructions in {@link downloading}.
-
+Да. Смотрите инструкции в разделе {@link загрузка}.
 
 
 ### What browsers does Angular work with?
