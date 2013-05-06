@@ -17,7 +17,7 @@ before_script:
   - grunt webserver > /dev/null &
 script:
   - grunt test:unit --browsers Firefox --reporters=dots
-  - grunt test:e2e --browsers PhantomJS --reporters=dots
+  - grunt test:e2e --browsers PhantomJS --port 8080 --reporters=dots
 after_success:
   - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then echo "DEV BRANCH DOESN'T PUSH TO HEROKU"; exit 0; fi
