@@ -13,6 +13,7 @@
 .nav-list li {
   height:20px;
   overflow:hidden;
+  margin-right: -5px;
 }
 
 .slide-reveal-setup {
