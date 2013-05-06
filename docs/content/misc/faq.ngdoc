@@ -41,18 +41,15 @@ AngularJS был разработан, чтобы быть совместимы�
 
 ### Могу ли я скачать исходные коды, сборки и хосты AngularJS среды на свой компьютер?
 
-Да. Смотрите инструкции в разделе {@link загрузка}.
+Да. Смотрите инструкции в разделе {@link downloading загрузка}.
 
 
 ### В каких браузерах работает Angular?
 
-We run our extensive test suite against the following browsers: Safari, Chrome, Firefox, Opera,
-IE8, IE9 and mobile browsers (Android, Chrome Mobile, iOS Safari). See {@link guide/ie Internet 
-Explorer Compatibility} for more details in supporting legacy IE browsers.
-
 Мы запускаем наш обширный набор тестов в следующих браузерах: Safari, Chrome, Firefox, Opera,
 IE8, IE9 и мобильные браузеры (Android, Chrome Mobile, IOS Safari). См. {@link guide/ie Совместимость с Internet 
 Explorer} для бподробной информации о поддержке старых версий IE.
+
 
 ### Насколько быстр Angular?
 
@@ -76,27 +73,27 @@ Explorer} для бподробной информации о поддержке
 
 ### Использует ли Angular jQuery?
 
-Да, Angular можете использовать {@link http://jquery.com/ jQuery}, если она присутствует в вашем приложении, когда
-приложение только загружается. Если JQuery нет по адресу, указанному в скрипте, Angular откатывается до собственной 
+Да, Angular можете использовать библиотеку {@link http://jquery.com/ jQuery}, если она используется в приложении и 
+загружается до Angular. Если JQuery нет по адресу, указанному в скрипте, Angular откатывается до собственной 
 реализации JQuery, которую мы называем {@link api/angular.element  jQLite}.
 
 
-### What is testability like in Angular?
+### Какова тестируемость Angular?
 
-Very testable and designed this way from ground up. It has an integrated dependency injection
-framework, provides mocks for many heavy dependencies (server-side communication). See
-{@link api/ng service} for details.
+Очень тестируем и проработан в этом плане от начала до конца. Имеет встроенный механизм внедрения зависимости 
+framework, поддерживает имитацию (mock) для большинства тяжелых зависимостей (серверной коммуникации). См. так же
+{@link api/ng сервис}.
 
 
-### How can I learn more about Angular?
+### Как узнать больше об Angular?
 
-Watch the July 17, 2012 talk
+Смотрите рассказ от 17 июля 2012
 "{@link http://www.youtube.com/watch?v=1CpiB3Wk25U AngularJS Intro + Dependency Injection}".
 
 
-### How is Angular licensed?
+### Под какой лицензией распространяется Angular?
 
-The MIT License.
+Лицензия MIT.
 
 ### Can I download and use the Angular logo artwork?
 
