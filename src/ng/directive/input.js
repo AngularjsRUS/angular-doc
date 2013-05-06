@@ -11,11 +11,11 @@ var inputType = {
    * @name ng.directive:input.text
    *
    * @description
-   * Standard HTML text input with angular data binding.
+   * Стандартное HTML поле ввода текста с поддержкой связывания данных.
    *
-   * @param {string} ngModel Assignable angular expression to data-bind to.
-   * @param {string=} name Property name of the form under which the control is published.
-   * @param {string=} required Adds `required` validation error key if the value is not entered.
+   * @param {string} ngModel Ассоциированное выражение для связывания данных.
+   * @param {string=} name Имя свойства, под которым элемент управления будет доступен в области видимости.
+   * @param {string=} required Устанавливает ключ ошибки в `required` если поле пустое.
    * @param {string=} ngRequired Adds `required` attribute and `required` validation constraint to
    *    the element when the ngRequired expression evaluates to true. Use `ngRequired` instead of
    *    `required` when you want to data-bind to the `required` attribute.
