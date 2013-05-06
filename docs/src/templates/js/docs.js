@@ -544,7 +544,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
     //window.disqus_shortname = 'angularjs-next';
     window.disqus_shortname = 'angularjs-ru';
     window.disqus_identifier = currentPageId;
-    window.disqus_url = 'http://angularjs.ru' + currentPageId;
+    window.disqus_url = 'http://angular.ru' + currentPageId;
 
     if ($location.host() == 'localhost') {
       return; // don't display disqus on localhost, comment this out if needed
