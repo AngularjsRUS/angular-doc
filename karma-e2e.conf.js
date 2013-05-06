@@ -10,8 +10,8 @@ browsers = ['Chrome'];
 
 proxies = {
   // angular.js, angular-resource.js, etc
-  '/angular': 'http://localhost:8000/build/angular',
-  '/': 'http://localhost:8000/build/docs/'
+  '/angular': 'http://localhost:8080/build/angular',
+  '/': 'http://localhost:8080/build/docs/'
 };
 
 junitReporter = {

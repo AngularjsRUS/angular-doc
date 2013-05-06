@@ -40,7 +40,11 @@ module.exports = function(grunt) {
           }
         }
       },
-      testserver: {}
+      testserver: {
+        options: {
+          port: 8080
+        }
+      }
     },
 
 
