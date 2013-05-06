@@ -14,10 +14,9 @@ before_script:
   - sh -e /etc/init.d/xvfb start
   - npm install -g grunt-cli
   - grunt package
-  - grunt webserver > /dev/null &
 script:
   - grunt test:unit --browsers Firefox --reporters=dots
-  - grunt test:e2e --browsers PhantomJS --port 8080 --reporters=dots
+  - grunt test:e2e --browsers PhantomJS --reporters=dots
 after_success:
   - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then echo "DEV BRANCH DOESN'T PUSH TO HEROKU"; exit 0; fi
