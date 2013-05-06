@@ -1,5 +1,5 @@
 @ngdoc overview
-@name Developer Guide: Модульн тестирование
+@name Developer Guide: Модульное тестирование
 @description
 
 JavaScript – это динамически типизированный язык, который может выполнять любые выражения, но при этом 
