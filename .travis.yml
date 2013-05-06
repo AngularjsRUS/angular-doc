@@ -16,10 +16,11 @@ before_script:
   - grunt package
   - grunt webserver > /dev/null &
 script:
-  - grunt test --browsers PhantomJS --reporters=dots
+  - grunt test:unit --browsers Firefox --reporters=dots
+  - grunt test:e2e --browsers PhantomJS --reporters=dots
 after_success:
-  -if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
-  -if [[ "$TRAVIS_BRANCH" == "dev" ]]; then echo "DEV BRANCH DOESN'T PUSH TO HEROKU"; exit 0; fi
+  - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
+  - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then echo "DEV BRANCH DOESN'T PUSH TO HEROKU"; exit 0; fi
   - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
   - git remote add heroku git@heroku.com:angular-doc.git
   - echo "Host heroku.com" >> ~/.ssh/config
