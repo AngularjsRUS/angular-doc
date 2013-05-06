@@ -44,38 +44,41 @@ AngularJS был разработан, чтобы быть совместимы�
 Да. Смотрите инструкции в разделе {@link загрузка}.
 
 
-### What browsers does Angular work with?
+### В каких браузерах работает Angular?
 
 We run our extensive test suite against the following browsers: Safari, Chrome, Firefox, Opera,
 IE8, IE9 and mobile browsers (Android, Chrome Mobile, iOS Safari). See {@link guide/ie Internet 
 Explorer Compatibility} for more details in supporting legacy IE browsers.
 
+Мы запускаем наш обширный набор тестов в следующих браузерах: Safari, Chrome, Firefox, Opera,
+IE8, IE9 и мобильные браузеры (Android, Chrome Mobile, IOS Safari). См. {@link guide/ie Совместимость с Internet 
+Explorer} для бподробной информации о поддержке старых версий IE.
 
-### What's Angular's performance like?
+### Насколько быстр Angular?
 
-The startup time heavily depends on your network connection, state of the cache, browser used and
-available hardware, but typically we measure bootstrap time in tens or hundreds of milliseconds.
+Время запуска во многом зависит от скорости интернета, состояния кэша, используемого браузера и
+задействованного оборудования, но обычно мы измеряем время загрузки десятками или сотнями миллисекунд.
 
-The runtime performance will vary depending on the number and complexity of bindings on the page
-as well as the speed of your backend (for apps that fetch data from the backend). Just for an
-illustration we typically build snappy apps with hundreds or thousands of active bindings.
+Производительность среды исполнения может изменяться в зависимости от количества и сложности связывания на странице
+, а также от скорости сервера (для приложений, которые запрашивают данные у сервера). Только для
+иллюстрации мы обычно быстро строим приложения с сотнями или тысячами активных привязок.
+
+### Насколько велик файл angular.js, который необходимо подключить?
+
+Размер сжатого и минифицированного файла меньше 29 КБ.
 
 
-### How big is the angular.js file that I need to include?
+### Могу ля я использовать Closure Library с открытым кодом в Angular?
 
-The size of the file is < 29KB compressed and minified.
+Да, вы можете использовать виджеты из {@link http://code.google.com/closure/library Closure Library}
+в Angular.
 
 
-### Can I use the open-source Closure Library with Angular?
+### Использует ли Angular jQuery?
 
-Yes, you can use widgets from the {@link http://code.google.com/closure/library Closure Library}
-in Angular.
-
-### Does Angular use the jQuery library?
-
-Yes, Angular can use {@link http://jquery.com/ jQuery} if it's present in your app when the
-application is being bootstrapped. If jQuery is not present in your script path, Angular falls back
-to its own implementation of the subset of jQuery that we call {@link api/angular.element  jQLite}.
+Да, Angular можете использовать {@link http://jquery.com/ jQuery}, если она присутствует в вашем приложении, когда
+приложение только загружается. Если JQuery нет по адресу, указанному в скрипте, Angular откатывается до собственной 
+реализации JQuery, которую мы называем {@link api/angular.element  jQLite}.
 
 
 ### What is testability like in Angular?
