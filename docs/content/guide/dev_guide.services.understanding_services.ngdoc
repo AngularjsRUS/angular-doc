@@ -21,7 +21,7 @@ Angular внедряет зависимости, используя «конст
 
 ## Связанные разделы
 
-* {@link di About Angular Внедрение зависимости}
+* {@link di Внедрение зависимости в Angular}
 * {@link dev_guide.services.creating_services Создание сервисов в Angular}
 * {@link dev_guide.services.managing_dependencies Управление зависимостями сервисов}
 * {@link dev_guide.services.testing_services Тестирование сервисов в Angular}
