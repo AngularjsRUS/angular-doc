@@ -1,6 +1,10 @@
 language: node_js
 node_js:
   - 0.8
+branches:
+  only:
+    - master
+    - dev
 notifications:
   email:
     - rv.maksim@gmail.com
