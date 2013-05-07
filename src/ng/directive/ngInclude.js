@@ -6,31 +6,32 @@
  * @restrict ECA
  *
  * @description
- * Fetches, compiles and includes an external HTML fragment.
+ * Извлекает, компилирует и включает внешний HTML-фрагмент.
  *
- * Keep in mind that Same Origin Policy applies to included resources
- * (e.g. ngInclude won't work for cross-domain requests on all browsers and for
- *  file:// access on some browsers).
- *
- * Additionally, you can also provide animations via the ngAnimate attribute to animate the **enter**
- * and **leave** effects.
+ * Помните о _правилах ограничения домена_ при включении ресурсов
+ * (например, ngInclude не работает для кросс-доменных запросов во всех браузерах и для доступа к file:// 
+ * в некоторых браузерах).
+ * 
+ * Кроме того, с помощью атрибута ngAnimate можно задать анимацию для эффектов **enter** и **leave**.
  *
  * @animations
- * enter - happens just after the ngInclude contents change and a new DOM element is created and injected into the ngInclude container
- * leave - happens just after the ngInclude contents change and just before the former contents are removed from the DOM
- *
+ * enter - происходит только после изменения содержимого ngInclude и создания нового DOM-дом элемента и внедрения 
+ * его в контейнер ngInclude
+ * leave - происходит только после изменения содержимого ngInclude и только до того как прежнее содержимое 
+ * удалено из DOM
+ * 
  * @scope
  *
- * @param {string} ngInclude|src angular expression evaluating to URL. If the source is a string constant,
- *                 make sure you wrap it in quotes, e.g. `src="'myPartialTemplate.html'"`.
- * @param {string=} onload Expression to evaluate when a new partial is loaded.
+ * @param {string} ngInclude|src angular-выражение, возвращающее URL. При необходимости передать строку,
+ *                  заключите её в кавычки, например `src="'myPartialTemplate.html'"`.
+ * @param {string=} onload Выражение, которое выполнится после загрузки новой части.
  *
- * @param {string=} autoscroll Whether `ngInclude` should call {@link ng.$anchorScroll
- *                  $anchorScroll} to scroll the viewport after the content is loaded.
+ * @param {string=} autoscroll Вслед за `ngInclude` следует вызвать {@link ng.$anchorScroll
+ *                  $anchorScroll} для прокрутки окна просмотра после загрузки контента.
  *
- *                  - If the attribute is not set, disable scrolling.
- *                  - If the attribute is set without value, enable scrolling.
- *                  - Otherwise enable scrolling only if the expression evaluates to truthy value.
+ *                  - Если атрибут не установлен, скроллинг отключается.
+ *                  - Если атрибут установлен без значения, скроллинг включается.
+ *                  - В противном случае скроллинг включается, только если выражение возвращает значение true.
  *
  * @example
   <example>
@@ -118,9 +119,9 @@
  * @ngdoc event
  * @name ng.directive:ngInclude#$includeContentLoaded
  * @eventOf ng.directive:ngInclude
- * @eventType emit on the current ngInclude scope
+ * @eventType emit on the текущаяя область видимости ngInclude
  * @description
- * Emitted every time the ngInclude content is reloaded.
+ * Задействуется каждый раз когда содержимое ngInclude перезагружается.
  */
 var ngIncludeDirective = ['$http', '$templateCache', '$anchorScroll', '$compile', '$animator',
                   function($http,   $templateCache,   $anchorScroll,   $compile,   $animator) {
