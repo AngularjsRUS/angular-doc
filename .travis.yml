@@ -20,15 +20,16 @@ script:
 after_success:
   - if [[ "$TRAVIS_PULL_REQUEST" == "true" ]]; then exit 0; fi
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then echo "DEV BRANCH DOESN'T PUSH TO HEROKU"; exit 0; fi
-  - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-  - git remote add heroku git@heroku.com:angular-doc.git
-  - echo "Host heroku.com" >> ~/.ssh/config
-  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-  - echo "   CheckHostIP no" >> ~/.ssh/config
-  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-  - heroku keys:clear
-  - yes | heroku keys:add
-  - yes | git push heroku master
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh;
+      git remote add heroku git@heroku.com:angular-doc.git;
+      echo "Host heroku.com" >> ~/.ssh/config;
+      echo "   StrictHostKeyChecking no" >> ~/.ssh/config;
+      echo "   CheckHostIP no" >> ~/.ssh/config;
+      echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config;
+      heroku keys:clear;
+      yes | heroku keys:add;
+      yes | git push heroku master; fi
 env:
   global:
   - secure: ! 'YxUgd7mlHqvYwdFBfMr82uoUup48l8RzSToqdX/N/mazZQZjY9e4U7CGuU4j
