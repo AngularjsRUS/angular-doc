@@ -35,13 +35,6 @@
 </html>
 </pre>
 
-In a simple single-page app, the template consists of HTML, CSS, and angular directives contained
-in just one HTML file (usually `index.html`). In a more complex app, you can display multiple views
-within one main page using "partials", which are segments of template located in separate HTML
-files.  You "include" the partials in the main page using the {@link api/ng.$route
-$route} service in conjunction with the {@link api/ng.directive:ngView ngView} directive. An
-example of this technique is shown in the {@link tutorial/ angular tutorial}, in steps seven and
-eight.
 
 В простом одностраничном приложении, шаблон состоит из HTML, CSS, и директив, содержащихся
 только в одном HTML файле (обычно `index.html`). В более сложных приложений, Вы можете отобразить несколько представлений
