@@ -130,56 +130,59 @@ framework, поддерживает имитацию (mock) для больши�
 Цель данного документа — указать на них, прежде чем вы обнаружите их на своей шкуре.
 
 
-### DOM Manipulation
+### DOM-манипуляции
 
-Stop trying to use jQuery to modify the DOM in controllers. Really.
-That includes adding elements, removing elements, retrieving their contents, showing and hiding them.
-Use built-in directives, or write your own where necessary, to do your DOM manipulation.
-See below about duplicating functionality.
+Перестаньте пытаться использовать jQuery для изменения DOM в контроллерах. Серьезно.
+Включая добавление, удаление элементов, извлечение их содержимого, показ и скрытие.
+Используйте встроенные директивы, или напишите собственные, если необходимо, чтобы проделывать DOM-манипуляции.
+См. ниже о дублировании функциональности.
 
-If you're struggling to break the habit, consider removing jQuery from your app.
-Really. Angular has the $http service and powerful directives that make it almost always unnecessary.
-Angular's bundled jQLite has a handful of the features most commonly used in writing Angular directives, especially binding to events.
+Чтобы избавиться от этой привычки, рассмотрите возможность исключения jQuery из вашего приложения.
+Серьезно. В Angular встроен сервис $http и мощные директивы, которые делают его почти всегда ненужным.
+Во встроенном jQLite есть несколько особенностей наиболее часто используемых при написании директив, 
+особенно связи с событиями.
 
-### Trying to duplicate functionality that already exists
+### Попытка дублирования существующей функциональности
 
-There's a good chance that your app isn't the first to require certain functionality.
-There are a few pieces of Angular that are particularly likely to be reimplemented out of old habits.
+То, что ваше приложение не требуют вначале определенной функциональности — хорошая практика.
+В Angular есть несколько штук, которые вероятно изменят старые привычки.
 
 **ng-repeat**
 
-`ng-repeat` gets this a lot.
-People try to use jQuery (see above) to add more elements to some container as they're fetched from the server.
-No, bad dog.
-This is what `ng-repeat` is for, and it does its job very well.
-Store the data from the server in an array on your `$scope`, and bind it to the DOM with `ng-repeat`.
+Люди пытаются использовать jQuery (см. выше), чтобы добавить несколько элементов в некоторый контейнер, после 
+получения их с сервера. 
+Фу! плохая собака! 
+Это как раз то, для чего нужен `ng-repeat`, и он делает свою работу очень хорошо.
+Храните данные с сервера в виде массива в `$scope`, и привяжите его к DOM с помощью `ng-repeat`.
 
 **ng-show**
 
-`ng-show` gets this frequently too.
-Conditionally showing and hiding things using jQuery is a common pattern in other apps, but Angular has a better way.
-`ng-show` (and `ng-hide`) conditionally show and hide elements based on boolean expressions.
-Describe the conditions for showing and hiding an element in terms of `$scope` variables:
+`ng-show` используется наиболее часто.
+Показ и скрытия элементов по условию, используя jQuery распространенный прием в других приложениях, но в Angular 
+есть способ лучше. 
+`ng-show` (и `ng-hide`) показывает и скрывает элементы на основе логических выражений.
+Опишите условия для показа и скрытия элемента в зависимости от переменных `$scope`:
 
-    <div ng-show="!loggedIn">Click <a href="#/login">here</a> to log in</div>
+    <div ng-show="!loggedIn">Нажмите <a href="#/login">сюда</a> чтобы войти</div>
 
-Note also the counterpart `ng-hide` and similar `ng-disabled`.
-Note especially the powerful `ng-switch` that should be used instead of several mutually exclusive `ng-show`s.
+Обратите также внимание на сопутствующие `ng-hide` и `ng-disabled`. 
+Отметим особенно мощный `ng-switch`, который стоит использовать вместо нескольких взаимоисключающих `ng-show`.
 
 **ng-class**
 
-`ng-class` is the last of the big three.
-Conditionally applying classes to elements is another thing commonly done manually using jQuery.
-Angular, of course, has a better way.
-You can give `ng-class` a whitespace-separated set of class names, and then it's identical to ordinary `class`.
-That's not very exciting, so there's a second syntax:
+`ng-class` последний из большой тройки.
+Применение классов к элементам — другая вещь, которая делается с помощью jQuery.
+в Angular, конечно всё лучше.
+Можно задать в `ng-class` имен классов, разделенных пробелами, а затем использовать как обычный класс `class`.
+Это не очень интересно, поэтому есть второй синтаксис:
 
     <div ng-class="{ errorClass: isError, warningClass: isWarning, okClass: !isError && !isWarning }">...</div>
 
-Where you give `ng-class` an object, whose keys are CSS class names and whose values are conditional expressions using `$scope` variables.
-The element will then have all the classes whose conditions are truthy, and none of those whose conditions are falsy.
+Где `ng-class` представляет собой объект, ключами которого являются имена CSS-классов, чьи значения зависят от 
+выражения, использующего переменные в `$scope`. Элемент будет иметь все классы, установленные true, и ни один из тех, 
+чье условие false.
 
-Note also the handy `ng-class-even` and `ng-class-odd`, and the related though somewhat different `ng-style`.
+Отметим также `ng-class-even` и `ng-class-odd`, и связанный с ними, хотя и несколько отличающийся, `ng-style`.
 
 
 ### `$watch` and `$apply`
