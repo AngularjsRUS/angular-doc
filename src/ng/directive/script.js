@@ -15,10 +15,10 @@
   <doc:example>
     <doc:source>
       <script type="text/ng-template" id="/tpl.html">
-        Content of the template.
+        Содержимое шаблона.
       </script>
 
-      <a ng-click="currentTpl='/tpl.html'" id="tpl-link">Load inlined template</a>
+      <a ng-click="currentTpl='/tpl.html'" id="tpl-link">Загрузить содержимое шаблона</a>
       <div id="tpl-content" ng-include src="currentTpl"></div>
     </doc:source>
     <doc:scenario>
