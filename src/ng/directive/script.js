@@ -5,7 +5,7 @@
  * @name ng.directive:script
  *
  * @description
- * Загружает содержимое тега script с типом `text/ng-template`, в `$templateCache`, 
+ * Загружает содержимое тега script с типом `text/ng-template`, в `$templateCache`,
  * так что шаблон может быть использован в `ngInclude`,` ngView` или шаблонах директив.
  *
  * @restrict E
@@ -24,7 +24,7 @@
     <doc:scenario>
       it('should load template defined inside script tag', function() {
         element('#tpl-link').click();
-        expect(element('#tpl-content').text()).toMatch(/Content of the template/);
+        expect(element('#tpl-content').text()).toMatch(/Содержимое шаблона/);
       });
     </doc:scenario>
   </doc:example>
