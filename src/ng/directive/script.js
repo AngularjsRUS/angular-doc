@@ -5,11 +5,11 @@
  * @name ng.directive:script
  *
  * @description
- * Load content of a script tag, with type `text/ng-template`, into `$templateCache`, so that the
- * template can be used by `ngInclude`, `ngView` or directive templates.
+ * Загружает содержимое тега script с типом `text/ng-template`, в `$templateCache`, 
+ * так что шаблон может быть использован в `ngInclude`,` ngView` или шаблонах директив.
  *
  * @restrict E
- * @param {'text/ng-template'} type must be set to `'text/ng-template'`
+ * @param {'text/ng-template'} type должен быть установлен в `'text/ng-template'`
  *
  * @example
   <doc:example>
