@@ -15,15 +15,13 @@
  * Кроме того, с помощью атрибута ngAnimate можно задать анимацию для эффектов **enter** и **leave**.
  *
  * @animations
- * enter - происходит только после изменения содержимого ngInclude и создания нового DOM-дом элемента и внедрения 
- * его в контейнер ngInclude
- * leave - происходит только после изменения содержимого ngInclude и только до того как прежнее содержимое 
- * удалено из DOM
+ * enter - происходит только после изменения содержимого ngInclude и создания нового DOM-дом элемента и внедрения его в контейнер ngInclude
+ * leave - происходит только после изменения содержимого ngInclude и только до того как прежнее содержимое удалено из DOM
  * 
  * @scope
  *
  * @param {string} ngInclude|src angular-выражение, возвращающее URL. При необходимости передать строку,
- *                  заключите её в кавычки, например `src="'myPartialTemplate.html'"`.
+ *                заключите её в кавычки, например `src="'myPartialTemplate.html'"`.
  * @param {string=} onload Выражение, которое выполнится после загрузки новой части.
  *
  * @param {string=} autoscroll Вслед за `ngInclude` следует вызвать {@link ng.$anchorScroll
@@ -119,7 +117,7 @@
  * @ngdoc event
  * @name ng.directive:ngInclude#$includeContentLoaded
  * @eventOf ng.directive:ngInclude
- * @eventType emit on the текущаяя область видимости ngInclude
+ * @eventType emit on текущаяя область видимости ngInclude
  * @description
  * Задействуется каждый раз когда содержимое ngInclude перезагружается.
  */
