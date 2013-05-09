@@ -5,31 +5,30 @@
  * @name ng.directive:ngController
  *
  * @description
- * The `ngController` directive assigns behavior to a scope. This is a key aspect of how angular
- * supports the principles behind the Model-View-Controller design pattern.
+ * Директива ngController назначает поведение области видимости. Это ключевой аспект поддержки в Angular 
+ * шаблона Модель-Вид-Контроллер.
  *
- * MVC components in angular:
+ * MVC коспоненты в Angular:
  *
- * * Model — The Model is data in scope properties; scopes are attached to the DOM.
- * * View — The template (HTML with data bindings) is rendered into the View.
- * * Controller — The `ngController` directive specifies a Controller class; the class has
- *   methods that typically express the business logic behind the application.
+ * * Model — модель, это данные из свойств области видимости; области видимости связаны с DOM.
+ * * View — шаблон (HTML с привязками данных) из которого генерируется представление.
+ * * Controller — директива `ngController`, определяющая класс контроллера; этот класс имеет методы и 
+ *   типичные выражения для отражения бизнес-логики приложения.
  *
- * Note that an alternative way to define controllers is via the {@link ng.$route $route} service.
+ * Обратите внимание на альтернативную возможность определения контроллера с использованием сервиса 
+ * {@link ng.$route $route}.
  *
  * @element ANY
  * @scope
- * @param {expression} ngController Name of a globally accessible constructor function or an
- *     {@link guide/expression expression} that on the current scope evaluates to a
- *     constructor function.
+ * @param {expression} ngController Имя глобальной функции-конструктора или
+ *     {@link guide/expression выражения} в текущей области видимости, которое возвращает функцию-контроллер.
  *
  * @example
- * Here is a simple form for editing user contact information. Adding, removing, clearing, and
- * greeting are methods declared on the controller (see source tab). These methods can
- * easily be called from the angular markup. Notice that the scope becomes the `this` for the
- * controller's instance. This allows for easy access to the view data from the controller. Also
- * notice that any changes to the data are automatically reflected in the View without the need
- * for a manual update.
+ * Здесь показана простая форма редактирования контактной информации пользователя. Добавление, удаление, очистка 
+ * и вывод в окне реализованы с помощью методов в контроллере. Их можно легко вызвать из Angular-окружения. 
+ * Обратите внимание, что внутри контроллера указатель `this` ссылается на текущую область видимости. 
+ * Это позволяет обеспечить легкий доступ к данным контроллера из представления. А так же уведомлять об изменении 
+ * данных и автоматически отображать их в представлении.
    <doc:example>
      <doc:source>
       <script>
