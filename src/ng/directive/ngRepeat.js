@@ -5,62 +5,62 @@
  * @name ng.directive:ngRepeat
  *
  * @description
- * The `ngRepeat` directive instantiates a template once per item from a collection. Each template
- * instance gets its own scope, where the given loop variable is set to the current collection item,
- * and `$index` is set to the item index or key.
+ * Директива `ngRepeat` создает экземпляры по шаблону для каждого элемента коллекции. Каждый экземпляр шаблона 
+ * получает собственную область видимости, в которой создаются переменные, имеющиеся в текущем элементе коллекции и
+ * в `$index` устанавливается индекс или ключ элемента.
  *
- * Special properties are exposed on the local scope of each template instance, including:
+ * Специальные свойства, представленные каждым шаблонным элементом в его локальной области видимости, включают:
+ * 
+ *   * `$index` – `{number}` – сдвиг итератора при повторении элемента (0..length-1)
+ *   * `$first` – `{boolean}` – true, если повторяемый элемент является первым элементом в коллекции.
+ *   * `$middle` – `{boolean}` – true, если повторяемый элемент не первый и не последний элемент в коллекции.
+ *   * `$last` – `{boolean}` – true, если повторяемый элемент является последним элементом коллекции.
  *
- *   * `$index` – `{number}` – iterator offset of the repeated element (0..length-1)
- *   * `$first` – `{boolean}` – true if the repeated element is first in the iterator.
- *   * `$middle` – `{boolean}` – true if the repeated element is between the first and last in the iterator.
- *   * `$last` – `{boolean}` – true if the repeated element is last in the iterator.
- *
- * Additionally, you can also provide animations via the ngAnimate attribute to animate the **enter**,
- * **leave** and **move** effects.
+ * Кроме того, с помощью атрибута ngAnimate можно задать анимацию для эффектов **enter**,
+ * **leave** и **move**.
  *
  * @animations
- * enter - when a new item is added to the list or when an item is revealed after a filter
- * leave - when an item is removed from the list or when an item is filtered out
- * move - when an adjacent item is filtered out causing a reorder or when the item contents are reordered
- *
+ * enter - когда новый элемент добавляется в список или показывается после фильтрации
+ * leave - когда элемент удаляется из списка или скрывается из результатов фильтрации
+ * move - когда сосдний пункт удаляется, изменяя порядок или когда список упорядочивается по другому критерию
+ * 
  * @element ANY
  * @scope
  * @priority 1000
- * @param {repeat_expression} ngRepeat The expression indicating how to enumerate a collection. These
- *   formats are currently supported:
+ * @param {repeat_expression} ngRepeat Выражение, указывающее, как перечислять коллекцию. 
+ * В настоящее время поддерживаются следующие форматы:
  *
- *   * `variable in expression` – where variable is the user defined loop variable and `expression`
- *     is a scope expression giving the collection to enumerate.
+ *   * `variable in expression` – где `variable` это определенная пользователем переменная, которая будет содержать 
+ *     текущее значение при перечислении и `expression` – это выражение в области видимости, которое указывает на 
+ *     коллекцию для итераций.
  *
- *     For example: `track in cd.tracks`.
+ *     Например: `track in cd.tracks`.
  *
- *   * `(key, value) in expression` – where `key` and `value` can be any user defined identifiers,
- *     and `expression` is the scope expression giving the collection to enumerate.
+ *   * `(key, value) in expression` – где `key` и `value` могут быть идентификаторами, определенными пользователем,
+ *     и `expression` это выражение в области видимости, которое возвращает коллекцию для итераций.
+ * 
+ *     Например: `(name, age) in {'adam':10, 'amalie':12}`.
  *
- *     For example: `(name, age) in {'adam':10, 'amalie':12}`.
+ *   * `variable in expression track by tracking_expression` – Так же можно использовать дополнительную функцию
+ *     отслеживания, которая может быть использована для связывания объектов коллекции с DOM-элементами. Если функция
+ *     отслеживания специально не указана, то ng-repeat ассоциирует элементы коллекции по идентичности. Нельзя иметь
+ *     более одной функции отслеживания с одним и тем же ключем. (Т.е. два различных объекта будут связаны с одним 
+ *     DOM-элементом, что невозможно).
  *
- *   * `variable in expression track by tracking_expression` – You can also provide an optional tracking function
- *     which can be used to associate the objects in the collection with the DOM elements. If no tractking function
- *     is specified the ng-repeat associates elements by identity in the collection. It is an error to have
- *     more then one tractking function to  resolve to the same key. (This would mean that two distinct objects are
- *     mapped to the same DOM element, which is not possible.)
+ *     Например: `item in items` эквивалентно `item in items track by $id(item)`. Это означает, что DOM-элементы
+ *     будут ассоциироваться идентично элементам в массиве.
  *
- *     For example: `item in items` is equivalent to `item in items track by $id(item)'. This implies that the DOM elements
- *     will be associated by item identity in the array.
+ *     Например: `item in items track by $id(item)`. Созданная функция `$id()` может быть использована для присвоения
+ *     уникального свойства `$$hashKey` каждому элементу в массиве. Это свойство затем используется в качестве ключа 
+ *     для связывания DOM-элемента с соответствующим элементом в массиве по идентичности. Перемещение же элемента в 
+ *     массиве будет перемещать DOM-элемент по такому же пути.
  *
- *     For example: `item in items track by $id(item)`. A built in `$id()` function can be used to assign a unique
- *     `$$hashKey` property to each item in the array. This property is then used as a key to associated DOM elements
- *     with the corresponding item in the array by identity. Moving the same object in array would move the DOM
- *     element in the same way ian the DOM.
- *
- *     For example: `item in items track by item.id` Is a typical pattern when the items come from the database. In this
- *     case the object identity does not matter. Two objects are considered equivalent as long as their `id`
- *     property is same.
- *
+ *     Например: `item in items track by item.id` это типичный образец, когда элементы загружаются из базы данных 
+ *     В этом случае идентичность объекта не имеет значения. Два объекта считаются эквивалентными, если их `id`
+ *     схожи.
+ * 
  * @example
- * This example initializes the scope to a list of names and
- * then uses `ngRepeat` to display every person:
+ * Пример инициализирует область видимости для списка имен, а затем использует `ngRepeat` для показа каждого человека:
   <example animations="true">
     <file name="index.html">
       <div ng-init="friends = [

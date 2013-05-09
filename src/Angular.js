@@ -891,15 +891,15 @@ function encodeUriQuery(val, pctEncodeSpaces) {
  *
  * @description
  *
- * Используйте эту директиву для авто-загрузки приложения. Эта директива
+ * Используйте эту директиву для автозагрузки приложения. Директива
  * может быть использована только один раз в одном HTML документе. Директива
  * обозначает корень приложения и обычно располагается в корне страницы.
  *
- * В примере ниже, если директива `ngApp` не была бы помещена в `html`
- * элементе, тогда приложение не скомпилировалось бы и `{{ 1+2 }}`
+ * В примере ниже, если бы директива `ngApp` не была помещена в элемент `html`, 
+ * то приложение не скомпилировалось бы и `{{ 1+2 }}`
  * не заменилось бы на `3`.
  *
- * `ngApp` самый простой способ загрузки приложения.
+ * `ngApp` наиболее простой способ загрузки приложения.
  *
  <doc:example>
    <doc:source>
@@ -956,13 +956,13 @@ function angularInit(element, bootstrap) {
  * @ngdoc function
  * @name angular.bootstrap
  * @description
- * Use this function to manually start up angular application.
+ * Используйте эту функцию для запуска angular-приложения вручную.
  *
- * See: {@link guide/bootstrap Bootstrap}
+ * См: {@link guide/bootstrap Инициализация}
  *
- * @param {Element} element DOM element which is the root of angular application.
- * @param {Array<String|Function>=} modules an array of module declarations. See: {@link angular.module modules}
- * @returns {AUTO.$injector} Returns the newly created injector for this app.
+ * @param {Element} element DOM-элемент, являющийся корнем приложения.
+ * @param {Array<String|Function>=} modules массив определений модулей. См: {@link angular.module Модули}
+ * @returns {AUTO.$injector} Возвращает вновь созданный инжектор для этого приложения.
  */
 function bootstrap(element, modules) {
   var resumeBootstrapInternal = function() {
