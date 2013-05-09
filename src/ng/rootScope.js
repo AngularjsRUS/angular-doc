@@ -55,8 +55,9 @@
  * @description
  *
  * Every application has a single root {@link ng.$rootScope.Scope scope}.
- * All other scopes are child scopes of the root scope. Scopes provide mechanism for watching the model and provide
- * event processing life-cycle. See {@link guide/scope developer guide on scopes}.
+ * Каждое приложение имеет одну корневую {@link ng.$rootScope.Scope область видимости}. Все другие области  
+ * являются ее потомками. Области видимости обеспечивают механизм для отслеживания изменений в модели и 
+ * обработку событий жизненного цикла. См. {@link guide/scope Руководство по областям видимости}.
  */
 function $RootScopeProvider(){
   var TTL = 10;
@@ -76,18 +77,17 @@ function $RootScopeProvider(){
      * @name ng.$rootScope.Scope
      *
      * @description
-     * A root scope can be retrieved using the {@link ng.$rootScope $rootScope} key from the
-     * {@link AUTO.$injector $injector}. Child scopes are created using the
-     * {@link ng.$rootScope.Scope#$new $new()} method. (Most scopes are created automatically when
-     * compiled HTML template is executed.)
-     *
-     * Here is a simple scope snippet to show how you can interact with the scope.
+     * Корневая область видимости может быть созвращена с использованием ключа {@link ng.$rootScope $rootScope} 
+     * из сервиса {@link AUTO.$injector $injector}. Дочерние области создаются с использованием метода 
+     * {@link ng.$rootScope.Scope#$new $new()}. (Другие области создаются автоматически, при компиляции HTML-шаблона.)
+     * 
+     * Ниже пример кода простой области видимости, который демонстрирует взаимодействие с областью видимости.
      * <pre>
      * <file src="./test/ng/rootScopeSpec.js" tag="docs1" />
      * </pre>
      *
-     * # Inheritance
-     * A scope can inherit from a parent scope, as in this example:
+     * # Наследование
+     * Область видимости может наследоваться от другой области, как показано в этом примере:
      * <pre>
          var parent = $rootScope;
          var child = parent.$new();
@@ -102,12 +102,12 @@ function $RootScopeProvider(){
      * </pre>
      *
      *
-     * @param {Object.<string, function()>=} providers Map of service factory which need to be provided
-     *     for the current scope. Defaults to {@link ng}.
-     * @param {Object.<string, *>=} instanceCache Provides pre-instantiated services which should
-     *     append/override services provided by `providers`. This is handy when unit-testing and having
-     *     the need to override a default service.
-     * @returns {Object} Newly created scope.
+     * @param {Object.<string, function()>=} providers Набор фабричных функций сервисов, которые необходимо 
+     *     задействовать для текущей области видимости. По умолчанию {@link ng}.
+     * @param {Object.<string, *>=} instanceCache Представляет предварительно созданные сервисы, которыми необходимо 
+     *     добавить/заменить сервисы, указанные в `providers`. Это облегчает переопределение сервисов по умолчанию 
+     *     в модульном тестирование.
+     * @returns {Object} Новая область видимости.
      *
      */
     function Scope() {
@@ -126,8 +126,8 @@ function $RootScopeProvider(){
      * @ngdoc property
      * @name ng.$rootScope.Scope#$id
      * @propertyOf ng.$rootScope.Scope
-     * @returns {number} Unique scope ID (monotonically increasing alphanumeric sequence) useful for
-     *   debugging.
+     * @returns {number} уникальный идентификатор области видимости (монотонно возрастающая цифровая 
+     *    последовательность) обычно используемый для отладки.
      */
 
 
@@ -139,22 +139,23 @@ function $RootScopeProvider(){
        * @function
        *
        * @description
-       * Creates a new child {@link ng.$rootScope.Scope scope}.
+       * Создает новую дочернюю {@link ng.$rootScope.Scope область видимости}.
+       * 
+       * Родительская область будет распространять {@link ng.$rootScope.Scope#$digest $digest()} и события 
+       * {@link ng.$rootScope.Scope#$digest $digest()}. Область может быть удалена из иерархии используя метод 
+       * {@link ng.$rootScope.Scope#$destroy $destroy()}.
+       * 
+       * {@link ng.$rootScope.Scope#$destroy $destroy()} должен быть вызван для области видимости и, если необходимо, 
+       * для нее и ее потомков, чтобы навсегда отделить ее от родительской области, и перестать следить за 
+       * изменениями, а также прослушивать события.
        *
-       * The parent scope will propagate the {@link ng.$rootScope.Scope#$digest $digest()} and
-       * {@link ng.$rootScope.Scope#$digest $digest()} events. The scope can be removed from the scope
-       * hierarchy using {@link ng.$rootScope.Scope#$destroy $destroy()}.
+       * @param {boolean} isolate Если установлено true, то область видимости не наследуется прототипически от 
+       *         родительской области. Область видимости изолируется и не может читать свойства родительской области. 
+       *         При создании виджетов это используется для, чтобы виджет не мог случайно прочитать состояние 
+       *         родительской области видимости.
+       * 
        *
-       * {@link ng.$rootScope.Scope#$destroy $destroy()} must be called on a scope when it is desired for
-       * the scope and its child scopes to be permanently detached from the parent and thus stop
-       * participating in model change detection and listener notification by invoking.
-       *
-       * @param {boolean} isolate if true then the scope does not prototypically inherit from the
-       *         parent scope. The scope is isolated, as it can not see parent scope properties.
-       *         When creating widgets it is useful for the widget to not accidentally read parent
-       *         state.
-       *
-       * @returns {Object} The newly created child scope.
+       * @returns {Object} Новая дочерняя область видимости.
        *
        */
       $new: function(isolate) {
@@ -197,7 +198,7 @@ function $RootScopeProvider(){
        * @function
        *
        * @description
-       * Registers a `listener` callback to be executed whenever the `watchExpression` changes.
+       * Регистрирует колбэк `listener`, который будет выполнен после изменения `watchExpression`.
        *
        * - The `watchExpression` is called on every call to {@link ng.$rootScope.Scope#$digest $digest()} and
        *   should return the value which will be watched. (Since {@link ng.$rootScope.Scope#$digest $digest()}
