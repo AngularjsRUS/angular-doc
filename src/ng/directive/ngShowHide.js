@@ -5,23 +5,22 @@
  * @name ng.directive:ngShow
  *
  * @description
- * The `ngShow` and `ngHide` directives show or hide a portion of the DOM tree (HTML)
- * conditionally based on **"truthy"** values evaluated within an {expression}. In other
- * words, if the expression assigned to **ngShow evaluates to a true value** then **the element is set to visible**
- * (via `display:block` in css) and **if false** then **the element is set to hidden** (so display:none).
- * With ngHide this is the reverse whereas true values cause the element itself to become
- * hidden.
+ * Директивы `ngShow` и `ngHide` показывают или скрывают часть дерева DOM (HTML)
+ * в зависимости от того **правдиво ли** значение, вычисленное в {expression}. Другими 
+ * словами, если выражение, назначаемое **ngShow вычисляет значение true** тогда **элемент показывается**
+ * (через `display:block` в css) и **если false** тогда **элемент скрывается** (display:none).
+ * С ngHide обратная ситуация, значение true скрывает элемент.
  *
- * Additionally, you can also provide animations via the ngAnimate attribute to animate the **show**
- * and **hide** effects.
- *
+ * Кроме того, можно задать анимацию с помощью атрибута ngAnimate для эффектов **show**
+ * и **hide**.
+ * 
  * @animations
- * show - happens after the ngShow expression evaluates to a truthy value and the contents are set to visible
- * hide - happens before the ngShow expression evaluates to a non truthy value and just before the contents are set to hidden
+ * show - происходит после того как выражение ngShow вычислит значение true и содержимое начнет показываться
+ * hide - происходит после того как выражение ngShow вычислит значение false и содержимое начнет скрываться
  *
  * @element ANY
- * @param {expression} ngShow If the {@link guide/expression expression} is truthy
- *     then the element is shown or hidden respectively.
+ * @param {expression} ngShow Если {@link guide/expression expression} правдиво
+ *     то элемент показан или скрыт соответственно
  *
  * @example
   <example animations="true">
@@ -114,23 +113,22 @@ var ngShowDirective = ['$animator', function($animator) {
  * @name ng.directive:ngHide
  *
  * @description
- * The `ngShow` and `ngHide` directives show or hide a portion of the DOM tree (HTML)
- * conditionally based on **"truthy"** values evaluated within an {expression}. In other
- * words, if the expression assigned to **ngShow evaluates to a true value** then **the element is set to visible**
- * (via `display:block` in css) and **if false** then **the element is set to hidden** (so display:none).
- * With ngHide this is the reverse whereas true values cause the element itself to become
- * hidden.
+ * Директивы `ngShow` и `ngHide` показывают или скрывают часть дерева DOM (HTML)
+ * в зависимости от того **правдиво ли** значение, вычисленное в {expression}. Другими 
+ * словами, если выражение, назначаемое **ngShow вычисляет значение true** тогда **элемент показывается**
+ * (через `display:block` в css) и **если false** тогда **элемент скрывается** (display:none).
+ * С ngHide обратная ситуация, значение true скрывает элемент.
  *
- * Additionally, you can also provide animations via the ngAnimate attribute to animate the **show**
- * and **hide** effects.
+ * Кроме того, можно задать анимацию с помощью атрибута ngAnimate для эффектов **show**
+ * и **hide**.
  *
  * @animations
- * show - happens after the ngHide expression evaluates to a non truthy value and the contents are set to visible
- * hide - happens after the ngHide expression evaluates to a truthy value and just before the contents are set to hidden
- *
+ * show - происходит после того как выражение ngShow вычислит значение true и содержимое начнет показываться
+ * hide - происходит после того как выражение ngShow вычислит значение false и содержимое начнет скрываться
+ * 
  * @element ANY
- * @param {expression} ngHide If the {@link guide/expression expression} is truthy then
- *     the element is shown or hidden respectively.
+ * @param {expression} ngHide Если {@link guide/expression expression} правдиво
+ *     то элемент показан или скрыт соответственно
  *
  * @example
   <example animations="true">
