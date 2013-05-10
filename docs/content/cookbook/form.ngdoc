@@ -68,7 +68,7 @@
     expect(binding('user')).toMatch(/John Smith/);
   });
   it('should add contact', function() {
-    using('.example').element('a:contains(add)').click();
+    using('.example').element('a:contains(добавить)').click();
     using('.example div:last').input('contact.value').enter('you@example.org');
     expect(binding('user')).toMatch(/\(234\) 555\-1212/);
     expect(binding('user')).toMatch(/you@example.org/);
