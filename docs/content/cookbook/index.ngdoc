@@ -2,9 +2,41 @@
 @name Рецепты
 @description
 
-Добро пожаловать в сбоник рецептов. Сюда выкладываются типовые примеры использования Angular.
+Добро пожаловать в сбоник рецептов и примеров использования Angular.
 
 Загружайте небольшие примеры, иллюстрирующие работу встроенных компонентов, решающие типовые (и не очень) задачи.
 При создании новой страницы, не забудьте приписать ей расширение `.ngdoc`
 
 # <a href="https://github.com/maksimr/angular-doc/new/master/docs/content/cookbook?value=@ngdoc%20overview%0A@name%20Cookbook:%20%D0%9D%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0%0A@description%0A%0A%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0" class="btn btn-primary">Добавить пример</a>
+
+## Типовой пример (см. исходный код для вставки):
+
+Описание примера. Пример ссылки на директиву {@link api/ng.directive:ngApp `ngApp`}
+
+<doc:example>
+ <doc:source>
+  <script>
+    function HelloCntl($scope) {
+      $scope.name = '';
+    }
+  </script>
+  <div ng-controller="HelloCntl">
+    Ваше имя: <input type="text" ng-model="name" value=""/>
+    <hr/>
+    Привет, {{name}}!
+  </div>
+ </doc:source>
+ <doc:scenario>
+   //Тест
+   it('should change the binding when user enters text', function() {
+     expect(binding('name')).toEqual('');
+     input('name').enter('angular');
+     expect(binding('name')).toEqual('angular');
+   });
+ </doc:scenario>
+</doc:example>
+
+# На что следует обратить внимание
+
+* Пункт 1.
+* Пункт 2.
