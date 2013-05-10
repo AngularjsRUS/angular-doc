@@ -101,7 +101,7 @@
     expect(element(':button:contains(Сохранить)').attr('disabled')).toBeTruthy();
     input('form.name').enter('change');
     expect(element(':button:contains(Сохранить)').attr('disabled')).toBeFalsy();
-    element(':button:contains(Save)').click();
+    element(':button:contains(Сохранить)').click();
     expect(element(':button:contains(Сохранить)').attr('disabled')).toBeTruthy();
   });
   it('should enable cancel button', function() {
