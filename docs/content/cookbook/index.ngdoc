@@ -27,7 +27,6 @@
   </div>
  </doc:source>
  <doc:scenario>
-   //Тест
    it('should change the binding when user enters text', function() {
      expect(binding('name')).toEqual('');
      input('name').enter('angular');
