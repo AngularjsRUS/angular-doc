@@ -2,62 +2,56 @@
 @name Cookbook
 @description
 
-Welcome to the Angular cookbook. Here we will show you typical uses of Angular by example.
+Добро пожаловать в сбоник рецептов Angular. Сюда выкладываются примеры типового использования Angular.
 
 
-# Hello World
+# Привет мир
 
-{@link helloworld Hello World}: The simplest possible application that demonstrates the
-classic Hello World!
-
-
-# Basic Form
-
-{@link form Basic Form}: Displaying forms to the user for editing is the bread and butter
-of web applications. Angular makes forms easy through bidirectional data binding.
+{@link helloworld Привет мир}: Простейшее приложение, демонстрирующее классический «Привет, мир!»
 
 
-# Advanced Form
+# Базовая форма
 
-{@link advancedform Advanced Form}: Taking the form example to the next level and
-providing advanced features such as  dirty detection, form reverting and submit disabling if
-validation errors exist.
-
-
-# Model View Controller
-
-{@link mvc MVC}: Tic-Tac-Toe: Model View Controller (MVC) is a time-tested design pattern
-to separate the behavior (JavaScript controller) from the presentation (HTML view). This
-separation aids in maintainability and testability of your project.
+{@link form Базовая форма}: Отображение формы пользователю для заполнения — средство существования
+веб-приложений. Angular без проблем создает формы через двунаправленное связывание данных.
 
 
-# Multi-page App and Deep Linking
+# Расширенная форма
 
-{@link deeplinking Deep Linking}: An AJAX application never navigates away from the
-first page it loads. Instead, it changes the DOM of its single page. Eliminating full-page reloads
-is what makes AJAX apps responsive, but it creates a problem in that apps with a single URL
-prevent you from emailing links to a particular screen within your application.
-
-Deep linking tries to solve this by changing the URL anchor without reloading a page, thus
-allowing you to send links to specific screens in your app.
+{@link advancedform Расширенная форма}: Форма для следующего уровня, имеющая такие особенности, как
+как обнаружение ввода, возврат назад, отключение функции отправки, если форма заполнена неверно.
 
 
-# Services
+# Модель-Вид-Контроллер
 
-{@link api/ng Services}: Services are long lived objects in your applications that are
-available across controllers. A collection of useful services are pre-bundled with Angular but you
-will likely add your own. Services are initialized using dependency injection, which resolves the
-order of initialization. This safeguards you from the perils of global state (a common way to
-implement long lived objects).
+{@link mvc MVC}: Крестики-нолики: Модель-Вид-Контроллер (MVC) это проверенный временем шаблон проектирования
+для отделения поведения (JavaScript-контроллера) от представления (HTML-вида). Это разделение способствует
+ремонтопригодности и тестируемости проекта.
 
 
-# External Resources
+# Многостраничное приложение и внешнее связывание
 
-{@link buzz Resources}: Web applications must be able to communicate with the external
-services to get and update data. Resources are the abstractions of external URLs which are
-specially tailored to Angular data binding.
+AJAX-приложение никогда не уходит с первой загруженной страницы. Вместо этого, оно изменяет DOM одной этой страницы, 
+устраненяя полную перезагрузку страницы. Это делает AJAX-приложения более быстрыми, но создает проблему с одним 
+и тем же URL для всего приложения, что мешает отправить ссылку на конкретный экран приложения электронной почте.
 
-# Создайте свой пример
+Внешняя связь пытается решить эту проблему, изменив URL якорь без перезагрузки страницы, что позволяет 
+отправлять ссылки на конкретные экраны приложения.
 
-Краткое описание как создать пример.
-[Ссылка](https://github.com/maksimr/angular-doc/new/master/docs/content/cookbook?value=@ngdoc%20overview%0A@name%20Cookbook:%20%D0%9D%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0%0A@description%0A%0A%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0) на создание примера.
+
+# Сервисы
+
+{@link api/ng Сервисы}: Сервисы — это долговечные объекты приложения, которые
+доступны в контроллерах. Angular поставляется с набором полезных сервисов, но вы, скорее всего, добавите 
+свои собственные. Сервисы инициализируется с использованием внедрения зависимости, которое задает
+порядок инициализации. Это уберегает от опасностей глобального состояния (распространенный способ
+реализации долгоживущих объектов).
+
+
+# Внешние ресурсы
+
+Веб-приложения должны иметь возможность общаться с внешним сервисами для получения и обновления данных. 
+Ресурсы это абстракция внешних URL-адресов, которые специально предназначены для связывания данных.
+
+
+<a href="https://github.com/maksimr/angular-doc/new/master/docs/content/cookbook?value=@ngdoc%20overview%0A@name%20Cookbook:%20%D0%9D%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0%0A@description%0A%0A%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0" class="btn btn-primary">Добавить пример</a>
