@@ -2,15 +2,13 @@
 @name Cookbook: MVC
 @description
 
-MVC allows for a clean and testable separation between the behavior (controller) and the view
-(HTML template). A Controller is just a JavaScript class which is grafted onto the scope of the
-view. This makes it very easy for the controller and the view to share the model.
+MVC обеспечивает чистое и тестируемое разделение между поведением (контроллер) и видом
+(HTML-шаблон). Контроллер — это обычный класс JavaScript, который трансплантирован в область видимости
+вида. Благодаря этому взаимодействие модели с контроллером и видом очень простое.
 
-The model is a set of objects and primitives that are referenced from the Scope ($scope) object.
-This makes it very easy to test the controller in isolation since one can simply instantiate the
-controller and test without a view, because there is no connection between the controller and the
-view.
-
+Модель представляет собой набор объектов и примитивов на которые ссылаются объект области видимости ($scope).
+Это позволяет легко протестировать изолированный контроллер, так как можно просто создать экземпляр контроллера 
+без вида, потому что между ними нет никакой связи.
 
 <doc:example>
   <doc:source>
@@ -80,7 +78,7 @@ view.
     }
     </script>
 
-    <h3>Tic-Tac-Toe</h3>
+    <h3>Крестики-нолики</h3>
     <div ng-controller="TicTacToeCntl">
     Next Player: {{nextMove}}
     <div class="winner" ng-show="winner">Player {{winner}} has won!</div>
@@ -90,7 +88,7 @@ view.
               ng-click="dropPiece($parent.$index, $index)">{{cell}}</td>
         </tr>
       </table>
-      <button ng-click="reset()">reset board</button>
+      <button ng-click="reset()">очистить поле</button>
     </div>
   </doc:source>
   <doc:scenario>
@@ -112,17 +110,16 @@ view.
 </doc:example>
 
 
-# Things to notice
+# На что следует обратить внимание
 
-* The controller is defined in JavaScript and has no reference to the rendering logic.
-* The controller is instantiated by Angular and injected into the view.
-* The controller can be instantiated in isolation (without a view) and the code will still execute.
-This makes it very testable.
-* The HTML view is a projection of the model. In the above example, the model is stored in the
-board variable.
-* All of the controller's properties (such as board and nextMove) are available to the view.
-* Changing the model changes the view.
-* The view can call any controller function.
-* In this example, the `setUrl()` and `readUrl()` functions copy the game state to/from the URL's
-hash so the browser's back button will undo game steps. See deep-linking. This example calls {@link
-api/ng.$rootScope.Scope#$watch $watch()} to set up a listener that invokes `readUrl()` when needed.
+* Контроллер определен в JavaScript и не содержит ссылок на логику представления.
+* Angular создает экземпляр контроллера и внедряет его в вид.
+* Экземпляр контроллера может быть изолирован (от вида) и код всё равно будет работать. 
+Поэтому его очень легко протестировать.
+* HTML-вид является проекцией модели. В приведенном выше примере модель хранит переменные игрового поля.
+* Все свойства контроллера (такие как board и nextMove) доступны для вида.
+* Изменение модели меняет вид.
+* Из вида можно вызвать любую функцию контроллера.
+* В этом примере функции `setUrl()` и `readUrl()` копируют состояние игры в/из URL-адрес, так что кнопка
+«назад» в браузере будет возвращать к предыдущим шагам. См. внешнее связывание. В этом примере вызывается {@link
+api/ng.$rootScope.Scope#$watch $watch()} чтобы установить наблюдателя, вызывающего `readUrl()` когда необходимо.
