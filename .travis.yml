@@ -13,7 +13,7 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
   - npm install -g grunt-cli
-  - grunt package
+  - grunt clean buildall docs uglify copy write compress
 script:
   - grunt test:unit --browsers Firefox --reporters=dots
   - grunt test:e2e --browsers PhantomJS --reporters=dots

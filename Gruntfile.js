@@ -8,6 +8,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-compress');
   grunt.loadTasks('lib/grunt');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   var NG_VERSION = util.getVersion();
   var dist = 'angular-'+ NG_VERSION.full;
@@ -128,6 +129,16 @@ module.exports = function(grunt) {
       }
     },
 
+    uglify: { // for travic-ci
+     'build/angular.min.js': 'build/angular.js',
+     'build/angular-cookies.min.js': 'build/angular-cookies.js',
+     'build/angular-loader.min.js': 'build/angular-loader.js',
+     'build/angular-mobile.min.js': 'build/angular-mobile.js',
+     'build/angular-resource.min.js': 'build/angular-resource.js',
+     'build/angular-sanitize.min.js': 'build/angular-sanitize.js',
+     'build/angular-bootstrap.min.js': 'build/angular-bootstrap.js',
+     'build/angular-bootstrap-prettify.min.js': 'build/angular-bootstrap-prettify.js'
+    },
 
     min: {
       angular: 'build/angular.js',
