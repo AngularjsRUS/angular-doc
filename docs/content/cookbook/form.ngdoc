@@ -1,10 +1,6 @@
 @ngdoc overview
-@name Cookbook: Form
+@name Cookbook: Форма
 @description
-
-A web application's main purpose is to present and gather data. For this reason Angular strives
-to make both of these operations trivial. This example shows off how you can build a simple form to
-allow a user to enter data.
 
 Основная цель веб-приложения — отображение и сбор данных. Поэтому Angular стремится сделать
 обе эти операции тривиальными. Пример демонстрирует, как можно построить простую форму, позволяющую 
