@@ -85,8 +85,8 @@
          <input type="text" ng-model="contact.value" required/>
            [ <a href="" ng-click="removeContact(contact)">×</a> ]
        </div>
-     <button ng-click="cancel()" ng-disabled="isCancelDisabled()">Отмена</button>
-     <button ng-click="save()" ng-disabled="isSaveDisabled()">Сохранить</button>
+     <button ng-click="cancel()" ng-disabled="isCancelDisabled()">Cancel</button>
+     <button ng-click="save()" ng-disabled="isSaveDisabled()">Save</button>
    </form>
 
    <hr/>
