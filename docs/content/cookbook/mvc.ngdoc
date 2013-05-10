@@ -80,8 +80,8 @@ MVC обеспечивает чистое и тестируемое раздел
 
     <h3>Крестики-нолики</h3>
     <div ng-controller="TicTacToeCntl">
-    Следующий игрок: {{nextMove}}
-    <div class="winner" ng-show="winner">Player {{winner}} has won!</div>
+    Сейчас ходят: {{nextMove}}
+    <div class="winner" ng-show="winner">{{winner}} выйграли!</div>
       <table class="board">
         <tr ng-repeat="row in board track by $index" style="height:15px;">
           <td ng-repeat="cell in row track by $index" ng-style="cellStyle"
