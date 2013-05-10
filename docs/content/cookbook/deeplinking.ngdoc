@@ -1,34 +1,33 @@
 @ngdoc overview
-@name Cookbook: Deep Linking
+@name Cookbook: Внешнее связывание
 @description
 
-Deep linking allows you to encode the state of the application in the URL so that it can be
-bookmarked and the application can be restored from the URL to the same state.
+Внешнее связывание позволяет закодировать состояние приложения в URL, так чтобы использовать его в качестве
+закладки и приложения могло бы восстановить состояние из URL.
 
-While Angular does not force you to deal with bookmarks in any particular way, it has services
-which make the common case described here very easy to implement.
+Angular не требует иметь дело с закладками в каждом конкретном случае, но для общего случая, 
+описанного здесь, у него имеются соответствующие сервисы, с помощью которых это легко сделать.
 
-# Assumptions
+# Допущения
 
-Your application consists of a single HTML page which bootstraps the application. We will refer
-to this page as the chrome.
-Your application is divided into several screens (or views) which the user can visit. For example,
-the home screen, settings screen, details screen, etc. For each of these screens, we would like to
-assign a URL so that it can be bookmarked and later restored. Each of these screens will be
-associated with a controller which define the screen's behavior. The most common case is that the
-screen will be constructed from an HTML snippet, which we will refer to as the partial. Screens can
-have multiple partials, but a single partial is the most common construct. This example makes the
-partial boundary visible using a blue line.
+Приложение состоит из одной HTML-страницы, которая загружает всё приложение. Назовем это страницу хромированной.
+Приложение разделено на несколько экранов (или видов), которые может посетить пользователь. Например:
+основной экран, экран настройки, экран сведений и т.д. Для каждого из этих экранов, необходимо
+назначить URL так чтобы его можно было сделать закладкой, а затем восстановить. Каждый из этих экранов будет
+связан с контроллером, который определит его поведение. В самом распространенном случае экран будет состоять 
+из HTML фрагмента, который будем называть частичкой. Экраны могут состоять из множественных частичек, но 
+одиночная частичка является наиболее распространенной конструкцией. В этом примере граница между частичками 
+показана синей линией.
 
-You can make a routing table which shows which URL maps to which partial view template and which
-controller.
+Можно сделать таблицу маршрутизации которая укажет, какой URL к какому шаблону частички вида относится и
+к какому контроллеру.
 
-# Example
+# Пример
 
-In this example we have a simple app which consist of two screens:
+В этом примере показано простое приложение, состоящее из двух экранов:
 
-* Welcome: url `welcome` Show the user contact information.
-* Settings: url `settings` Show an edit screen for user contact information.
+* Приветствия: url `welcome` Отображает контактную информацию пользователя.
+* Настроек: url `settings` Показывает редактор контактной информации.
 
 <example module="deepLinking" deps="angular-sanitize.js">
  <file name="script.js">
@@ -43,16 +42,16 @@ In this example we have a simple app which consist of two screens:
    function AppCntl($scope, $route) {
     $scope.$route = $route;
 
-    // initialize the model to something useful
+    // инициализация модели, чтобы сделать что-нибудь полезное
     $scope.person = {
      name:'anonymous',
-     contacts:[{type:'email', url:'anonymous@example.com'}]
+     contacts:[{type:'эл. почта', url:'anonymous@example.com'}]
     };
    }
 
    function WelcomeCntl($scope) {
     $scope.greet = function() {
-     alert("Hello " + $scope.person.name);
+     alert("Привет " + $scope.person.name);
     };
    }
 
@@ -84,14 +83,14 @@ In this example we have a simple app which consist of two screens:
  </file>
  <file name="index.html">
     <div ng-controller="AppCntl">
-      <h1>Your App Chrome</h1>
-      [ <a href="welcome">Welcome</a> | <a href="settings">Settings</a> ]
+      <h1>Хромированное приложение</h1>
+      [ <a href="welcome">Приветствие</a> | <a href="settings">Настройки</a> ]
       <hr/>
       <span class="partial-info">
-        Partial: {{$route.current.template}}
+        Частичка: {{$route.current.template}}
       </span>
       <div ng-view></div>
-      <small>Your app footer </small>
+      <small>Подвал приложения </small>
     </div>
  </file>
  <file name="settings.html">
@@ -101,8 +100,8 @@ In this example we have a simple app which consist of two screens:
    <div ng:repeat="contact in form.contacts">
      <select ng:model="contact.type">
        <option>url</option>
-       <option>email</option>
-       <option>phone</option>
+       <option>эл. почта</option>
+       <option>телефон</option>
      </select>
      <input type="text" ng:model="contact.url">
      [ <a href="" ng:click="form.contacts.$remove(contact)">X</a> ]
@@ -111,13 +110,13 @@ In this example we have a simple app which consist of two screens:
      [ <a href="" ng:click="form.contacts.$add()">add</a> ]
    </div>
 
-   <button ng:click="cancel()">Cancel</button>
-   <button ng:click="save()">Save</button>
+   <button ng:click="cancel()">Отмена</button>
+   <button ng:click="save()">Сохранить</button>
  </file>
  <file name="welcome.html">
-   Hello {{person.name}},
+   Привет {{person.name}},
    <div>
-     Your contact information:
+     Контактная информация:
      <div ng:repeat="contact in person.contacts">{{contact.type}}:
        <span ng-bind-html="contact.url|linky"></span>
      </div>
@@ -138,14 +137,13 @@ In this example we have a simple app which consist of two screens:
 
 
 
-# Things to notice
+# На что следует обратить внимание
 
-* Routes are defined in the `AppCntl` class. The initialization of the controller causes the
-  initialization of the {@link api/ng.$route $route} service with the proper URL
-  routes.
-* The  {@link api/ng.$route $route} service then watches the URL and instantiates the
-  appropriate controller when the URL changes.
-* The  {@link api/ng.directive:ngView ngView} widget loads the
-  view when the URL changes. It also sets the view scope to the newly instantiated controller.
-* Changing the URL is sufficient to change the controller and view. It makes no difference whether
-  the URL is changed programatically or by the user.
+* Маршруты определяются в классе `AppCntl`. Инициализация контроллера служит причиной инициализации
+  сервиса {@link api/ng.$route $route} с соответствующим маршрутом URL.
+* Сервис {@link api/ng.$route $route} наблюдает за URL и создает экземпляр соответствующего контроллера, при 
+  изменении URL.
+* Виджет {@link api/ng.directive:ngView ngView} загружает вид при изменении URL. Он так же устанавливает 
+  область видимости вида для нового экземпляра контроллера.
+* Изменение URL достаточно для изменения контроллера и виды. Не имеет значения
+  изменился ли URL программно или вручную.
