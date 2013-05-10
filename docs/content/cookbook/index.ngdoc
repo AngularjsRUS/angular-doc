@@ -11,7 +11,7 @@
 
 ## Типовой пример (см. исходный код для вставки):
 
-Описание примера. Пример ссылки на директиву {@link api/ng.directive:ngApp `ngApp`}
+Описание. Пример записи ссылки на директиву {@link api/ng.directive:ngApp `ngApp`}
 
 <doc:example>
  <doc:source>
