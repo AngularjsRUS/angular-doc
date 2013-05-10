@@ -100,7 +100,7 @@ MVC обеспечивает чистое и тестируемое раздел
      piece(1, 2);
      piece(3, 2);
      piece(1, 3);
-     expect(element('.winner').text()).toEqual('Player X has won!');
+     expect(element('.winner').text()).toEqual('X выйграли!');
     });
 
     function piece(row, col) {
