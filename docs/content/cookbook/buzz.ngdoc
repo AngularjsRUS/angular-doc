@@ -1,13 +1,12 @@
 @ngdoc overview
-@name Cookbook: Resources - Buzz
+@name Cookbook: Ресурсы - Buzz
 @description
 
-External resources are URLs that provide JSON data, which are then rendered with the help of
-templates. Angular has a resource factory that can be used to give names to the URLs and then
-attach behavior to them. For example you can use the
-{@link http://code.google.com/apis/buzz/v1/getting_started.html#background-operations| Google Buzz
-API}
-to retrieve Buzz activity and comments.
+Внешние ресурсы это URL-адреса, с которых приходят JSON-данные, которые затем отображается с помощью
+шаблонов. В Angular есть фабрика ресурсов, котрую можно использовать для присвоения имен URL-адресам, а затем
+прикрепления к ним поведения. Например, для получения комментариев и информации об активности в Живой (Buzz) ленте, 
+можно использовать {@link http://code.google.com/apis/buzz/v1/getting_started.html#background-operations| Google Buzz
+API}.
 
 <doc:example>
  <doc:source>
@@ -33,7 +32,7 @@ to retrieve Buzz activity and comments.
     </script>
     <div ng-controller="BuzzController">
      <input ng-model="userId"/>
-     <button ng-click="fetch()">fetch</button>
+     <button ng-click="fetch()">показать</button>
      <hr/>
      <div class="buzz" ng-repeat="item in activities.data.items">
       <h1 style="font-size: 15px;">
