@@ -1,39 +1,37 @@
 @ngdoc overview
-@name Cookbook: Hello World
+@name Cookbook: Привет мир!
 @description
+
+Пример простейшего приложения в Angular
 
 <doc:example>
  <doc:source>
   <script>
     function HelloCntl($scope) {
-      $scope.name = 'World';
+      $scope.name = 'мир';
     }
   </script>
   <div ng-controller="HelloCntl">
-    Your name: <input type="text" ng-model="name" value="World"/>
+    Ваше имя: <input type="text" ng-model="name" value="мир"/>
     <hr/>
-    Hello {{name}}!
+    Привет, {{name}}!
   </div>
  </doc:source>
  <doc:scenario>
    it('should change the binding when user enters text', function() {
-     expect(binding('name')).toEqual('World');
+     expect(binding('name')).toEqual('мир');
      input('name').enter('angular');
      expect(binding('name')).toEqual('angular');
    });
  </doc:scenario>
 </doc:example>
 
-# Things to notice
+# На что следует обратить внимание
 
-Take a look through the source and note:
-
-* The script tag that {@link guide/bootstrap bootstraps} the Angular environment.
-* The text {@link api/ng.directive:input input form control} which is
-  bound to the greeting name text.
-* There is no need for listener registration and event firing on change events.
-* The implicit presence of the `name` variable which is in the root {@link api/ng.$rootScope.Scope scope}.
-* The double curly brace `{{markup}}`, which binds the name variable to the greeting text.
-* The concept of {@link guide/dev_guide.templates.databinding data binding}, which reflects any
-changes to the
-  input field in the greeting text.
+* Тег скрипта, который {@link guide/bootstrap загружает} среду Angular.
+* Контроль {@link api/ng.directive:input ввода} текста, связанного с приветствием.
+* Нет необходимости регистрировать слушателя и обработчика событий при изменении события.
+* Подразумевается наличие переменной `name`, находящейся в корневой {@link api/ng.$rootScope.Scope области видимости}.
+* Двойные фигурные скобки `{{markup}}`, связывающие перменную с именем и поздравительный текст.
+* Понятие {@link guide/dev_guide.templates.databinding связывания данных}, которое переносит любые изменения в 
+  поле вводв в приветственный текст.
