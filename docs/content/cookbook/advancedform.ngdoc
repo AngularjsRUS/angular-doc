@@ -85,8 +85,8 @@
          <input type="text" ng-model="contact.value" required/>
            [ <a href="" ng-click="removeContact(contact)">×</a> ]
        </div>
-     <button ng-click="cancel()" ng-disabled="isCancelDisabled()">Cancel</button>
-     <button ng-click="save()" ng-disabled="isSaveDisabled()">Save</button>
+     <button ng-click="cancel()" ng-disabled="isCancelDisabled()">Отмена</button>
+     <button ng-click="save()" ng-disabled="isSaveDisabled()">Сохранить</button>
    </form>
 
    <hr/>
@@ -96,20 +96,20 @@
 </doc:source>
 <doc:scenario>
   it('should enable save button', function() {
-    expect(element(':button:contains(Save)').attr('disabled')).toBeTruthy();
+    expect(element(':button:contains(Сохранить)').attr('disabled')).toBeTruthy();
     input('form.name').enter('');
-    expect(element(':button:contains(Save)').attr('disabled')).toBeTruthy();
+    expect(element(':button:contains(Сохранить)').attr('disabled')).toBeTruthy();
     input('form.name').enter('change');
-    expect(element(':button:contains(Save)').attr('disabled')).toBeFalsy();
+    expect(element(':button:contains(Сохранить)').attr('disabled')).toBeFalsy();
     element(':button:contains(Save)').click();
-    expect(element(':button:contains(Save)').attr('disabled')).toBeTruthy();
+    expect(element(':button:contains(Сохранить)').attr('disabled')).toBeTruthy();
   });
   it('should enable cancel button', function() {
-    expect(element(':button:contains(Cancel)').attr('disabled')).toBeTruthy();
+    expect(element(':button:contains(Отмена)').attr('disabled')).toBeTruthy();
     input('form.name').enter('change');
-    expect(element(':button:contains(Cancel)').attr('disabled')).toBeFalsy();
-    element(':button:contains(Cancel)').click();
-    expect(element(':button:contains(Cancel)').attr('disabled')).toBeTruthy();
+    expect(element(':button:contains(Отмена)').attr('disabled')).toBeFalsy();
+    element(':button:contains(Отмена)').click();
+    expect(element(':button:contains(Отмена)').attr('disabled')).toBeTruthy();
     expect(element(':input[ng\\:model="form.name"]').val()).toEqual('John Smith');
   });
 </doc:scenario>
