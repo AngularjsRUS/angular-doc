@@ -20,8 +20,8 @@
     }]);
   </file>
   <file name="index.html">
-    <ul ng-app="Application" ng-controller="TreeController">
-      <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
+    <ul ng-app="Application" ng-controller="TreeController" id="foo">
+      <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'" class="node"></li>
     </ul>
   </file>
   <file name="tree_item_renderer.html">
@@ -29,15 +29,15 @@
     <button class="add" ng-click="add(data)">Добавить узел</button>
     <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
     <ul>
-      <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
+      <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'" class="node"></li>
     </ul>
   </file>
   <file name="scenario.js">
    it('не сработало добавление/удаление узла', function() {
       element('.add').click();
-      expect(repeater('li').count()).toEqual(2);
+      expect(repeater('li.node').count()).toEqual(2);
       element('.delete').click();
-      expect(repeater('li').count()).toEqual(1);
+      expect(repeater('li.node').count()).toEqual(1);
    });
  </file>
 </example>
