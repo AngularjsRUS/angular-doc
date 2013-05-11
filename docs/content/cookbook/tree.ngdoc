@@ -19,10 +19,13 @@
   </ul>
  </doc:source>
  <doc:scenario>
-   it('не сработало добавление/удаление узла', function() {
-     var depth = repeater('ul li').count();
+   it('не сработало добавление узла', function() {
+     var depth = repeater('ul').count();
      element('#add').click();
      expect(depth).toEqual(depth+1);
+   });
+   it('не сработало удаление узла', function() {
+     var depth = repeater('ul').count();
      element('#delete').click();
      expect(depth).toEqual(depth-1);
    });
