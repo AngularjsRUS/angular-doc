@@ -6,17 +6,33 @@
 
 <doc:example>
  <doc:source>
-  <script type="text/ng-template"  id="tree_item_renderer.html">
+  <file name="tree_item_renderer.html">
     {{data.name}}
     <button class="add" ng-click="add(data)">Добавить узел</button>
     <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
     <ul>
       <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
     </ul>
-  </script>
-  <ul ng-app="Application" ng-controller="TreeController">
-    <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
-  </ul>
+  </file>
+  <file name="script.js">
+    angular.module("myApp", []).
+    controller("TreeController", ['$scope', function($scope) {
+        $scope.delete = function(data) {
+            data.nodes = [];
+        };
+        $scope.add = function(data) {
+            var post = data.nodes.length + 1;
+            var newName = data.name + '-' + post;
+            data.nodes.push({name: newName,nodes: []});
+        };
+        $scope.tree = [{name: "Node", nodes: []}];
+    }]);
+  </file>
+  <file name="index.html">
+    <ul ng-app="Application" ng-controller="TreeController">
+      <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+  </file>
  </doc:source>
  <doc:scenario>
    it('не сработало добавление/удаление узла', function() {
