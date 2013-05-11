@@ -4,7 +4,7 @@
 
 Построение дерева с помощью директивы {@link api/ng.directive:ngRepeat `ngRepeat`}
 
-<doc:example>
+<example module="myApp">
  <doc:source>
   <file name="tree_item_renderer.html">
     {{data.name}}
@@ -33,10 +33,9 @@
       <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
     </ul>
   </file>
- </doc:source>
- <doc:scenario>
+  <file name="scenario.js">
    it('не сработало добавление/удаление узла', function() {
-    
+     
    });
- </doc:scenario>
-</doc:example>
+ </file>
+</example>
