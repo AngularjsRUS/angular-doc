@@ -2,4 +2,29 @@
 @name Cookbook: Древовидная структура
 @description
 
-Описание примера
+Построение дерева с помощью директивы {@link api/ng.directive:ngRepeat `ngRepeat`}
+
+<doc:example>
+ <doc:source>
+  <script type="text/ng-template"  id="tree_item_renderer.html">
+    {{data.name}}
+    <button id="add" ng-click="add(data)">Добавить узел</button>
+    <button id="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
+    <ul>
+      <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
+    </ul>
+  </script>
+  <ul ng-app="Application" ng-controller="TreeController">
+    <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'"></li>
+  </ul>
+ </doc:source>
+ <doc:scenario>
+   it('не сработало добавление/удаление узла', function() {
+     var depth = repeater('ul li').count();
+     element('#add').click();
+     expect(depth).toEqual(depth+1);
+     element('#delete').click();
+     expect(depth).toEqual(depth-1);
+   });
+ </doc:scenario>
+</doc:example>
