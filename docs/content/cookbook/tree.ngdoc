@@ -16,7 +16,7 @@
             var newName = data.name + '-' + post;
             data.nodes.push({name: newName,nodes: []});
         };
-        $scope.tree = [{name: "Node", nodes: []}];
+        $scope.tree = [{name: "Узел", nodes: []}];
     }]);
   </file>
   <file name="index.html">
@@ -34,7 +34,10 @@
   </file>
   <file name="scenario.js">
    it('не сработало добавление/удаление узла', function() {
-     
+     element('.add').click();
+      expect(repeater('ul').count()).toEqual(2);
+      element('.delete').click();
+      expect(repeater('ul').count()).toEqual(1);
    });
  </file>
 </example>
