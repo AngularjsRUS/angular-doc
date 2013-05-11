@@ -11,25 +11,25 @@
 
 ## Структура примера
 
-Разметка примера выглядит следующим образом:
+Разметка примера выглядит следующим образом (в теге example латинская «е» заменена на русскую. Поменяйте обратно при копировании):
 <pre>
-<example module="myApp" deps="angular-sanitize.js">
-  <file name="script.js">
-    // код в script.js
-  </file>
-  <file name="index.html">
-    // код в index.html
-  </file>
-  <file name="other.html">
-    // код в other.html
-  </file>
-  <file name="style.css">
-    // код в style.css
-  </file>
-  <file name="scenario.js">
-   // код теста
- </file>
-</example>
+  <еxample module="myApp" deps="angular-sanitize.js">
+    <file name="script.js">
+      // код в script.js
+    </file>
+    <file name="index.html">
+      // код в index.html
+    </file>
+    <file name="other.html">
+      // код в other.html
+    </file>
+    <file name="style.css">
+      // код в style.css
+    </file>
+    <file name="scenario.js">
+     // код теста
+   </file>
+  </example>
 </pre>
 В режиме просмотра каждый «файл» будет показан на отдельной вкладке. В `deps` указываются подключаемые файлы. В нашем 
 случае angular-sanitize.js, из которого используется директива {@link api/ng.directive:ngSanitize `ngSanitize`} 
