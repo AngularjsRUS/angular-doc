@@ -12,7 +12,7 @@
 ## Структура примера
 
 Разметка примера выглядит следующим образом:
-```html
+<pre>
 <example module="myApp" deps="angular-sanitize.js">
   <file name="script.js">
     // код в script.js
@@ -30,7 +30,7 @@
    // код теста
  </file>
 </example>
-```
+</pre>
 В режиме просмотра каждый «файл» будет показан на отдельной вкладке. В `deps` указываются подключаемые файлы. В нашем 
 случае angular-sanitize.js, из которого используется директива {@link api/ng.directive:ngSanitize `ngSanitize`} 
 в списке зависимостей angular.module('myApp', ['ngSanitize'])
