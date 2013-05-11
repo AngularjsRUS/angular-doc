@@ -8,8 +8,8 @@
  <doc:source>
   <script type="text/ng-template"  id="tree_item_renderer.html">
     {{data.name}}
-    <button id="add" ng-click="add(data)">Добавить узел</button>
-    <button id="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
+    <button class="add" ng-click="add(data)">Добавить узел</button>
+    <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
     <ul>
       <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'"></li>
     </ul>
@@ -19,15 +19,11 @@
   </ul>
  </doc:source>
  <doc:scenario>
-   it('не сработало добавление узла', function() {
-     var depth = repeater('ul').count();
-     element('#add').click();
-     expect(depth).toEqual(depth+1);
-   });
-   it('не сработало удаление узла', function() {
-     var depth = repeater('ul').count();
-     element('#delete').click();
-     expect(depth).toEqual(depth-1);
+   it('не сработало добавление/удаление узла', function() {
+     element('.add').click();
+     expect(repeater('ul')).toEqual(2);
+     element('.delete').click();
+     expect(repeater('ul')).toEqual(1);
    });
  </doc:scenario>
 </doc:example>
