@@ -9,33 +9,34 @@
 
 # <a href="https://github.com/maksimr/angular-doc/new/master/docs/content/cookbook?value=@ngdoc%20overview%0A@name%20Cookbook:%20%D0%9D%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0%0A@description%0A%0A%D0%9E%D0%BF%D0%B8%D1%81%D0%B0%D0%BD%D0%B8%D0%B5%20%D0%BF%D1%80%D0%B8%D0%BC%D0%B5%D1%80%D0%B0" class="btn btn-primary">Добавить пример</a>
 
-## Типовой пример (см. исходный код для вставки):
+## Структура примера
+
+Разметка примера выглядит следующим образом:
+```html
+<example module="myApp" deps="angular-sanitize.js">
+  <file name="script.js">
+    // код в script.js
+  </file>
+  <file name="index.html">
+    // код в index.html
+  </file>
+  <file name="other.html">
+    // код в other.html
+  </file>
+  <file name="style.css">
+    // код в style.css
+  </file>
+  <file name="scenario.js">
+   // код теста
+ </file>
+</example>
+```
+В режиме просмотра каждый «файл» будет показан на отдельной вкладке. В `deps` указываются подключаемые файлы. В нашем 
+случае angular-sanitize.js, из которого используется директива {@link api/ng.directive:ngSanitize `ngSanitize`} 
+в списке зависимостей angular.module('myApp', ['ngSanitize'])
 
 Описание. Пример записи ссылки на директиву {@link api/ng.directive:ngApp `ngApp`}. Замените код примера на свой.
 
-<doc:example>
- <doc:source>
-  <script>
-    function HelloCntl($scope) {
-      $scope.name = '';
-    }
-  </script>
-  <div ng-controller="HelloCntl">
-    Ваше имя: <input type="text" ng-model="name" value=""/>
-    <hr/>
-    Привет, {{name}}!
-  </div>
- </doc:source>
- <doc:scenario>
-   it('should change the binding when user enters text', function() {
-     expect(binding('name')).toEqual('');
-     input('name').enter('angular');
-     expect(binding('name')).toEqual('angular');
-   });
- </doc:scenario>
-</doc:example>
-
-# На что следует обратить внимание
-
-* Пункт 1.
-* Пункт 2.
+Для написания теста, прочитайте про {@link guide/dev_guide.e2e-testing E2E тестирование}, а так же посмотрите код 
+других примеров. Обратите внимание, что поиск элементов по селектору в тесте производится во всем приложении, а не
+в одном лишь примере.
