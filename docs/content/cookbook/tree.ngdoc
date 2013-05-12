@@ -21,7 +21,7 @@
   </file>
   <file name="index.html">
     <ul ng-app="Application" ng-controller="TreeController" id="foo">
-      <li ng-repeat="data in tree" ng-include="'tree_item_renderer.html'" class="node"></li>
+      <li ng-repeat="data in tree" ng-include="'tree_item.html'" class="node"></li>
     </ul>
   </file>
   <file name="tree_item_renderer.html">
@@ -29,7 +29,7 @@
     <button class="add" ng-click="add(data)">Добавить узел</button>
     <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
     <ul>
-      <li ng-repeat="data in data.nodes" ng-include="'tree_item_renderer.html'" class="node"></li>
+      <li ng-repeat="data in data.nodes" ng-include="'tree_item.html'" class="node"></li>
     </ul>
   </file>
   <file name="scenario.js">
