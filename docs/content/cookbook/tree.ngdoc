@@ -24,7 +24,7 @@
       <li ng-repeat="data in tree" ng-include="'tree_item.html'" class="node"></li>
     </ul>
   </file>
-  <file name="tree_item_renderer.html">
+  <file name="tree_item.html">
     {{data.name}}
     <button class="add" ng-click="add(data)">Добавить узел</button>
     <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
