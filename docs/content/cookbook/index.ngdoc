@@ -24,21 +24,11 @@
     <file name="style.css">
       // стили
     </file>
-    <file name="app.js">
-      // модуль всего приложения
+    <file name="script.js">
+      // скрипт
       angular.module('myApp', ['ngSanitize']) )
-    </file>
-    <file name="controllers.js">
-      // контроллеры
-    </file>
-    <file name="directives.js">
-      // директивы
-    </file>
-    <file name="services.js">
-      // сервисы
-    </file>
-    <file name="filters.js">
-      // фильтры
+      //...
+      // все скрипты дожны находиться в этом блоке
     </file>
     <file name="scenario.js">
       // код E2E теста
@@ -46,7 +36,7 @@
   </example>
 </pre>
 В режиме просмотра каждый «файл» будет показан на отдельной вкладке. В `deps` указываются подключаемые файлы 
-(директива {@link api/ng.directive:ngSanitize `ngSanitize`} из angular-sanitize.js используется в списке зависимостей
+(для примера, директива {@link api/ng.directive:ngSanitize `ngSanitize`} из angular-sanitize.js используется в списке зависимостей
 модуля myApp).
 
 Не стоит указывать `ngApp="myApp"` в коде примера, т.к. это уже задано в теге `example`.
