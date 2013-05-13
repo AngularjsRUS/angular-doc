@@ -6,7 +6,7 @@
 
 <example module="myApp">
   <file name="index.html">
-    <div ng-controller="TreeController">
+    <div ngApp="myApp" ng-controller="TreeController">
       <div ng-repeat="data in tree" ng-include="'item.html'" class="node"></div>
     </div>
   </file>
@@ -40,11 +40,11 @@
     };
   </file>
   <file name="scenario.js">
-   it('не сработало добавление/удаление узла', function() {
+   /*it('не сработало добавление/удаление узла', function() {
       element('.add').click();
       expect(repeater('li.node').count()).toEqual(5);
       element('.delete').click();
       expect(repeater('li.node').count()).toEqual(0);
-   });
+   });*/
  </file>
 </example>
