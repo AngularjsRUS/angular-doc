@@ -6,14 +6,14 @@
  * @priority 1000
  *
  * @description
- * Sometimes it is necessary to write code which looks like bindings but which should be left alone
- * by angular. Use `ngNonBindable` to make angular ignore a chunk of HTML.
+ * Иногда требуется написать код, который является корректным angular-выражением, но которое должно отображаться как
+ * есть, без вычисления. Используйте `ngNonBindable` чтобы заставить Angular игнорировать содержимое HTML.
  *
  * @element ANY
  *
  * @example
- * In this example there are two location where a simple binding (`{{}}`) is present, but the one
- * wrapped in `ngNonBindable` is left alone.
+ * В этом примере связывание данных (`{{}}`) присутствует в двух местах, но в одном завернуто в `ngNonBindable` и
+ * не вычисляется.
  *
  * @example
     <doc:example>

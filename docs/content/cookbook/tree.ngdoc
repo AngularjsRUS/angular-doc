@@ -2,4 +2,48 @@
 @name Cookbook: Древовидная структура
 @description
 
-Описание примера
+Построение дерева с помощью директивы {@link api/ng.directive:ngRepeat `ngRepeat`}
+
+<example module="myApp">
+  <file name="index.html">
+    <div ng-controller="TreeController">
+      <div ng-repeat="data in tree" ng-include="'item.html'" class="node"></div>
+    </div>
+  </file>
+  <file name="item.html">
+    {{data.name}}
+    <button class="add" ng-click="add(data)">Добавить узел</button>
+    <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
+    <ul>
+      <li ng-repeat="data in data.nodes" ng-include="'item.html'" class="node"></li>
+    </ul>
+  </file>
+  <file name="script.js">   
+    angular.module("myApp", []);
+
+    function TreeController($scope) {
+        $scope.delete = function(data) {
+            data.nodes = [];
+        };
+        $scope.add = function(data) {
+            var post = data.nodes.length + 1;
+            var newName = data.name + '-' + post;
+            data.nodes.push({name: newName,nodes: []});
+        };
+        $scope.tree = [
+          {name: 'Узел', nodes: [
+            {name: 'Морской', nodes: []},
+            {name: 'Устричный', nodes: []}
+          ]}
+        ];
+    };
+  </file>
+  <file name="scenario.js">
+   it('не сработало добавление/удаление узла', function() {
+      element('.add').click();
+      expect(repeater('li.node').count()).toEqual(5);
+      element('.delete').click();
+      expect(repeater('li.node').count()).toEqual(0);
+   });
+ </file>
+</example>

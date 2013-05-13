@@ -6,36 +6,36 @@
  * @restrict EA
  *
  * @description
- * # Overview
- * `ngPluralize` is a directive that displays messages according to en-US localization rules.
- * These rules are bundled with angular.js and the rules can be overridden
- * (see {@link guide/i18n Angular i18n} dev guide). You configure ngPluralize directive
- * by specifying the mappings between
+ * # Обзор
+ * Директива `ngPluralize` отображает сообщение в соответствии с установленной локализацией в en-US. 
+ * Эта локализация встроена в файл angular.js и она может быть изменена на другую (см. 
+ * {@link guide/i18n Локализация i18n} в руководстве разработчика). Директиву `ngPluralize` настраивается
+ * для локализации 
  * {@link http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html
- * plural categories} and the strings to be displayed.
+ * склонения по числам}, и строки будут отображаться в соответствии с этими настройками.
  *
- * # Plural categories and explicit number rules
- * There are two
+ * # Склонение по числам и явное указание правил для количества
+ * По умолчанию в Angular есть две 
  * {@link http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html
- * plural categories} in Angular's default en-US locale: "one" and "other".
+ * количественные категории}, применяемые для локализации en-US: «one» (первый элемент) и 
+ * «other» (другой элемент).
+ * 
+ * Каждой категории могут соответствовать множество чисел (для примера, в локализации en-US, категории «other» 
+ * соответствуют все числа больше 1), явно указать склонение можно только для одного числа. 
+ * К примеру, склонение для «3» будет применяться только к числу 3. Читайте об использовании множественного
+ * числа и явного задания склонений в следующих разделах статьи.
  *
- * While a plural category may match many numbers (for example, in en-US locale, "other" can match
- * any number that is not 1), an explicit number rule can only match one number. For example, the
- * explicit number rule for "3" matches the number 3. You will see the use of plural categories
- * and explicit number rules throughout later parts of this documentation.
- *
- * # Configuring ngPluralize
- * You configure ngPluralize by providing 2 attributes: `count` and `when`.
- * You can also provide an optional attribute, `offset`.
- *
- * The value of the `count` attribute can be either a string or an {@link guide/expression
- * Angular expression}; these are evaluated on the current scope for its bound value.
- *
- * The `when` attribute specifies the mappings between plural categories and the actual
- * string to be displayed. The value of the attribute should be a JSON object so that Angular
- * can interpret it correctly.
- *
- * The following example shows how to configure ngPluralize:
+ * # Настройка ngPluralize
+ * Для настройки ngPluralize используются два атрибута: `count` и `when`. Можно также использовать необязательный 
+ * атрибут `offset`.
+ * 
+ * Значение атрибута `count` может быть строкой или angular-выражением, которое вычисляется в текущей области 
+ * видимости для получения значения.
+ * 
+ * Атрибут `when` специфицирует карту значений из категорий и строк для отображения. Его значением должен быть 
+ * объект JSON, так как Angular сможет его корректно интерпретировать.
+ * 
+ * В следующем примере показано как настроить ngPluralize:
  *
  * <pre>
  * <ng-pluralize count="personCount"
@@ -45,23 +45,21 @@
  * </ng-pluralize>
  *</pre>
  *
- * In the example, `"0: Nobody is viewing."` is an explicit number rule. If you did not
- * specify this rule, 0 would be matched to the "other" category and "0 people are viewing"
- * would be shown instead of "Nobody is viewing". You can specify an explicit number rule for
- * other numbers, for example 12, so that instead of showing "12 people are viewing", you can
- * show "a dozen people are viewing".
+ * В примере, `"0: Nobody is viewing."` 'Это явное указание склонения для числа. Если не указать склонение, то 
+ * число 0 будет соответствовать склонению для «other» и будет выводится «0 people are viewing» вместо «Nobody
+ * is viewing». Можно указать склонения для других чисел, к примеру, 12  будет выводить "12 people are viewing",
+ * можно указать "a dozen people are viewing".
+ * 
+ * Можно использовать закрытые фигурные скобки (`{}`), как якорь для обрабатываемого числа, которое будет вставлено
+ * в результирующую строку. В предыдущем примере, Angular заменит `{}` на 
+ * <span ng-non-bindable>`{{personCount}}`</span>. Вместо `{}`, может также находится тело выражения 
+ * <span ng-non-bindable>{{numberExpression}}</span>.
  *
- * You can use a set of closed braces(`{}`) as a placeholder for the number that you want substituted
- * into pluralized strings. In the previous example, Angular will replace `{}` with
- * <span ng-non-bindable>`{{personCount}}`</span>. The closed braces `{}` is a placeholder
- * for <span ng-non-bindable>{{numberExpression}}</span>.
- *
- * # Configuring ngPluralize with offset
- * The `offset` attribute allows further customization of pluralized text, which can result in
- * a better user experience. For example, instead of the message "4 people are viewing this document",
- * you might display "John, Kate and 2 others are viewing this document".
- * The offset attribute allows you to offset a number by any desired value.
- * Let's take a look at an example:
+ * # Настройка ngPluralize с использованием offset
+ * Атрибут `offset` кроме того позволяет еще больше управлять процессом склонения текста. Например, вместо 
+ * сообщения «4 people are viewing this document», вы можете отобразить значение «John, Kate and 
+ * 2 others are viewing this document». Атрибут `offset` позволяет задать сдвиг для номера на любое желаемое значение. 
+ * Посмотрите на этот пример:
  *
  * <pre>
  * <ng-pluralize count="personCount" offset=2
@@ -73,22 +71,19 @@
  * </ng-pluralize>
  * </pre>
  *
- * Notice that we are still using two plural categories(one, other), but we added
- * three explicit number rules 0, 1 and 2.
- * When one person, perhaps John, views the document, "John is viewing" will be shown.
- * When three people view the document, no explicit number rule is found, so
- * an offset of 2 is taken off 3, and Angular uses 1 to decide the plural category.
- * In this case, plural category 'one' is matched and "John, Marry and one other person are viewing"
- * is shown.
+ * Обратите внимание на используемый стиль в двух категориях (one, other), и мы добавили еще три склонения для чисел
+ * 0, 1 и 2. Когда один человек, возможно John, посмотрит документ, будет показано "John is viewing". Когда три 
+ * человека посмотрят документ, явного склонения не будет найдено, так как сдвиг равен 2 и текущее количество равно 3, 
+ * Angular использует 1 для решения о том, какую категорию использовать. В нашем случае будет применена категория 
+ * 'one' и будет выведено "John, Marry and one other person are viewing".
+ * 
+ * Заметьте, что когда вы определили сдвиг, необходимо явно указать склонения для чисел от 0 и до значения сдвига. 
+ * Если вы используете сдвиг равный, например, 3, нужно явно указать склонения для чисел 0, 1, 2 и 3. Необходимо 
+ * также указать строки для категорий «one» и «other».
  *
- * Note that when you specify offsets, you must provide explicit number rules for
- * numbers from 0 up to and including the offset. If you use an offset of 3, for example,
- * you must provide explicit number rules for 0, 1, 2 and 3. You must also provide plural strings for
- * plural categories "one" and "other".
- *
- * @param {string|expression} count The variable to be bounded to.
- * @param {string} when The mapping between plural category to its corresponding strings.
- * @param {number=} offset Offset to deduct from the total number.
+ * @param {string|expression} count привязанное значение для обработки
+ * @param {string} when Набор количественных категорий, значения которых являются форматом выводимой строки.
+ * @param {number=} offset Сдвиг для вычитания от переданного номера.
  *
  * @example
     <doc:example>

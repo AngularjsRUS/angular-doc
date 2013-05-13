@@ -639,7 +639,7 @@ Doc.prototype = {
     var self = this;
 
     if (this.param.length) {
-      dom.h('Usage', function() {
+      dom.h('Применение', function() {
         dom.code(function() {
           dom.text(self.name.split('.').pop());
           dom.text('(');

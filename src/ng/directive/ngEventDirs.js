@@ -5,12 +5,11 @@
  * @name ng.directive:ngClick
  *
  * @description
- * The ngClick allows you to specify custom behavior when
- * element is clicked.
+ * Директива ngClick позволяет установить действие, которое будет выполнено, когда произойдет клик по элементу.
  *
  * @element ANY
- * @param {expression} ngClick {@link guide/expression Expression} to evaluate upon
- * click. (Event object is available as `$event`)
+ * @param {expression} ngClick {@link guide/expression Выражение} для обработки щелчка мышью (click). 
+ * (Объект события доступен через `$event`)
  *
  * @example
    <doc:example>
@@ -58,11 +57,12 @@ forEach(
  * @name ng.directive:ngDblclick
  *
  * @description
- * The `ngDblclick` directive allows you to specify custom behavior on dblclick event.
+ * Директива `ngDblclick` позволяет задать пользовательскую функцию, которая выполнится при двойном щелчке мышью
+ * на элементе.
  *
  * @element ANY
- * @param {expression} ngDblclick {@link guide/expression Expression} to evaluate upon
- * dblclick. (Event object is available as `$event`)
+ * @param {expression} ngDblclick {@link guide/expression Выражение} для обработки двойного щелчка мышью (dbclick). 
+ * (Объект события доступен через `$event`)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -74,11 +74,12 @@ forEach(
  * @name ng.directive:ngMousedown
  *
  * @description
- * The ngMousedown directive allows you to specify custom behavior on mousedown event.
+ * Директива ngMousedown позволяет задать функцию, которая будет вызвана для обработки события mousedown 
+ * (нажатие клавиши мыши).
  *
  * @element ANY
- * @param {expression} ngMousedown {@link guide/expression Expression} to evaluate upon
- * mousedown. (Event object is available as `$event`)
+ * @param {expression} ngMousedown {@link guide/expression Выражение} для обработки события mousedown. 
+ * (Объект события доступен через `$event`)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -90,11 +91,11 @@ forEach(
  * @name ng.directive:ngMouseup
  *
  * @description
- * Specify custom behavior on mouseup event.
+ * Задает обработчик для события mouseup (отпускание нажатой кнопки мыши).
  *
  * @element ANY
- * @param {expression} ngMouseup {@link guide/expression Expression} to evaluate upon
- * mouseup. (Event object is available as `$event`)
+ * @param {expression} ngMouseup {@link guide/expression Выражение} для обработки события mouseup. 
+ * (Объект события доступен через `$event`)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -105,11 +106,13 @@ forEach(
  * @name ng.directive:ngMouseover
  *
  * @description
- * Specify custom behavior on mouseover event.
+ * Задает обработчик для события mouseover (появление курсора над элементом).
+ * 
+ * Для предотвращения всплывания события воспользуйтесь {@link api/ng.directive:ngMouseenter ngMouseenter}
  *
  * @element ANY
- * @param {expression} ngMouseover {@link guide/expression Expression} to evaluate upon
- * mouseover. (Event object is available as `$event`)
+ * @param {expression} ngMouseover {@link guide/expression Выражение} для обработки события mouseover. 
+ * (Объект события доступен через `$event`)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -121,11 +124,18 @@ forEach(
  * @name ng.directive:ngMouseenter
  *
  * @description
- * Specify custom behavior on mouseenter event.
+ * Задает обработчик для события mouseenter (появление курсора над элементом).
+ * 
+ * По своему назначению, mouseenter совпадает с событием {@link api/ng.directive:ngMouseover mouseover}. Однако у них
+ * имеются заметные отличия. Дело в том, что mouseover, как и многие другие стандартные события javascript, 
+ * обладает свойством «всплытия» вверх по иерархии. То есть, после выполнения на элементе, событие передается 
+ * родительскому элементу, потом прародительскому, и так далее, вплоть до начала дерева DOM. Эта особенность 
+ * может приводить к различным проблемам. Событие mouseenter таким свойством не обладает, и выполняется только 
+ * один раз, на самом элементе. Поэтому, в некоторых случаях, оно может быть гораздо удобнее.
  *
  * @element ANY
- * @param {expression} ngMouseenter {@link guide/expression Expression} to evaluate upon
- * mouseenter. (Event object is available as `$event`)
+ * @param {expression} ngMouseenter {@link guide/expression Выражение} для обработки события mouseenter. 
+ * (Объект события доступен через `$event`)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -137,11 +147,11 @@ forEach(
  * @name ng.directive:ngMouseleave
  *
  * @description
- * Specify custom behavior on mouseleave event.
+ * Задает обработчик для события mouseleave (уход курсора за пределы элемента).
  *
  * @element ANY
- * @param {expression} ngMouseleave {@link guide/expression Expression} to evaluate upon
- * mouseleave. (Event object is available as `$event`)
+ * @param {expression} ngMouseleave {@link guide/expression Выражение} для обработки события mouseleave. 
+ * (Объект события доступен через `$event`)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -153,11 +163,11 @@ forEach(
  * @name ng.directive:ngMousemove
  *
  * @description
- * Specify custom behavior on mousemove event.
+ * Задает обработчик для события mousemove (перемещение курсора над элементом).
  *
  * @element ANY
- * @param {expression} ngMousemove {@link guide/expression Expression} to evaluate upon
- * mousemove. (Event object is available as `$event`)
+ * @param {expression} ngMousemove {@link guide/expression Выражение} для обработки события mousemove. 
+ * (Объект события доступен через `$event`)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -169,11 +179,11 @@ forEach(
  * @name ng.directive:ngKeydown
  *
  * @description
- * Specify custom behavior on keydown event.
+ * Задает обработчик для события keydown (нажатие клавиши на клавиатуре).
  *
  * @element ANY
- * @param {expression} ngKeydown {@link guide/expression Expression} to evaluate upon
- * keydown. (Event object is available as `$event` and can be interrogated for keyCode, altKey, etc.)
+ * @param {expression} ngKeydown {@link guide/expression Выражение} для обработки события keydown. 
+ * (Объект события доступен через `$event` и может быть опрощен для получения keyCode, altKey и т.д.)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -185,11 +195,11 @@ forEach(
  * @name ng.directive:ngKeyup
  *
  * @description
- * Specify custom behavior on keyup event.
+ * Задает обработчик для события keyup (отпускание нажатой клавиши на клавиатуре).
  *
  * @element ANY
- * @param {expression} ngKeyup {@link guide/expression Expression} to evaluate upon
- * keyup. (Event object is available as `$event` and can be interrogated for keyCode, altKey, etc.)
+ * @param {expression} ngKeyup {@link guide/expression Выражение} для обработки события keyup. 
+ * (Объект события доступен через `$event` и может быть опрощен для получения keyCode, altKey и т.д.)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -201,11 +211,11 @@ forEach(
  * @name ng.directive:ngKeypress
  *
  * @description
- * Specify custom behavior on keypress event.
+ * Задает обработчик для события keypress (ввод символа с клавиатуры).
  *
  * @element ANY
- * @param {expression} ngKeypress {@link guide/expression Expression} to evaluate upon
- * keypress. (Event object is available as `$event` and can be interrogated for keyCode, altKey, etc.)
+ * @param {expression} ngKeypress {@link guide/expression Выражение} для обработки события keypress. 
+ * (Объект события доступен через `$event` и может быть опрощен для получения keyCode, altKey и т.д.)
  *
  * @example
  * See {@link ng.directive:ngClick ngClick}
@@ -217,13 +227,12 @@ forEach(
  * @name ng.directive:ngSubmit
  *
  * @description
- * Enables binding angular expressions to onsubmit events.
- *
- * Additionally it prevents the default action (which for form means sending the request to the
- * server and reloading the current page).
+ * Привязывает angular-выражение к событию onsubmit (отправка формы). 
+ * 
+ * Дополнительно отключает поведение по умолчанию (отправка формы на сервер и перезагрузка текущей страницы).
  *
  * @element form
- * @param {expression} ngSubmit {@link guide/expression Expression} to eval.
+ * @param {expression} ngSubmit {@link guide/expression Выражение} для вычисления.
  *
  * @example
    <doc:example>

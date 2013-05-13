@@ -990,10 +990,10 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * @methodOf ng.directive:ngModel.NgModelController
    *
    * @description
-   * Sets the control to its pristine state.
+   * Устанавливает элемент управления в первоначальное состояние.
    *
-   * This method can be called to remove the 'ng-dirty' class and set the control to its pristine
-   * state (ng-pristine class).
+   * Этот метод может быть вызван для удаления класса 'ng-dirty' и установки элемента управления в 
+   * свое первоначальное состояние (класс ng-pristine).
    */
   this.$setPristine = function () {
     this.$dirty = false;
@@ -1007,16 +1007,15 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * @methodOf ng.directive:ngModel.NgModelController
    *
    * @description
-   * Read a value from view.
+   * Читает значение из вида.
    *
-   * This method should be called from within a DOM event handler.
-   * For example {@link ng.directive:input input} or
-   * {@link ng.directive:select select} directives call it.
+   * Этот метод необходимо вызывать из обработчика события DOM.
+   * Например, его вызывают директивы {@link ng.directive:input input} или {@link ng.directive:select select}.
    *
-   * It internally calls all `formatters` and if resulted value is valid, updates the model and
-   * calls all registered change listeners.
+   * Это вызывает внутри всех «форматеров» и, если результирующее значение корректно, обновляет модель
+   * и вызывает всех зарегистрированных слушателей изменений.
    *
-   * @param {string} value Value from the view.
+   * @param {string} value Значение из вида.
    */
   this.$setViewValue = function(value) {
     this.$viewValue = value;
@@ -1079,19 +1078,18 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  * @element input
  *
  * @description
- * Is directive that tells Angular to do two-way data binding. It works together with `input`,
- * `select`, `textarea`. You can easily write your own directives to use `ngModel` as well.
+ * Эта директива указывает Angular, что необходимо двухсторонее связывание данных. Что всегда применяется в 
+ * директивах `input`, `select`, `textarea`. Можно легко писать собственные директивы, используя в них `ngModel`.
+ * 
+ * `ngModel` отвечает за:
+ * - связывание вида с моделью при использовании с другими директивами, такими как `input`, `textarea` или `select`, 
+ * реализует поведение для проверки ввода (например, required, number, email, url),
+ * - реализует поведение для проверки ввода (например, required, number, email, url),
+ * - определяет состояние элементов управления (valid/invalid, dirty/pristine, validation errors),
+ * - устанавливает требуемый css-класс для элемента (ng-valid, ng-invalid, ng-dirty, ng-pristine),
+ * - регистрирует элемент управления в родительской директиве {@link ng.directive:form form}.
  *
- * `ngModel` is responsible for:
- *
- * - binding the view into the model, which other directives such as `input`, `textarea` or `select`
- *   require,
- * - providing validation behavior (i.e. required, number, email, url),
- * - keeping state of the control (valid/invalid, dirty/pristine, validation errors),
- * - setting related css class onto the element (`ng-valid`, `ng-invalid`, `ng-dirty`, `ng-pristine`),
- * - register the control with parent {@link ng.directive:form form}.
- *
- * For basic examples, how to use `ngModel`, see:
+ * Примеры использования `ngModel`, смотрите здесь:
  *
  *  - {@link ng.directive:input input}
  *    - {@link ng.directive:input.text text}
@@ -1130,10 +1128,10 @@ var ngModelDirective = function() {
  * @restrict E
  *
  * @description
- * Evaluate given expression when user changes the input.
- * The expression is not evaluated when the value change is coming from the model.
- *
- * Note, this directive requires `ngModel` to be present.
+ * Вызывает определенную функцию, если пользователь изменил значение поля ввода. Функция не вызывается, 
+ * если изменение исходит от модели.
+ * 
+ * Заметьте, эта директива требует наличия директивы `ngModel` в том же элементе.
  *
  * @element input
  *
@@ -1215,11 +1213,11 @@ var requiredDirective = function() {
  * @name ng.directive:ngList
  *
  * @description
- * Text input that converts between comma-separated string into an array of strings.
+ * Преобразует входной текст в массив строк по заданному разделителю.
  *
  * @element input
- * @param {string=} ngList optional delimiter that should be used to split the value. If
- *   specified in form `/something/` then the value will be converted into a regular expression.
+ * @param {string=} ngList не обязательный символ разделителя, который будет использоваться при разделении строки. 
+ * Если задается в форме `/something/`, значение будет преобразовано в регулярное выражение.
  *
  * @example
     <doc:example>

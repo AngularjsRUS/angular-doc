@@ -6,13 +6,12 @@
  * @priority 1000
  *
  * @description
- * Enables [CSP (Content Security Policy)](https://developer.mozilla.org/en/Security/CSP) support.
- * This directive should be used on the root element of the application (typically the `<html>`
- * element or other element with the {@link ng.directive:ngApp ngApp}
- * directive).
- *
- * If enabled the performance of template expression evaluator will suffer slightly, so don't enable
- * this mode unless you need it.
+ * Включает поддержку [CSP (Правила безопасности контента)](https://developer.mozilla.org/en/Security/CSP). 
+ * Эта директива должна быть использована в корневом элементе приложения (обычно это `<html>` элемент или 
+ * другой элемент, {@link ng.directive:ngApp ngApp}).
+ * 
+ * Если ее включить, производительность шаблонов незначительно пострадает, поэтому не включайте без крайней 
+ * необходимости.
  *
  * @element html
  */

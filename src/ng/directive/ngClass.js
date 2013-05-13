@@ -62,18 +62,17 @@ function classDirective(name, selector) {
  * @name ng.directive:ngClass
  *
  * @description
- * The `ngClass` allows you to set CSS class on HTML element dynamically by databinding an
- * expression that represents all classes to be added.
- *
- * The directive won't add duplicate classes if a particular class was already set.
- *
- * When the expression changes, the previously added classes are removed and only then the
- * new classes are added.
+ * Директива `ngClass` позволяет вам динамически установливать CSS-класс для HTML элементов, путем привязки данных 
+ * и переопределяет их при изменении.
+ * 
+ * Эта директива не станет добавлять класс, если он уже установлен. 
+ * 
+ * Когда значение выражения изменится, ранее добавленные классы будут удалены, а затем будут установлены новые.
  *
  * @element ANY
- * @param {expression} ngClass {@link guide/expression Expression} to eval. The result
- *   of the evaluation can be a string representing space delimited class
- *   names, an array, or a map of class names to boolean values.
+ * @param {expression} ngClass {@link guide/expression Выражение} для вычисления. Результатом может быть строка с именами классов, 
+ * разделенными пробелами, или массив с именами классов, или объект со свойствами вида имя класса: логическое 
+ * значение.
  *
  * @example
    <example>
@@ -113,16 +112,15 @@ var ngClassDirective = classDirective('', true);
  * @name ng.directive:ngClassOdd
  *
  * @description
- * The `ngClassOdd` and `ngClassEven` directives work exactly as
- * {@link ng.directive:ngClass ngClass}, except it works in
- * conjunction with `ngRepeat` and takes affect only on odd (even) rows.
- *
- * This directive can be applied only within a scope of an
- * {@link ng.directive:ngRepeat ngRepeat}.
+ * Директивы `ngClassOdd` и `ngClassEven` работают так же, как {@link ng.directive:ngClass ngClass}, исключая то, 
+ * что их можно использовать только с директивой `ngRepeat`, и они добавляют классы соответственно для нечетных 
+ * (четных) строк.
+ * 
+ * Эта директива может применяться только в области видимости {@link ng.directive:ngRepeat ngRepeat}.
  *
  * @element ANY
- * @param {expression} ngClassOdd {@link guide/expression Expression} to eval. The result
- *   of the evaluation can be a string representing space delimited class names or an array.
+ * @param {expression} ngClassOdd {@link guide/expression Выражение} для вычисления. Результатом может быть 
+ * строка с именами классов, разделенными пробелами, или массив с именами классов.
  *
  * @example
    <example>
@@ -160,16 +158,15 @@ var ngClassOddDirective = classDirective('Odd', 0);
  * @name ng.directive:ngClassEven
  *
  * @description
- * The `ngClassOdd` and `ngClassEven` directives work exactly as
- * {@link ng.directive:ngClass ngClass}, except it works in
- * conjunction with `ngRepeat` and takes affect only on odd (even) rows.
- *
- * This directive can be applied only within a scope of an
- * {@link ng.directive:ngRepeat ngRepeat}.
+ * Директивы `ngClassOdd` и `ngClassEven` работают так же, как {@link ng.directive:ngClass ngClass}, исключая то, 
+ * что их можно использовать только с директивой `ngRepeat`, и они добавляют классы соответственно для нечетных 
+ * (четных) строк.
+ * 
+ * Эта директива может применяться только в области видимости {@link ng.directive:ngRepeat ngRepeat}.
  *
  * @element ANY
- * @param {expression} ngClassEven {@link guide/expression Expression} to eval. The
- *   result of the evaluation can be a string representing space delimited class names or an array.
+ * @param {expression} ngClassEven {@link guide/expression Выражение} для вычисления. Результатом может быть 
+ * строка с именами классов, разделенными пробелами, или массив с именами классов.
  *
  * @example
    <example>

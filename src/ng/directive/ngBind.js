@@ -5,27 +5,24 @@
  * @name ng.directive:ngBind
  *
  * @description
- * The `ngBind` attribute tells Angular to replace the text content of the specified HTML element
- * with the value of a given expression, and to update the text content when the value of that
- * expression changes.
- *
- * Typically, you don't use `ngBind` directly, but instead you use the double curly markup like
- * `{{ expression }}` which is similar but less verbose.
- *
- * One scenario in which the use of `ngBind` is preferred over `{{ expression }}` binding is when
- * it's desirable to put bindings into template that is momentarily displayed by the browser in its
- * raw state before Angular compiles it. Since `ngBind` is an element attribute, it makes the
- * bindings invisible to the user while the page is loading.
- *
- * An alternative solution to this problem would be using the
- * {@link ng.directive:ngCloak ngCloak} directive.
+ * Атрибут `ngBind` говорит Angular заменить содержимое специального HTML-элемнта значением заданного выражения 
+ * и обновлять его содержимое при изменении значения выражения.
+ * 
+ * Как правило, `ngBind` не используется явно, вместо этого используется выражение в двойных фигурных скобках, 
+ * `{{ expression }}` которое имитирует предыдущую возможность.
+ * 
+ * Однако первый сценарий предпочтительнее, т.к. использование `ngBind`, в отличие от привязки с помощью 
+ * `{{ expression }}` не выводится в браузер перед компиляцией. Так как `ngBind` является атрибутом элемента, 
+ * то он не отображается в браузере и делает привязку невидимой для пользователя во время загрузки.
+ * 
+ * Альтернативным решением проблемы является использование директивы {@link ng.directive:ngCloak ngCloak}.
  *
  *
  * @element ANY
- * @param {expression} ngBind {@link guide/expression Expression} to evaluate.
+ * @param {expression} ngBind {@link guide/expression Выражение} для вычисления.
  *
  * @example
- * Enter a name in the Live Preview text box; the greeting below the text box changes instantly.
+ * Введите имя в поле живого простмотра; приветствие под текстовым полем изменится мгновенно.
    <doc:example>
      <doc:source>
        <script>
@@ -60,18 +57,17 @@ var ngBindDirective = ngDirective(function(scope, element, attr) {
  * @name ng.directive:ngBindTemplate
  *
  * @description
- * The `ngBindTemplate` directive specifies that the element
- * text should be replaced with the template in ngBindTemplate.
- * Unlike ngBind the ngBindTemplate can contain multiple `{{` `}}`
- * expressions. (This is required since some HTML elements
- * can not have SPAN elements such as TITLE, or OPTION to name a few.)
+ * Директива `ngBindTemplate` указывает, что текст в элементе должен быть заменен на результат привязки 
+ * ngBindTemplate. В отличие от ngBind, ngBindTemplate может содержать внутри множество выражений
+ * привязки данных `{{` `}}` . (Требуется для некоторых элементов HTML, которые не могут содержать внутри 
+ * элементы SPAN, таких как TITLE, или OPTION).
  *
  * @element ANY
- * @param {string} ngBindTemplate template of form
- *   <tt>{{</tt> <tt>expression</tt> <tt>}}</tt> to eval.
+ * @param {string} ngBindTemplate шаблон формы
+ *   <tt>{{</tt> <tt>expression</tt> <tt>}}</tt> для вычисления.
  *
  * @example
- * Try it here: enter text in text box and watch the greeting change.
+ * Введите текст в текстовое поле и понаблюдайте за изменением приветствия.
    <doc:example>
      <doc:source>
        <script>
@@ -119,15 +115,15 @@ var ngBindTemplateDirective = ['$interpolate', function($interpolate) {
  * @name ng.directive:ngBindHtmlUnsafe
  *
  * @description
- * Creates a binding that will innerHTML the result of evaluating the `expression` into the current
- * element. *The innerHTML-ed content will not be sanitized!* You should use this directive only if
- * {@link ngSanitize.directive:ngBindHtml ngBindHtml} directive is too
- * restrictive and when you absolutely trust the source of the content you are binding to.
- *
- * See {@link ngSanitize.$sanitize $sanitize} docs for examples.
+ * Создает привязку через свойство innerHTML к результату выполнения выражения `expression` в текущем элементе. 
+ * *Содержимое innerHTML не проверяется на наличие недопустимых знаков!* Эту директиву следует использовать 
+ * только тогда, когда не устраивает директива {@link ngSanitize.directive:ngBindHtml ngBindHtml}, и вы абсолютно 
+ * доверяете источнику привязки.
+ * 
+ * См. документацию {@link ngSanitize.$sanitize $sanitize} для примера.
  *
  * @element ANY
- * @param {expression} ngBindHtmlUnsafe {@link guide/expression Expression} to evaluate.
+ * @param {expression} ngBindHtmlUnsafe {@link guide/expression Выражение} для вычисления.
  */
 var ngBindHtmlUnsafeDirective = [function() {
   return function(scope, element, attr) {

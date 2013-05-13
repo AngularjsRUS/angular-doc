@@ -6,27 +6,25 @@
  * @restrict A
  *
  * @description
- * Using Angular markup like {{hash}} in an href attribute makes
- * the page open to a wrong URL, if the user clicks that link before
- * angular has a chance to replace the {{hash}} with actual URL, the
- * link will be broken and will most likely return a 404 error.
- * The `ngHref` directive solves this problem.
+ * Использование выражений Angular {{hash}} внутри атрибута href приведет к открытию неправильно URL-адреса,
+ * если пользователь кликнет по ссылке, перед тем как Angular заменит ее {{hash}} на правильную (это произойдет 
+ * в фазе связывания), что скорее всего приведет к 404 ошибке. Директива ngHref решает эту проблему.
  *
- * The buggy way to write it:
+ * Так писать не нужно:
  * <pre>
  * <a href="http://www.gravatar.com/avatar/{{hash}}"/>
  * </pre>
  *
- * The correct way to write it:
+ * Пишите вот так:
  * <pre>
  * <a ng-href="http://www.gravatar.com/avatar/{{hash}}"/>
  * </pre>
  *
  * @element A
- * @param {template} ngHref any string which can contain `{{}}` markup.
+ * @param {template} ngHref любая строка, которая может содержать выражения в `{{}}`.
  *
  * @example
- * This example uses `link` variable inside `href` attribute:
+ * В примере переменная `link` используется внутри атрибута `href`:
     <doc:example>
       <doc:source>
         <input ng-model="value" /><br />
@@ -86,23 +84,22 @@
  * @restrict A
  *
  * @description
- * Using Angular markup like `{{hash}}` in a `src` attribute doesn't
- * work right: The browser will fetch from the URL with the literal
- * text `{{hash}}` until Angular replaces the expression inside
- * `{{hash}}`. The `ngSrc` directive solves this problem.
- *
- * The buggy way to write it:
+ * Использование разметки Angular `{{hash}}` в атрибуте `src` работает некорректно: Браузер воспримет ваше 
+ * выражение как константу `{{hash}}` до обработки URL, и выражение `{{hash}}` будет заменено на его значение. 
+ * Директива `ngSrc` решает эту проблему.
+ * 
+ * Так делать не нужно:
  * <pre>
  * <img src="http://www.gravatar.com/avatar/{{hash}}"/>
  * </pre>
  *
- * The correct way to write it:
+ * Делайте так:
  * <pre>
  * <img ng-src="http://www.gravatar.com/avatar/{{hash}}"/>
  * </pre>
  *
  * @element IMG
- * @param {template} ngSrc any string which can contain `{{}}` markup.
+ * @param {template} ngSrc любая строка, которая может содержать разметку `{{}}`.
  */
 
 /**
@@ -112,17 +109,16 @@
  *
  * @description
  *
- * The following markup will make the button enabled on Chrome/Firefox but not on IE8 and older IEs:
+ * Следующий код активирует кнопку в Chrome/Firefox, но не в IE8 и более старых IE:
  * <pre>
  * <div ng-init="scope = { isDisabled: false }">
  *  <button disabled="{{scope.isDisabled}}">Disabled</button>
  * </div>
  * </pre>
  *
- * The HTML specs do not require browsers to preserve the special attributes such as disabled.
- * (The presence of them means true and absence means false)
- * This prevents the angular compiler from correctly retrieving the binding expression.
- * To solve this problem, we introduce the `ngDisabled` directive.
+ * Спецификация HTML не требует от браузеров обязательного наличия специальных атрибутов, таких как disabled. 
+ * (Их наличие означает true, а отсутствие false). Это мешает компилятору Angular правильно обрабатывать 
+ * выражения привязки. Для решения этой проблемы, мы и разработали директиву `ngDisabled`.
  *
  * @example
     <doc:example>
@@ -140,7 +136,7 @@
     </doc:example>
  *
  * @element INPUT
- * @param {expression} ngDisabled Angular expression that will be evaluated.
+ * @param {expression} ngDisabled Angular-выражение для вычисления.
  */
 
 
@@ -150,10 +146,9 @@
  * @restrict A
  *
  * @description
- * The HTML specs do not require browsers to preserve the special attributes such as checked.
- * (The presence of them means true and absence means false)
- * This prevents the angular compiler from correctly retrieving the binding expression.
- * To solve this problem, we introduce the `ngChecked` directive.
+ * HTML спецификация не трубует от браузеров сохранять особые атрибуты, такие как checked. 
+ * (Наличие их означает true, а отсутствие false). Это мешает компилятору Angular правильно вычислять 
+ * выражения привязки. Чтобы решить эту проблему и ввели директиву `ngChecked`.
  * @example
     <doc:example>
       <doc:source>
@@ -170,7 +165,7 @@
     </doc:example>
  *
  * @element INPUT
- * @param {expression} ngChecked Angular expression that will be evaluated.
+ * @param {expression} ngChecked Angular-выражение для вычисления.
  */
 
 
@@ -180,10 +175,9 @@
  * @restrict A
  *
  * @description
- * The HTML specs do not require browsers to preserve the special attributes such as multiple.
- * (The presence of them means true and absence means false)
- * This prevents the angular compiler from correctly retrieving the binding expression.
- * To solve this problem, we introduce the `ngMultiple` directive.
+ * Спецификация HTML не требует от браузера обязательного наличия специальных атрибутов, таких как multiple. 
+ * (Его наличие означает true, а отсутствие false). Это не позволяет компилятору Angular корректно обрабатывать 
+ * выражения привязки. Для решения этой проблемы и предназначена директива `ngMultiple`.
  *
  * @example
      <doc:example>
@@ -206,7 +200,7 @@
      </doc:example>
  *
  * @element SELECT
- * @param {expression} ngMultiple Angular expression that will be evaluated.
+ * @param {expression} ngMultiple Angular-выражение для вычисления.
  */
 
 
@@ -216,10 +210,10 @@
  * @restrict A
  *
  * @description
- * The HTML specs do not require browsers to preserve the special attributes such as readonly.
- * (The presence of them means true and absence means false)
- * This prevents the angular compiler from correctly retrieving the binding expression.
- * To solve this problem, we introduce the `ngReadonly` directive.
+ * Спецификация HTML не требует, чтобы браузеры проверяли наличие специальных атрибутов, таких как readonly. 
+ * (Если атрибут установлен, он имеет значение true, если нет, считается, что он имеет значение false). 
+ * Это не позволяет компилятору Angular корректно обрабатывать выражения привязки. Для решения этой проблемы 
+ * мы добавили директиву `ngReadonly`.
  * @example
     <doc:example>
       <doc:source>
@@ -236,7 +230,7 @@
     </doc:example>
  *
  * @element INPUT
- * @param {string} expression Angular expression that will be evaluated.
+ * @param {string} expression Angular-выражение для вычисления.
  */
 
 
@@ -246,10 +240,9 @@
  * @restrict A
  *
  * @description
- * The HTML specs do not require browsers to preserve the special attributes such as selected.
- * (The presence of them means true and absence means false)
- * This prevents the angular compiler from correctly retrieving the binding expression.
- * To solve this problem, we introduced the `ngSelected` directive.
+ * Спецификация HTML не требует от браузеров обязательного наличия специальных атрибутов, таких как selected. 
+ * (Если он указан, считается, что он имеет значение true, иначе - значение false). Это не позволяет компилятору 
+ * Angular корректно обрабатывать выражения привязки. Для решения этой проблемы мы добавили директиву `ngSelected`.
  * @example
     <doc:example>
       <doc:source>
@@ -269,7 +262,7 @@
     </doc:example>
  *
  * @element OPTION
- * @param {string} expression Angular expression that will be evaluated.
+ * @param {string} expression Angular-выражение для вычисления.
  */
 
 /**
@@ -278,10 +271,9 @@
  * @restrict A
  *
  * @description
- * The HTML specs do not require browsers to preserve the special attributes such as open.
- * (The presence of them means true and absence means false)
- * This prevents the angular compiler from correctly retrieving the binding expression.
- * To solve this problem, we introduce the `ngOpen` directive.
+ * Спецификация HTML не требует от браузеров обязательного наличия специальных атрибутов, таких как open. 
+ * (Если он указан, считается, что он имеет значение true, иначе - значение false). Это не позволяет компилятору 
+ * Angular корректно обрабатывать выражения привязки. Для решения этой проблемы мы добавили директиву `ngOpen`.
  *
  * @example
      <doc:example>
@@ -301,7 +293,7 @@
      </doc:example>
  *
  * @element DETAILS
- * @param {string} expression Angular expression that will be evaluated.
+ * @param {string} expression Angular-выражение для вычисления.
  */
 
 var ngAttributeAliasDirectives = {};

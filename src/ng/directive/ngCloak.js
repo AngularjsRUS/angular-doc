@@ -14,6 +14,16 @@
  *
  * `ngCloak` works in cooperation with a css rule that is embedded within `angular.js` and
  *  `angular.min.js` files. Following is the css rule:
+ * 
+ * Директива `ngCloak` используется для предотвращения показа в браузере шаблона Angular (до того как он будет
+ * скомпилирован) при загрузке приложения. Используйте эту директиву, чтобы избежать нежелательного эффекта мерцания, вызванного кратковременным 
+ * отображением html-шаблона.
+ * 
+ * Она может быть применена к элементу `<body>`, но обычно детализированное управление позволяет извлечь 
+ * большую выгоду, при отображении представлений в окне браузера.
+ * 
+ * `ngCloak` работает совместно с css-стилем, который определен в файлах angular.js и angular.min.js. Вот этот 
+ * css-стиль:
  *
  * <pre>
  * [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
@@ -21,18 +31,16 @@
  * }
  * </pre>
  *
- * When this css rule is loaded by the browser, all html elements (including their children) that
- * are tagged with the `ng-cloak` directive are hidden. When Angular comes across this directive
- * during the compilation of the template it deletes the `ngCloak` element attribute, which
- * makes the compiled element visible.
- *
- * For the best result, `angular.js` script must be loaded in the head section of the html file;
- * alternatively, the css rule (above) must be included in the external stylesheet of the
- * application.
- *
- * Legacy browsers, like IE7, do not provide attribute selector support (added in CSS 2.1) so they
- * cannot match the `[ng\:cloak]` selector. To work around this limitation, you must add the css
- * class `ngCloak` in addition to `ngCloak` directive as shown in the example below.
+ * Когда css-стиль будет загружен браузером, все html элементы (включая дочерние) внутри элемента с директивой 
+ * `ng-cloak` будут скрыты. Когда Angular найдет все директивы, и выполнит компиляцию шаблона, он удалит из 
+ * элемента атрибут `ngCloak`, что сделает скомпилированные элементы видимыми.
+ * 
+ * По-хорошему скрипт `angular.js` должен быть загружен в секции head вашего html файла; альтернативный подход, 
+ * поместить определение css-стиля во включаемую внешнюю таблицу стилей приложения.
+ * 
+ * Старые браузеры, такие как IE7, не поддерживают селекторы атрибутов (добавлены в CSS 2.1) поэтому они 
+ * не поймут селектор `[ng\:cloak]`. Чтобы обойти это ограничение, необходимо добавить css класс `ngCloak` 
+ * в дополнение к директиве `ngCloak`, как это показано в примере ниже.
  *
  * @element ANY
  *
