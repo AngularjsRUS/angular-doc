@@ -5,8 +5,21 @@
 Построение дерева с помощью директивы {@link api/ng.directive:ngRepeat `ngRepeat`}
 
 <example module="myApp">
+  <file name="index.html">
+    <div ng-controller="TreeController">
+      <div ng-repeat="data in tree" ng-include="'item.html'" class="node"></div>
+    </div>
+  </file>
+  <file name="item.html">
+    {{data.name}}
+    <button class="add" ng-click="add(data)">Добавить узел</button>
+    <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
+    <ul>
+      <li ng-repeat="data in data.nodes" ng-include="'item.html'" class="node"></li>
+    </ul>
+  </file>
   <file name="app.js">
-    angular.module("myApp", [])
+    angular.module("myApp", []);
   </file>
   <file name="controllers.js">   
     function TreeController($scope) {
@@ -24,20 +37,7 @@
             {name: 'Устричный', nodes: []}
           ]}
         ];
-    }]);
-  </file>
-  <file name="index.html">
-    <div ng-controller="TreeController">
-      <div ng-repeat="data in tree" ng-include="'item.html'" class="node"></div>
-    </div>
-  </file>
-  <file name="item.html">
-    {{data.name}}
-    <button class="add" ng-click="add(data)">Добавить узел</button>
-    <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
-    <ul>
-      <li ng-repeat="data in data.nodes" ng-include="'item.html'" class="node"></li>
-    </ul>
+    };
   </file>
   <file name="scenario.js">
    it('не сработало добавление/удаление узла', function() {
