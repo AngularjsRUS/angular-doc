@@ -5,9 +5,11 @@
 Построение дерева с помощью директивы {@link api/ng.directive:ngRepeat `ngRepeat`}
 
 <example module="myApp">
-  <file name="controllers.js">
-    angular.module("myApp", []).
-    controller("TreeController", ['$scope', function($scope) {
+  <file name="app.js">
+    angular.module("myApp", [])
+  </file>
+  <file name="controllers.js">   
+    function TreeController($scope) {
         $scope.delete = function(data) {
             data.nodes = [];
         };
