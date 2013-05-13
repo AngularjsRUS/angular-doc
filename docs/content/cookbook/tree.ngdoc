@@ -16,13 +16,18 @@
             var newName = data.name + '-' + post;
             data.nodes.push({name: newName,nodes: []});
         };
-        $scope.tree = [{name: "Узел", nodes: []}];
+        $scope.tree = [
+          {name: 'Узел', nodes: [
+            {name: 'Морской', nodes: []},
+            {name: 'Устричный', nodes: []}
+          ]}
+        ];
     }]);
   </file>
   <file name="index.html">
-    <ul ng-app="Application" ng-controller="TreeController" id="foo">
-      <li ng-repeat="data in tree" ng-include="'tree_item.html'" class="node"></li>
-    </ul>
+    <div ng-controller="TreeController">
+      <div ng-repeat="data in tree" ng-include="'tree_item.html'" class="node"></div>
+    </div>
   </file>
   <file name="tree_item.html">
     {{data.name}}
