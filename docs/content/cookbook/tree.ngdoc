@@ -5,7 +5,7 @@
 Построение дерева с помощью директивы {@link api/ng.directive:ngRepeat `ngRepeat`}
 
 <example module="myApp">
-  <file name="script.js">
+  <file name="controllers.js">
     angular.module("myApp", []).
     controller("TreeController", ['$scope', function($scope) {
         $scope.delete = function(data) {
@@ -26,15 +26,15 @@
   </file>
   <file name="index.html">
     <div ng-controller="TreeController">
-      <div ng-repeat="data in tree" ng-include="'tree_item.html'" class="node"></div>
+      <div ng-repeat="data in tree" ng-include="'item.html'" class="node"></div>
     </div>
   </file>
-  <file name="tree_item.html">
+  <file name="item.html">
     {{data.name}}
     <button class="add" ng-click="add(data)">Добавить узел</button>
     <button class="delete" ng-click="delete(data)" ng-show="data.nodes.length > 0">Удалить узел</button>
     <ul>
-      <li ng-repeat="data in data.nodes" ng-include="'tree_item.html'" class="node"></li>
+      <li ng-repeat="data in data.nodes" ng-include="'item.html'" class="node"></li>
     </ul>
   </file>
   <file name="scenario.js">
