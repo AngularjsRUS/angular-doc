@@ -6,7 +6,7 @@
 
 <example module="myApp">
   <file name="index.html">
-    <div ngApp="myApp" ng-controller="TreeController">
+    <div ng-controller="TreeController">
       <div ng-repeat="data in tree" ng-include="'item.html'" class="node"></div>
     </div>
   </file>
@@ -18,7 +18,7 @@
       <li ng-repeat="data in data.nodes" ng-include="'item.html'" class="node"></li>
     </ul>
   </file>
-  <file name="app.js">
+  <file name="script.js">
     angular.module("myApp", []);
   </file>
   <file name="controllers.js">   
