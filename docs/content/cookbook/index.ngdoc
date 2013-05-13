@@ -11,29 +11,43 @@
 
 ## Структура примера
 
-Разметка примера выглядит следующим образом (в теге `example` латинская «е» заменена на русскую. Поменяйте обратно при копировании):
+Разметка примера выглядит следующим образом (в теге `example` латинская «е» заменена на русскую. 
+Поменяйте обратно при копировании):
 <pre>
   <еxample module="myApp" deps="angular-sanitize.js">
-    <file name="script.js">
-      // код в script.js
-    </file>
     <file name="index.html">
-      // код в index.html
+      // главная страница
     </file>
     <file name="other.html">
-      // код в other.html
+      // шаблоны
     </file>
     <file name="style.css">
-      // код в style.css
+      // стили
+    </file>
+    <file name="app.js">
+      // модуль всего приложения
+      angular.module('myApp', ['ngSanitize']) )
+    </file>
+    <file name="controllers.js">
+      // контроллеры
+    </file>
+    <file name="directives.js">
+      // директивы
+    </file>
+    <file name="services.js">
+      // сервисы
+    </file>
+    <file name="filters.js">
+      // фильтры
     </file>
     <file name="scenario.js">
-     // код теста
+      // код E2E теста
    </file>
   </example>
 </pre>
 В режиме просмотра каждый «файл» будет показан на отдельной вкладке. В `deps` указываются подключаемые файлы 
 (директива {@link api/ng.directive:ngSanitize `ngSanitize`} из angular-sanitize.js используется в списке зависимостей
-angular.module('myApp', ['ngSanitize']) )
+модуля myApp).
 
 Не стоит указывать `ngApp="myApp"` в коде примера, т.к. это уже задано в теге `example`.
 
