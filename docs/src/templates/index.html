@@ -23,7 +23,7 @@
           baseUrl = location.href.replace(rUrl, indexFile),
           jQuery = /index-jq[^\.]*\.html$/.test(baseUrl),
           debug = /index[^\.]*-debug\.html$/.test(baseUrl),
-          production = location.hostname === 'docs.angularjs.org',
+          production = location.hostname === 'angular.ru' || /production=true/.test(location.search),
           headEl = document.getElementsByTagName('head')[0],
           sync = true,
           angularVersion = {
@@ -147,7 +147,10 @@
                 <li><a href="/api/">Справочник API</a></li>
                 <li><a href="/cookbook/">Рецепты</a></li>
                 <li><a href="/misc/contribute">Сотрудничество</a></li>
+<<<<<<< Updated upstream
                 <li><a href="/misc/translate">Перевод на русский</a></li>              
+=======
+>>>>>>> Stashed changes
                 <li><a href="http://code.angularjs.org/">Скачать</a></li>
               </ul>
             </li>
