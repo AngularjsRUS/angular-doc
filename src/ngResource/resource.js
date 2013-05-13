@@ -12,81 +12,81 @@
  * @requires $http
  *
  * @description
- * A factory which creates a resource object that lets you interact with
- * [RESTful](http://en.wikipedia.org/wiki/Representational_State_Transfer) server-side data sources.
+ * Фабрика, которая создает объект ресурса, позволяющий взаимодействовать с сервером в манере 
+ * [RESTful](http://en.wikipedia.org/wiki/Representational_State_Transfer).
+ * 
+ * Возвращаемый объект ресурса имеет методы, которые представляют высокоуровневое поведение, нужное для 
+ * взаимодействия с {@link ng.$http $http}, сервисом более низкого уровня.
  *
- * The returned resource object has action methods which provide high-level behaviors without
- * the need to interact with the low level {@link ng.$http $http} service.
- *
- * # Installation
- * To use $resource make sure you have included the `angular-resource.js` that comes in Angular 
- * package. You can also find this file on Google CDN, bower as well as at
- * {@link http://code.angularjs.org/ code.angularjs.org}.
- *
- * Finally load the module in your application:
+ * # Установка
+ * Для использования $resource включите файл angular-resource.js в список загружаемых файлов Angular. Можно 
+ * найти этот файл в Google CDN, и он будет находится в {@link http://code.angularjs.org/ code.angularjs.org}.
+ * 
+ * В конце загрузите модуль в ваше приложение:
  *
  *        angular.module('app', ['ngResource']);
  *
- * and you are ready to get started!
+ * и можете начинать использовать!
  *
- * @param {string} url A parametrized URL template with parameters prefixed by `:` as in
- *   `/user/:username`. If you are using a URL with a port number (e.g.
- *   `http://example.com:8080/api`), you'll need to escape the colon character before the port
- *   number, like this: `$resource('http://example.com\\:8080/api')`.
+ * @param {string} url Параметризированный шаблон URL в котором параметры имеют префикс «:», 
+ *   как в `/user/:username`. Если используете URL с номером порта (например, `http://example.com:8080/api`), нужно
+ *   экранировать его двойным обратным слешем, как показано здесь: 
+ *   `$resource('http://example.com\\:8080/api')`.
  *
- * @param {Object=} paramDefaults Default values for `url` parameters. These can be overridden in
- *   `actions` methods. If any of the parameter value is a function, it will be executed every time
- *   when a param value needs to be obtained for a request (unless the param was overridden).
+ * @param {Object=} paramDefaults Значение параметров url по умолчанию. Они могут переопределяться в методах 
+ *   действий `actions`.
+ * 
+ *   Значение каждого ключа в объекте параметров будет связано с шаблоном url, и все пары ключ-значение
+ *   будут добавлены в url в строку поиска `?`, если шаблон url не содержит параметра с именем ключа. 
+ *   
+ *   Для шаблона `/path/:verb` и параметра `{verb:'greet', salutation:'Hello'}` в результате получим URL 
+ *   `/path/greet?salutation=Hello`.
+ * 
+ *   Если значение параметра указанно с префиксом `@`, тогда значение этого параметра извлекается из 
+ *   объекта данных (обычно для не GET операций).
  *
- *   Each key value in the parameter object is first bound to url template if present and then any
- *   excess keys are appended to the url search query after the `?`.
- *
- *   Given a template `/path/:verb` and parameter `{verb:'greet', salutation:'Hello'}` results in
- *   URL `/path/greet?salutation=Hello`.
- *
- *   If the parameter value is prefixed with `@` then the value of that parameter is extracted from
- *   the data object (useful for non-GET operations).
- *
- * @param {Object.<Object>=} actions Hash with declaration of custom action that should extend the
- *   default set of resource actions. The declaration should be created in the format of {@link
+ * @param {Object.<Object>=} actions Хэш с декларацией пользовательских действий, которые расширяют 
+ *   установленные по умолчанию действия. Декларация должна быть в следующем формате {@link
  *   ng.$http#Parameters $http.config}:
  *
  *       {action1: {method:?, params:?, isArray:?, headers:?, ...},
  *        action2: {method:?, params:?, isArray:?, headers:?, ...},
  *        ...}
  *
- *   Where:
+ *   Где:
+ * 
+ * action – {string} – Имя действия. Это имя, которое будет установлено для метода в вашем ресурсе.
+• method – {string} – метод HTTP запроса. Допустимые значения: GET, POST, PUT, DELETE, и JSONP
+• params – {object=} – Необязательно, пред установки для параметров действия.
+• isArray – {boolean=} – Если true, тогда объект возвращаемый этим действием является массивом, смотрите раздел возврат.
  *
- *   - **`action`** – {string} – The name of action. This name becomes the name of the method on your
- *     resource object.
- *   - **`method`** – {string} – HTTP request method. Valid methods are: `GET`, `POST`, `PUT`, `DELETE`,
- *     and `JSONP`.
- *   - **`params`** – {Object=} – Optional set of pre-bound parameters for this action. If any of the
- *     parameter value is a function, it will be executed every time when a param value needs to be
- *     obtained for a request (unless the param was overridden).
- *   - **`url`** – {string} – action specific `url` override. The url templating is supported just like
- *     for the resource-level urls.
- *   - **`isArray`** – {boolean=} – If true then the returned object for this action is an array, see
- *     `returns` section.
+ *   - **`action`** – {string} – Имя действия. Это имя, которое будет установлено для метода в вашем ресурсе.
+ *   - **`method`** – {string} – Метод HTTP запроса. Допустимые значения: `GET`, `POST`, `PUT`, `DELETE`,
+ *     и `JSONP`.
+ *   - **`params`** – {Object=} – Необязательно, предустановки для параметров действия. Если любое из значений 
+ *     является функцией, то она будет выполняться каждый раз, когда значение параметра должно быть 
+ *     получено для запроса (если параметр не был переопределен).
+ *   - **`url`** – {string} – переопределение `url`. url-шаблонизация поддерживается только для url ресурсного уровня.
+ *   - **`isArray`** – {boolean=} – Если true то возвращаемый для этого действия объект является массивом, см.
+ *     раздел `returns`.
  *   - **`transformRequest`** – `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
- *     transform function or an array of such functions. The transform function takes the http
- *     request body and headers and returns its transformed (typically serialized) version.
+ *     функция преобразования или массив таких функций. Функция преобразования принимает тело и заголовки http
+ *     запроса и возвращает преобразованную (обычно сериализованную) версию.
  *   - **`transformResponse`** – `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
- *     transform function or an array of such functions. The transform function takes the http
- *     response body and headers and returns its transformed (typically deserialized) version.
- *   - **`cache`** – `{boolean|Cache}` – If true, a default $http cache will be used to cache the
- *     GET request, otherwise if a cache instance built with
- *     {@link ng.$cacheFactory $cacheFactory}, this cache will be used for
- *     caching.
- *   - **`timeout`** – `{number}` – timeout in milliseconds.
- *   - **`withCredentials`** - `{boolean}` - whether to to set the `withCredentials` flag on the
- *     XHR object. See {@link https://developer.mozilla.org/en/http_access_control#section_5
- *     requests with credentials} for more information.
- *   - **`responseType`** - `{string}` - see {@link
+ *     функция преобразования или массив таких функций. Функция преобразования принимает тело и заголовки http
+ *     ответа и возвращает преобразованную (обычно сериализованную) версию.
+ *   - **`cache`** – `{boolean|Cache}` – Если true (по умолчанию), то кэш $http будет использоваться в качестве
+ *     кэша GET-запроса, в противном случае, если экземпляр кэша создан с помощью 
+ *     {@link ng.$cacheFactory $cacheFactory}, этот кэш будет использоваться для кэширования.
+ *   - **`timeout`** – `{number}` – время ожидания в милисекндах.
+ *   - **`withCredentials`** - `{boolean}` - устанавливать ли флаг `withCredentials` в
+ *     XHR-объект. См. {@link https://developer.mozilla.org/en/http_access_control#section_5
+ *     requests with credentials} для подробной информации.
+ *   - **`responseType`** - `{string}` - см. {@link
  *     https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#responseType requestType}.
  *
- * @returns {Object} A resource "class" object with methods for the default set of resource actions
- *   optionally extended with custom `actions`. The default set contains these actions:
+ * @returns {Object} Объект определенного для ресурса «класса» с действиями по умолчанию для ресурса и 
+ *   расширенный пользовательскими действиями. По умолчанию содержит следующие действия:
  *
  *       { 'get':    {method:'GET'},
  *         'save':   {method:'POST'},
@@ -94,11 +94,10 @@
  *         'remove': {method:'DELETE'},
  *         'delete': {method:'DELETE'} };
  *
- *   Calling these methods invoke an {@link ng.$http} with the specified http method,
- *   destination and parameters. When the data is returned from the server then the object is an
- *   instance of the resource class. The actions `save`, `remove` and `delete` are available on it
- *   as  methods with the `$` prefix. This allows you to easily perform CRUD operations (create,
- *   read, update, delete) on server-side data like this:
+ *   Вызов этих методов вызывает {@link ng.$http} с указанным http-методом, назначением и параметрами. 
+ *   Когда данные возвращаются с сервера, создается экземпляр объекта для класса ресурса. Для действий `save`, 
+ *   `remove` и `delete` доступны как методы с префиксом `$`. Это позволяет легко поддерживать CRUD операции
+ *   (create, read, update, delete) на полученных с сервера данных:
  *   <pre>
         var User = $resource('/user/:userId', {userId:'@id'});
         var user = User.get({userId:123}, function() {
@@ -107,86 +106,83 @@
         });
      </pre>
  *
- *   It is important to realize that invoking a $resource object method immediately returns an
- *   empty reference (object or array depending on `isArray`). Once the data is returned from the
- *   server the existing reference is populated with the actual data. This is a useful trick since
- *   usually the resource is assigned to a model which is then rendered by the view. Having an empty
- *   object results in no rendering, once the data arrives from the server then the object is
- *   populated with the data and the view automatically re-renders itself showing the new data. This
- *   means that in most case one never has to write a callback function for the action methods.
+ *   Важно, что сразу после вызова метода объекта $resource, возвращается пустая ссылка (объект или массив 
+ *   в зависимости от `isArray`). Когда данные будут возвращены с сервера, существующая ссылка заполняется 
+ *   фактическими данными. Это полезный трюк, т.к. обычно ресурсы назначаются для моделей, которые отображаются 
+ *   в представлении. Когда ресурс пустой, он не отображается в представлении, но как только приходят данные, 
+ *   представление перерисовывается, для показа новых данных. Это означает, что в большинстве случаев не нужно 
+ *   писать функцию обратного вызова для методов действий.
+ * 
+ *  Методы действий на объекте класса или на экземпляре объекта могут быть вызваны со следующими параметрами:
  *
- *   The action methods on the class object or instance object can be invoked with the following
- *   parameters:
- *
- *   - HTTP GET "class" actions: `Resource.action([parameters], [success], [error])`
- *   - non-GET "class" actions: `Resource.action([parameters], postData, [success], [error])`
- *   - non-GET instance actions:  `instance.$action([parameters], [success], [error])`
+ *   - HTTP GET «класс» действия: `Resource.действие([parameters], [success], [error])`
+ *   - non-GET «класс» действия: `Resource.действие([parameters], postData, [success], [error])`
+ *   - non-GET экземпляр действия:  `экземпляр.$action([parameters], [success], [error])`
  *
  *
- *   The Resource instances and collection have these additional properties:
+ *   У экземпляров и коллекций ресурсов есть дополнительные свойства
  *
- *   - `$then`: the `then` method of a {@link ng.$q promise} derived from the underlying
- *     {@link ng.$http $http} call.
+ *   - `$then`: метод `then` из {@link ng.$q promise (обещания)}, полученный из базового
+ *     {@link ng.$http $http} запроса.
  *
- *     The success callback for the `$then` method will be resolved if the underlying `$http` requests
- *     succeeds.
+ *     Колбэк для метода `$then` будет выполнен успешно если базовый `$http` запрос
+ *     успешен.
  *
- *     The success callback is called with a single object which is the {@link ng.$http http response}
- *     object extended with a new property `resource`. This `resource` property is a reference to the
- *     result of the resource action — resource object or array of resources.
+ *     Колбэк выполняется успешно если вызывается объектом {@link ng.$http http ответа},
+ *     расширенным новыми свойствами `ресурса`. Эти свойства `ресурса` являются ссылкой на результат действия 
+ *     ресурса — ресурсный объект или массив ресурсов.
  *
- *     The error callback is called with the {@link ng.$http http response} object when an http
- *     error occurs.
+ *     Колбэка выдает ошибку, если вызывается объектом {@link ng.$http http запроса} при возникновении ошибки http.
  *
- *   - `$resolved`: true if the promise has been resolved (either with success or rejection);
- *     Knowing if the Resource has been resolved is useful in data-binding.
+ *   - `$resolved`: true если обещание было выполнено (успешно или отклонено);
+ *     Знание того, что ресурс был передан, полезно для связывания данных.
  *
  * @example
  *
- * # Credit card resource
+ * # Ресурс кредитной карты
  *
  * <pre>
-     // Define CreditCard class
+     // Определение класса CreditCard
      var CreditCard = $resource('/user/:userId/card/:cardId',
       {userId:123, cardId:'@id'}, {
        charge: {method:'POST', params:{charge:true}}
       });
 
-     // We can retrieve a collection from the server
+     // Можно запросить коллекцию с сервера
      var cards = CreditCard.query(function() {
        // GET: /user/123/card
-       // server returns: [ {id:456, number:'1234', name:'Smith'} ];
+       // ответ сервера: [ {id:456, number:'1234', name:'Smith'} ];
 
        var card = cards[0];
-       // each item is an instance of CreditCard
+       // каждый элемент является экземпляром CreditCard
        expect(card instanceof CreditCard).toEqual(true);
        card.name = "J. Smith";
-       // non GET methods are mapped onto the instances
+       // non GET методы применяются в экземплярах
        card.$save();
        // POST: /user/123/card/456 {id:456, number:'1234', name:'J. Smith'}
-       // server returns: {id:456, number:'1234', name: 'J. Smith'};
+       // ответ сервера: {id:456, number:'1234', name: 'J. Smith'};
 
-       // our custom method is mapped as well.
+       // так же работает наш пользовательский метод.
        card.$charge({amount:9.99});
        // POST: /user/123/card/456?amount=9.99&charge=true {id:456, number:'1234', name:'J. Smith'}
      });
 
-     // we can create an instance as well
+     // также можно создать экземпляр
      var newCard = new CreditCard({number:'0123'});
      newCard.name = "Mike Smith";
      newCard.$save();
      // POST: /user/123/card {number:'0123', name:'Mike Smith'}
-     // server returns: {id:789, number:'01234', name: 'Mike Smith'};
+     // ответ сервера: {id:789, number:'01234', name: 'Mike Smith'};
      expect(newCard.id).toEqual(789);
  * </pre>
  *
- * The object returned from this function execution is a resource "class" which has "static" method
- * for each action in the definition.
- *
- * Calling these methods invoke `$http` on the `url` template with the given `method`, `params` and `headers`.
- * When the data is returned from the server then the object is an instance of the resource type and
- * all of the non-GET methods are available with `$` prefix. This allows you to easily support CRUD
- * operations (create, read, update, delete) on server-side data.
+ * Возвращенный из функции создания ресурса объект «класса» содержит статические методы для каждого определенного 
+ * действия.
+ * 
+ * Выполнение этих методов вызывает `$http` с шаблоном `url` с полученными методом `method`, параметрами `params`
+ * и заголовком `headers`. Когда данные возвращены сервером, тогда создается объект с определенным для ресурса 
+ * типом, в который содержит все non-GET методы, доступные через методы с префиксом `$` . Это позволяет легко 
+ * поддерживать операции CRUD (create, read, update, delete) на полученных с сервера данных.
 
    <pre>
      var User = $resource('/user/:userId', {userId:'@id'});
@@ -196,9 +192,10 @@
      });
    </pre>
  *
- * It's worth noting that the success callback for `get`, `query` and other method gets passed
- * in the response that came from the server as well as $http header getter function, so one
- * could rewrite the above example and get access to http headers as:
+ * Стоить отметить, что в случае успешного завершения запросов `get`, `query` или других действий, 
+ * будет вызвана соответствующая функция обратного вызова, которой передается ответ сервера, а также 
+ * функция для получения $http заголовков, поэтому для получения доступа к заголовкам можно переписать 
+ * код выше в следующей манере:
  *
    <pre>
      var User = $resource('/user/:userId', {userId:'@id'});
@@ -211,9 +208,9 @@
      });
    </pre>
 
- * # Buzz client
+ * # Buzz-клиент
 
-   Let's look at what a buzz client created with the `$resource` service looks like:
+   Давайте посмотрим, как можно создать buzz-клиента, используя сервис `$resource`:
     <doc:example>
       <doc:source jsfiddle="false">
        <script>
