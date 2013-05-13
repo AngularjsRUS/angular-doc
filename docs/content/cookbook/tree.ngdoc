@@ -40,9 +40,9 @@
   <file name="scenario.js">
    it('не сработало добавление/удаление узла', function() {
       element('.add').click();
-      expect(repeater('li.node').count()).toEqual(2);
+      expect(repeater('li.node').count()).toEqual(5);
       element('.delete').click();
-      expect(repeater('li.node').count()).toEqual(1);
+      expect(repeater('li.node').count()).toEqual(0);
    });
  </file>
 </example>
