@@ -10,7 +10,7 @@ rm -rf app
 # copy doc directory
 if [ "$APP_ENV" = "development" ]; then
   # save symlinks
-  cp -r build/docs app
+  ln -s build/docs app
 else
   # resolve symlinks
   cp -Lr build/docs app
