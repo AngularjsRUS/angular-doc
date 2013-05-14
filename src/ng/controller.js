@@ -4,11 +4,11 @@
  * @ngdoc object
  * @name ng.$controllerProvider
  * @description
- * The {@link ng.$controller $controller service} is used by Angular to create new
- * controllers.
+ * Сервис {@link ng.$controller $controller} используется Angular'ом для создания новых
+ * контроллеров.
  *
- * This provider allows controller registration via the
- * {@link ng.$controllerProvider#register register} method.
+ * Этот провайдер позволяет контроллеру регистрироваться с помощью метода
+ * {@link ng.$controllerProvider#register register}.
  */
 function $ControllerProvider() {
   var controllers = {};
@@ -18,9 +18,9 @@ function $ControllerProvider() {
    * @ngdoc function
    * @name ng.$controllerProvider#register
    * @methodOf ng.$controllerProvider
-   * @param {string} name Controller name
-   * @param {Function|Array} constructor Controller constructor fn (optionally decorated with DI
-   *    annotations in the array notation).
+   * @param {string} name Имя контроллера
+   * @param {Function|Array} constructor Конструктор контроллера (опционально представленный в виде DI аннотации
+   *    в виде массива).
    */
   this.register = function(name, constructor) {
     if (isObject(name)) {
@@ -38,23 +38,22 @@ function $ControllerProvider() {
      * @name ng.$controller
      * @requires $injector
      *
-     * @param {Function|string} constructor If called with a function then it's considered to be the
-     *    controller constructor function. Otherwise it's considered to be a string which is used
-     *    to retrieve the controller constructor using the following steps:
+     * @param {Function|string} constructor Если это функция, то считается что это конструктор контроллера. 
+     *    В противном случае, считается что это строка, которая будет использоваться для извлечения 
+     *    конструктора контроллера, используя следующие шаги:
      *
-     *    * check if a controller with given name is registered via `$controllerProvider`
-     *    * check if evaluating the string on the current scope returns a constructor
-     *    * check `window[constructor]` on the global `window` object
+     *    * проверяет, зарегистрирован ли контроллер с нужным именем через сервис `$controllerProvider`
+     *    * проверяет, есть ли в текущей области видимости свойство с требуемым именем, которое возвращает конструктор
+     *    * проверяет `window[constructor]` в глобальном объекте `window`
      *
-     * @param {Object} locals Injection locals for Controller.
-     * @return {Object} Instance of given controller.
+     * @param {Object} locals Зависимости внедряемые в контроллер.
+     * @return {Object} Экземпляр требуемого контроллера.
      *
      * @description
-     * `$controller` service is responsible for instantiating controllers.
-     *
-     * It's just a simple call to {@link AUTO.$injector $injector}, but extracted into
-     * a service, so that one can override this service with {@link https://gist.github.com/1649788
-     * BC version}.
+     * Сервис `$controller` отвечает за создание контроллеров.
+     * 
+     * Он просто вызывает {@link AUTO.$injector $injector}, но извлекает его как сервис, так что можно 
+     * переопределить этот сервис на {@link https://gist.github.com/1649788 BC версию}.
      */
     return function(constructor, locals) {
       if(isString(constructor)) {

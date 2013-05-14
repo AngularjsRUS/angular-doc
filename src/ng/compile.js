@@ -27,17 +27,16 @@ var NON_ASSIGNABLE_MODEL_EXPRESSION = 'Non-assignable model expression: ';
  * @function
  *
  * @description
- * Compiles a piece of HTML string or DOM into a template and produces a template function, which
- * can then be used to link {@link ng.$rootScope.Scope scope} and the template together.
- *
- * The compilation is a process of walking the DOM tree and trying to match DOM elements to
- * {@link ng.$compileProvider#directive directives}. For each match it
- * executes corresponding template function and collects the
- * instance functions into a single template function which is then returned.
- *
- * The template function can then be used once to produce the view or as it is the case with
- * {@link ng.directive:ngRepeat repeater} many-times, in which
- * case each call results in a view that is a DOM clone of the original template.
+ * Компилирует строку HTML или DOM в шаблон и предоставляет шаблону методы, которые могут быть использованы 
+ * для связи {@link ng.$rootScope.Scope области видимости} и шаблона.
+ * 
+ * Процесс компиляции работает с деревом DOM и пытается найти в DOM элементы с 
+ * {@link ng.$compileProvider#directive директивами}. Для каждой директивы выполняется соответствующая 
+ * шаблонная функция и собираются функции экземпляра в одну шаблонную функцию, которая затем и возвращается.
+ * 
+ * Шаблонная функция может использоваться только для создания представления, или, как это происходит в случае 
+ * с долговременными {@link ng.directive:ngRepeat повторителями}, для каждого вычисления результирующего 
+ * представления клонирует оригинальной шаблон DOM.
  *
  <doc:example module="compile">
    <doc:source>
@@ -92,53 +91,52 @@ var NON_ASSIGNABLE_MODEL_EXPRESSION = 'Non-assignable model expression: ';
 
  *
  *
- * @param {string|DOMElement} element Element or HTML string to compile into a template function.
- * @param {function(angular.Scope[, cloneAttachFn]} transclude function available to directives.
- * @param {number} maxPriority only apply directives lower then given priority (Only effects the
- *                 root element(s), not their children)
- * @returns {function(scope[, cloneAttachFn])} a link function which is used to bind template
- * (a DOM element/tree) to a scope. Where:
+ * @param {string|DOMElement} element Элемент или строка HTML для компиляции в шаблонную функцию.
+ * @param {function(angular.Scope[, cloneAttachFn]} transclude функция доступа к директивам.
+ * @param {number} maxPriority применяются только директивы с низким приоритетом (Только с действием на 
+ *               родительские элементы, но не на дочерние)
+ * @returns {function(scope[, cloneAttachFn])} связующая функция, которая будет использоваться для
+ *  построения шаблона. (дерева DOM элементов) для области видимости. Где:
  *
- *  * `scope` - A {@link ng.$rootScope.Scope Scope} to bind to.
- *  * `cloneAttachFn` - If `cloneAttachFn` is provided, then the link function will clone the
- *               `template` and call the `cloneAttachFn` function allowing the caller to attach the
- *               cloned elements to the DOM document at the appropriate place. The `cloneAttachFn` is
- *               called as: <br> `cloneAttachFn(clonedElement, scope)` where:
+ *  * `scope` - A {@link ng.$rootScope.Scope Область видимости} для привязок.
+ *  * `cloneAttachFn` - Если `cloneAttachFn` предоставлена, тогда связующая функция будет клонировать 
+ *               шаблон и вызывать функцию `cloneAttachFn` чтобы привязать клонированные элементы к документу
+ *               DOM в соответствующем расположении. Сигнатура `cloneAttachFn` такая: <br> 
+ *               `cloneAttachFn(clonedElement, scope)` где: 
  *
- *      * `clonedElement` - is a clone of the original `element` passed into the compiler.
- *      * `scope` - is the current scope with which the linking function is working with.
+ *      * `clonedElement` - клон оригинального элемента переданного в компилятор.
+ *      * `scope` - текущая область видимости с которой работает связующая функция.
  *
- * Calling the linking function returns the element of the template. It is either the original element
- * passed in, or the clone of the element if the `cloneAttachFn` is provided.
+ * Вычисление связующей функции возвращает представление. В нее передается каждый оригинальный элемент, 
+ * или клон элемента, если предоставлена функция `cloneAttachFn`.
  *
- * After linking the view is not updated until after a call to $digest which typically is done by
- * Angular automatically.
+ * После связывания представление не обновляется, пока не будет вызвана функция $digest, которая обычно 
+ * запускается Angular автоматически.
+ * 
+ * Если нужно получить доступ к связанному представлению, можно использовать два способа:
  *
- * If you need access to the bound view, there are two ways to do it:
- *
- * - If you are not asking the linking function to clone the template, create the DOM element(s)
- *   before you send them to the compiler and keep this reference around.
+ * -  Если нам не нужно чтобы функция связывания клонировала шаблон, создайте элемент(ы) DOM перед отправкой 
+ *    их компилятору и сохраните на него ссылку.
  *   <pre>
  *     var element = $compile('<p>{{total}}</p>')(scope);
  *   </pre>
  *
- * - if on the other hand, you need the element to be cloned, the view reference from the original
- *   example would not point to the clone, but rather to the original template that was cloned. In
- *   this case, you can access the clone via the cloneAttachFn:
+ * - Если вам нужно чтобы входной элемент клонировался, ссылка на представление из прошлого примера может
+ *   быть клонируемым элементом. В этом случае в можете получить доступ к клону через cloneAttachFn:
  *   <pre>
  *     var templateHTML = angular.element('<p>{{total}}</p>'),
  *         scope = ....;
  *
  *     var clonedElement = $compile(templateHTML)(scope, function(clonedElement, scope) {
- *       //attach the clone to DOM document at the right place
+ *       //присоединение клона к DOM документу, как показано раннее
  *     });
  *
- *     //now we have reference to the cloned DOM via `clone`
+ *     //сейчас мы имеем ссылку на клонированный DOM в `clone`
  *   </pre>
  *
  *
- * For information on how the compiler works, see the
- * {@link guide/compiler Angular HTML Compiler} section of the Developer Guide.
+ * Для информации о работе компилятора, смотрите раздел {@link guide/compiler Angular HTML компилятор} Angular 
+ * в руководстве разработчика.
  */
 
 
@@ -166,13 +164,13 @@ function $CompileProvider($provide) {
    * @function
    *
    * @description
-   * Register a new directives with the compiler.
+   * Регистрирует новую директиву компилятора.
    *
-   * @param {string} name Name of the directive in camel-case. (ie <code>ngBind</code> which will match as
+   * @param {string} name Имя директивы в верблюжьем стиле. (т.е. <code>ngBind</code> будет как
    *                <code>ng-bind</code>).
-   * @param {function} directiveFactory An injectable directive factory function. See {@link guide/directive} for more
-   *                info.
-   * @returns {ng.$compileProvider} Self for chaining.
+   * @param {function} directiveFactory Внедряемая фабричная функция директивы. См. {@link guide/directive} Для
+   *                подробной информации.
+   * @returns {ng.$compileProvider} Саму себя для построения цепочки.
    */
    this.directive = function registerDirective(name, directiveFactory) {
     if (isString(name)) {
@@ -217,19 +215,19 @@ function $CompileProvider($provide) {
    * @function
    *
    * @description
-   * Retrieves or overrides the default regular expression that is used for whitelisting of safe
-   * urls during a[href] sanitization.
-   *
-   * The sanitization is a security measure aimed at prevent XSS attacks via html links.
-   *
-   * Any url about to be assigned to a[href] via data-binding is first normalized and turned into an
-   * absolute url. Afterwards the url is matched against the `urlSanitizationWhitelist` regular
-   * expression. If a match is found the original url is written into the dom. Otherwise the
-   * absolute url is prefixed with `'unsafe:'` string and only then it is written into the DOM.
-   *
-   * @param {RegExp=} regexp New regexp to whitelist urls with.
-   * @returns {RegExp|ng.$compileProvider} Current RegExp if called without value or self for
-   *    chaining otherwise.
+   * Получает или отменяет стандартные регулярные выражения, которые используется в белых списках
+   * безопасных URL-адресов во время a[href] очистки.
+   * 
+   * Эта мера безопасности направлена на предотвращение атак через XSS HTML ссылки.
+   * 
+   * Любой URL может быть быть назначен a[href] с помощью связывания данных сначала нормализован и превращен в
+   * абсолютный URL. После этого URL сравнивается с регулярным выражением в `urlSanitizationWhitelist`. 
+   * Если совпадение найдено оригинальный URL записывается в DOM. В противном случае абсолютный URL 
+   * помечается префиксом ``'unsafe:'` и только тогда записывается в DOM.
+   * 
+   * @param {RegExp=} regexp Новое regexp-выражение для белого списка url.
+   * @returns {RegExp|ng.$compileProvider} Текущее RegExp-выражение, если вызывается без значения
+   *    или само мебя для построения цепочки.
    */
   this.urlSanitizationWhitelist = function(regexp) {
     if (isDefined(regexp)) {
@@ -1175,10 +1173,9 @@ function directiveNormalize(name) {
  * @ngdoc object
  * @name ng.$compile.directive.Attributes
  * @description
- *
- * A shared object between directive compile / linking functions which contains normalized DOM element
- * attributes. The the values reflect current binding state `{{ }}`. The normalization is needed
- * since all of these are treated as equivalent in Angular:
+ * Разделяемый объект между функциями компиляции/связывания директив, который содержит нормализованные 
+ * атрибуты элемента DOM. Эти значения отображаются для текущего состояния привязки `{{ }}`. Нормализация 
+ * необходима, т.к. Angular позволяет записывать один и тот же атрибут разными способами:
  *
  *          <span ng:bind="a" ng-bind="a" data-ng-bind="a" x-ng-bind="a">
  */
@@ -1187,8 +1184,8 @@ function directiveNormalize(name) {
  * @ngdoc property
  * @name ng.$compile.directive.Attributes#$attr
  * @propertyOf ng.$compile.directive.Attributes
- * @returns {object} A map of DOM element attribute names to the normalized name. This is
- *          needed to do reverse lookup from normalized name back to actual name.
+ * @returns {object} Набор, в котором содержатся имена атрибутовдля DOM-элемента и соответствующие 
+ *          нормализованные имена. Это нужно для того, чтобы возвращать прежнее имя атрибуту после работы с ним.
  */
 
 
@@ -1199,13 +1196,12 @@ function directiveNormalize(name) {
  * @function
  *
  * @description
- * Set DOM element attribute value.
+ * Устанавливает значение атрибута для DOM элемента.
  *
  *
- * @param {string} name Normalized element attribute name of the property to modify. The name is
- *          revers translated using the {@link ng.$compile.directive.Attributes#$attr $attr}
- *          property to the original name.
- * @param {string} value Value to set the attribute to. The value can be an interpolated string.
+ * @param {string} name Нормализованное имя атрибута элемента для модификации. Это имя изменяется в 
+ *          оригинальную форму с использование свойства {@link ng.$compile.directive.Attributes#$attr $attr}
+ * @param {string} value Значение для установки.
  */
 
 

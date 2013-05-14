@@ -803,32 +803,31 @@ var VALID_CLASS = 'ng-valid',
  * @ngdoc object
  * @name ng.directive:ngModel.NgModelController
  *
- * @property {string} $viewValue Actual string value in the view.
- * @property {*} $modelValue The value in the model, that the control is bound to.
- * @property {Array.<Function>} $parsers Whenever the control reads value from the DOM, it executes
- *     all of these functions to sanitize / convert the value as well as validate.
+ * @property {string} $viewValue Актуальное значение в представлении в виде строки.
+ * @property {*} $modelValue Значение модели, к которой привязан элемент управления.
+ * @property {Array.<Function>} $parsers Когда элемент управления читает значение из DOM, вызываются все 
+ *     функции для очистки/конвертации введенного значения и проверки его допустимости.
  *
- * @property {Array.<Function>} $formatters Whenever the model value changes, it executes all of
- *     these functions to convert the value as well as validate.
+ * @property {Array.<Function>} $formatters Когда модель меняет свое значение, выполняются все эти функции 
+ *     для конвертации значения в удобный для пользователя формат.
  *
- * @property {Object} $error An object hash with all errors as keys.
+ * @property {Object} $error Хэш объект, содержащий ключи ошибок и массив элементов с этими ошибками.
  *
- * @property {boolean} $pristine True if user has not interacted with the control yet.
- * @property {boolean} $dirty True if user has already interacted with the control.
- * @property {boolean} $valid True if there is no error.
- * @property {boolean} $invalid True if at least one error on the control.
+ * @property {boolean} $pristine True, если пользователь не взаимодействовал с элементом управления.
+ * @property {boolean} $dirty True, если пользователь уже взаимодействовал с элементом управления.
+ * @property {boolean} $valid True, если нет ошибок.
+ * @property {boolean} $invalid True, если есть хоть одна ошибка в элементе управления.
  *
  * @description
  *
- * `NgModelController` provides API for the `ng-model` directive. The controller contains
- * services for data-binding, validation, CSS update, value formatting and parsing. It
- * specifically does not contain any logic which deals with DOM rendering or listening to
- * DOM events. The `NgModelController` is meant to be extended by other directives where, the
- * directive provides DOM manipulation and the `NgModelController` provides the data-binding.
- *
- * This example shows how to use `NgModelController` with a custom control to achieve
- * data-binding. Notice how different directives (`contenteditable`, `ng-model`, and `required`)
- * collaborate together to achieve the desired result.
+ * `NgModelController` предоставляет API для директивы `ng-model`. Контроллер содержит сервисы для связывания 
+ * данных, их проверки, обновления CSS, форматирования значений и разбора ввода. Он не должен содержать логику 
+ * отображения DOM или слушания событий DOM. `NgModelController` предназначен для расширения другими директивами, 
+ * где директива манипулирует с DOM, а `NgModelController` осуществляет привязку данных.
+ * 
+ * Этот пример показывает как использовать `NgModelController` с пользовательским элементом управления для 
+ * добавления привязки данных. Обратите внимание, как различные директивы (`contenteditable`, `ng-model`, и 
+ * `required`) работают вместе для достижения желаемого результата.
  *
  * <example module="customControl">
     <file name="style.css">
@@ -921,8 +920,8 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * @methodOf ng.directive:ngModel.NgModelController
    *
    * @description
-   * Called when the view needs to be updated. It is expected that the user of the ng-model
-   * directive will implement this method.
+   * Вызывается когда нужно обновить представление. Предполагается что пользователь будет вызывать этот метод 
+   * для директивы ng-model.
    */
   this.$render = noop;
 
@@ -949,17 +948,17 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * @methodOf ng.directive:ngModel.NgModelController
    *
    * @description
-   * Change the validity state, and notifies the form when the control changes validity. (i.e. it
-   * does not notify form if given validator is already marked as invalid).
+   * Изменяет статус проверки данных и уведомляет форму, когда элемент управления изменяет свой статус проверки
+   * данных. (форма не уведомляется, если для элемента управления уже ранее был установлен статус invalid).
+   * 
+   * Этот метод должен вызываться валидаторами – т.е. функциями разбора или форматирования.
    *
-   * This method should be called by validators - i.e. the parser or formatter functions.
-   *
-   * @param {string} validationErrorKey Name of the validator. the `validationErrorKey` will assign
-   *        to `$error[validationErrorKey]=isValid` so that it is available for data-binding.
-   *        The `validationErrorKey` should be in camelCase and will get converted into dash-case
-   *        for class name. Example: `myError` will result in `ng-valid-my-error` and `ng-invalid-my-error`
-   *        class and can be bound to as  `{{someForm.someControl.$error.myError}}` .
-   * @param {boolean} isValid Whether the current state is valid (true) or invalid (false).
+   * @param {string} validationErrorKey Имя валидатора. `validationErrorKey` будет ассоциирован с 
+   *        `$error[validationErrorKey]=isValid`, и это можно использовать для привязки данных. 
+   *        `validationErrorKey` должен быть в верблюжьей нотации и будет преобразоваться в имя с разделителем 
+   *        тире, для имен классов CSS. Например: `myError` добавит классы `ng-valid-my-error` и 
+   *        `ng-invalid-my-error` и к нему можно привязываться, как `{{someForm.someControl.$error.myError}}`.
+   * @param {boolean} isValid true, если текущее состояние valid, или false – если invalid.
    */
   this.$setValidity = function(validationErrorKey, isValid) {
     if ($error[validationErrorKey] === !isValid) return;
