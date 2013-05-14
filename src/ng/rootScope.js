@@ -31,7 +31,7 @@
  * @name ng.$rootScopeProvider
  * @description
  *
- * Provider for the $rootScope service.
+ * Провайдер сервиса $rootScope.
  */
 
 /**
