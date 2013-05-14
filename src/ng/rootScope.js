@@ -38,14 +38,13 @@
  * @ngdoc function
  * @name ng.$rootScopeProvider#digestTtl
  * @methodOf ng.$rootScopeProvider
- * @description
+ * @description 
+ * Устанавливает число итераций цикла digest, в который пытается проверить область видимости перед тем
+ * как решить, что модель нестабильна.
  *
- * Sets the number of digest iterations the scope should attempt to execute before giving up and
- * assuming that the model is unstable.
+ * По умолчанию 10 итераций.
  *
- * The current default is 10 iterations.
- *
- * @param {number} limit The number of digest iterations.
+ * @param {number} limit Число итераций цикла digest.
  */
 
 
@@ -54,7 +53,6 @@
  * @name ng.$rootScope
  * @description
  *
- * Every application has a single root {@link ng.$rootScope.Scope scope}.
  * Каждое приложение имеет одну корневую {@link ng.$rootScope.Scope область видимости}. Все другие области  
  * являются ее потомками. Области видимости обеспечивают механизм для отслеживания изменений в модели и 
  * обработку событий жизненного цикла. См. {@link guide/scope Руководство по областям видимости}.
