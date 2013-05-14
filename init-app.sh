@@ -7,8 +7,14 @@ START_SERVER_TEIM=$(date +%s)
 
 rm -rf app
 
-# copy doc directory resolve symlinks
-cp -Lr build/docs app
+# copy doc directory
+if [ "$APP_ENV" = "development" ]; then
+  # save symlinks
+  ln -s build/docs app
+else
+  # resolve symlinks
+  cp -Lr build/docs app
+fi
 
 # copy javascript files
 cp build/*.js app/
