@@ -3,7 +3,6 @@
 @description
 
 
-Angular sets these CSS classes. It is up to your application to provide useful styling.
 Angular устанавливает собственные CSS-классы. Это делается для того, чтобы приложение можно было удобно стилизовать.
 
 # CSS-класс, которые использует Angular
