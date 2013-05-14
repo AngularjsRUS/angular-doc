@@ -1,7 +1,7 @@
 # Livereload
 
 guard 'livereload' do
-  watch(%r{(app|build/)/.+\.(css|js|html)})
+  watch(%r{(app|build|docs/src)/.+\.(css|js|html)})
 end
 
 guard 'shell' do
