@@ -1127,14 +1127,14 @@ describe('Scope', function() {
 
       scope.$watch('name', function() {
        scope.greeting = scope.salutation + ' ' + scope.name + '!';
-      }); // initialize the watch
+      }); // инициализация наблюдателя
 
       expect(scope.greeting).toEqual(undefined);
       scope.name = 'Misko';
-      // still old value, since watches have not been called yet
+      // пока старое значение, т.к. наблюдатели все еще не были вызваны
       expect(scope.greeting).toEqual(undefined);
 
-      scope.$digest(); // fire all  the watches
+      scope.$digest(); // сброс всех наблюдателей
       expect(scope.greeting).toEqual('Hello Misko!');
 //</docs>
     }));
