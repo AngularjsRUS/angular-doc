@@ -215,25 +215,25 @@ function $HttpProvider() {
      * @requires $injector
      *
      * @description
-     * The `$http` service is a core Angular service that facilitates communication with the remote
-     * HTTP servers via the browser's {@link https://developer.mozilla.org/en/xmlhttprequest
-     * XMLHttpRequest} object or via {@link http://en.wikipedia.org/wiki/JSONP JSONP}.
-     *
-     * For unit testing applications that use `$http` service, see
+     * Сервис `$http` является базовым сервисом Angular, который используется для коммуникаций с удаленным HTTP
+     * сервером с помощью браузерного объекта {@link https://developer.mozilla.org/en/xmlhttprequest
+     * XMLHttpRequest} или {@link http://en.wikipedia.org/wiki/JSONP JSONP}.
+     * 
+     * Для модульное тестирования приложения использующего сервис `$http`, смотрите 
      * {@link ngMock.$httpBackend $httpBackend mock}.
-     *
-     * For a higher level of abstraction, please check out the {@link ngResource.$resource
-     * $resource} service.
-     *
-     * The $http API is based on the {@link ng.$q deferred/promise APIs} exposed by
-     * the $q service. While for simple usage patterns this doesn't matter much, for advanced usage
-     * it is important to familiarize yourself with these APIs and the guarantees they provide.
-     *
-     *
-     * # General usage
-     * The `$http` service is a function which takes a single argument — a configuration object —
-     * that is used to generate an HTTP request and returns  a {@link ng.$q promise}
-     * with two $http specific methods: `success` and `error`.
+     * 
+     * Для изучения высокоуровневых абстракций, посмотрите сервис {@link ngResource.$resource
+     * $resource}.
+     * 
+     * $http API базируется на {@link ng.$q deferred/promise API} предоставленном сервисом $q. 
+     * Для простых приложений изучение этих API не представляется важным, тогда как для продвинутого 
+     * использования, очень важно с ними ознакомится и знать возможности, которые они предоставляют.
+     * 
+     * # Основной способ использования
+     * 
+     * Сервис `$http` это функция, которая принимает один аргумент — объект с настройками — который используется 
+     * для генерации HTTP запроса, и возвращает {@link ng.$q promise} с двумя определенными в $http методами: 
+     * `success` и `error`.
      *
      * <pre>
      *   $http({method: 'GET', url: '/someUrl'}).
@@ -246,29 +246,27 @@ function $HttpProvider() {
      *       // or server returns response with an error status.
      *     });
      * </pre>
-     *
-     * Since the returned value of calling the $http function is a `promise`, you can also use
-     * the `then` method to register callbacks, and these callbacks will receive a single argument –
-     * an object representing the response. See the API signature and type info below for more
-     * details.
-     *
-     * A response status code between 200 and 299 is considered a success status and
-     * will result in the success callback being called. Note that if the response is a redirect,
-     * XMLHttpRequest will transparently follow it, meaning that the error callback will not be
-     * called for such responses.
-     *
-     * # Shortcut methods
-     *
-     * Since all invocations of the $http service require passing in an HTTP method and URL, and
-     * POST/PUT requests require request data to be provided as well, shortcut methods
-     * were created:
+     * 
+     * Так как возвращаемым значением функции $http является `promise`, вы можете использовать метод `then`
+     * чтобы регистрировать колбэк, и они будут получать только один аргумент – объект представляющий ответ 
+     * сервера. Смотрите определение API и типов для более детальной информации.
+     * 
+     * Ответ сервера со статусом в диапазоне от 200 до 299 считается успешным, и в результате будет вызван
+     * колбэк success. Заметьте, если ответом сервиса является перенаправление на другую страницу, 
+     * XMLHttpRequest будет ожидаемо следовать туда, а это означает что колбэк error для таких ответов 
+     * вызываться на будет.
+     * 
+     * # Сокращенные методы
+     * 
+     * Каждый вызов сервиса $http обязательно принимает в параметрах HTTP метод и URL, и POST/PUT запросы к 
+     * тому же обязательно передают данные, для сокращения их вызова были созданы сокращенные методы:
      *
      * <pre>
      *   $http.get('/someUrl').success(successCallback);
      *   $http.post('/someUrl', data).success(successCallback);
      * </pre>
      *
-     * Complete list of shortcut methods:
+     * Полный список сокращенных методов:
      *
      * - {@link ng.$http#get $http.get}
      * - {@link ng.$http#head $http.head}
@@ -278,113 +276,106 @@ function $HttpProvider() {
      * - {@link ng.$http#jsonp $http.jsonp}
      *
      *
-     * # Setting HTTP Headers
-     *
-     * The $http service will automatically add certain HTTP headers to all requests. These defaults
-     * can be fully configured by accessing the `$httpProvider.defaults.headers` configuration
-     * object, which currently contains this default configuration:
-     *
-     * - `$httpProvider.defaults.headers.common` (headers that are common for all requests):
+     * # Установка HTTP заголовков
+     * 
+     * Сервис $http будет автоматически добавлять некоторые HTTP заголовки для всех запросов. Значения по умолчанию 
+     * могут быть настроены через доступ к конфигурационному объекту `$httpProvider.defaults.headers`, который 
+     * сейчас содержит конфигурацию по умолчанию:
+     * 
+     * - `$httpProvider.defaults.headers.common` (заголовки общие для всех запросов):
      *   - `Accept: application/json, text/plain, * / *`
-     * - `$httpProvider.defaults.headers.post`: (header defaults for POST requests)
+     * - `$httpProvider.defaults.headers.post`: (заголовок по умолчанию для POST запросов)
      *   - `Content-Type: application/json`
-     * - `$httpProvider.defaults.headers.put` (header defaults for PUT requests)
+     * - `$httpProvider.defaults.headers.put` (заголовок по умолчанию для PUT запросов)
      *   - `Content-Type: application/json`
-     *
-     * To add or overwrite these defaults, simply add or remove a property from these configuration
-     * objects. To add headers for an HTTP method other than POST or PUT, simply add a new object
-     * with the lowercased HTTP method name as the key, e.g.
+     * 
+     * Чтобы добавить или переопределить значения по умолчанию, просто добавьте или удалите свойства из 
+     * конфигурационных объектов. Чтобы добавить заголовки для HTTP метода, отличного от POST или PUT, 
+     * просто добавьте новый объект с именем HTTP метода в нижнем регистре в качестве ключа, например так, 
      * `$httpProvider.defaults.headers.get['My-Header']='value'`.
+     * 
+     * Дополнительно, значения по умолчанию могут быть установлены во время выполнения с помощью объекта 
+     * `$http.defaults` в таком же стиле, как и разъясненном ранее.
      *
-     * Additionally, the defaults can be set at runtime via the `$http.defaults` object in the same
-     * fashion.
+     * # Преобразование запросов и ответов
+     *
+     * И запросы, и ответы могут быть преобразованы с использованием функций трансформации. По умолчанию, 
+     * Angular применяет эти преобразования:
+     *
+     * Преобразования запросов:
+     *
+     * - Если свойство data запроса содержит объект, то он сериализуется в формат JSON.
+     *
+     * Преобразования ответов:
+     *
+     *  - Если обнаружен префикс XSRF, удаляет его (смотрите раздел вопросы безопасности ниже).
+     *  - Если обнаружен что ответ в формате JSON, десериализует его используя анализатор JSON.
+     *
+     * Для добавления или переопределения преобразований по умолчанию, модифицируйте свойства 
+     * `$httpProvider.defaults.transformRequest` и `$httpProvider.defaults.transformResponse`. 
+     * Эти свойства содержат массивы функций преобразований, которые позволяют вам добавлять с помощью методов 
+     * массива `push` или `unshift` новые функции трансформации в цепочку преобразований. Вы также можете полностью 
+     * переопределить любые преобразования по умолчанию, присвоив свои функции преобразования этим свойствам 
+     * напрямую, без массива обертки.
+     *
+     * Кроме того, для локального переопределения преобразований запроса/ответа, расширьте объект передаваемый
+     * $http свойством `transformRequest` и/или `transformResponse` и передайте им объект с конфигурацией.
      *
      *
-     * # Transforming Requests and Responses
+     * # Кэширование
+     * 
+     * Чтобы включить кэширование, установите конфигурационное свойство `cache` в `true`. Когда кэширование 
+     * включено, `$http` сохраняет ответы сервера в локальном кэше. В последующем ответ сервера извлекается 
+     * из кэша без отправки запроса.
+     * 
+     * Следует отметить, что даже если данные выдаются из кэша, это делается асинхронным способом, так же как
+     * и при отправке запроса на сервер.
+     * 
+     * Если есть несколько GET запросов на один и тот же URL они кэшируются в один кэш, но кэш пуст, пока не
+     * пройдет первый запрос, а все остальные уже будут использовать ответ сервера из кэша.
      *
-     * Both requests and responses can be transformed using transform functions. By default, Angular
-     * applies these transformations:
-     *
-     * Request transformations:
-     *
-     * - If the `data` property of the request configuration object contains an object, serialize it into
-     *   JSON format.
-     *
-     * Response transformations:
-     *
-     *  - If XSRF prefix is detected, strip it (see Security Considerations section below).
-     *  - If JSON response is detected, deserialize it using a JSON parser.
-     *
-     * To globally augment or override the default transforms, modify the `$httpProvider.defaults.transformRequest` and
-     * `$httpProvider.defaults.transformResponse` properties. These properties are by default an
-     * array of transform functions, which allows you to `push` or `unshift` a new transformation function into the
-     * transformation chain. You can also decide to completely override any default transformations by assigning your
-     * transformation functions to these properties directly without the array wrapper.
-     *
-     * Similarly, to locally override the request/response transforms, augment the `transformRequest` and/or
-     * `transformResponse` properties of the configuration object passed into `$http`.
-     *
-     *
-     * # Caching
-     *
-     * To enable caching, set the configuration property `cache` to `true`. When the cache is
-     * enabled, `$http` stores the response from the server in local cache. Next time the
-     * response is served from the cache without sending a request to the server.
-     *
-     * Note that even if the response is served from cache, delivery of the data is asynchronous in
-     * the same way that real requests are.
-     *
-     * If there are multiple GET requests for the same URL that should be cached using the same
-     * cache, but the cache is not populated yet, only one request to the server will be made and
-     * the remaining requests will be fulfilled using the response from the first request.
-     *
-     * A custom default cache built with $cacheFactory can be provided in $http.defaults.cache.
-     * To skip it, set configuration property `cache` to `false`.
+     * Обычный кэш по умолчанию построенный $cacheFactory может быть предоставлена в $http.defaults.cache. 
+     * Чтобы пропустить его, установите свойство конфигурации `cache` в `false`.
      * 
      *
-     * # Interceptors
+     * # Перехватчики ответов
      *
-     * Before you start creating interceptors, be sure to understand the
-     * {@link ng.$q $q and deferred/promise APIs}.
-     *
-     * For purposes of global error handling, authentication, or any kind of synchronous or
-     * asynchronous pre-processing of request or postprocessing of responses, it is desirable to be
-     * able to intercept requests before they are handed to the server and
-     * responses before they are handed over to the application code that
-     * initiated these requests. The interceptors leverage the {@link ng.$q
-     * promise APIs} to fulfill this need for both synchronous and asynchronous pre-processing.
-     *
-     * The interceptors are service factories that are registered with the `$httpProvider` by
-     * adding them to the `$httpProvider.interceptors` array. The factory is called and
-     * injected with dependencies (if specified) and returns the interceptor.
-     *
-     * There are two kinds of interceptors (and two kinds of rejection interceptors):
-     *
-     *   * `request`: interceptors get called with http `config` object. The function is free to modify
-     *     the `config` or create a new one. The function needs to return the `config` directly or as a
-     *     promise.
-     *   * `requestError`: interceptor gets called when a previous interceptor threw an error or resolved
-     *      with a rejection.
-     *   * `response`: interceptors get called with http `response` object. The function is free to modify
-     *     the `response` or create a new one. The function needs to return the `response` directly or as a
-     *     promise.
-     *   * `responseError`: interceptor gets called when a previous interceptor threw an error or resolved
-     *      with a rejection.
-     *
+     * Перед началом создания перехватчиков, обязательно изучите  {@link ng.$q $q и deferred/promise API}.
+     * 
+     * Для целей глобальной обработки ошибок, аутентификации, или любой дочерней синхронной или асинхронной 
+     * предобработки полученных ответов, желательно иметь возможность перехватывать ответы на http запросы 
+     * перед тем, как они будут переданы на обработку коду приложения, инициировавшему запросы. Перехватчики 
+     * ответов используют {@link ng.$q promise API} когда им нужна предобработка в обоих, синхронной и 
+     * асинхронной манере.
+     * 
+     * Перехватчики – это фабрики сервисов, которые регистрируются в `$httpProvider` путем добавления их в 
+     * массив `$httpProvider.responseInterceptors`. Фабрика создает и внедряет зависимости (если нужно) 
+     * и возвращает перехватчика – это функция которая работает с promise и возвращает оригинальный или новый promise.
+     * 
+     * Есть два вида перехватчиков (и два вида отказа перехватчиков):
+     * 
+     *   * `request`: перехватчики вызова с http-объектом `config`. Функция свободно изменяет `config` или 
+     *      создает новый. Функция должна вернуть `config` напрямую или как обещание.
+     *   * `requestError`: перехватчик вызывается, когда предыдущие перехватчики выдали ошибку или завершились
+     *      отказом
+     *   * `response`: перехватчики вызова с http-объектом `response`. Функция свободно изменяет `response` или 
+     *      создает новый. Функция должна вернуть `response` напрямую или как обещание.
+     *   * `responseError`: перехватчик вызывается, когда предыдущие перехватчики выдали ошибку или завершились
+     *      отказом
      *
      * <pre>
-     *   // register the interceptor as a service
+     *   // регистрация сервиса перехватчика
      *   $provide.factory('myHttpInterceptor', function($q, dependency1, dependency2) {
      *     return {
-     *       // optional method
+     *       // не обязательный метод
      *       'request': function(config) {
-     *         // do something on success
+     *         // что-то делает при успешном статусе ответа сервера
      *         return config || $q.when(config);
      *       },
      *
-     *       // optional method
+     *       // не обязательный метод
      *      'requestError': function(rejection) {
-     *         // do something on error
+     *         // что-то делает при ошибке
      *         if (canRecover(rejection)) {
      *           return responseOrNewPromise
      *         }
@@ -393,15 +384,15 @@ function $HttpProvider() {
      *
      *
      *
-     *       // optional method
+     *       // не обязательный метод
      *       'response': function(response) {
-     *         // do something on success
+     *         // что-то делает при успешном статусе ответа сервера
      *         return response || $q.when(response);
      *       },
      *
-     *       // optional method
+     *       // не обязательный метод
      *      'responseError': function(rejection) {
-     *         // do something on error
+     *         // что-то делает при ошибке
      *         if (canRecover(rejection)) {
      *           return responseOrNewPromise
      *         }
@@ -413,19 +404,19 @@ function $HttpProvider() {
      *   $httpProvider.interceptors.push('myHttpInterceptor');
      *
      *
-     *   // register the interceptor via an anonymous factory
+     *   // регистрация перехватчика как анонимной функции
      *   $httpProvider.interceptors.push(function($q, dependency1, dependency2) {
      *     return {
      *      'request': function(config) {
-     *          // same as above
+     *          // так же как указано выше
      *       },
      *       'response': function(response) {
-     *          // same as above
+     *          // так же как указано выше
      *       }
      *   });
      * </pre>
      *
-     * # Response interceptors (DEPRECATED)
+     * # Response interceptors (Будет удалено в следующих версиях)
      *
      * Before you start creating interceptors, be sure to understand the
      * {@link ng.$q $q and deferred/promise APIs}.
@@ -469,106 +460,107 @@ function $HttpProvider() {
      * </pre>
      *
      *
-     * # Security Considerations
+     * # Соображения безопасности
      *
-     * When designing web applications, consider security threats from:
+     * Когда создаются веб-приложения, угрозы безопасности исходят из:
      *
      * - {@link http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx
-     *   JSON vulnerability}
+     *   JSON уязвимостей}
      * - {@link http://en.wikipedia.org/wiki/Cross-site_request_forgery XSRF}
      *
      * Both server and the client must cooperate in order to eliminate these threats. Angular comes
      * pre-configured with strategies that address these issues, but for this to work backend server
      * cooperation is required.
+     * 
+     * И сервер и клиент, должны работать совместно для ликвидации этих угроз. Angular поставляется с 
+     * предварительно настроенными стратегиями, учитывающими эти вопросы, но также требуется сотрудничество сервера.
      *
-     * ## JSON Vulnerability Protection
+     * ## Защита от JSON уязвимостей
      *
-     * A {@link http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx
-     * JSON vulnerability} allows third party website to turn your JSON resource URL into
-     * {@link http://en.wikipedia.org/wiki/JSONP JSONP} request under some conditions. To
-     * counter this your server can prefix all JSON requests with following string `")]}',\n"`.
-     * Angular will automatically strip the prefix before processing it as JSON.
+     * {@link http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx
+     * JSON уязвимости} позволяют веб-сайту третьих лиц подменить ваш URL для ресурса JSON, на запрос
+     * {@link http://en.wikipedia.org/wiki/JSONP JSONP} при определенных условиях. Чтобы этому противостоять, 
+     * ваш сервер может добавлять префикс `")]}',\n"` для всех ответов на запросы в формате JSON.
+     * Angular будет автоматически вырезать префикс перед обработкой ответа как JSON.
      *
-     * For example if your server needs to return:
+     * Для примера, если ваш сервер должен вернуть:
      * <pre>
      * ['one','two']
      * </pre>
      *
-     * which is vulnerable to attack, your server can return:
+     * что уязвимо для атак, ваш сервер может вернуть:
      * <pre>
      * )]}',
      * ['one','two']
      * </pre>
      *
-     * Angular will strip the prefix, before processing the JSON.
+     * Angular будет удалять префикс, перед обработкой JSON.
      *
      *
-     * ## Cross Site Request Forgery (XSRF) Protection
+     * ## Защита от Cross Site Request Forgery (XSRF)
      *
-     * {@link http://en.wikipedia.org/wiki/Cross-site_request_forgery XSRF} is a technique by which
-     * an unauthorized site can gain your user's private data. Angular provides a mechanism
-     * to counter XSRF. When performing XHR requests, the $http service reads a token from a cookie
-     * (by default, `XSRF-TOKEN`) and sets it as an HTTP header (`X-XSRF-TOKEN`). Since only
-     * JavaScript that runs on your domain could read the cookie, your server can be assured that
-     * the XHR came from JavaScript running on your domain. The header will not be set for
-     * cross-domain requests.
+     * {@link http://en.wikipedia.org/wiki/Cross-site_request_forgery XSRF} эта техника, с помощью которой 
+     * сайт злоумышленника может получить секретные данные вашего пользователя. Angular предоставляет механизм 
+     * для противодействия XSRF. Когда выполняются XHR запросы, сервис $http читает маркер из куки `XSRF-TOKEN` 
+     * и устанавливает его как HTTP заголовок `X-XSRF-TOKEN`. Поскольку только JavaScript, который работает в 
+     * вашем домене может читать куки, ваш сервер может быть уверен, что XHR пришло из кода JavaScript выполняемого 
+     * на вашем домене.
+     * 
+     * Чтобы это заработало, нужно чтобы ваш сервер установил метку в доступной для чтения из JavaScript 
+     * сессионной куки с именем `XSRF-TOKEN` в ответ на первый HTTP GET запрос. Следующие XHR запросы сервер 
+     * может проверить, сравнивая значение куки и присланного HTTP заголовка `X-XSRF-TOKEN`, чтобы убедиться что 
+     * запрос не поддельный. Метка должна быть уникальной для каждого пользователя и проверяемой для сервера 
+     * (препятствуйте тому, чтобы JavaScript сам генерировал матки). Мы рекомендуем чтобы метка служила основой 
+     * для процесса аутентификации на вашем сайте с добавление 
+     * {@link https://en.wikipedia.org/wiki/Salt_(cryptography) соли} для большей безопасности.
+     * 
+     * Название заголовков можно задать с помощью xsrfHeaderName и xsrfCookieName свойства либо 
+     * $httpProvider.defaults или каждого запроса объекта конфигурации.
      *
-     * To take advantage of this, your server needs to set a token in a JavaScript readable session
-     * cookie called `XSRF-TOKEN` on the first HTTP GET request. On subsequent XHR requests the
-     * server can verify that the cookie matches `X-XSRF-TOKEN` HTTP header, and therefore be sure
-     * that only JavaScript running on your domain could have sent the request. The token must be
-     * unique for each user and must be verifiable by the server (to prevent the JavaScript from making
-     * up its own tokens). We recommend that the token is a digest of your site's authentication
-     * cookie with a {@link https://en.wikipedia.org/wiki/Salt_(cryptography) salt} for added security.
      *
-     * The name of the headers can be specified using the xsrfHeaderName and xsrfCookieName
-     * properties of either $httpProvider.defaults, or the per-request config object.
+     * @param {object} config Объект описывающий создаваемый запрос. Этот объект имеет следующие свойства:
      *
-     *
-     * @param {object} config Object describing the request to be made and how it should be
-     *    processed. The object has following properties:
-     *
-     *    - **method** – `{string}` – HTTP method (e.g. 'GET', 'POST', etc)
-     *    - **url** – `{string}` – Absolute or relative URL of the resource that is being requested.
-     *    - **params** – `{Object.<string|Object>}` – Map of strings or objects which will be turned to
-     *      `?key1=value1&key2=value2` after the url. If the value is not a string, it will be JSONified.
-     *    - **data** – `{string|Object}` – Data to be sent as the request message data.
-     *    - **headers** – `{Object}` – Map of strings representing HTTP headers to send to the server.
-     *    - **xsrfHeaderName** – `{string}` – Name of HTTP header to populate with the XSRF token.
-     *    - **xsrfCookieName** – `{string}` – Name of cookie containing the XSRF token.
+     *    - **method** – `{string}` – HTTP метод (напр. 'GET', 'POST', и т. д.)
+     *    - **url** – `{string}` – Абсолютный или относительный URL для ресурса к которому будет запрос.
+     *    - **params** – `{Object.<string|Object>}` – Набор строк или объектов, которые будут переданы 
+     *      как `?key1=value1&key2=value2` после url. Если значения не строка, тогда оно будет преобразовано 
+     *      в строку в формате JSON.
+     *    - **data** – `{string|Object}` – Данные которые будут отправлены вместе с запросом.
+     *    - **headers** – `{Object}` – Набор строк, представляющих HTTP заголовки, которые должны быть 
+     *      отправлены на сервер.
+     *    - **xsrfHeaderName** – `{string}` – Имя HTTP заколовка для наполнения с XSRF токеном.
+     *    - **xsrfCookieName** – `{string}` – Имя куки, содержащей XSRF токен.
      *    - **transformRequest** – `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
-     *      transform function or an array of such functions. The transform function takes the http
-     *      request body and headers and returns its transformed (typically serialized) version.
+     *      функция преобразования или массив таких функций. Функция преобразования берет тело и заголовки 
+     *      http запроса и возвращает преобразованную (по умолчанию сериализованую) версию.
      *    - **transformResponse** – `{function(data, headersGetter)|Array.<function(data, headersGetter)>}` –
-     *      transform function or an array of such functions. The transform function takes the http
-     *      response body and headers and returns its transformed (typically deserialized) version.
-     *    - **cache** – `{boolean|Cache}` – If true, a default $http cache will be used to cache the
-     *      GET request, otherwise if a cache instance built with
-     *      {@link ng.$cacheFactory $cacheFactory}, this cache will be used for
-     *      caching.
-     *    - **timeout** – `{number}` – timeout in milliseconds.
-     *    - **withCredentials** - `{boolean}` - whether to to set the `withCredentials` flag on the
-     *      XHR object. See {@link https://developer.mozilla.org/en/http_access_control#section_5
-     *      requests with credentials} for more information.
-     *    - **responseType** - `{string}` - see {@link
+     *      функция преобразования или массив таких функций. Функция преобразования берет тело и заголовки 
+     *      http ответа и возвращает преобразованную (по умолчанию десериализованую) версию.
+     *    - **cache** – `{boolean|Cache}` – Если true, по умолчанию кэш $http будет использоваться для 
+     *      кэширования GET запросов, однако если экземпляр кэша построен с помощью
+     *      {@link ng.$cacheFactory $cacheFactory}, он может быть использован для кэширования.
+     *    - **timeout** – `{number}` – задержка в милисекундах.
+     *    - **withCredentials** - `{boolean}` - следует ли устанавливать флаг `withCredentials` для XHR объекта. 
+     *      См. {@link https://developer.mozilla.org/en/http_access_control#section_5
+     *      requests with credentials} для более детальной информации.
+     *    - **responseType** - `{string}` - см. {@link
      *      https://developer.mozilla.org/en-US/docs/DOM/XMLHttpRequest#responseType requestType}.
      *
-     * @returns {HttpPromise} Returns a {@link ng.$q promise} object with the
-     *   standard `then` method and two http specific methods: `success` and `error`. The `then`
-     *   method takes two arguments a success and an error callback which will be called with a
-     *   response object. The `success` and `error` methods take a single argument - a function that
-     *   will be called when the request succeeds or fails respectively. The arguments passed into
-     *   these functions are destructured representation of the response object passed into the
-     *   `then` method. The response object has these properties:
+     * @returns {HttpPromise} Возвращает объект {@link ng.$q promise} со стандартным методом `then` и 
+     *   двумя специфичными методами: `success` и `error`. Метод `then` имеет два аргумента, первый – 
+     *   колбэк, который будет выполнен в случае успешного ответа, второй – 
+     *   колбэк, который будет выполнен в случае ошибки. Методы `success` и `error` имеют по одному аргументу – 
+     *   колбэк, который будет выполнен в случае успешного завершения запроса или ошибки соответственно. 
+     *   Аргументы переданы в эти функции это деструктурированный объект ответа сервера переданный в метод `then`. 
+     *   Объект ответа от сервера имеет свойства:
+     * 
+     *   - **data** – `{string|Object}` – Тело ответа преобразованное с помощью функций преобразования.
+     *   - **status** – `{number}` – код HTTP статуса ответа.
+     *   - **headers** – `{function([headerName])}` – Функция возвращающая заголовок по названию.
+     *   - **config** – `{Object}` – Конфигурационный объект, который был использован для создания запроса.
      *
-     *   - **data** – `{string|Object}` – The response body transformed with the transform functions.
-     *   - **status** – `{number}` – HTTP status code of the response.
-     *   - **headers** – `{function([headerName])}` – Header getter function.
-     *   - **config** – `{Object}` – The configuration object that was used to generate the request.
-     *
-     * @property {Array.<Object>} pendingRequests Array of config objects for currently pending
-     *   requests. This is primarily meant to be used for debugging purposes.
-     *
+     * @property {Array.<Object>} pendingRequests Массив объектов конфигурации для текущих запросов. 
+     *   В первую очередь предназначен для использования в целях отладки.     *
      *
      * @example
       <example>
@@ -736,11 +728,11 @@ function $HttpProvider() {
      * @methodOf ng.$http
      *
      * @description
-     * Shortcut method to perform `GET` request.
+     * Короткая запись метода для запроса `GET`.
      *
-     * @param {string} url Relative or absolute URL specifying the destination of the request
-     * @param {Object=} config Optional configuration object
-     * @returns {HttpPromise} Future object
+     * @param {string} url Относительный или абсолютный URL по которому отправляется запрос.
+     * @param {Object=} config Необязательный конфигурационный объект
+     * @returns {HttpPromise} Будущий объект
      */
 
     /**
@@ -749,11 +741,11 @@ function $HttpProvider() {
      * @methodOf ng.$http
      *
      * @description
-     * Shortcut method to perform `DELETE` request.
+     * Короткая запись метода для запроса `DELETE`.
      *
-     * @param {string} url Relative or absolute URL specifying the destination of the request
-     * @param {Object=} config Optional configuration object
-     * @returns {HttpPromise} Future object
+     * @param {string} url Относительный или абсолютный URL по которому отправляется запрос.
+     * @param {Object=} config Необязательный конфигурационный объект
+     * @returns {HttpPromise} Будущий объект
      */
 
     /**
@@ -762,11 +754,11 @@ function $HttpProvider() {
      * @methodOf ng.$http
      *
      * @description
-     * Shortcut method to perform `HEAD` request.
+     * Короткая запись метода для запроса `HEAD`.
      *
-     * @param {string} url Relative or absolute URL specifying the destination of the request
-     * @param {Object=} config Optional configuration object
-     * @returns {HttpPromise} Future object
+     * @param {string} url Относительный или абсолютный URL по которому отправляется запрос.
+     * @param {Object=} config Необязательный конфигурационный объект
+     * @returns {HttpPromise} Будущий объект
      */
 
     /**
@@ -775,12 +767,12 @@ function $HttpProvider() {
      * @methodOf ng.$http
      *
      * @description
-     * Shortcut method to perform `JSONP` request.
+     * Короткая запись метода для запроса `JSONP`.
      *
-     * @param {string} url Relative or absolute URL specifying the destination of the request.
-     *                     Should contain `JSON_CALLBACK` string.
-     * @param {Object=} config Optional configuration object
-     * @returns {HttpPromise} Future object
+     * @param {string} url Относительный или абсолютный URL по которому отправляется запрос.
+     *                     Должен содержать строку `JSON_CALLBACK`.
+     * @param {Object=} config Необязательный конфигурационный объект
+     * @returns {HttpPromise} Будущий объект
      */
     createShortMethods('get', 'delete', 'head', 'jsonp');
 
@@ -790,12 +782,12 @@ function $HttpProvider() {
      * @methodOf ng.$http
      *
      * @description
-     * Shortcut method to perform `POST` request.
+     * Короткая запись метода для запроса `POST`.
      *
-     * @param {string} url Relative or absolute URL specifying the destination of the request
-     * @param {*} data Request content
-     * @param {Object=} config Optional configuration object
-     * @returns {HttpPromise} Future object
+     * @param {string} url Относительный или абсолютный URL по которому отправляется запрос.
+     * @param {*} data Данные запроса.
+     * @param {Object=} config Необязательный конфигурационный объект
+     * @returns {HttpPromise} Будущий объект
      */
 
     /**
@@ -804,12 +796,12 @@ function $HttpProvider() {
      * @methodOf ng.$http
      *
      * @description
-     * Shortcut method to perform `PUT` request.
+     * Короткая запись метода для запроса `PUT`.
      *
-     * @param {string} url Relative or absolute URL specifying the destination of the request
-     * @param {*} data Request content
-     * @param {Object=} config Optional configuration object
-     * @returns {HttpPromise} Future object
+     * @param {string} url Относительный или абсолютный URL по которому отправляется запрос.
+     * @param {*} data Данные запроса.
+     * @param {Object=} config Необязательный конфигурационный объект
+     * @returns {HttpPromise} Будущий объект
      */
     createShortMethodsWithData('post', 'put');
 
@@ -819,10 +811,10 @@ function $HttpProvider() {
          * @propertyOf ng.$http
          *
          * @description
-         * Runtime equivalent of the `$httpProvider.defaults` property. Allows configuration of
-         * default headers, withCredentials as well as request and response transformations.
-         *
-         * See "Setting HTTP Headers" and "Transforming Requests and Responses" sections above.
+         * Эквивалент времени выполнения для свойства `$httpProvider.defaults`. Позволяет настроить 
+         * заголовки по умолчанию для запросов и преобразователей для ответов сервера.
+         * 
+         * Смотрите выше главы «Настройка HTTP заголовков» и «Преобразование запросов и ответов».
          */
     $http.defaults = defaults;
 
