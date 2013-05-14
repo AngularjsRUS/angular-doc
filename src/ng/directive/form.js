@@ -13,23 +13,24 @@ var nullFormCtrl = {
  * @ngdoc object
  * @name ng.directive:form.FormController
  *
- * @property {boolean} $pristine True if user has not interacted with the form yet.
- * @property {boolean} $dirty True if user has already interacted with the form.
- * @property {boolean} $valid True if all of the containing forms and controls are valid.
- * @property {boolean} $invalid True if at least one containing control or form is invalid.
+ * @property {boolean} $pristine True, если пользователь еще не взаимодействовал с формой.
+ * @property {boolean} $dirty True, если пользователь уже взаимодействовал с формой.
+ * @property {boolean} $valid True, если все вложенные формы и элементы управления содержат «правильные» данные
+ *   (проходят процесс проверки).
+ * @property {boolean} $invalid True, если хотя бы одна вложенная форма или элемент управления содержат 
+ *   «недопустимые» данные (не проходят проверку).
  *
- * @property {Object} $error Is an object hash, containing references to all invalid controls or
- *  forms, where:
+ * @property {Object} $error Это хэш объект, который содержит ссылки на элементы управления или вложенные 
+ *   формы в которых содержаться «недопустимые» данные, где:
  *
- *  - keys are validation tokens (error names) — such as `required`, `url` or `email`),
- *  - values are arrays of controls or forms that are invalid with given error.
+ *  - ключи, это проверочные метки (имена ошибок) — такие как `required`, `url` или `email`),
+ *  - значения, это массив элементов управления или форм, которые не соответствуют текущему правилу проверки данных.
  *
  * @description
- * `FormController` keeps track of all its controls and nested forms as well as state of them,
- * such as being valid/invalid or dirty/pristine.
- *
- * Each {@link ng.directive:form form} directive creates an instance
- * of `FormController`.
+ * `FormController` содержит все элементы управления и вложенные формы, а также состояние для них, такие 
+ * как valid/invalid или dirty/pristine.
+ * 
+ * Каждая директива {@link ng.directive:form form} создает экземпляр `FormController`.
  *
  */
 //asks for $scope to fool the BC controller module
@@ -132,14 +133,14 @@ function FormController(element, attrs) {
    * @methodOf ng.directive:form.FormController
    *
    * @description
-   * Sets the form to its pristine state.
+   * Возвращает форму в ее первоначальное состояние.
    *
-   * This method can be called to remove the 'ng-dirty' class and set the form to its pristine
-   * state (ng-pristine class). This method will also propagate to all the controls contained
-   * in this form.
-   *
-   * Setting a form back to a pristine state is often useful when we want to 'reuse' a form after
-   * saving or resetting it.
+   * Этот метод может быть вызван, чтобы удалить класс 'ng-dirty' и установить форму в ее первоначальное состояние
+   * (класс ng-pristine). Этот метод будет также распространяться на все элементы управления, содержащиеся в этой 
+   * форме.
+   * 
+   * Установка формы в первоначальное состояние часто бывает полезна, когда мы хотим, использовать форму 
+   * «повторно» после сохранения или сброса.
    */
   form.$setPristine = function () {
     element.removeClass(DIRTY_CLASS).addClass(PRISTINE_CLASS);
@@ -158,12 +159,12 @@ function FormController(element, attrs) {
  * @restrict EAC
  *
  * @description
- * Nestable alias of {@link ng.directive:form `form`} directive. HTML
- * does not allow nesting of form elements. It is useful to nest forms, for example if the validity of a
- * sub-group of controls needs to be determined.
+ * Псевдоним для директивы {@link ng.directive:form `form`}. HTML не позволяет вкладывать элементы `<form>` друг
+ * в друга. Эта директива используется для создания вложенных форм, например, если вы хотите проверять 
+ * отдельно корректность данных.
  *
- * @param {string=} name|ngForm Name of the form. If specified, the form controller will be published into
- *                       related scope, under this name.
+ * @param {string=} name|ngForm Имя формы. Если оно указанно, контроллер формы опубликует одноименное свойство, 
+ *                       содержащее ссылку на форму внутри области видимости.
  *
  */
 
