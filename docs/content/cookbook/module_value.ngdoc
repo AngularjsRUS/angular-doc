@@ -5,7 +5,7 @@
 Использование `value` при настройке модулей
 
 Пример установки значения во время настройки модуля
-<example module="myApp">
+<example module="app1">
   <file name="index.html">
     <div ng-controller="MyCtrl">
       {{localText}}
@@ -13,7 +13,7 @@
     </div>
   </file>
   <file name="script.js">
-    var myModule = angular.module('myModule', []);
+    var myModule = angular.module('app1', []);
     myModule.value('globalText', 'GLOBAL');
     
     // Заданное в фазе настройки значение globalText используется в контроллере,
@@ -27,7 +27,7 @@
 
 Пример, где значение привязывается к глобальной области видимости
 и выводится в методе `run`
-<example module="myApp" deps="angular-sanitize.js">
+<example module="app2">
   <file name="index.html">
     {{globalText}}
     <div ng-controller="MyCtrl">
@@ -35,7 +35,7 @@
     </div> 
   </file>
   <file name="script.js">
-    var myModule = angular.module('myModule', []);
+    var myModule = angular.module('app2', []);
     myModule.value('globalText', 'GLOBAL');
     myModule.run(function($rootScope, globalText) {
       //Значение устанавливается в глобальной (корневой) области видимости
