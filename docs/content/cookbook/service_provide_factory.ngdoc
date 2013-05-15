@@ -30,13 +30,13 @@
 
 <example module="myApp">
   <file name="index.html">
-    <body ng-controller="MyCtrl">
+    <div ng-controller="MyCtrl">
       {{serviceOutput}}
       <br/><br/>
       {{factoryOutput}}
       <br/><br/>
       {{providerOutput}}
-    </body>
+    </div>
   </file>
   <file name="script.js">
     var app = angular.module("myApp", []);
