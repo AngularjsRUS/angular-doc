@@ -5,7 +5,7 @@ guard 'livereload' do
 end
 
 guard 'shell' do
-  watch %r{docs/.+\.(ngdoc)} do |f|
+  watch %r{docs/content/.+\.(ngdoc)} do |f|
     puts ""
     puts `grunt docs`
   end
