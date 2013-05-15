@@ -87,7 +87,7 @@ Angular не требует иметь дело с закладками в ка�
  <file name="index.html">
     <div ng-controller="AppCntl">
       <h1>Хромированное приложение</h1>
-      [ <a href="welcome">Приветствие</a> | <a href="settings">Настройка</a> ]
+      [ <a href="welcome">Приветствие</a> | <a href="settings">настройка</a> ]
       <hr/>
       <span class="partial-info">
         Частичка: {{$route.current.template}}
@@ -129,7 +129,7 @@ Angular не требует иметь дело с закладками в ка�
    it('необходимо перейти по URL-адресу', function() {
      element('a:contains(Приветствие)').click();
      expect(element('[ng-view]').text()).toMatch(/Привет anonymous/);
-     element('a:contains(Настройка)').click();
+     element('a:contains(настройка)').click();
      input('form.name').enter('yourname');
      element(':button:contains(Сохранить)').click();
      element('a:contains(Приветствие)').click();
