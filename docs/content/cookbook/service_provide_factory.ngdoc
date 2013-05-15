@@ -28,8 +28,51 @@
 
 Преимущество провайдеров в том, что они могут быть настроены на этапе конфигурации модуля.
 
-См. код провайдера [http://jsbin.com/ohamub/1/edit](здесь) и далее подробное разъяснение от Мишко 
-(один из создателей Angular):
+<example module="myApp">
+  <file name="index.html">
+    <body ng-controller="MyCtrl">
+      {{serviceOutput}}
+    	<br/><br/>
+    	{{factoryOutput}}
+    	<br/><br/>
+    	{{providerOutput}}
+    </body>
+  </file>
+  <file name="script.js">
+    var app = angular.module("myApp", []);
+
+  	var MyFunc = function() {
+
+			this.name = "default name";
+
+			this.$get = function() {
+				this.name = "new name"
+				return "Hello from MyFunc.$get(). this.name = " + this.name;
+			};
+
+			return "Hello from MyFunc(). this.name = " + this.name;
+		};
+
+		// возврат настоящей функции
+		app.service( 'myService', MyFunc );
+
+		// возврат возвращенного функцией значения
+		app.factory( 'myFactory', MyFunc );
+
+		// возврат выхода функции $get, примененной к переданной функции
+		app.provider( 'myProv', MyFunc );
+
+		function MyCtrl( $scope, myService, myFactory, myProv ) {
+
+			$scope.serviceOutput = "myService = " + myService;
+			$scope.factoryOutput = "myFactory = " + myFactory;
+			$scope.providerOutput = "myProvider = " + myProv;
+
+		}
+  </file>
+</example>
+
+Далее подробное разъяснение от Мишко (один из создателей Angular):
 
 <pre>
 provide.value('a', 123);
