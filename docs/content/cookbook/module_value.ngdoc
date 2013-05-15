@@ -1,5 +1,43 @@
 @ngdoc overview
-@name Cookbook: Настройка модуля - value
+@name Cookbook: Название примера
 @description
 
-Описание примера
+Использование `value` при настройке модулей
+
+<еxample module="myApp" deps="angular-sanitize.js">
+  <file name="index.html">
+    <div ng-controller="MyCtrl">
+      {{localText}}
+      {{globalText}}    
+    </div>
+  </file>
+  <file name="script.js">
+    var myModule = angular.module('myModule', []);
+    myModule.value('globalText', 'GLOBAL');
+    
+    myModule.controller('MyCtrl', function ($scope, globalText) {
+      $scope.localText  = 'LOCAL';
+      $scope.globalText = globalText;
+    });
+  </file>
+</example>
+
+<еxample module="myApp" deps="angular-sanitize.js">
+  <file name="index.html">
+    {{globalText}}
+    <div ng-controller="MyCtrl">
+      {{localText}}
+    </div> 
+  </file>
+  <file name="script.js">
+    var myModule = angular.module('myModule', []);
+    myModule.value('globalText', 'GLOBAL');
+    myModule.run(function($rootScope, globalText) {
+      $rootScope.globalText = globalText;
+    });
+    
+    myModule.controller('MyCtrl', function($scope) {
+      $scope.localText = 'LOCAL';
+    });
+  </file>
+</example>
