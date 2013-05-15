@@ -5,12 +5,11 @@
  * @name ng.directive:ngStyle
  *
  * @description
- * The `ngStyle` directive allows you to set CSS style on an HTML element conditionally.
+ * Директива `ngStyle` позволяет устанавливать CSS стили для элементов HTML в зависимости от условий.
  *
  * @element ANY
- * @param {expression} ngStyle {@link guide/expression Expression} which evals to an
- *      object whose keys are CSS style names and values are corresponding values for those CSS
- *      keys.
+ * @param {expression} ngStyle {@link guide/expression Выражение} которое возвращает объект, ключами 
+ *    которого выступают имена задаваемых стилей CSS, а значения – это значения задаваемые свойству CSS.
  *
  * @example
    <example>
