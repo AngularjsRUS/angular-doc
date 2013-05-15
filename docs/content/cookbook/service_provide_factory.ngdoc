@@ -32,43 +32,38 @@
   <file name="index.html">
     <body ng-controller="MyCtrl">
       {{serviceOutput}}
-    	<br/><br/>
-    	{{factoryOutput}}
-    	<br/><br/>
-    	{{providerOutput}}
+      <br/><br/>
+      {{factoryOutput}}
+      <br/><br/>
+      {{providerOutput}}
     </body>
   </file>
   <file name="script.js">
     var app = angular.module("myApp", []);
+    
+    var MyFunc = function() {
+      this.name = "default name";
+      this.$get = function() {
+	this.name = "new name"
+	return "Hello from MyFunc.$get(). this.name = " + this.name;
+      };
+      return "Hello from MyFunc(). this.name = " + this.name;
+    };
 
-  	var MyFunc = function() {
+    // возврат настоящей функции
+    app.service( 'myService', MyFunc );
 
-			this.name = "default name";
+    // возврат возвращенного функцией значения
+    app.factory( 'myFactory', MyFunc );
 
-			this.$get = function() {
-				this.name = "new name"
-				return "Hello from MyFunc.$get(). this.name = " + this.name;
-			};
+    // возврат выхода функции $get, примененной к переданной функции
+    app.provider( 'myProv', MyFunc );
 
-			return "Hello from MyFunc(). this.name = " + this.name;
-		};
-
-		// возврат настоящей функции
-		app.service( 'myService', MyFunc );
-
-		// возврат возвращенного функцией значения
-		app.factory( 'myFactory', MyFunc );
-
-		// возврат выхода функции $get, примененной к переданной функции
-		app.provider( 'myProv', MyFunc );
-
-		function MyCtrl( $scope, myService, myFactory, myProv ) {
-
-			$scope.serviceOutput = "myService = " + myService;
-			$scope.factoryOutput = "myFactory = " + myFactory;
-			$scope.providerOutput = "myProvider = " + myProv;
-
-		}
+    function MyCtrl( $scope, myService, myFactory, myProv ) {
+      $scope.serviceOutput = "myService = " + myService;
+      $scope.factoryOutput = "myFactory = " + myFactory;
+      $scope.providerOutput = "myProvider = " + myProv;
+    }
   </file>
 </example>
 
