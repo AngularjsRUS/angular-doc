@@ -13,19 +13,19 @@ angular.module('ngCookies', ['ng']).
    * @requires $browser
    *
    * @description
-   * Provides read/write access to browser's cookies.
+   * Предоставляет доступ на чтение и запись к cookies браузера.  
    *
-   * Only a simple Object is exposed and by adding or removing properties to/from
-   * this object, new cookies are created/deleted at the end of current $eval.
+   * Доступен только простой Object. Новые cookies создаются/удаляются 
+   * при добавлении/удалении свойств к этому объекту в конце текущего $eval.   
    *
    * @example
    <doc:example>
      <doc:source>
        <script>
          function ExampleController($cookies) {
-           // Retrieving a cookie
+           // Извлечение cookie
            var favoriteCookie = $cookies.myFavorite;
-           // Setting a cookie
+           // Запись cookie
            $cookies.myFavorite = 'oatmeal';
          }
        </script>
@@ -119,9 +119,9 @@ angular.module('ngCookies', ['ng']).
    * @requires $cookies
    *
    * @description
-   * Provides a key-value (string-object) storage, that is backed by session cookies.
-   * Objects put or retrieved from this storage are automatically serialized or
-   * deserialized by angular's toJson/fromJson.
+   * Предоставляет ключ-значение (строка-объект) хранилище на основе сессионных cookies.
+   * Объекты помещённые или извлечённые из этого хранилища автоматически сериализуются
+   * или десериализуются с помощью toJson/fromJson angular'а.
    * @example
    */
    factory('$cookieStore', ['$cookies', function($cookies) {
@@ -133,10 +133,10 @@ angular.module('ngCookies', ['ng']).
          * @methodOf ngCookies.$cookieStore
          *
          * @description
-         * Returns the value of given cookie key
+         * Возвращает значение cookie по заданному ключу         
          *
-         * @param {string} key Id to use for lookup.
-         * @returns {Object} Deserialized cookie value.
+         * @param {string} key Id для поиска.
+         * @returns {Object} Десериализованное значение cookie.
          */
         get: function(key) {
           return angular.fromJson($cookies[key]);
@@ -148,10 +148,10 @@ angular.module('ngCookies', ['ng']).
          * @methodOf ngCookies.$cookieStore
          *
          * @description
-         * Sets a value for given cookie key
+         * Записывает значение для cookie с заданным ключом         
          *
-         * @param {string} key Id for the `value`.
-         * @param {Object} value Value to be stored.
+         * @param {string} key Id для `value`.
+         * @param {Object} value Значение для записи.
          */
         put: function(key, value) {
           $cookies[key] = angular.toJson(value);
@@ -163,9 +163,9 @@ angular.module('ngCookies', ['ng']).
          * @methodOf ngCookies.$cookieStore
          *
          * @description
-         * Remove given cookie
+         * Удаляет cookie         
          *
-         * @param {string} key Id of the key-value pair to delete.
+         * @param {string} key Id для удаления.
          */
         remove: function(key) {
           delete $cookies[key];
