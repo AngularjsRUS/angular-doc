@@ -6,22 +6,22 @@
  * @function
  *
  * @description
- * Creates an injector function that can be used for retrieving services as well as for
- * dependency injection (see {@link guide/di dependency injection}).
+ * Создает функцию инжектор, которая будет использоваться для извлечения сервисов при 
+ * инъекциях зависимости (см. {@link guide/di инъекция зависимости}).
  *
 
- * @param {Array.<string|Function>} modules A list of module functions or their aliases. See
- *        {@link angular.module}. The `ng` module must be explicitly added.
- * @returns {function()} Injector function. See {@link AUTO.$injector $injector}.
+ * @param {Array.<string|Function>} modules Список функций модулей или их псевдонимов. См. {@link angular.module}
+ *        Модуль `ng` будет добавлен по умолчанию.
+ * @returns {function()} Функция инжектор. См. {@link AUTO.$injector $injector}.
  *
  * @example
  * Typical usage
  * <pre>
- *   // create an injector
+ *   // создание инжектора
  *   var $injector = angular.injector(['ng']);
  *
- *   // use the injector to kick off your application
- *   // use the type inference to auto inject arguments, or use implicit injection
+ *   // используйте инжектор для старта вашего приложения
+ *   // для автоматической инъекции зависимостей или явно
  *   $injector.invoke(function($rootScope, $compile, $document){
  *     $compile($document)($rootScope);
  *     $rootScope.$digest();
@@ -35,7 +35,7 @@
  * @name AUTO
  * @description
  *
- * Implicit module which gets automatically added to each {@link AUTO.$injector $injector}.
+ * Неявный модуль, который автоматически добавляется к каждому {@link AUTO.$injector $injector}.
  */
 
 var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
@@ -79,11 +79,10 @@ function annotate(fn) {
  *
  * @description
  *
- * `$injector` is used to retrieve object instances as defined by
- * {@link AUTO.$provide provider}, instantiate types, invoke methods,
- * and load modules.
+ * `$injector` используется для извлечения экземпляров объектов как определено в {@link AUTO.$provide provider},
+ * создания типов, вызова методов и загрузки модулей.
  *
- * The following always holds true:
+ * Следующий код всегда выполнится успешно:
  *
  * <pre>
  *   var $injector = angular.injector();
@@ -93,35 +92,35 @@ function annotate(fn) {
  *   }).toBe($injector);
  * </pre>
  *
- * # Injection Function Annotation
+ * # Запись функции для инъекции
  *
- * JavaScript does not have annotations, and annotations are needed for dependency injection. The
- * following are all valid ways of annotating function with injection arguments and are equivalent.
+ * JavaScript не имеет нотаций, но нотации нужны для инъекции зависимостей. Ниже показаны все допустимые 
+ * способы нотаций функций для инъекции аргументов. Эти способы эквивалентны.
  *
  * <pre>
- *   // inferred (only works if code not minified/obfuscated)
+ *   // выведением (работает только если код не минифицирован / обфрусцирован)
  *   $injector.invoke(function(serviceA){});
  *
- *   // annotated
+ *   // нотацией
  *   function explicit(serviceA) {};
  *   explicit.$inject = ['serviceA'];
  *   $injector.invoke(explicit);
  *
- *   // inline
+ *   // в одну строку
  *   $injector.invoke(['serviceA', function(serviceA){}]);
  * </pre>
  *
- * ## Inference
+ * ## Вывод
  *
- * In JavaScript calling `toString()` on a function returns the function definition. The definition can then be
- * parsed and the function arguments can be extracted. *NOTE:* This does not work with minification, and obfuscation
- * tools since these tools change the argument names.
+ * В JavaScript вызов `toString()` для функции возвращает ее определение. Это определение можно разобрать 
+ * и извлечь аргументы. **Примечание:** Это не работает с минификацией кода и обфрускацией, т.к. эти 
+ * инструменты меняют названия переменных.
  *
- * ## `$inject` Annotation
- * By adding a `$inject` property onto a function the injection parameters can be specified.
+ * ## Запись `$inject`
+ * Параметры могут быть заданы путем добавления `$inject` в функцию инъекции.
  *
- * ## Inline
- * As an array of injection names, where the last item in the array is the function to call.
+ * ## В одну строку
+ * В этом случае передается массив и именами для инъекции, в котором последним элементом является выполняемая функция.
  */
 
 /**
@@ -142,13 +141,13 @@ function annotate(fn) {
  * @methodOf AUTO.$injector
  *
  * @description
- * Invoke the method and supply the method arguments from the `$injector`.
+ * Вызывает метод и предоставляет ему аргументы с помощью сервиса `$injector`.
  *
- * @param {!function} fn The function to invoke. The function arguments come form the function annotation.
- * @param {Object=} self The `this` for the invoked method.
- * @param {Object=} locals Optional object. If preset then any argument names are read from this object first, before
- *   the `$injector` is consulted.
- * @returns {*} the value returned by the invoked `fn` function.
+ * @param {!function} fn Функция для вызова. Аргументы функции должны иметь допустимую нотацию.
+ * @param {Object=} self Контекст `this` для вызываемого метода.
+ * @param {Object=} locals Необязательный объект. Если предоставлен, тогда перед тем как вызвать `$injector`, 
+ *     аргументы для метода будут искаться в одноименных свойствах этого объекта.
+ * @returns {*} значение, которое возвращает вызываемая функция.
  */
 
 /**
@@ -156,13 +155,13 @@ function annotate(fn) {
  * @name AUTO.$injector#instantiate
  * @methodOf AUTO.$injector
  * @description
- * Create a new instance of JS type. The method takes a constructor function invokes the new operator and supplies
- * all of the arguments to the constructor function as specified by the constructor annotation.
+ * Создает новый экземпляр типа JS. Этот метод вызывает функцию конструктора оператором new, и снабжает ее всеми 
+ * аргументами, которые указаны в нотации.
  *
- * @param {function} Type Annotated constructor function.
- * @param {Object=} locals Optional object. If preset then any argument names are read from this object first, before
- *   the `$injector` is consulted.
- * @returns {Object} new instance of `Type`.
+ * @param {function} Type нотация функции конструктора.
+ * @param {Object=} locals Необязательный объект. Если предоставлен, тогда любые аргументы, перед тем как вызвать 
+ *    `$injector`, сначала ищутся в одноименном свойстве этого объекта.
+ * @returns {Object} новый экземпляр указанного типа.
  */
 
 /**
@@ -171,77 +170,76 @@ function annotate(fn) {
  * @methodOf AUTO.$injector
  *
  * @description
- * Returns an array of service names which the function is requesting for injection. This API is used by the injector
- * to determine which services need to be injected into the function when the function is invoked. There are three
- * ways in which the function can be annotated with the needed dependencies.
+ * Возвращает массив имен сервисов, которые функция запрашивает для инъекции. Это API используется для указания, 
+ * какие сервисы нужны для инъекции в функцию для ее выполнения. Есть три способа, как функция должна 
  *
- * # Argument names
+ * # Имена аргументов
  *
- * The simplest form is to extract the dependencies from the arguments of the function. This is done by converting
- * the function into a string using `toString()` method and extracting the argument names.
+ * Простая форма при которой зависимости извлекаются из аргументов функции. Это делается с помощью преобразования
+ * функции в строку используя метод `toString()` и извлечения имен переменных.
  * <pre>
- *   // Given
+ *   // Получаем
  *   function MyController($scope, $route) {
  *     // ...
  *   }
  *
- *   // Then
+ *   // Затем
  *   expect(injector.annotate(MyController)).toEqual(['$scope', '$route']);
  * </pre>
  *
- * This method does not work with code minfication / obfuscation. For this reason the following annotation strategies
- * are supported.
+ * Этот метод не работает когда применяется минификация / обфрускация. Это поддерживается следующими способами 
+ * аннотации.
  *
- * # The `$inject` property
+ * # Свойство `$inject`
  *
- * If a function has an `$inject` property and its value is an array of strings, then the strings represent names of
- * services to be injected into the function.
+ * Если функция имеет свойство `$inject` и его значением является массив строк, тогда строки будут 
+ * интерпретироваться как имена сервисов для инъекции в функцию.
  * <pre>
- *   // Given
+ *   // Получаем
  *   var MyController = function(obfuscatedScope, obfuscatedRoute) {
  *     // ...
  *   }
- *   // Define function dependencies
+ *   // Определяем зависимости функции
  *   MyController.$inject = ['$scope', '$route'];
  *
- *   // Then
+ *   // Проверяем
  *   expect(injector.annotate(MyController)).toEqual(['$scope', '$route']);
  * </pre>
  *
- * # The array notation
+ * # Нотация в виде массива
  *
- * It is often desirable to inline Injected functions and that's when setting the `$inject` property is very
- * inconvenient. In these situations using the array notation to specify the dependencies in a way that survives
- * minification is a better choice:
+ * Часто желательно в одной строке определять функцию с зависимостями, и тогда использование свойства `$inject`
+ * не очень удобно. В этом случае следует использовать нотацию с массивом, что не страдает при минификации 
+ * и часто является лучшим выбором:
  *
  * <pre>
- *   // We wish to write this (not minification / obfuscation safe)
+ *   // Мы можем написать так (не безопасно для minification / obfuscation)
  *   injector.invoke(function($compile, $rootScope) {
  *     // ...
  *   });
  *
- *   // We are forced to write break inlining
+ *   // Вынуждены написать, сломав строку
  *   var tmpFn = function(obfuscatedCompile, obfuscatedRootScope) {
  *     // ...
  *   };
  *   tmpFn.$inject = ['$compile', '$rootScope'];
  *   injector.invoke(tmpFn);
  *
- *   // To better support inline function the inline annotation is supported
+ *   // Для более удобной работы поддерживается нотации в одну строку
  *   injector.invoke(['$compile', '$rootScope', function(obfCompile, obfRootScope) {
  *     // ...
  *   }]);
  *
- *   // Therefore
+ *   // Поэтому
  *   expect(injector.annotate(
  *      ['$compile', '$rootScope', function(obfus_$compile, obfus_$rootScope) {}])
  *    ).toEqual(['$compile', '$rootScope']);
  * </pre>
  *
- * @param {function|Array.<string|Function>} fn Function for which dependent service names need to be retrieved as described
- *   above.
+ * @param {function|Array.<string|Function>} fn Функция, для которой нужны имена сервисов, от которых она 
+ *    зависит, для их извлечения в дальнейшем.
  *
- * @returns {Array.<string>} The names of the services which the function requires.
+ * @returns {Array.<string>} Имена сервисов, которые требуются функции.
  */
 
 
@@ -252,12 +250,12 @@ function annotate(fn) {
  * @name AUTO.$provide
  *
  * @description
- *
- * Use `$provide` to register new providers with the `$injector`. The providers are the factories for the instance.
- * The providers share the same name as the instance they create with `Provider` suffixed to them.
- *
- * A provider is an object with a `$get()` method. The injector calls the `$get` method to create a new instance of
- * a service. The Provider can have additional methods which would allow for configuration of the provider.
+ * 
+ * Сервис `$provide` регистрирует новых провайдеров для `$injector`. Провайдеры, это фабрики для создания 
+ * экземпляров. Провайдеры разделяют имена с экземплярами и именуются с использование суффикса `Provider`.
+ * 
+ * Объект провайдера имеет метод `$get()`. Инжектор вызывает метод `$get` для создания нового экземпляра 
+ * сервиса. Провайдер может иметь дополнительные методы, которые позволяют его настраивать.
  *
  * <pre>
  *   function GreetProvider() {
@@ -303,17 +301,17 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * Register a provider for a service. The providers can be retrieved and can have additional configuration methods.
+ * Регистрирует провайдера для сервиса. Провайдеры могут извлекаться и могут иметь дополнительные методы для настройки.
  *
- * @param {string} name The name of the instance. NOTE: the provider will be available under `name + 'Provider'` key.
- * @param {(Object|function())} provider If the provider is:
+ * @param {string} name Имя экземпляра. Примечание: провайдер будет доступен через `name` + 'Provider'.
+ * @param {(Object|function())} provider Если это:
  *
- *   - `Object`: then it should have a `$get` method. The `$get` method will be invoked using
- *               {@link AUTO.$injector#invoke $injector.invoke()} when an instance needs to be created.
- *   - `Constructor`: a new instance of the provider will be created using
- *               {@link AUTO.$injector#instantiate $injector.instantiate()}, then treated as `object`.
+ *   - `Object`: который должен иметь метод `$get`. Метод `$get` будет вызываться используя 
+ *               {@link AUTO.$injector#invoke $injector.invoke()}, когда нужно создать экземпляр.
+ *   - `Constructor`: новый экземпляр провайдера будет создан используя
+ *               {@link AUTO.$injector#instantiate $injector.instantiate()}, который рассматривается как `object`..
  *
- * @returns {Object} registered provider instance
+ * @returns {Object} зарегистрированный экземпляр провайдера
  */
 
 /**
@@ -322,12 +320,12 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * A short hand for configuring services if only `$get` method is required.
+ * Короткая запись для конфигурации сервиса, если требуется только метод `$get`.
  *
- * @param {string} name The name of the instance.
- * @param {function()} $getFn The $getFn for the instance creation. Internally this is a short hand for
- * `$provide.provider(name, {$get: $getFn})`.
- * @returns {Object} registered provider instance
+ * @param {string} name Имя экземпляра.
+ * @param {function()} $getFn Функция $getFn для создания экземпляра. Внутри это преобразуется в 
+ *          `$provide.provider(name, {$get: $getFn})`.
+ * @returns {Object} зарегистрированный экземпляр провайдера
  */
 
 
@@ -337,11 +335,11 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * A short hand for registering service of given class.
+ * Короткая запись для регистрации службы данного класса.
  *
- * @param {string} name The name of the instance.
- * @param {Function} constructor A class (constructor function) that will be instantiated.
- * @returns {Object} registered provider instance
+ * @param {string} name Имя экземпляра.
+ * @param {Function} constructor Класс (конструктор) экземпляр которого создается.
+ * @returns {Object} зарегистрированный экземпляр провайдера
  */
 
 
@@ -351,11 +349,11 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * A short hand for configuring services if the `$get` method is a constant.
+ * Короткая запись для настройки сервисов, если метод `$get` является константой.
  *
- * @param {string} name The name of the instance.
- * @param {*} value The value.
- * @returns {Object} registered provider instance
+ * @param {string} name Имя экземпляра.
+ * @param {*} value Значение.
+ * @returns {Object} зарегистрированный экземпляр провайдера
  */
 
 
@@ -365,13 +363,12 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * A constant value, but unlike {@link AUTO.$provide#value value} it can be injected
- * into configuration function (other modules) and it is not interceptable by
- * {@link AUTO.$provide#decorator decorator}.
+ * Значение константы, но в отличии от {@link AUTO.$provide#value value} может быть использовано в 
+ * конфигурационной функции (других модулей) и оно не перехватывается {@link AUTO.$provide#decorator decorator}.
  *
- * @param {string} name The name of the constant.
- * @param {*} value The constant value.
- * @returns {Object} registered instance
+ * @param {string} name Имя константы.
+ * @param {*} value Значение константы.
+ * @returns {Object} зарегистрированный экземпляр
  */
 
 
@@ -381,17 +378,16 @@ function annotate(fn) {
  * @methodOf AUTO.$provide
  * @description
  *
- * Decoration of service, allows the decorator to intercept the service instance creation. The
- * returned instance may be the original instance, or a new instance which delegates to the
- * original instance.
+ * Декоратор для сервиса, позволяет перехватывать создание экземпляра сервиса. Возвращаемый экземпляр может 
+ * быть оригинальным экземпляром, эли новым экземпляром, который делегирует работу оригинальному экземпляру.
  *
- * @param {string} name The name of the service to decorate.
- * @param {function()} decorator This function will be invoked when the service needs to be
- *    instanciated. The function is called using the {@link AUTO.$injector#invoke
- *    injector.invoke} method and is therefore fully injectable. Local injection arguments:
+ * @param {string} name Имя сервиса декоратора.
+ * @param {function()} decorator Эта функция будет вызвана когда необходимо создать требуемый сервис.
+ *    Эта функция вычисляется с помощью метода @link AUTO.$injector#invoke injector.invoke} и соответственно
+ *    поддерживает все возможности внедрения зависимостей. Локально внедряемые аргументы:
  *
- *    * `$delegate` - The original service instance, which can be monkey patched, configured,
- *      decorated or delegated to.
+ *    * `$delegate` - Экземпляр оригинального сервиса, для которого нужно изменить api, настроить, применить 
+ *      паттерн декоратор, или просто вернуть его.
  */
 
 
