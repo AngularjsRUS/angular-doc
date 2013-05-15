@@ -1,0 +1,132 @@
+@ngdoc overview
+@name Cookbook: Сервисы, фабрики, провайдеры
+@description
+
+Различие между сервисом, фабрикой и провайдером
+
+##Сервисы
+
+Синтаксис: `module.service( 'serviceName', function );`
+
+Результат: При объявлении serviceName в качестве внедряемого аргумента вы получите **экземпляр функции. 
+Другими словами new ФункцияПередаваемаяВСервис()**.
+
+##Фабрики
+
+Синтаксис: `module.factory( 'factoryName', function );`
+
+Результат: При объявлении factoryName в качестве внедряемого аргумента вы получите **значение, возвращенное при 
+вызове функции, переданной в `module.factory`**.
+
+##Провайдеры
+
+Синтаксис: `module.provider( 'providerName', function );`
+
+Результат: При объявлении providerName в качестве внедряемого аргумента, вы получите 
+`new ProviderFunction().$get()`. Конструктор создает экземпляр до вызова метода `$get` - `ProviderFunction` 
+это ссылка на функцию, переданная в модуль `module.provider`.
+
+Преимущество провайдеров в том, что они могут быть настроены на этапе конфигурации модуля.
+
+См. код провайдера [http://jsbin.com/ohamub/1/edit]{здесь} и далее подробное разъяснение от Мишко 
+(один из создателей Angular):
+
+<pre>
+provide.value('a', 123);
+
+function Controller(a) {
+  expect(a).toEqual(123);
+}
+
+// В этом случае инжектор простой возвращает значение, как есть. Но что, если
+// необходимо вычислить значение. Далее с помощью фабрики
+
+provide.factory('b', function(a) {
+  return a*2;
+});
+
+function Controller(b) {
+  expect(a).toEqual(246);
+}
+
+// Так что фабрика это функция, которая отвечает за создание значения. Обратите внимание, что фабричная функция
+// можете запросить другие зависимости. Но что, если захотеть быть более объектно-ориентированным
+// и иметь класс с именем Greeter
+
+function Greeter(a) {
+  this.greet = function() {
+    return 'Hello ' + a;
+  }
+}
+
+// затем для создания экземпляров придется написать
+
+provide.factory('greeter', function(a) {
+  return new Greeter(a);
+});
+
+/ Тогда можно было бы запросить 'greeter' у контроллера так
+
+function Controller(greeter) {
+  expect(greeter instanceof Greeter).toBe(true);
+  expect(greeter.greet()).toEqual('Hello 123');
+}
+</pre>
+
+Но это слишком муторно, проще было написать `provider.service('greeter', Greeter);` 
+А если бы мы хотели настроить класс Greeter до инъекции, то могли бы написать
+
+<pre>
+provide.provider('greeter2', function() {
+  var salutation = 'Hello';
+  this.setSalutation = function(s) {
+    salutation = s;
+  }
+
+  function Greeter(a) {
+    this.greet = function() {
+      return salutation + ' ' + a;
+    }
+  }
+
+  this.$get = function(a) {
+    return new Greeter(a);
+  };
+});
+
+//мы можем сделать это
+
+angular.module('abc', []).configure(function(greeter2Provider) {
+  greeter2Provider.setSalutation('Halo');
+});
+
+function Controller(greeter2) {
+  expect(greeter.greet()).toEqual('Halo 123');
+}
+</pre>
+
+Но оказывается, что Angular понимает только `provide.provider`, всё остальное является производным.
+
+<pre>
+provider.service = function(name, Class) {
+  provider.provide(name, function() {
+    this.$get = function($injector) {
+      return $injector.instantiate(Class);
+    };
+  });
+}
+
+provider.factory = function(name, factory) {
+  provider.provide(name, function() {
+    this.$get = function($injector) {
+      return $injector.invoke(factory);
+    };
+  });
+}
+
+provider.value = function(name, value) {
+  provider.factory(name, function() {
+    return value;
+  });
+};
+</pre>
