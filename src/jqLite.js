@@ -10,40 +10,38 @@
  * @function
  *
  * @description
- * Wraps a raw DOM element or HTML string as a [jQuery](http://jquery.com) element.
- * `angular.element` can be either an alias for [jQuery](http://api.jquery.com/jQuery/) function, if
- * jQuery is available, or a function that wraps the element or string in Angular's jQuery lite
- * implementation (commonly referred to as jqLite).
+ * Оборачивает родной DOM элемент или HTML строку в элемент [jQuery](http://jquery.com). `angular.element` может 
+ * быть псевдонимом функции [jQuery](http://api.jquery.com/jQuery/), если jQuery подключена, или функцией, 
+ * которая оборачивает элемент или строку в облегченную реализацию jQuery (обычно именуемую как jqLite)
+ * 
+ * Реальный jQuery всегда имеет приоритет перед jqLite, при условии что он был загружен до возникновения 
+ * события `DOMContentLoaded`.
+ * 
+ * jqLite это маленький, API-совместимый с jQuery объект, который позволяет Angular манипулировать DOM. 
+ * jqLite поддерживает только наиболее употребительные функции из-за своего малого размера, так что 
+ * поддерживается только часть jQuery API - методы, аргументы и работа со стилями.
+ * 
+ * Примечание: Все элементы, на которые ссылаются в Angular всегда оборачиваются в jQuery или jqLite; 
+ * они никогда не ссылаются на родные DOM элементы.
  *
- * Real jQuery always takes precedence over jqLite, provided it was loaded before `DOMContentLoaded`
- * event fired.
- *
- * jqLite is a tiny, API-compatible subset of jQuery that allows
- * Angular to manipulate the DOM. jqLite implements only the most commonly needed functionality
- * within a very small footprint, so only a subset of the jQuery API - methods, arguments and
- * invocation styles - are supported.
- *
- * Note: All element references in Angular are always wrapped with jQuery or jqLite; they are never
- * raw DOM references.
- *
- * ## Angular's jQuery lite provides the following methods:
+ * ## jQuery lite в Angular предоставляет следующие методы:
  *
  * - [addClass()](http://api.jquery.com/addClass/)
  * - [after()](http://api.jquery.com/after/)
  * - [append()](http://api.jquery.com/append/)
  * - [attr()](http://api.jquery.com/attr/)
- * - [bind()](http://api.jquery.com/bind/) - Does not support namespaces
- * - [children()](http://api.jquery.com/children/) - Does not support selectors
+ * - [bind()](http://api.jquery.com/bind/) - Без поддержки пространства имен
+ * - [children()](http://api.jquery.com/children/) - Без поддержки селекторов
  * - [clone()](http://api.jquery.com/clone/)
  * - [contents()](http://api.jquery.com/contents/)
  * - [css()](http://api.jquery.com/css/)
  * - [data()](http://api.jquery.com/data/)
  * - [eq()](http://api.jquery.com/eq/)
- * - [find()](http://api.jquery.com/find/) - Limited to lookups by tag name
+ * - [find()](http://api.jquery.com/find/) - Ограничен поиском только по имени тега
  * - [hasClass()](http://api.jquery.com/hasClass/)
  * - [html()](http://api.jquery.com/html/)
- * - [next()](http://api.jquery.com/next/) - Does not support selectors
- * - [parent()](http://api.jquery.com/parent/) - Does not support selectors
+ * - [next()](http://api.jquery.com/next/) - Без поддержки селекторов
+ * - [parent()](http://api.jquery.com/parent/) - Без поддержки селекторов
  * - [prepend()](http://api.jquery.com/prepend/)
  * - [prop()](http://api.jquery.com/prop/)
  * - [ready()](http://api.jquery.com/ready/)
@@ -54,25 +52,23 @@
  * - [replaceWith()](http://api.jquery.com/replaceWith/)
  * - [text()](http://api.jquery.com/text/)
  * - [toggleClass()](http://api.jquery.com/toggleClass/)
- * - [triggerHandler()](http://api.jquery.com/triggerHandler/) - Doesn't pass native event objects to handlers.
- * - [unbind()](http://api.jquery.com/unbind/) - Does not support namespaces
+ * - [triggerHandler()](http://api.jquery.com/triggerHandler/) - Без передачи родных объектов событий обработчикам
+ * - [unbind()](http://api.jquery.com/unbind/) - Без поддержки пространства имен
  * - [val()](http://api.jquery.com/val/)
  * - [wrap()](http://api.jquery.com/wrap/)
  *
- * ## In addition to the above, Angular provides additional methods to both jQuery and jQuery lite:
+ * ## В дополнение к вышеуказанным, Angular предоставляет дополнительные методы для обоих jQuery и jQuery lite:
  *
- * - `controller(name)` - retrieves the controller of the current element or its parent. By default
- *   retrieves controller associated with the `ngController` directive. If `name` is provided as
- *   camelCase directive name, then the controller for this directive will be retrieved (e.g.
- *   `'ngModel'`).
- * - `injector()` - retrieves the injector of the current element or its parent.
- * - `scope()` - retrieves the {@link api/ng.$rootScope.Scope scope} of the current
- *   element or its parent.
- * - `inheritedData()` - same as `data()`, but walks up the DOM until a value is found or the top
- *   parent element is reached.
+ * - `controller(name)` - извлекает контроллер для текущего элемента или его родителя. По умолчанию 
+ *   извлекается контроллер, ассоциированный с директивой `ngController`. Если `name` передано в 
+ *   ВерблюжемРегистре как имя директивы, тогда будет извлечен контроллер для этой директивы (например,`'ngModel'`).
+ * - `injector()` - извлекает инжектор для текущего элемента или его родителя.
+ * - `scope()` - извлекает {@link api/ng.$rootScope.Scope область видимости} для текущего элемента или его родителя.
+ * - `inheritedData()` - то же, что и `data()`, но идет вверх по DOM пока не будет найдено требуемое значение 
+ *   или не будет достигнут корневой элемент.
  *
- * @param {string|DOMElement} element HTML string or DOMElement to be wrapped into jQuery.
- * @returns {Object} jQuery object.
+ * @param {string|DOMElement} HTML строка или DOM элемент, который должен быть обернут в jQuery.
+ * @returns {Object} jQuery объект.
  */
 
 var jqCache = JQLite.cache = {},
