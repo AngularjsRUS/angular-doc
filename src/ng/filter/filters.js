@@ -6,12 +6,12 @@
  * @function
  *
  * @description
- * Formats a number as a currency (ie $1,234.56). When no currency symbol is provided, default
- * symbol for current locale is used.
+ * Форматирует число в денежном формате ($1,234.56). Когда явно не указан символ валюты, применяется символ, 
+ * используемый в текущей локализации.
  *
- * @param {number} amount Input to filter.
- * @param {string=} symbol Currency symbol or identifier to be displayed.
- * @returns {string} Formatted number.
+ * @param {number} amount Входное число.
+ * @param {string=} symbol Символ или идентификатор валюты для отображения.
+ * @returns {string} Отформатированная строка в денежном представлении.
  *
  *
  * @example
