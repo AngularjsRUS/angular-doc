@@ -698,14 +698,15 @@ function sliceArgs(args, startIndex) {
  * @function
  *
  * @description
- * Returns a function which calls function `fn` bound to `self` (`self` becomes the `this` for
- * `fn`). You can supply optional `args` that are prebound to the function. This feature is also
- * known as [function currying](http://en.wikipedia.org/wiki/Currying).
+ * Возвращает функцию, которая вызывает функцию `fn` для `self` (`self` становится `this` для `fn`).
+ * Вы можете указать необязательные параметры `args`, которые будут переданы в `fn`.
+ * Этот приём также известен как 
+ * [функция каррирования](http://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%80%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5).
  *
- * @param {Object} self Context which `fn` should be evaluated in.
- * @param {function()} fn Function to be bound.
- * @param {...*} args Optional arguments to be prebound to the `fn` function call.
- * @returns {function()} Function that wraps the `fn` with all the specified bindings.
+ * @param {Object} self Контекст в котором должна быть выполнена функция `fn`.
+ * @param {function()} fn Функция привязки.
+ * @param {...*} args Необязательные параметры для функции `fn`.
+ * @returns {function()} Функция, которая оборачивает `fn` согласно указанным параметрам.
  */
 function bind(self, fn) {
   var curryArgs = arguments.length > 2 ? sliceArgs(arguments, 2) : [];
