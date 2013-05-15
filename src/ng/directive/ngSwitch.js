@@ -6,21 +6,21 @@
  * @restrict EA
  *
  * @description
- * The ngSwitch directive is used to conditionally swap DOM structure on your template based on a scope expression.
- * Elements within ngSwitch but without ngSwitchWhen or ngSwitchDefault directives will be preserved at the location
- * as specified in the template.
- *
- * The directive itself works similar to ngInclude, however, instead of downloading template code (or loading it
- * from the template cache), ngSwitch simply choses one of the nested elements and makes it visible based on which element
- * matches the value obtained from the evaluated expression. In other words, you define a container element
- * (where you place the directive), place an expression on the **on="..." attribute**
- * (or the **ng-switch="..." attribute**), define any inner elements inside of the directive and place
- * a when attribute per element. The when attribute is used to inform ngSwitch which element to display when the on
- * expression is evaluated. If a matching expression is not found via a when attribute then an element with the default
- * attribute is displayed.
- *
- * Additionally, you can also provide animations via the ngAnimate attribute to animate the **enter**
- * and **leave** effects.
+ * Директива ngSwitch используется чтобы заменить DOM структуру на ваш шаблон в зависимости от условного выражения
+ * в области видимости. Элементы внутри ngSwitch но без ngSwitchWhen или ngSwitchDefault директив будут сохранены
+ * в том же месте, как указано в шаблоне.
+ * 
+ * Сама директива работает аналогично ngInclude, однако, вместо загрузки кода шаблона (или загрузки шаблона 
+ * из кэша), ngSwitch просто выбирает один из вложенных элементов и делает его видимым, основываясь на том,
+ * какой элемент соответствует значению, полученному в результате вычисления выражения . Другими словами, 
+ * вы определяете элемент контейнера (куда помещена эта директива), помещаете выражение в атрибут **on="..."**
+ * (или в атрибут **ng-switch="..."**), определяете любой внутренний элемент внутри директивы и помесщаете
+ * когда атрибут каждого элемента. Когда атрибут используется для указания ngSwitch какой элемент отображается, 
+ * когда выражение вычислено. Если соответствующее выражение не найдено через когда атрибут то отображается 
+ * элемент с атрибутом по умолчанию.
+  *
+  * Кроме того, также можно показать анимацию с помощью атрибута ngAnimate для эффектов анимации **enter**
+ * и **leave**.
  *
  * @animations
  * enter - happens after the ngSwtich contents change and the matched child element is placed inside the container
@@ -34,17 +34,14 @@
  * </ANY>
  *
  * @scope
- * @param {*} ngSwitch|on expression to match against <tt>ng-switch-when</tt>.
+ * @param {*} ngSwitch|on выражение, результат которого сравнивается с содержимым <tt>ng-switch-when</tt>.
  * @paramDescription
- * On child elements add:
+ * Дочерним элементам добавляется:
  *
- * * `ngSwitchWhen`: the case statement to match against. If match then this
- *   case will be displayed. If the same match appears multiple times, all the
- *   elements will be displayed.
- * * `ngSwitchDefault`: the default case when no other case match. If there
- *   are multiple default cases, all of them will be displayed when no other
- *   case match.
- *
+ * * `ngSwitchWhen`: случай заявлении для сравнения. Если совпадают, то это дело будет отображаться. 
+ *   Если же сравнение совпадает несколько раз, все элементы будут отображаться.
+ * * `ngSwitchDefault`: вариант по умолчанию, когда ничего не совпало. Если имеется несколько случаев по умолчанию,
+ *   все они будут отображаться, когда ничего не совпало.
  *
  * @example
   <example animations="true">
