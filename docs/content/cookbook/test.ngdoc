@@ -11,10 +11,22 @@ Test description
       <input type="button" ng-click="alert()" value="Alert!"/>
       {{text}}
     </div>
+    <div ng-controller="TestController2">
+      <input type="text" data-ng-model="text"/>
+      <input type="button" ng-click="alert()" value="Alert!"/>
+      {{text}}
+    </div>
   </file>
-  <file name="foo.js">
+  <file name="app.js">
     var testApp = angular.module("testApp", []);
-    testApp.controller('TestController', function ($scope) {
+  </file>
+  <file name="controllers.js">
+    function TestController($scope) {
+        $scope.text = 'Test';
+        $scope.alert = function () {alert('Hello ' + $scope.text);}
+    };
+    
+    testApp.controller('TestController2', function ($scope) {
         $scope.text = 'Test';
         $scope.alert = function () {alert('Hello ' + $scope.text);}
     });
