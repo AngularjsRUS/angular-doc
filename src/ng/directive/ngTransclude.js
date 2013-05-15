@@ -5,7 +5,7 @@
  * @name ng.directive:ngTransclude
  *
  * @description
- * Insert the transcluded DOM here.
+ * Вставляет содержимое элемента DOM в месте применения директивы.
  *
  * @element ANY
  *
