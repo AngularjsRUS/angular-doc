@@ -1081,8 +1081,8 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  * директивах `input`, `select`, `textarea`. Можно легко писать собственные директивы, используя в них `ngModel`.
  * 
  * `ngModel` отвечает за:
- * - связывание вида с моделью при использовании с другими директивами, такими как `input`, `textarea` или `select`, 
- * реализует поведение для проверки ввода (например, required, number, email, url),
+ * 
+ * - связывание вида с моделью при использовании с другими директивами, такими как `input`, `textarea` или `select`,
  * - реализует поведение для проверки ввода (например, required, number, email, url),
  * - определяет состояние элементов управления (valid/invalid, dirty/pristine, validation errors),
  * - устанавливает требуемый css-класс для элемента (ng-valid, ng-invalid, ng-dirty, ng-pristine),
