@@ -24,8 +24,8 @@
        </script>
        <div ng-controller="Ctrl">
          <input type="number" ng-model="amount"> <br>
-         default currency symbol ($): {{amount | currency}}<br>
-         custom currency identifier (USD$): {{amount | currency:"USD$"}}
+         символ валюты по умолчанию ($): {{amount | currency}}<br>
+         стандартный идентификатор валюты (USD$): {{amount | currency:"USD$"}}
        </div>
      </doc:source>
      <doc:scenario>
@@ -63,7 +63,7 @@ function currencyFilter($locale) {
  *
  * @param {number|string} number Число для преобразования.
  * @param {(number|string)=} [fractionSize=2] Количество знаков после запятой до которого произойдет округление.
- * @returns {string} Число округленное дозаданного десятичного разряда с символом "," после каждой третьей цифры.
+ * @returns {string} Число округленное дозаданного десятичного разряда с символом «,» после каждой третьей цифры.
  *
  * @example
    <doc:example>
@@ -260,58 +260,56 @@ var DATE_FORMATS_SPLIT = /((?:[^yMdHhmsaZE']+)|(?:'(?:[^']|'')*')|(?:E+|y+|M+|d+
  * @function
  *
  * @description
- *   Formats `date` to a string based on the requested `format`.
+ *   Преобразует дату `date` в строку заданного формата `format`.
  *
- *   `format` string can be composed of the following elements:
+ *   Строка `format` может содержать следующие элементы:
  *
- *   * `'yyyy'`: 4 digit representation of year (e.g. AD 1 => 0001, AD 2010 => 2010)
- *   * `'yy'`: 2 digit representation of year, padded (00-99). (e.g. AD 2001 => 01, AD 2010 => 10)
- *   * `'y'`: 1 digit representation of year, e.g. (AD 1 => 1, AD 199 => 199)
- *   * `'MMMM'`: Month in year (January-December)
- *   * `'MMM'`: Month in year (Jan-Dec)
- *   * `'MM'`: Month in year, padded (01-12)
- *   * `'M'`: Month in year (1-12)
- *   * `'dd'`: Day in month, padded (01-31)
- *   * `'d'`: Day in month (1-31)
- *   * `'EEEE'`: Day in Week,(Sunday-Saturday)
- *   * `'EEE'`: Day in Week, (Sun-Sat)
- *   * `'HH'`: Hour in day, padded (00-23)
- *   * `'H'`: Hour in day (0-23)
- *   * `'hh'`: Hour in am/pm, padded (01-12)
- *   * `'h'`: Hour in am/pm, (1-12)
- *   * `'mm'`: Minute in hour, padded (00-59)
- *   * `'m'`: Minute in hour (0-59)
- *   * `'ss'`: Second in minute, padded (00-59)
- *   * `'s'`: Second in minute (0-59)
- *   * `'.sss' or ',sss'`: Millisecond in second, padded (000-999)
- *   * `'a'`: am/pm marker
- *   * `'Z'`: 4 digit (+sign) representation of the timezone offset (-1200-+1200)
+ *   * `'yyyy'`: 4 цифры года (напр., AD 1 => 0001, AD 2010 => 2010), где AD обозначает н.э.
+ *   * `'yy'`: 2 последние цифры года (00-99). (напр., AD 2001 => 01, AD 2010 => 10)
+ *   * `'y'`: Число для вывода года как есть, напр., (AD 1 => 1, AD 199 => 199)
+ *   * `'MMMM'`: Месяц в году (January-December)
+ *   * `'MMM'`: Месяц в году (Jan-Dec)
+ *   * `'MM'`: Месяц в году, padded (01-12)
+ *   * `'M'`: Месяц в году (1-12)
+ *   * `'dd'`: Число месяца (01-31)
+ *   * `'d'`: Число месяца (1-31)
+ *   * `'EEEE'`: День недели,(Sunday-Saturday)
+ *   * `'EEE'`: День недели, (Sun-Sat)
+ *   * `'HH'`: Час (00-23)
+ *   * `'H'`: Час (0-23)
+ *   * `'hh'`: Час дня/ночи (01-12)
+ *   * `'h'`: Час дня/ночи, (1-12)
+ *   * `'mm'`: Минуты (00-59)
+ *   * `'m'`: Минуты (0-59)
+ *   * `'ss'`: Секунды (00-59)
+ *   * `'s'`: Секунды (0-59)
+ *   * `'.sss' или ',sss'`: Милисекунды (000-999)
+ *   * `'a'`: Указатель дня/ночи(am/pm) для 12-часового формата
+ *   * `'Z'`: 4 цифры (плюс знак), представляющие сдвиг временной зоны (часовой пояс) (-1200-+1200)
  *
- *   `format` string can also be one of the following predefined
- *   {@link guide/i18n localizable formats}:
+ *   Строка `format` может также иметь одно из следующих предопределенных значений
+ *   {@link guide/i18n локализованных форматов}:
  *
- *   * `'medium'`: equivalent to `'MMM d, y h:mm:ss a'` for en_US locale
- *     (e.g. Sep 3, 2010 12:05:08 pm)
- *   * `'short'`: equivalent to `'M/d/yy h:mm a'` for en_US  locale (e.g. 9/3/10 12:05 pm)
- *   * `'fullDate'`: equivalent to `'EEEE, MMMM d,y'` for en_US  locale
- *     (e.g. Friday, September 3, 2010)
- *   * `'longDate'`: equivalent to `'MMMM d, y'` for en_US  locale (e.g. September 3, 2010
- *   * `'mediumDate'`: equivalent to `'MMM d, y'` for en_US  locale (e.g. Sep 3, 2010)
- *   * `'shortDate'`: equivalent to `'M/d/yy'` for en_US locale (e.g. 9/3/10)
- *   * `'mediumTime'`: equivalent to `'h:mm:ss a'` for en_US locale (e.g. 12:05:08 pm)
- *   * `'shortTime'`: equivalent to `'h:mm a'` for en_US locale (e.g. 12:05 pm)
+ *   * `'medium'`: эквивалент 'MMM d, y h:mm:ss a' для локализации en_US (напр., Sep 3, 2010 12:05:08 pm)
+ *   * `'short'`: эквивалент 'M/d/yy h:mm a' для локализации en_US (напр., 9/3/10 12:05 pm)
+ *   * `'fullDate'`: эквивалент 'EEEE, MMMM d,y' для локализации en_US (напр., Friday, September 3, 2010)
+ *   * `'longDate'`: эквивалент 'MMMM d, y' для локализации en_US (напр., September 3, 2010)
+ *   * `'mediumDate'`: эквивалент 'MMM d, y' для локализации en_US (напр., Sep 3, 2010)
+ *   * `'shortDate'`: эквивалент 'M/d/yy' для локализации en_US (напр., 9/3/10)
+ *   * `'mediumTime'`: эквивалент 'h:mm:ss a' для локализации en_US (напр., 12:05:08 pm)
+ *   * `'shortTime'`: эквивалент 'h:mm a' для локализации en_US (напр., 12:05 pm)
  *
- *   `format` string can contain literal values. These need to be quoted with single quotes (e.g.
- *   `"h 'in the morning'"`). In order to output single quote, use two single quotes in a sequence
- *   (e.g. `"h o''clock"`).
+ *   Строка `format` может содержать литеральные значения. Их нужно помещать в одинарные кавычки (напр.,
+ *   "h 'in the morning'"). В случае если одинарные кавычки должны присутствовать в выходной строке, используйте 
+ *   двойные одинарные кавычки (напр., "h o''clock").
  *
- * @param {(Date|number|string)} date Date to format either as Date object, milliseconds (string or
- *    number) or various ISO 8601 datetime string formats (e.g. yyyy-MM-ddTHH:mm:ss.SSSZ and it's
- *    shorter versions like yyyy-MM-ddTHH:mmZ, yyyy-MM-dd or yyyyMMddTHHmmssZ). If no timezone is
- *    specified in the string input, the time is considered to be in the local timezone.
- * @param {string=} format Formatting rules (see Description). If not specified,
- *    `mediumDate` is used.
- * @returns {string} Formatted string or the input if input is not recognized as date/millis.
+ * @param {(Date|number|string)} date Дата в одном из следующих форматов: объект Date, миллисекунды 
+ *    (строка или число) или строковой формат даты и времени по спецификации ISO 8601 
+ *    (напр., yyyy-MM-ddTHH:mm:ss.SSSZ и его короткая версия yyyy-MM-ddTHH:mmZ, yyyy-MM-dd или yyyyMMddTHHmmssZ). 
+ *    Если указана временная зона (часовой пояс) во входной строке, то время будет преобразовано во время 
+ *    в локальной временной зоне.
+ * @param {string=} Форматирующая строка (смотрите описание). Если не указан, будет использоваться `mediumDate`.
+ * @returns {string} Отформатированная строка или ввод, если он не является допустимым объектом для форматирования.
  *
  * @example
    <doc:example>
@@ -413,13 +411,13 @@ function dateFilter($locale) {
  * @function
  *
  * @description
- *   Allows you to convert a JavaScript object into JSON string.
+ *   Позволяет конвертировать JavaScript объекты в строки JSON.
+ * 
+ *   Этот фильтр обычно используется для отладки. Когда используется запись с двумя фигурными скобками для 
+ *   привязки происходит автоматическая конвертация в JSON.
  *
- *   This filter is mostly useful for debugging. When using the double curly {{value}} notation
- *   the binding is automatically converted to JSON.
- *
- * @param {*} object Any JavaScript object (including arrays and primitive types) to filter.
- * @returns {string} JSON string.
+ * @param {*} object Любой объект JavaScript (включая массивы и примитивные типы) для фильтрации.
+ * @returns {string} строка JSON.
  *
  *
  * @example:
@@ -447,7 +445,7 @@ function jsonFilter() {
  * @name ng.filter:lowercase
  * @function
  * @description
- * Converts string to lowercase.
+ * Преобразует строку в нижний регистр
  * @see angular.lowercase
  */
 var lowercaseFilter = valueFn(lowercase);
@@ -458,7 +456,7 @@ var lowercaseFilter = valueFn(lowercase);
  * @name ng.filter:uppercase
  * @function
  * @description
- * Converts string to uppercase.
+ * Преобразует строку в верхний регистр
  * @see angular.uppercase
  */
 var uppercaseFilter = valueFn(uppercase);
