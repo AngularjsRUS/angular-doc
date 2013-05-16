@@ -6,47 +6,45 @@
  * @function
  *
  * @description
- * Selects a subset of items from `array` and returns it as a new array.
+ * Выбор из массива некоторых элементов и возврат их в новом массиве.
+ * 
+ * Обратите внимание: Эта функция используется только для типа Array в выражениях Angular. Смотрите 
+ * {@link ng.$filter} для большей информацией об Angular массивах.
  *
- * Note: This function is used to augment the `Array` type in Angular expressions. See
- * {@link ng.$filter} for more information about Angular arrays.
+ * @param {Array} array Входной массив.
+ * @param {string|Object|function()} expression Основание для использования при выборе элементов из входного массива.
  *
- * @param {Array} array The source array.
- * @param {string|Object|function()} expression The predicate to be used for selecting items from
- *   `array`.
+ *   Может быть одним из:
  *
- *   Can be one of:
+ *   - `string`: Если основание является подстрокой элемента входного массива, то этот элемент включается 
+ *     в результатирующий массив. Все строки или объекты со строковыми свойствами во входном массиве, 
+ *     которые содержат подстроку основания будут возвращены. Основание может быть с отрицанием, для этого 
+ *     нужно применить префикс `!`.
  *
- *   - `string`: Predicate that results in a substring match using the value of `expression`
- *     string. All strings or objects with string properties in `array` that contain this string
- *     will be returned. The predicate can be negated by prefixing the string with `!`.
+ *   - `Object`: Объект-паттерн, который используется для фильтрации специфических свойств в объектах 
+ *     содержащихся в массиве. Например, основание `{name:"M", phone:"1"}` вернет массив с элементами, 
+ *     у которых имеется свойство name содержащее "M" и имеется свойство phone содержащее "1". Если 
+ *     в качестве имени использовать `$` (как в `{$:"text"}`) то в результате будут искаться все объекты 
+ *     у которых любое свойство содержит требуемое значение. Это эквивалент простому текстовому основанию, 
+ *     расмотренному чуть раньше.
  *
- *   - `Object`: A pattern object can be used to filter specific properties on objects contained
- *     by `array`. For example `{name:"M", phone:"1"}` predicate will return an array of items
- *     which have property `name` containing "M" and property `phone` containing "1". A special
- *     property name `$` can be used (as in `{$:"text"}`) to accept a match against any
- *     property of the object. That's equivalent to the simple substring match with a `string`
- *     as described above.
+ *   - `function`: функция основания может быть использована для реализации собственной логики фильтрации.
+ *     Эта функция вызывается для каждого элемента входного массива. В результате в выходном массиве будут 
+ *     только элементы, для которых эта функция вернет true.
  *
- *   - `function`: A predicate function can be used to write arbitrary filters. The function is
- *     called for each element of `array`. The final result is an array of those elements that
- *     the predicate returned true for.
+ * @param {function(expected, actual)|true|undefined} comparator Компаратор, который используется чтобы 
+ *     определить что ожидаемое значение (из фильтра) и фактическое значение (из объекта в массиве) равны.
  *
- * @param {function(expected, actual)|true|undefined} comparator Comparator which is used in
- *     determining if the expected value (from the filter expression) and actual value (from
- *     the object in the array) should be considered a match.
- *
- *   Can be one of:
+ *   Может быть одним из:
  *
  *     - `function(expected, actual)`:
- *       The function will be given the object value and the predicate value to compare and
- *       should return true if the item should be included in filtered result.
+ *       Функция, которая передаст значение объекту и значение основания для сравнения и должна вернуть true, 
+ *       если этот элемент должен быть включен в результат фильтрации.
  *
- *     - `true`: A shorthand for `function(expected, actual) { return angular.equals(expected, actual)}`.
- *       this is essentially strict comparison of expected and actual.
+ *     - `true`: Короткая запись для `function(expected, actual) { return angular.equals(expected, actual)}`.
+ *       которая означает строгое сравнение ожидаемого с имеющимся.
  *
- *     - `false|undefined`: A short hand for a function which will look for a substring match in case
- *       insensitive way.
+ *     - `false|undefined`: Короткая запись функции, которая ищет подстроку без учета регистра.
  *
  * @example
    <doc:example>
