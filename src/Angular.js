@@ -7,9 +7,9 @@
  * @name angular.lowercase
  * @function
  *
- * @description Converts the specified string to lowercase.
- * @param {string} string String to be converted to lowercase.
- * @returns {string} Lowercased string.
+ * @description Преобразует строку в нижний регистр.
+ * @param {string} string Строка для преобразования в нижний регистр.
+ * @returns {string} Строка в нижнем регистре.
  */
 var lowercase = function(string){return isString(string) ? string.toLowerCase() : string;};
 
@@ -19,9 +19,9 @@ var lowercase = function(string){return isString(string) ? string.toLowerCase() 
  * @name angular.uppercase
  * @function
  *
- * @description Converts the specified string to uppercase.
- * @param {string} string String to be converted to uppercase.
- * @returns {string} Uppercased string.
+ * @description Преобразует строку в верхний регистр.
+ * @param {string} string Строка для преобразования в верхний регистр.
+ * @returns {string} Строка в верхнем регистре.
  */
 var uppercase = function(string){return isString(string) ? string.toUpperCase() : string;};
 
@@ -69,11 +69,12 @@ var /** holds major version number for IE or NaN for real browsers */
  * @function
  *
  * @description
- * Restores the previous global value of angular and returns the current instance. Other libraries may already use the
- * angular namespace. Or a previous version of angular is already loaded on the page. In these cases you may want to
- * restore the previous namespace and keep a reference to angular.
+ * Восстанавливает предыдущеее глобальное значение Angular и возвращает для текущего экземпляра. 
+ * Другие библиотеки, возможно, уже используют пространство имен Angular. Или предыдущяя версия Angular уже 
+ * загружена на странице. В этих случаях можно восстановить предыдущее пространство имен и сохранить ссылку на
+ * Angular.
  *
- * @return {Object} The current angular namespace
+ * @return {Object} Текущее пространство и мен Angular
  */
 function noConflict() {
   var a = window.angular;
@@ -87,12 +88,12 @@ function noConflict() {
  * @function
  *
  * @description
- * Invokes the `iterator` function once for each item in `obj` collection, which can be either an
- * object or an array. The `iterator` function is invoked with `iterator(value, key)`, where `value`
- * is the value of an object property or an array element and `key` is the object property key or
- * array element index. Specifying a `context` for the function is optional.
+ * Вызывает функцию `iterator` для каждого элемента коллекции `obj`, которая может быть объектом или массивом. 
+ * Функция `iterator` вызывается как `iterator(value, key)`, где `value` это значение текущего свойства объекта 
+ * или элемент массива, и `key` это имя свойства в объекте или индекс элемента в массиве. Контекст `context` для
+ * функции передавать не обязательно.
  *
- * Note: this function was previously known as `angular.foreach`.
+ * Примечание: Эта функция раньше называлась `angular.foreach`.
  *
    <pre>
      var values = {name: 'misko', gender: 'male'};
@@ -103,10 +104,11 @@ function noConflict() {
      expect(log).toEqual(['name: misko', 'gender:male']);
    </pre>
  *
- * @param {Object|Array} obj Object to iterate over.
- * @param {Function} iterator Iterator function.
- * @param {Object=} context Object to become context (`this`) for the iterator function.
- * @returns {Object|Array} Reference to `obj`.
+ * @param {Object|Array} obj Объект для перебора.
+ * @param {Function} iterator Функция перебора.
+ * @param {Object=} context Объект, в контексте которого будет выполнена функция-итератор 
+ *    (будет доступен через `this`)
+ * @returns {Object|Array} Ссылка на `obj`.
  */
 
 
@@ -221,11 +223,11 @@ function nextUid() {
  * @function
  *
  * @description
- * Extends the destination object `dst` by copying all of the properties from the `src` object(s)
- * to `dst`. You can specify multiple `src` objects.
+ * Расширяет целевой объект `dst` путем копирования всех свойств из объекта или объектов `src` в объект `dst`.
+ * Вы можете указать несколько объектов `src`.
  *
- * @param {Object} dst Destination object.
- * @param {...Object} src Source object(s).
+ * @param {Object} dst Объект приемник.
+ * @param {...Object} src Объект(ы) источники.
  */
 function extend(dst) {
   forEach(arguments, function(obj){
@@ -259,8 +261,8 @@ function stripWhitespace(str) {
  * @function
  *
  * @description
- * A function that performs no operations. This function can be useful when writing code in the
- * functional style.
+ * Эта функция выполняет операцию отрицания (не). Эта функция может быть использована при написании 
+ * кода в функциональном стиле.
    <pre>
      function foo(callback) {
        var result = calculateResult();
@@ -278,8 +280,7 @@ noop.$inject = [];
  * @function
  *
  * @description
- * A function that returns its first argument. This function is useful when writing code in the
- * functional style.
+ * Эта функция возвращает первый аргумент. Эта функция обычно используется при написании кода в функциональном стиле.
  *
    <pre>
      function transformer(transformationFn, value) {
@@ -299,10 +300,10 @@ function valueFn(value) {return function() {return value;};}
  * @function
  *
  * @description
- * Determines if a reference is undefined.
+ * Определяет, является ли значение не определенным.
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is undefined.
+ * @param {*} value Значение для проверки.
+ * @returns {boolean} True, если `value` не определено.
  */
 function isUndefined(value){return typeof value == 'undefined';}
 
@@ -313,10 +314,10 @@ function isUndefined(value){return typeof value == 'undefined';}
  * @function
  *
  * @description
- * Determines if a reference is defined.
+ * Определяет, является ли значение определенным.
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is defined.
+ * @param {*} value Значение для проверки.
+ * @returns {boolean} True, если `value` определено.
  */
 function isDefined(value){return typeof value != 'undefined';}
 
@@ -327,11 +328,10 @@ function isDefined(value){return typeof value != 'undefined';}
  * @function
  *
  * @description
- * Determines if a reference is an `Object`. Unlike `typeof` in JavaScript, `null`s are not
- * considered to be objects.
+ * Определяет, является ли значение объектом. В отличии от `typeof` в JavaScript, `null` не считается объектом.
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is an `Object` but not `null`.
+ * @param {*} value Значение для проверки.
+ * @returns {boolean} True, если `value` является объектом, но не `null`.
  */
 function isObject(value){return value != null && typeof value == 'object';}
 
@@ -342,10 +342,10 @@ function isObject(value){return value != null && typeof value == 'object';}
  * @function
  *
  * @description
- * Determines if a reference is a `String`.
+ * Определяет, является ли значение строкой.
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is a `String`.
+ * @param {*} value Значение для проверки.
+ * @returns {boolean} True, если `value` является строкой.
  */
 function isString(value){return typeof value == 'string';}
 
@@ -356,10 +356,10 @@ function isString(value){return typeof value == 'string';}
  * @function
  *
  * @description
- * Determines if a reference is a `Number`.
+ * Определяет, является ли значение числом.
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is a `Number`.
+ * @param {*} value Ссылка для проверки.
+ * @returns {boolean} True, если `value` является числом.
  */
 function isNumber(value){return typeof value == 'number';}
 
@@ -370,10 +370,10 @@ function isNumber(value){return typeof value == 'number';}
  * @function
  *
  * @description
- * Determines if a value is a date.
+ * Определяет, является ли значение датой.
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is a `Date`.
+ * @param {*} value Значение для проверки.
+ * @returns {boolean} True, если `value` является датой.
  */
 function isDate(value){
   return toString.apply(value) == '[object Date]';
@@ -386,10 +386,10 @@ function isDate(value){
  * @function
  *
  * @description
- * Determines if a reference is an `Array`.
+ * Определяет, является ли значение массивом.
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is an `Array`.
+ * @param {*} value Значение для проверки.
+ * @returns {boolean} True, если `value` является массивом.
  */
 function isArray(value) {
   return toString.apply(value) == '[object Array]';
@@ -402,10 +402,10 @@ function isArray(value) {
  * @function
  *
  * @description
- * Determines if a reference is a `Function`.
+ * Определяет, является ли значение функцией.
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is a `Function`.
+ * @param {*} value Значение для проверки.
+ * @returns {boolean} True, если `value` является функцией.
  */
 function isFunction(value){return typeof value == 'function';}
 
@@ -447,10 +447,10 @@ function trim(value) {
  * @function
  *
  * @description
- * Determines if a reference is a DOM element (or wrapped jQuery element).
+ * Определяет, указывает ли ссылка на DOM элемент (или на обернутый jQuery элемент).
  *
- * @param {*} value Reference to check.
- * @returns {boolean} True if `value` is a DOM element (or wrapped jQuery element).
+ * @param {*} value Значение для проверки.
+ * @returns {boolean} True, если `value` является элементом DOM (или оберткой jQuery для элемента).
  */
 function isElement(node) {
   return node &&
@@ -557,21 +557,21 @@ function isLeafNode (node) {
  * @function
  *
  * @description
- * Creates a deep copy of `source`, which should be an object or an array.
+ * Создает глубокую копию аргумента `source`, который может быть объектом или массивом.
  *
- * * If no destination is supplied, a copy of the object or array is created.
- * * If a destination is provided, all of its elements (for array) or properties (for objects)
- *   are deleted and then all elements/properties from the source are copied to it.
- * * If  `source` is not an object or array, `source` is returned.
+ * * Если не предоставлен объект назначения `destination`, будет создана копия объекта или массива.
+ * * Если объект назначения предоставлен, все его элементы (для массива) или свойства (для объекта) будут 
+ *   удалены, а затем в него будут скопированы все элементы / свойства из источника `source`.
+ * * Если `source` не является массивом или объектам, он просто будет возвращен.
  *
- * Note: this function is used to augment the Object type in Angular expressions. See
- * {@link ng.$filter} for more information about Angular arrays.
+ * Примечание: эта функция используется во многих типах объектов в выражениях Angular.
+ * См. {@link ng.$filter} для большей информации о массивах Angular.
  *
- * @param {*} source The source that will be used to make a copy.
- *                   Can be any type, including primitives, `null`, and `undefined`.
- * @param {(Object|Array)=} destination Destination into which the source is copied. If
- *     provided, must be of the same type as `source`.
- * @returns {*} The copy or updated `destination`, if `destination` was specified.
+ * @param {*} source Источник, который будет использован для создания копии. Может быть любого типа, 
+ *                   включая примитивные `null` и `undefined`.
+ * @param {(Object|Array)=} destination Приемник, в который будет копироваться `source`. Если указан, 
+ *     должен иметь тот же тип, что и `source`.
+ * @returns {*} Копия или обновленный `destination`, если `destination` указан.
  */
 function copy(source, destination){
   if (isWindow(source) || isScope(source)) throw Error("Can't copy Window or Scope");
@@ -627,23 +627,21 @@ function shallowCopy(src, dst) {
  * @function
  *
  * @description
- * Determines if two objects or two values are equivalent. Supports value types, arrays and
- * objects.
+ * Определяет, эквивалентны ли два объекта или два значения. Поддерживаются значимые типы, объекты и массивы.
+ * 
+ * Два объекта или значения считаются эквивалентными, если является истинным каждое из следующих утверждений:
+ * 
+ * * Оба объекта или значения имеют одинаковый тип и значение (`===`).
+ * * Оба объекта или значения имеют одинаковые свойства с одинаковым типом и с одинаковыми значениями (`===` для свойств).
+ * * Оба значение NaN. (В JavasScript, NaN == NaN => false. Но мы сделали что два NaN эквивалентны)
  *
- * Two objects or values are considered equivalent if at least one of the following is true:
+ * Во время сравнения свойств, свойства с типом `function` и свойства, имена которых начинаются на `$` - игнорируются.
  *
- * * Both objects or values pass `===` comparison.
- * * Both objects or values are of the same type and all of their properties pass `===` comparison.
- * * Both values are NaN. (In JavasScript, NaN == NaN => false. But we consider two NaN as equal)
+ * Области видимости и объект DOM Window будут сравниваться только по идентификаторам (`===`).
  *
- * During a property comparison, properties of `function` type and properties with names
- * that begin with `$` are ignored.
- *
- * Scope and DOMWindow objects are being compared only by identify (`===`).
- *
- * @param {*} o1 Object or value to compare.
- * @param {*} o2 Object or value to compare.
- * @returns {boolean} True if arguments are equal.
+ * @param {*} o1 Объект или значение для сравнения.
+ * @param {*} o2 Объект или значение для сравнения.
+ * @returns {boolean} True, если аргументы эквивалентны.
  */
 function equals(o1, o2) {
   if (o1 === o2) return true;
@@ -752,11 +750,11 @@ function toJsonReplacer(key, value) {
  * @function
  *
  * @description
- * Serializes input into a JSON-formatted string.
+ * Сериализация входного аргумента в строковой формат JSON.
  *
- * @param {Object|Array|Date|string|number} obj Input to be serialized into JSON.
- * @param {boolean=} pretty If set to true, the JSON output will contain newlines and whitespace.
- * @returns {string} Jsonified string representing `obj`.
+ * @param {Object|Array|Date|string|number} obj Вход для сериализации в JSON.
+ * @param {boolean=} Если установлено в true, тогда выходной JSON будет содержать символы новой строки и пробелы.
+ * @returns {string} Строка JSON, представляющая `obj`.
  */
 function toJson(obj, pretty) {
   return JSON.stringify(obj, toJsonReplacer, pretty ? '  ' : null);
@@ -769,10 +767,10 @@ function toJson(obj, pretty) {
  * @function
  *
  * @description
- * Deserializes a JSON string.
+ * Десериализует строку JSON.
  *
- * @param {string} json JSON string to deserialize.
- * @returns {Object|Array|Date|string|number} Deserialized thingy.
+ * @param {string} json JSON строка для десериализации.
+ * @returns {Object|Array|Date|string|number} Десериализованное значение.
  */
 function fromJson(json) {
   return isString(json)
