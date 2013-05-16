@@ -7,7 +7,7 @@
  *
  * @description
  *
- * Used for configuring the interpolation markup. Defaults to `{{` and `}}`.
+ * Используется для настройки преобразования разметки. По умолчанию `{{` и `}}`.
  */
 function $InterpolateProvider() {
   var startSymbol = '{{';
@@ -18,10 +18,10 @@ function $InterpolateProvider() {
    * @name ng.$interpolateProvider#startSymbol
    * @methodOf ng.$interpolateProvider
    * @description
-   * Symbol to denote start of expression in the interpolated string. Defaults to `{{`.
+   * Символ, указывающий на начало интерполируемой строки. По умолчанию `{{`.
    *
-   * @param {string=} value new value to set the starting symbol to.
-   * @returns {string|self} Returns the symbol when used as getter and self if used as setter.
+   * @param {string=} value Новое значение символа начала.
+   * @returns {string|self} Возвращает символ, если используется как геттер и самого себя, если — как сеттер.
    */
   this.startSymbol = function(value){
     if (value) {
@@ -37,10 +37,10 @@ function $InterpolateProvider() {
    * @name ng.$interpolateProvider#endSymbol
    * @methodOf ng.$interpolateProvider
    * @description
-   * Symbol to denote the end of expression in the interpolated string. Defaults to `}}`.
+   * Символ, указывающий на конец интерполируемой строки. По умолчанию `}}`.
    *
-   * @param {string=} value new value to set the ending symbol to.
-   * @returns {string|self} Returns the symbol when used as getter and self if used as setter.
+   * @param {string=} value Новое значение символа конца.
+   * @returns {string|self} Возвращает символ, если используется как геттер и самого себя, если — как сеттер.
    */
   this.endSymbol = function(value){
     if (value) {
@@ -65,28 +65,26 @@ function $InterpolateProvider() {
      *
      * @description
      *
-     * Compiles a string with markup into an interpolation function. This service is used by the
-     * HTML {@link ng.$compile $compile} service for data binding. See
-     * {@link ng.$interpolateProvider $interpolateProvider} for configuring the
-     * interpolation markup.
+     * Компилирует строку с разметкой в функцию интерполяции. Это сервис используется сервисом компиляции HTML 
+     * {@link ng.$compile $compile} для связывания данных. См. {@link ng.$interpolateProvider $interpolateProvider} 
+     * для настройки разметки интерполяции.
      *
      *
        <pre>
-         var $interpolate = ...; // injected
+         var $interpolate = ...; // внедрен
          var exp = $interpolate('Hello {{name}}!');
          expect(exp({name:'Angular'}).toEqual('Hello Angular!');
        </pre>
      *
      *
-     * @param {string} text The text with markup to interpolate.
-     * @param {boolean=} mustHaveExpression if set to true then the interpolation string must have
-     *    embedded expression in order to return an interpolation function. Strings with no
-     *    embedded expression will return null for the interpolation function.
-     * @returns {function(context)} an interpolation function which is used to compute the interpolated
-     *    string. The function has these parameters:
+     * @param {string} text Текст с разметкой для интерполяции.
+     * @param {boolean=} mustHaveExpression Если установлено в true, тогда строка интерполяции должна иметь 
+     *    встроенные выражения, чтобы вернуть функцию интерполяции. Строка, в которой нет 
+     *    встроенных выражений, вместо функции интерполяции будет возвращать null.
+     * @returns {function(context)} функция интерполяции, которая используется для компиляции 
+     *    интерполируемой строки. Она имеет следующие параметры:
      *
-     *    * `context`: an object against which any expressions embedded in the strings are evaluated
-     *      against.
+     *    * `context`: объект, который принимает участие в вычислении любых встроенных выражений.
      *
      */
     function $interpolate(text, mustHaveExpression) {
@@ -155,12 +153,12 @@ function $InterpolateProvider() {
      * @name ng.$interpolate#startSymbol
      * @methodOf ng.$interpolate
      * @description
-     * Symbol to denote the start of expression in the interpolated string. Defaults to `{{`.
+     * Символ, указывающий на начало интерполируемой строки. По умолчанию `{{`.
      *
-     * Use {@link ng.$interpolateProvider#startSymbol $interpolateProvider#startSymbol} to change
-     * the symbol.
+     * Используйте {@link ng.$interpolateProvider#startSymbol $interpolateProvider#startSymbol} для изменения
+     * символа.
      *
-     * @returns {string} start symbol.
+     * @returns {string} символ начала.
      */
     $interpolate.startSymbol = function() {
       return startSymbol;
@@ -172,12 +170,12 @@ function $InterpolateProvider() {
      * @name ng.$interpolate#endSymbol
      * @methodOf ng.$interpolate
      * @description
-     * Symbol to denote the end of expression in the interpolated string. Defaults to `}}`.
+     * Символ, указывающий на конец интерполируемой строки. По умолчанию `}}`.
      *
-     * Use {@link ng.$interpolateProvider#endSymbol $interpolateProvider#endSymbol} to change
-     * the symbol.
+     * Используйте {@link ng.$interpolateProvider#endSymbol $interpolateProvider#endSymbol} для изменения
+     * символа.
      *
-     * @returns {string} start symbol.
+     * @returns {string} символ конца.
      */
     $interpolate.endSymbol = function() {
       return endSymbol;
