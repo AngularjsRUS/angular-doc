@@ -1,0 +1,69 @@
+@ngdoc overview
+@name Cookbook: Test
+@description
+
+Архитектура приложений
+
+Разработчики Angular рекомендуют разделять сервисы, контроллеры, фильтры, директивы и настройку самого приложения
+<example module="myApp">
+  <file name="index.html">
+    <div ng-controller="TestController">
+      <input type="text" data-ng-model="text"/>
+      <input type="button" ng-click="alert()" value="Alert!"/>
+      {{text}}
+    </div>
+  </file>
+  <file name="app.js">
+    // настройки модуля приложения
+    var testApp = angular.module("myApp", []);
+  </file>
+  <file name="controllers.js">
+    // контроллеры
+    function TestController($scope) {
+        $scope.text = 'Test';
+        $scope.alert = function () {alert('Hello ' + $scope.text);}
+    };
+  </file>
+  <file name="directives.js">
+    // директивы
+  </file>
+  <file name="filters.js">
+    // фильтры
+  </file>
+  <file name="services.js">
+    // сервисы
+  </file>
+  <file name="scenario.js">
+    // код E2E теста
+ </file>
+</example>
+
+В то же время, такое разделение не подходит для внешних модулей, которые лучше упаковывать в один файл, 
+содержащий модуль со всем необходимым.
+<example module="otherApp">
+  <file name="index.html">
+    <div ng-controller="TestController">
+      <input type="text" data-ng-model="text"/>
+      <input type="button" ng-click="alert()" value="Alert!"/>
+      {{text}}
+    </div>
+  </file>
+  <file name="script.js">
+    var testApp = angular.module("otherApp", [])
+      .controller('TestController2', function ($scope) {
+        $scope.text = 'Test';
+        $scope.alert = function () {alert('Hello ' + $scope.text);}
+      });
+      //.directive()
+      //.filter()
+      //.service()
+  </file>
+  <file name="scenario.js">
+    // код E2E теста
+ </file>
+</example>
+
+Код примеров лучше строить по первому способу, чтобы он оставался компактным и не превращал страницу в простыню.
+Если пример представляет собой законченный модуль, можно отдельно разместить ссылку на его js-файл.
+
+P.S. Статья открыта для обсуждений, предложений и доработок.
