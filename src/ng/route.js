@@ -154,13 +154,14 @@ function $RouteProvider(){
      * @property {Array.<Object>} routes Array of all configured routes.
      *
      * @description
-     * Is used for deep-linking URLs to controllers and views (HTML partials).
-     * It watches `$location.url()` and tries to map the path to an existing route definition.
-     *
-     * You can define routes through {@link ng.$routeProvider $routeProvider}'s API.
-     *
-     * The `$route` service is typically used in conjunction with {@link ng.directive:ngView ngView}
-     * directive and the {@link ng.$routeParams $routeParams} service.
+     * Используется для внешнего связывания URL с контроллерами и представлениями (HTML частичками). 
+     * Он отслеживает изменения `$location.url()` и пытается по карте путей найти для него существующее 
+     * определение.
+     * 
+     * Можно определить маршруты через {@link ng.$routeProvider $routeProvider} API.
+     * 
+     * Сервис `$route` обычно используется совместно с директивой {@link ng.directive:ngView ngView}
+     * и сервисом {@link ng.$routeParams $routeParams}
      *
      * @example
        This example shows how changing the URL hash causes the `$route` to match a route against the
@@ -265,14 +266,13 @@ function $RouteProvider(){
      * @eventOf ng.$route
      * @eventType broadcast on root scope
      * @description
-     * Broadcasted before a route change. At this  point the route services starts
-     * resolving all of the dependencies needed for the route change to occurs.
-     * Typically this involves fetching the view template as well as any dependencies
-     * defined in `resolve` route property. Once  all of the dependencies are resolved
-     * `$routeChangeSuccess` is fired.
+     * Транслируется перед изменением маршрута. В этой точке сервис route начинает разрешение всех требуемых 
+     * зависимостей, нужных для изменения маршрута. Обычно это включает извлечение шаблона представления, 
+     * так и любых других зависимостей, определенных в свойстве маршрута `resolve`. После того как все зависимости 
+     * будут разрешены, генерируется событие `$routeChangeSuccess`.
      *
-     * @param {Route} next Future route information.
-     * @param {Route} current Current route information.
+     * @param {Route} next Информация о маршруте для перехода.
+     * @param {Route} current Информация о текущем маршруте.
      */
 
     /**
@@ -281,13 +281,12 @@ function $RouteProvider(){
      * @eventOf ng.$route
      * @eventType broadcast on root scope
      * @description
-     * Broadcasted after a route dependencies are resolved.
-     * {@link ng.directive:ngView ngView} listens for the directive
-     * to instantiate the controller and render the view.
+     * Транслируется когда все зависимости маршрута будут разрешены. {@link ng.directive:ngView ngView} 
+     * слушает его для директив чтобы создать контроллер и отобразить представление.
      *
-     * @param {Object} angularEvent Synthetic event object.
-     * @param {Route} current Current route information.
-     * @param {Route|Undefined} previous Previous route information, or undefined if current is first route entered.
+     * @param {Object} angularEvent Синтезированный объект события.
+     * @param {Route} current Информация о текущем маршруте.
+     * @param {Route|Undefined} previous Информация о предыдущем маршруте, или undefined, если текущий маршрут первый.
      */
 
     /**
@@ -296,11 +295,11 @@ function $RouteProvider(){
      * @eventOf ng.$route
      * @eventType broadcast on root scope
      * @description
-     * Broadcasted if any of the resolve promises are rejected.
+     * Транслируется, если любое из принятых обещаний было отклонено.
      *
-     * @param {Route} current Current route information.
-     * @param {Route} previous Previous route information.
-     * @param {Route} rejection Rejection of the promise. Usually the error of the failed promise.
+     * @param {Route} current Информация о текущем маршруте.
+     * @param {Route} previous Информация о предыдущем маршруте.
+     * @param {Route} rejection Отвергнуто ли обещание. Обычно ошибка или испорченное обещание.
      */
 
     /**
@@ -310,8 +309,8 @@ function $RouteProvider(){
      * @eventType broadcast on root scope
      * @description
      *
-     * The `reloadOnSearch` property has been set to false, and we are reusing the same
-     * instance of the Controller.
+     * Транслируется когда свойство `reloadOnSearch` установлено в false, и мы повторно
+     * используем тот же экземпляр контроллера.
      */
 
     var forceReload = false,
@@ -324,11 +323,10 @@ function $RouteProvider(){
            * @methodOf ng.$route
            *
            * @description
-           * Causes `$route` service to reload the current route even if
-           * {@link ng.$location $location} hasn't changed.
+           * Пытается перезагрузить текущий маршрут, если {@link ng.$location $location} не изменен.
            *
-           * As a result of that, {@link ng.directive:ngView ngView}
-           * creates new scope, reinstantiates the controller.
+           * Как результат {@link ng.directive:ngView ngView} создает новую область видимости, 
+           * и пересоздается контроллер.
            */
           reload: function() {
             forceReload = true;
