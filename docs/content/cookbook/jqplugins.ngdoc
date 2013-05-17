@@ -21,7 +21,7 @@ $('#format-toolbar').toolbar({
 В Angular же мы просто пометим нужный элемент атрибутом с именем `toolbar-tip`,
 который после превратим в директиву. Выглядеть это будет так:
 
-<example module="Toolbar" deps="https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js">
+<example module="Toolbar" deps="https\://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js">
   <file name="index.html">   
     <!-- Место, куда нужно щелкать, чтобы показалась панель инструментов -->
     <div id="format-toolbar" class="settings-button" toolbar-tip="{content: '#format-toolbar-options', position: 'top'}">
