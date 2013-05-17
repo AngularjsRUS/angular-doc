@@ -166,7 +166,7 @@ function $CompileProvider($provide) {
    * @description
    * Регистрирует новую директиву компилятора.
    *
-   * @param {string} name Имя директивы в ВерблюжемРегистре. (т.е. <code>ngBind</code> будет как
+   * @param {string} name Имя директивы в ВерблюжьемРегистре. (т.е. <code>ngBind</code> будет как
    *                <code>ng-bind</code>).
    * @param {function} directiveFactory Внедряемая фабричная функция директивы. См. {@link guide/directive} Для
    *                подробной информации.
