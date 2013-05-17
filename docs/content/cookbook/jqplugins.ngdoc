@@ -21,6 +21,10 @@ $('#format-toolbar').toolbar({
 
 <example module="Toolbar" deps="angular-sanitize.js">
   <file name="index.html">
+    <link rel="stylesheet" type="text/css" href="http://paulkinzett.github.io/toolbar/css/documentation.css">
+    <link rel="stylesheet" type="text/css" href="http://paulkinzett.github.io/toolbar/css/toolbars.css">
+    <script src="https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js"></script>
+    
     <!-- Место, куда нужно щелкать, чтобы показалась панель инструментов -->
     <div id="format-toolbar1" class="settings-button" toolbar-tip="{content: '#format-toolbar-options', position: 'top'}">
       <img src="http://paulkinzett.github.com/toolbar/img/icon-cog-small.png">
