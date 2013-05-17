@@ -7,7 +7,7 @@
 становится ничуть не сложнее. Вместо `$('#elem').plugName({_options_})` мы пишем `<div plug-name="{_options_}"></div>`
 
 # Простые плагины
-Подключим [http://paulkinzett.github.io/toolbar/](toolbar.js), добавляющий всплывающую панель инструментов к элементу.
+Подключим [toolbar.js](http://paulkinzett.github.io/toolbar/), добавляющий всплывающую панель инструментов к элементу.
 
 Стандартный способ подключения:
 
@@ -21,7 +21,7 @@ $('#format-toolbar').toolbar({
 В Angular же мы просто пометим нужный элемент атрибутом с именем `toolbar-tip`,
 который после превратим в директиву. Выглядеть это будет так:
 
-<example module="Toolbar" deps="https\\://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js">
+<example module="Toolbar">
   <file name="index.html">   
     <!-- Место, куда нужно щелкать, чтобы показалась панель инструментов -->
     <div id="format-toolbar" class="settings-button" toolbar-tip="{content: '#format-toolbar-options', position: 'top'}">
