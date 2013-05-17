@@ -1,14 +1,15 @@
 @ngdoc overview
-@name Cookbook: Интеграция jQuery-плагинов
+@name Cookbook: Интеграция JQ-плагинов
 @description
 
 В Angular все действия с DOM необходимо проводить в директивах, поэтому любые jQuery-плагины (покажите
-плагин, который не работает с DOM) интегрируются в первую очередь в них.
+плагин, который не работает с DOM) интегрируются в первую очередь в них. При этом работать с таким плагином 
+становится ничуть не сложнее. Вместо `$('#elem').plugName({_options_})` мы пишем `<div plug-name="{_options_}"></div>`
 
-### Простые плагины
+# Простые плагины
 Подключим [http://paulkinzett.github.io/toolbar/](toolbar.js), добавляющий всплывающую панель инструментов к элементу.
 
-Обычно jQuery-плагины, в том числе этот, подключается так:
+Стандартный способ подключения:
 
 <pre>
 $('#format-toolbar').toolbar({
@@ -17,14 +18,11 @@ $('#format-toolbar').toolbar({
 });
 </pre>
 
-В Angular же мы просто пометим нужный элемент своим атрибутом с именем `toolbar-tip`,
+В Angular же мы просто пометим нужный элемент атрибутом с именем `toolbar-tip`,
 который после превратим в директиву. Выглядеть это будет так:
 
-<example module="Toolbar" deps="angular-sanitize.js">
+<example module="Toolbar" deps="https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js">
   <file name="index.html">   
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js"></script>
-    
     <!-- Место, куда нужно щелкать, чтобы показалась панель инструментов -->
     <div id="format-toolbar" class="settings-button" toolbar-tip="{content: '#format-toolbar-options', position: 'top'}">
       <img src="http://paulkinzett.github.com/toolbar/img/icon-cog-small.png">
@@ -64,3 +62,5 @@ $('#format-toolbar').toolbar({
     // код E2E теста
  </file>
 </example>
+
+# Плагины jQuery-UI и т.п.
