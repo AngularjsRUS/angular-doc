@@ -1,0 +1,61 @@
+@ngdoc overview
+@name Cookbook: Интеграция jQuery-плагинов
+@description
+
+В Angular все действия с DOM необходимо проводить в директивах, поэтому любые jQuery-плагины (покажите
+плагин, который не работает с DOM) интегрируются в первую очередь в них.
+
+## Подключение простого плагина [http://paulkinzett.github.io/toolbar/](toolbar.js), добавляющего всплывающую панель инструментов к элементу.
+
+К jQuery-элементу подключается так:
+
+<pre>
+$('#format-toolbar').toolbar({
+    content: '#format-toolbar-options', 
+    position: 'left'
+});
+</pre>
+
+В Angular мы просто поместим в элемент свой атрибута с именем `toolbar-tip`,
+который после превратим в директиву. Выглядеть это будет так:
+
+<example module="Toolbar" deps="angular-sanitize.js">
+  <file name="index.html">
+    <!-- Место, куда нужно щелкать, чтобы показалась панель инструментов -->
+    <div id="format-toolbar1" class="settings-button" toolbar-tip="{content: '#format-toolbar-options', position: 'top'}">
+      <img src="http://paulkinzett.github.com/toolbar/img/icon-cog-small.png">
+    </div>
+    
+    <!-- Код панели инструментов -->
+    <div id="format-toolbar-options">
+      <a href="#"><i class="icon-align-left"></i></a>
+      <a href="#"><i class="icon-align-center"></i></a>
+      <a href="#"><i class="icon-align-right"></i></a>
+    </div>
+  </file>
+  <file name="style.css">
+    #format-toolbar1, #format-toolbar2 {
+      margin-left: auto;
+      margin-right: auto;
+    }    
+    #format-toolbar-options { display: none; }
+  </file>
+  <file name="script.js">
+    angular.module('Toolbar', [])
+      .directive('toolbarTip', function() {
+        return {
+          link: function(scope, element, attrs) {
+            // ничего не напоминает? Именно!
+            $(element).toolbar(scope.$eval(attrs.toolbarTip));
+            // Функция link отдает в качестве параметра элемент, помеченный нашим атрибутом.
+            // Этот элемент заворачиваем в jQuery, и получаем из attrs значение атрибута.
+            // Функция scope.$eval() вычисляет переданное ей выражение. В нашем случае просто превращает
+            // строку в массив с парметрами плагина
+          }
+        };
+      });
+  </file>
+  <file name="scenario.js">
+    // код E2E теста
+ </file>
+</example>
