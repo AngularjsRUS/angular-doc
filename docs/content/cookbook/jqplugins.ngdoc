@@ -33,9 +33,9 @@ $('#format-toolbar').toolbar({
 <example module="Toolbar">
   <file name="index.html">
     <link rel="stylesheet" type="text/css" href="http://paulkinzett.github.com/toolbar/css/toolbars.css"> 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"/>
+    <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"/>
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"/>
-    <script src="https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js"/>
+    <script src="https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js"/>-->
   
     <!-- Место, куда нужно щелкать, чтобы показалась панель инструментов -->
     <div id="format-toolbar" class="settings-button" toolbar-tip="{content: '#format-toolbar-options', position: 'top'}">
@@ -49,8 +49,7 @@ $('#format-toolbar').toolbar({
       <a href="#"><i class="icon-align-right"></i></a>
     </div>
   </file>
-  <file name="style.css">
-   
+  <file name="style.css">   
     #format-toolbar {
       margin-left: auto;
       margin-right: auto;
@@ -58,7 +57,21 @@ $('#format-toolbar').toolbar({
     #format-toolbar-options { display: none; }
   </file>
   <file name="script.js">
-    angular.module('Toolbar', [])
+    (function () {
+      var script = document.createElement('script');
+      script.src='//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js';
+      document.head.appendChild(script);
+      
+      var script = document.createElement('script');
+      script.src='//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js';
+      document.head.appendChild(script);
+      
+      var script = document.createElement('script');
+      script.src='https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js';
+      document.head.appendChild(script);
+     })();
+     window.onload = function () {
+       angular.module('Toolbar', [])
       .directive('toolbarTip', function() {
         return {
           link: function(scope, element, attrs) {
@@ -71,6 +84,9 @@ $('#format-toolbar').toolbar({
           }
         };
       });
+     }
+  
+    
   </file>
   <file name="scenario.js">
     // код E2E теста
