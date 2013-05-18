@@ -79,8 +79,9 @@ $('#format-toolbar').toolbar({
     
     .tool-item {
       color: #000;
-      text-decoration: none;
+      font-size: 20px;
       line-height: 33px;
+      text-decoration: none;    
     }
   </file>
   <file name="jquery.js">
@@ -279,7 +280,7 @@ $('#format-toolbar').toolbar({
       $scope.list = ["one", "two", "three", "four", "five", "six"];
     });
     
-    angular.bootstrap(document, ['myapp']);
+    //angular.bootstrap(document, ['myapp']);
   </file>
   <file name="scenario.js">
     // код E2E теста
