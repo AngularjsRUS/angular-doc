@@ -13,6 +13,7 @@
 
 Разметка примера выглядит следующим образом (в теге `example` латинская «е» заменена на русскую. 
 Поменяйте обратно при копировании):
+
 <pre>
   <еxample module="myApp" deps="angular-sanitize.js">
     <file name="index.html">
@@ -35,6 +36,7 @@
    </file>
   </example>
 </pre>
+
 * В режиме просмотра каждый «файл» будет показан на отдельной вкладке. В `deps` указываются подключаемые файлы 
   (для примера, директива {@link api/ng.directive:ngSanitize `ngSanitize`} из angular-sanitize.js используется в списке зависимостей
   модуля myApp).
