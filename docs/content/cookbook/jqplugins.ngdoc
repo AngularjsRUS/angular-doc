@@ -30,8 +30,9 @@ $('#format-toolbar').toolbar({
 В Angular же мы просто пометим нужный элемент атрибутом с именем `toolbar-tip`,
 который после превратим в директиву. Выглядеть это будет так:
 
-<example module="Toolbar" deps="https\\://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js">
+<example module="Toolbar" deps="https://raw\.github.com/paulkinzett/toolbar/master/jquery\.toolbar.js">
   <file name="index.html">
+    <link rel="stylesheet" type="text/css" href="http://paulkinzett.github.com/toolbar/css/toolbars.css">  
     <script src="https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js"/>
   
     <!-- Место, куда нужно щелкать, чтобы показалась панель инструментов -->
@@ -74,4 +75,7 @@ $('#format-toolbar').toolbar({
  </file>
 </example>
 
-# Плагины jQuery-UI и т.п.
+# Плагины jQuery UI и т.п.
+Подключим библиотеку [jQuery UI](http://jqueryui.com/), из которой используем плагин
+[http://jquery.page2page.ru/index.php5/%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B8%D1%80%D1%83%D0%B5%D0%BC%D1%8B%D0%B5_%D1%8D%D0%BB%D0%B5%D0%BC%D0%B5%D0%BD%D1%82%D1%8B](sortable)
+для сортировки списка.
