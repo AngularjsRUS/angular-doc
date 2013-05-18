@@ -165,7 +165,7 @@ $('#format-toolbar').toolbar({
     
     @param [ui-sortable] {object} Options to pass to $.fn.sortable() merged onto ui.config
     */
-    angular.module('ui.sortable', []).value('uiSortableConfig',{}).directive('uiSortable', ['uiSortableConfig', function(uiSortableConfig) {
+    /*angular.module('ui.sortable', []).value('uiSortableConfig',{}).directive('uiSortable', ['uiSortableConfig', function(uiSortableConfig) {
       return {
         require: '?ngModel',
         link: function(scope, element, attrs, ngModel) {
@@ -271,7 +271,7 @@ $('#format-toolbar').toolbar({
         element.sortable(opts);
       }
     };
-    }]);
+    }]);*/
   </file>
   <file name="script.js">
     var myapp = angular.module('myApp', ['ui']);
