@@ -85,7 +85,7 @@ https://developer.mozilla.org/en/window.location window.location}) и делае
 
 ## Настройка сервиса $location
 
-Чтобы настроить сервис `$location`, верните {@link api/ng.$locationProvider $locationProvider} and и установите следующие параметры:
+Чтобы настроить сервис `$location`, верните {@link api/ng.$locationProvider $locationProvider} и установите следующие параметры:
 
 
 - **html5Mode(mode)**: {boolean}<br />
