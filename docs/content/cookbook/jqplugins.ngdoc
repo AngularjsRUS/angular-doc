@@ -36,7 +36,7 @@ $('#format-toolbar').toolbar({
     </div>
   </file>
   <file name="style.css">
-    @import url('http://paulkinzett.github.io/toolbar/css/toolbars.css');
+   
     #format-toolbar {
       margin-left: auto;
       margin-right: auto;
