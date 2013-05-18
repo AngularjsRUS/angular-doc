@@ -4,10 +4,19 @@
 
 В Angular все действия с DOM необходимо проводить в директивах, поэтому любые jQuery-плагины (покажите
 плагин, который не работает с DOM) интегрируются в первую очередь в них. При этом работать с таким плагином 
-становится ничуть не сложнее. Вместо `$('#elem').plugName({_options_})` мы пишем `<div plug-name="{_options_}"></div>`
+становится ничуть не сложнее.
+
+Вместо
+<pre>
+$('#elem').plugName({_options_})
+</pre>
+мы пишем
+<pre>
+<div plug-name="{_options_}"></div>
+</pre>
 
 # Простые плагины
-Подключим [toolbar.js](http://paulkinzett.github.io/toolbar/), добавляющий всплывающую панель инструментов к элементу.
+Подключим [jquery.toolbar.js](http://paulkinzett.github.io/toolbar/), добавляющий всплывающую панель инструментов к элементу.
 
 Стандартный способ подключения:
 
@@ -21,7 +30,7 @@ $('#format-toolbar').toolbar({
 В Angular же мы просто пометим нужный элемент атрибутом с именем `toolbar-tip`,
 который после превратим в директиву. Выглядеть это будет так:
 
-<example module="Toolbar">
+<example module="Toolbar" deps="https://raw.github.com/paulkinzett/toolbar/master/jquery.toolbar.js">
   <file name="index.html">   
     <!-- Место, куда нужно щелкать, чтобы показалась панель инструментов -->
     <div id="format-toolbar" class="settings-button" toolbar-tip="{content: '#format-toolbar-options', position: 'top'}">
