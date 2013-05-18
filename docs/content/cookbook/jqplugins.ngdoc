@@ -276,11 +276,11 @@ $('#format-toolbar').toolbar({
     };}]);*/
   </file>
   <file name="script.js">
-    var myapp = angular.module('myApp', ['ui']);
+    /*var myapp = angular.module('myApp', ['ui']);
     
     myapp.controller('controller', function ($scope) {
       $scope.list = ["one", "two", "three", "four", "five", "six"];
-    });
+    });*/
     
     //angular.bootstrap(document, ['myapp']);
   </file>
