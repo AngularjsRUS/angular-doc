@@ -854,7 +854,7 @@ function getterFn(path, csp) {
  *
  * @description
  *
- * Converts Angular {@link guide/expression expression} into a function.
+ * Преобразует {@link guide/expression angular-выражение} в функцию.
  *
  * <pre>
  *   var getter = $parse('user.name');
@@ -869,21 +869,19 @@ function getterFn(path, csp) {
  * </pre>
  *
  *
- * @param {string} expression String expression to compile.
- * @returns {function(context, locals)} a function which represents the compiled expression:
+ * @param {string} expression Строковое выражение для компиляции.
+ * @returns {function(context, locals)} функция, которая представляет скомпилированное выражение:
  *
- *    * `context` – `{object}` – an object against which any expressions embedded in the strings
- *      are evaluated against (typically a scope object).
- *    * `locals` – `{object=}` – local variables context object, useful for overriding values in
- *      `context`.
+ *    * `context` – `{object}` – объект, на котором вычисляются любые встроенные выражения 
+ *      (обычно это область видимости).
+ *    * `locals` – `{object=}` – локальные переменные объекта контекста, используются для 
+ *      переопределения значений в `context`.
  *
- *    The returned function also has the following properties:
- *      * `literal` – `{boolean}` – whether the expression's top-level node is a JavaScript
- *        literal.
- *      * `constant` – `{boolean}` – whether the expression is made entirely of JavaScript
- *        constant literals.
- *      * `assign` – `{?function(context, value)}` – if the expression is assignable, this will be
- *        set to a function to change its value on the given context.
+ *    Возвращенная функция также имеет следующие свойства:
+ *      * `literal` – `{boolean}` – является ли выражение верхнего уровня буквальным JavaScript.
+ *      * `constant` – `{boolean}` – составлено ли выражение целиком из буквенных констант JavaScript.
+ *      * `assign` – `{?function(context, value)}` – если выражения назначаемые, тогда
+ *        оно будет установлено в функцию для изменения полученного контекста..
  *
  */
 function $ParseProvider() {
