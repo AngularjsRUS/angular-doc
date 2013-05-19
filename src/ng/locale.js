@@ -5,10 +5,10 @@
  * @name ng.$locale
  *
  * @description
- * $locale service provides localization rules for various Angular components. As of right now the
- * only public api is:
+ * Сервис $locale устанавливает правила локализации для различных компонентов Angular. На сегодняшний день
+ * имеет только публичное api:
  *
- * * `id` – `{string}` – locale id formatted as `languageId-countryId` (e.g. `en-us`)
+ * * `id` – `{string}` – идентификатор локали в виде `IdЯзыка-IdСтраны` (напр:, `en-us`)
  */
 function $LocaleProvider(){
   this.$get = function() {
