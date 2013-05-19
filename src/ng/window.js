@@ -5,13 +5,12 @@
  * @name ng.$window
  *
  * @description
- * A reference to the browser's `window` object. While `window`
- * is globally available in JavaScript, it causes testability problems, because
- * it is a global variable. In angular we always refer to it through the
- * `$window` service, so it may be overridden, removed or mocked for testing.
- *
- * All expressions are evaluated with respect to current scope so they don't
- * suffer from window globality.
+ * Просто ссылка на объект браузера `window`. Хотя `window` и доступен глобально в JavaScript, 
+ * при его использовании возникает проблема при тестировании, т.к. он является глобальной переменной.
+ * В Angular мы всегда ссылаемся на него через сервис `$window`, т.к. в этом случае его можно переопределить,
+ * удалить или заменить другим при тестировании.
+ * 
+ * Любые выражения, вычисляемые в любой области видимости не должны работать с глобальным объектом `window`.
  *
  * @example
    <doc:example>
