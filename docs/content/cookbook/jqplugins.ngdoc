@@ -143,7 +143,7 @@ $('#format-toolbar').toolbar({
       background: #AEF;
     }
   </file>
-  <file name="jquery.js">
+  <file name="jq.js">
     // Подключен в предыдущем примере
   </file>
   <file name="jqueryui.js">
