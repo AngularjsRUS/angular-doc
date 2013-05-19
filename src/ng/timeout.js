@@ -13,24 +13,24 @@ function $TimeoutProvider() {
       * @requires $browser
       *
       * @description
-      * Angular's wrapper for `window.setTimeout`. The `fn` function is wrapped into a try/catch
-      * block and delegates any exceptions to
-      * {@link ng.$exceptionHandler $exceptionHandler} service.
+      * Angular обертка над `window.setTimeout`. Передаваемая внутрь функция fn обернута в блок 
+      * try/catch и при любом исключении обработка проводится сервисом 
+      * {@link ng.$exceptionHandler $exceptionHandler}.
+      * 
+      * Возвращает значение для зарегистрированной функции являющееся обещанием, которое будет выполнено,
+      * когда установленное время истечет, и функция будут выполнена.
+      * 
+      * Для отмены запроса на установку таймаута, вызовите `$timeout.cancel(promise)`.
+      * 
+      * В тестах можно использовать {@link ngMock.$timeout `$timeout.flush()`} для синхронизации очереди 
+      * функций должников.
       *
-      * The return value of registering a timeout function is a promise which will be resolved when
-      * the timeout is reached and the timeout function is executed.
-      *
-      * To cancel a the timeout request, call `$timeout.cancel(promise)`.
-      *
-      * In tests you can use {@link ngMock.$timeout `$timeout.flush()`} to
-      * synchronously flush the queue of deferred functions.
-      *
-      * @param {function()} fn A function, who's execution should be delayed.
-      * @param {number=} [delay=0] Delay in milliseconds.
-      * @param {boolean=} [invokeApply=true] If set to false skips model dirty checking, otherwise
-      *   will invoke `fn` within the {@link ng.$rootScope.Scope#$apply $apply} block.
-      * @returns {Promise} Promise that will be resolved when the timeout is reached. The value this
-      *   promise will be resolved with is the return value of the `fn` function.
+      * @param {function()} fn функция, выполнение которой должно быть отложено.
+      * @param {number=} [delay=0] Задержка в миллисекундах.
+      * @param {boolean=} [invokeApply=true] Если установить в false пропускается проверка модели 
+      *   на изменения, иначе функция `fn` будет вызвана в блоке {@link ng.$rootScope.Scope#$apply $apply}.
+      * @returns {Promise} Обещание которое будет выполнено по истечению времени таймаута. Значение этого
+      *   обещания будет принято возвращенным значением из функции `fn`.
       */
     function timeout(fn, delay, invokeApply) {
       var deferred = $q.defer(),
@@ -67,12 +67,10 @@ function $TimeoutProvider() {
       * @methodOf ng.$timeout
       *
       * @description
-      * Cancels a task associated with the `promise`. As a result of this the promise will be
-      * resolved with a rejection.
+      * Отменяет задачу, ассоциированную с обещанием. Как результате обещание будет принято как отклоненное.
       *
-      * @param {Promise=} promise Promise returned by the `$timeout` function.
-      * @returns {boolean} Returns `true` if the task hasn't executed yet and was successfully
-      *   canceled.
+      * @param {Promise=} promise Обещание, возвращенное функцией `$timeout`.
+      * @returns {boolean} Возвращает `true` если задача еще не выполнена или была успешно отменена.
       */
     timeout.cancel = function(promise) {
       if (promise && promise.$$timeoutId in deferreds) {
