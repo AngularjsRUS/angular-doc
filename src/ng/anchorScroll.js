@@ -6,12 +6,12 @@
  * @requires $rootScope
  *
  * @description
- * When called, it checks current value of `$location.hash()` and scroll to related element,
- * according to rules specified in
- * {@link http://dev.w3.org/html5/spec/Overview.html#the-indicated-part-of-the-document Html5 spec}.
- *
- * It also watches the `$location.hash()` and scroll whenever it changes to match any anchor.
- * This can be disabled by calling `$anchorScrollProvider.disableAutoScrolling()`.
+ * После вычислений, проверяет текущее значение `$location.hash()` и прокручивает экран к элементу, 
+ * соответствующему роли описанной в
+ * {@link http://dev.w3.org/html5/spec/Overview.html#the-indicated-part-of-the-document спецификации Html5}.
+ * 
+ * Он также следить за `$location.hash()` и осуществляет прокрутку снова при обнаружении изменений. 
+ * Это поведение можно отключить вызвав `$anchorScrollProvider.disableAutoScrolling()`.
  */
 function $AnchorScrollProvider() {
 
