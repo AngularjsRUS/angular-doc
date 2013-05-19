@@ -162,13 +162,9 @@ $('#format-toolbar').toolbar({
   <file name="sortable.js">
   </file>
   <file name="script.js">
-    var myapp = angular.module('myApp', ['ui']);
-    
-    myapp.controller('controller', function ($scope) {
+    angular.module('myApp', ['ui']).controller('controller', function ($scope) {
       $scope.list = ["one", "two", "three", "four", "five", "six"];
     });
-    
-    //angular.bootstrap(document, ['myapp']);
   </file>
   <file name="scenario.js">
     // код E2E теста
