@@ -6,16 +6,15 @@
  * @requires $log
  *
  * @description
- * Any uncaught exception in angular expressions is delegated to this service.
- * The default implementation simply delegates to `$log.error` which logs it into
- * the browser console.
+ * Любое не перехваченное исключение в angular-выражениях обрабатывается этим сервисом. 
+ * По умолчанию реализована обработка с помощью `$log.error`, которая просто выводит сообщение 
+ * об исключении в консоль браузера.
+ * 
+ * В юнит тестах, если загружен `angular-mocks.js`, этот сервис будет переопределен на 
+ * {@link ngMock.$exceptionHandler mock $exceptionHandler} с вспомогательными средствами для тестирования.
  *
- * In unit tests, if `angular-mocks.js` is loaded, this service is overridden by
- * {@link ngMock.$exceptionHandler mock $exceptionHandler} which aids in testing.
- *
- * @param {Error} exception Exception associated with the error.
- * @param {string=} cause optional information about the context in which
- *       the error was thrown.
+ * @param {Error} exception Исключение, ассоциированное с ошибкой.
+ * @param {string=} необязательная информация о контексте в котором возникла ошибка.
  *
  */
 function $ExceptionHandlerProvider() {
