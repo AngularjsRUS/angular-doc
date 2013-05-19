@@ -3,22 +3,22 @@
  * @name ng.$cacheFactory
  *
  * @description
- * Factory that constructs cache objects.
+ * Фабрика для создания объектов кэша.
  *
  *
- * @param {string} cacheId Name or id of the newly created cache.
- * @param {object=} options Options object that specifies the cache behavior. Properties:
+ * @param {string} cacheId Имя или идентификатор для вновь созданного кэша.
+ * @param {object=} options Объект с настройками, которые специфицируют поведение кэша. Свойства:
  *
- *   - `{number=}` `capacity` — turns the cache into LRU cache.
+ *   - `{number=}` `capacity` — превращает кэш в кэш LRU.
  *
- * @returns {object} Newly created cache object with the following set of methods:
+ * @returns {object} Созданный объект кэша со следующими доступными методами:
  *
- * - `{object}` `info()` — Returns id, size, and options of cache.
- * - `{{*}}` `put({string} key, {*} value)` — Puts a new key-value pair into the cache and returns it.
- * - `{{*}}` `get({string} key)` — Returns cached value for `key` or undefined for cache miss.
- * - `{void}` `remove({string} key)` — Removes a key-value pair from the cache.
- * - `{void}` `removeAll()` — Removes all cached values.
- * - `{void}` `destroy()` — Removes references to this cache from $cacheFactory.
+ * - `{object}` `info()` — Возвращает идентификатор, размер и настройки для кэша.
+ * - `{{*}}` `put({string} key, {*} value)` — Добавляет новую пару ключ-значение в кэш.
+ * - `{{*}}` `get({string} key)` — Возвращает кэшированное значение для ключа или undefined если значения нет.
+ * - `{void}` `remove({string} key)` — Удаляет пару ключ-значение из кэша.
+ * - `{void}` `removeAll()` — Полностью очищает кэш, удаляя все пары ключ-значение.
+ * - `{void}` `destroy()` — Удаляет ссылку на кэш из $cacheFactory.
  *
  */
 function $CacheFactoryProvider() {
@@ -160,9 +160,9 @@ function $CacheFactoryProvider() {
  * @name ng.$templateCache
  *
  * @description
- * Cache used for storing html templates.
+ * Кэш используемый для хранения html шаблонов.
  *
- * See {@link ng.$cacheFactory $cacheFactory}.
+ * См. {@link ng.$cacheFactory $cacheFactory}.
  *
  */
 function $TemplateCacheProvider() {
