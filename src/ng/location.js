@@ -230,12 +230,11 @@ LocationHashbangInHtml5Url.prototype =
    * @methodOf ng.$location
    *
    * @description
-   * This method is getter only.
+   * Этот метод только для чтения.
+   * 
+   * Возвращает абсолютный url-адрес с закодированными сегментами в соответствии со спецификацией 
    *
-   * Return full url representation with all segments encoded according to rules specified in
-   * {@link http://www.ietf.org/rfc/rfc3986.txt RFC 3986}.
-   *
-   * @return {string} full url
+   * @return {string} абсолютный url
    */
   absUrl: locationGetter('$$absUrl'),
 
@@ -245,13 +244,13 @@ LocationHashbangInHtml5Url.prototype =
    * @methodOf ng.$location
    *
    * @description
-   * This method is getter / setter.
+   * Этот метод возвращает читает и записывает.
+   * 
+   * Возвращает относительный url (например, `/path?a=b#hash`) когда вызывается без параметров.
+   * 
+   * Изменяет путь, строку поиска и хэш, когда вызывается с параметром и возвращает `$location`.
    *
-   * Return url (e.g. `/path?a=b#hash`) when called without any parameter.
-   *
-   * Change path, search and hash, when called with parameter and return `$location`.
-   *
-   * @param {string=} url New url without base prefix (e.g. `/path?a=b#hash`)
+   * @param {string=} url Новый url без базового адреса (напр.: `/path?a=b#hash`)
    * @return {string} url
    */
   url: function(url, replace) {
@@ -272,11 +271,11 @@ LocationHashbangInHtml5Url.prototype =
    * @methodOf ng.$location
    *
    * @description
-   * This method is getter only.
+   * Этот метод только для чтения.
    *
-   * Return protocol of current url.
+   * Возвращает протокол для текущего url.
    *
-   * @return {string} protocol of current url
+   * @return {string} протокол для текущего url
    */
   protocol: locationGetter('$$protocol'),
 
@@ -286,11 +285,11 @@ LocationHashbangInHtml5Url.prototype =
    * @methodOf ng.$location
    *
    * @description
-   * This method is getter only.
+   * Этот метод только для чтения.
    *
-   * Return host of current url.
+   * Возвращает имя хоста для текущего url.
    *
-   * @return {string} host of current url.
+   * @return {string} имя хоста для текущего url.
    */
   host: locationGetter('$$host'),
 
@@ -314,17 +313,17 @@ LocationHashbangInHtml5Url.prototype =
    * @methodOf ng.$location
    *
    * @description
-   * This method is getter / setter.
+   * Этот метод для чтения и записи.
+   * 
+   * Возвращает путь для текущего url когда вызывается без параметров.
+   * 
+   * Изменяет путь, когда вызывается с параметром, и возвращает `$location`.
+   * 
+   * Примечание: Путь должен всегда начинаться со слеша (/), этот метод будет добавлять начальный слеш, 
+   * если он пропущен.
    *
-   * Return path of current url when called without any parameter.
-   *
-   * Change path when called with parameter and return `$location`.
-   *
-   * Note: Path should always begin with forward slash (/), this method will add the forward slash
-   * if it is missing.
-   *
-   * @param {string=} path New path
-   * @return {string} path
+   * @param {string=} path Новый путь
+   * @return {string} путь
    */
   path: locationGetterSetter('$$path', function(path) {
     return path.charAt(0) == '/' ? path : '/' + path;
@@ -336,17 +335,17 @@ LocationHashbangInHtml5Url.prototype =
    * @methodOf ng.$location
    *
    * @description
-   * This method is getter / setter.
+   * Этот метод для чтения и записи.
+   * 
+   * Возвращает строку поиска (как объект) для текущего url когда вызывается без параметров.
+   * 
+   * Изменяет строку поиска, когда вызывается с параметрами и возвращает `$location`.
    *
-   * Return search part (as object) of current url when called without any parameter.
+   * @param {string|object<string,string>=} search Новая строка поиска, или хэш объект.
+   * @param {string=} paramValue Если `search` строка, тогда `paramValue` будет переопределять только первый 
+   *    параметр поиска. Если значение задано в `null`, тогда параметр будет удален.
    *
-   * Change search part when called with parameter and return `$location`.
-   *
-   * @param {string|object<string,string>=} search New search params - string or hash object
-   * @param {string=} paramValue If `search` is a string, then `paramValue` will override only a
-   *    single search parameter. If the value is `null`, the parameter will be deleted.
-   *
-   * @return {string} search
+   * @return {string} строка поиска в виде объекта
    */
   search: function(search, paramValue) {
     if (isUndefined(search))
@@ -372,14 +371,14 @@ LocationHashbangInHtml5Url.prototype =
    * @methodOf ng.$location
    *
    * @description
-   * This method is getter / setter.
+   * Этот метод для чтения и записи.
+   * 
+   * Возвращает фрагмент хэша когда вызывается без параметров.
+   * 
+   * Изменяет фрагмент хэша, когда вызывается с параметром и возвращает `$location`.
    *
-   * Return hash fragment when called without any parameter.
-   *
-   * Change hash fragment when called with parameter and return `$location`.
-   *
-   * @param {string=} hash New hash fragment
-   * @return {string} hash
+   * @param {string=} hash Новый фрагмент хэша
+   * @return {string} хэш
    */
   hash: locationGetterSetter('$$hash', identity),
 
@@ -389,8 +388,8 @@ LocationHashbangInHtml5Url.prototype =
    * @methodOf ng.$location
    *
    * @description
-   * If called, all changes to $location during current `$digest` will be replacing current history
-   * record, instead of adding new one.
+   * Если вызван, все изменения `$location` в текущем цикле `$digest` будут заменены текущей записью в истории
+   * вместо добавления новой.
    */
   replace: function() {
     this.$$replace = true;
@@ -427,31 +426,32 @@ function locationGetterSetter(property, preprocess) {
  * @requires $rootElement
  *
  * @description
- * The $location service parses the URL in the browser address bar (based on the
- * {@link https://developer.mozilla.org/en/window.location window.location}) and makes the URL
- * available to your application. Changes to the URL in the address bar are reflected into
- * $location service and changes to $location are reflected into the browser address bar.
+ * Сервис $location разбирает URL в адресной строке браузера (базируется на 
+ * {@link https://developer.mozilla.org/en/window.location window.location}) и делает URL доступной для 
+ * вашего приложения. Изменение URL в адресной строке отражается на сервис `$location` и изменения в 
+ * `$location` отображаются в адресной строке браузера.
  *
- * **The $location service:**
+ * **Сервис $location:**
  *
- * - Exposes the current URL in the browser address bar, so you can
- *   - Watch and observe the URL.
- *   - Change the URL.
- * - Synchronizes the URL with the browser when the user
- *   - Changes the address bar.
- *   - Clicks the back or forward button (or clicks a History link).
- *   - Clicks on a link.
- * - Represents the URL object as a set of methods (protocol, host, port, path, search, hash).
+ * Для получения более подробной информации смотрите Руководство разработчика:Службы Angular: Использование $location
+ * - Показывает текущий URL в адресной строке браузера, и вы можете
+ *   - Отслеживать изменение URL.
+ *   - Изменять URL.
+ * - Синхронизирует URL с браузером, когда пользователь
+ *   - Изменит адресную строку
+ *   - Кликнет на кнопке вперед или назад (или кликнет на ссылке в истории).
+ *   - Кликнет по ссылке.
+ * - Изменяет объект URL с помощью методов для установки (protocol, host, port, path, search, hash).
  *
- * For more information see {@link guide/dev_guide.services.$location Developer Guide: Angular
- * Services: Using $location}
+ * См. так же {@link guide/dev_guide.services.$location Руководство разработчика: Сервисы Angular:
+ * Использование $location}
  */
 
 /**
  * @ngdoc object
  * @name ng.$locationProvider
  * @description
- * Use the `$locationProvider` to configure how the application deep linking paths are stored.
+ * Используйте `$locationProvider` для указания как приложение должно хранить внешние ссылки.
  */
 function $LocationProvider(){
   var hashPrefix = '',
@@ -462,8 +462,8 @@ function $LocationProvider(){
    * @name ng.$locationProvider#hashPrefix
    * @methodOf ng.$locationProvider
    * @description
-   * @param {string=} prefix Prefix for hash part (containing path and search)
-   * @returns {*} current value if used as getter or itself (chaining) if used as setter
+   * @param {string=} prefix Префикс хэша (включает path и search)
+   * @returns {*} текущее значение если используется для чтения или самого себя (для цепочки) если используется для записи.
    */
   this.hashPrefix = function(prefix) {
     if (isDefined(prefix)) {
@@ -479,8 +479,8 @@ function $LocationProvider(){
    * @name ng.$locationProvider#html5Mode
    * @methodOf ng.$locationProvider
    * @description
-   * @param {string=} mode Use HTML5 strategy if available.
-   * @returns {*} current value if used as getter or itself (chaining) if used as setter
+   * @param {string=} mode Использование режима HTML5 если возможно.
+   * @returns {*} текущее значение если используется для чтения или самого себя (для цепочки) если используется для записи.
    */
   this.html5Mode = function(mode) {
     if (isDefined(mode)) {
