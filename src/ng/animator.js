@@ -142,12 +142,13 @@ var $AnimatorProvider = function() {
      * @function
      *
      * @description
-     * The $animator.create service provides the DOM manipulation API which is decorated with animations.
+     * 
+     * Сервис $animator.create предоставляет API DOM-манипуляций необходимое для анимационных эффектов.
      *
-     * @param {Scope} scope the scope for the ng-animate.
-     * @param {Attributes} attr the attributes object which contains the ngAnimate key / value pair. (The attributes are
-     *        passed into the linking function of the directive using the `$animator`.)
-     * @return {object} the animator object which contains the enter, leave, move, show, hide and animate methods.
+     * @param {Scope} scope Область видимости для ng-animate.
+     * @param {Attributes} attr Объект с атрибутами, содержащий пары ключ-значение для ngAnimate. (Атрибуты
+     *        передаются в функцию линковки директивы, использующей `$animator`.)
+     * @return {object} объект аниматора, содержащий enter, leave, move, show, hide и анимационные методы.
      */
      var AnimatorService = function(scope, attrs) {
         var ngAnimateAttr = attrs.ngAnimate;
@@ -161,11 +162,11 @@ var $AnimatorProvider = function() {
          * @function
          *
          * @description
-         * Injects the element object into the DOM (inside of the parent element) and then runs the enter animation.
+         * Внедряет объект элемента в DOM (внутрь родительского элемента) а затем запускает enter анимацию.
          *
-         * @param {jQuery/jqLite element} element the element that will be the focus of the enter animation
-         * @param {jQuery/jqLite element} parent the parent element of the element that will be the focus of the enter animation
-         * @param {jQuery/jqLite element} after the sibling element (which is the previous element) of the element that will be the focus of the enter animation
+         * @param {jQuery/jqLite element} element Элемент, который будет в фокусе enter анимации.
+         * @param {jQuery/jqLite element} parent Родитель элемента, который будет в фокусе enter анимации.
+         * @param {jQuery/jqLite element} after Сестринский элемент (предыдущий) элемента, который будет в фокусе enter анимации.
         */
         animator.enter = animateActionFactory('enter', insert, noop);
   
@@ -176,10 +177,10 @@ var $AnimatorProvider = function() {
          * @function
          *
          * @description
-         * Runs the leave animation operation and, upon completion, removes the element from the DOM.
+         * Выполняет анимацию leave и, при заверщении, удаляет элемент из DOM.
          *
-         * @param {jQuery/jqLite element} element the element that will be the focus of the leave animation
-         * @param {jQuery/jqLite element} parent the parent element of the element that will be the focus of the leave animation
+         * @param {jQuery/jqLite element} element Элемент, который будет в фокусе leave анимации.
+         * @param {jQuery/jqLite element} parent Родитель элемента, который будет в фокусе leave анимации.
         */
         animator.leave = animateActionFactory('leave', noop, remove);
   
@@ -190,12 +191,13 @@ var $AnimatorProvider = function() {
          * @function
          *
          * @description
-         * Fires the move DOM operation. Just before the animation starts, the animator will either append it into the parent container or
-         * add the element directly after the after element if present. Then the move animation will be run.
+         * Запускает операцию move перемещения DOM. Незадолго до начала анимации, аниматор либо добавит его в 
+         * родительский контейнер либо добавить элемент сразу за элементом, если тот присутствует. Тогда 
+         * анимация move будет выполнена.
          *
-         * @param {jQuery/jqLite element} element the element that will be the focus of the move animation
-         * @param {jQuery/jqLite element} parent the parent element of the element that will be the focus of the move animation
-         * @param {jQuery/jqLite element} after the sibling element (which is the previous element) of the element that will be the focus of the move animation
+         * @param {jQuery/jqLite element} element Элемент, который будет в фокусе move анимации.
+         * @param {jQuery/jqLite element} parent the Родитель элемента, который будет в фокусе move анимации.
+         * @param {jQuery/jqLite element} after the Сестринский элемент (предыдущий) элемента, который будет в фокусе move анимации.
         */
         animator.move = animateActionFactory('move', move, noop);
   
@@ -206,9 +208,10 @@ var $AnimatorProvider = function() {
          * @function
          *
          * @description
-         * Reveals the element by setting the CSS property `display` to `block` and then starts the show animation directly after.
-         *
-         * @param {jQuery/jqLite element} element the element that will be rendered visible or hidden
+         * Показывает элемент, установив CSS свойство `display` в `block`, а затем, непосредственно после этого,
+         * начинает показывать анимацию 
+         * 
+         * @param {jQuery/jqLite element} element Элемент, который будет показан или скрыт
         */
         animator.show = animateActionFactory('show', show, noop);
   
@@ -218,9 +221,9 @@ var $AnimatorProvider = function() {
          * @methodOf ng.$animator
          *
          * @description
-         * Starts the hide animation first and sets the CSS `display` property to `none` upon completion.
+         * Сперва запускает анимацию скрытия и устанавливает CSS свойство `display` в `none` после завершения.
          *
-         * @param {jQuery/jqLite element} element the element that will be rendered visible or hidden
+         * @param {jQuery/jqLite element} element Элемент, который будет показан или скрыт
         */
         animator.hide = animateActionFactory('hide', noop, hide);
         return animator;
@@ -333,11 +336,11 @@ var $AnimatorProvider = function() {
      * @methodOf ng.$animator
      * @function
      *
-     * @param {Boolean=} If provided then set the animation on or off.
-     * @return {Boolean} Current animation state.
+     * @param {Boolean=} Если установлен, то анимация включена, иначе выключена.
+     * @return {Boolean} Текущее состояние анимации
      *
      * @description
-     * Globally enables/disables animations.
+     * Глобальное включение/выключение анимаций.
      *
     */
     AnimatorService.enabled = function(value) {
