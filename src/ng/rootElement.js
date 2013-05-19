@@ -5,11 +5,10 @@
  * @name ng.$rootElement
  *
  * @description
- * The root element of Angular application. This is either the element where {@link
- * ng.directive:ngApp ngApp} was declared or the element passed into
- * {@link angular.bootstrap}. The element represent the root element of application. It is also the
- * location where the applications {@link AUTO.$injector $injector} service gets
- * published, it can be retrieved using `$rootElement.injector()`.
+ * Корневой элемент приложения Angular. Это элемент в котором определена директива {@link
+ * ng.directive:ngApp ngApp} или элемент, переданный в метод {@link angular.bootstrap}. В нем публикуется 
+ * ссылка на сервис {@link AUTO.$injector $injector} для приложения, который можно получить с помощью 
+ * `$rootElement.injector()`.
  */
 
 
