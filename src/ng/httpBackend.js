@@ -14,14 +14,14 @@ var XHR = window.XMLHttpRequest || function() {
  * @requires $document
  *
  * @description
- * HTTP backend used by the {@link ng.$http service} that delegates to
- * XMLHttpRequest object or JSONP and deals with browser incompatibilities.
- *
- * You should never need to use this service directly, instead use the higher-level abstractions:
- * {@link ng.$http $http} or {@link ngResource.$resource $resource}.
- *
- * During testing this implementation is swapped with {@link ngMock.$httpBackend mock
- * $httpBackend} which can be trained with responses.
+ * HTTP backend используется как {@link ng.$http сервис} который исправляет несовместимости 
+ * объектов XMLHttpRequest или JSONP в различных браузерах.
+ * 
+ * Не стоит использовать этот сервис явно, вместо этого используйте его абстракции более высокого уровня: 
+ * {@link ng.$http $http} или {@link ngResource.$resource $resource}.
+ * 
+ * В ходе тестирования этот объект может быть заменен объектом {@link ngMock.$httpBackend mock
+ * $httpBackend} с заранее определенными ответами.
  */
 function $HttpBackendProvider() {
   this.$get = ['$browser', '$window', '$document', function($browser, $window, $document) {
