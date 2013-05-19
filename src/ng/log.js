@@ -6,10 +6,10 @@
  * @requires $window
  *
  * @description
- * Simple service for logging. Default implementation writes the message
- * into the browser's console (if present).
- *
- * The main purpose of this service is to simplify debugging and troubleshooting.
+ * Простой сервис для логирования. По умолчанию реализована запись сообщений в консоль браузера 
+ * (если она есть).
+ * 
+ * Главная цель данного сервиса это простая отладка и разрешение проблем.
  *
  * @example
    <example>
@@ -37,7 +37,7 @@
  * @ngdoc object
  * @name ng.$logProvider
  * @description
- * Use the `$logProvider` to configure how the application logs messages
+ * Используйте `$logProvider` для указания как приложение должно вести логи
  */
 function $LogProvider(){
   var debug = true,
@@ -68,7 +68,7 @@ function $LogProvider(){
        * @methodOf ng.$log
        *
        * @description
-       * Write a log message
+       * Записывает лог сообщение
        */
       log: consoleLog('log'),
 
@@ -78,7 +78,7 @@ function $LogProvider(){
        * @methodOf ng.$log
        *
        * @description
-       * Write a warning message
+       * Записывает сообщение с предупреждением
        */
       warn: consoleLog('warn'),
 
@@ -88,7 +88,7 @@ function $LogProvider(){
        * @methodOf ng.$log
        *
        * @description
-       * Write an information message
+       * Записывает информационное сообщение
        */
       info: consoleLog('info'),
 
@@ -98,7 +98,7 @@ function $LogProvider(){
        * @methodOf ng.$log
        *
        * @description
-       * Write an error message
+       * Записывает сообщение об ошибке
        */
       error: consoleLog('error'),
       
@@ -108,7 +108,7 @@ function $LogProvider(){
        * @methodOf ng.$log
        * 
        * @description
-       * Write a debug message
+       * Записывает сообщение для отладки
        */
       debug: (function () {
     	var fn = consoleLog('debug');
