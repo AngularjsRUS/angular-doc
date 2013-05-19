@@ -6,8 +6,7 @@
  * @requires $window
  *
  * @description
- * A {@link angular.element jQuery (lite)}-wrapped reference to the browser's `window.document`
- * element.
+ * Это {@link angular.element jQuery (lite)}-обертка, ссылающаяся на элемент браузера `window.document`.
  */
 function $DocumentProvider(){
   this.$get = ['$window', function(window){
