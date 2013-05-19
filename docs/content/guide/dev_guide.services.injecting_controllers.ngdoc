@@ -104,10 +104,10 @@ function myController($scope, notify) {
 
 ## Связанные разделы
 
-{@link dev_guide.services.understanding_services Понимание сервисов}
-{@link dev_guide.services.creating_services Creating Сервисы}
-{@link dev_guide.services.managing_dependencies Управление зависимостями сервисов}
-{@link dev_guide.services.testing_services Тестирование сервисов}
+* {@link dev_guide.services.understanding_services Понимание сервисов}
+* {@link dev_guide.services.creating_services Создание сервисов}
+* {@link dev_guide.services.managing_dependencies Управление зависимостями сервисов}
+* {@link dev_guide.services.testing_services Тестирование сервисов}
 
 ## Связанное API
 
