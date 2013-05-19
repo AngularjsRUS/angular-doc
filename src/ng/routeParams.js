@@ -6,22 +6,22 @@
  * @requires $route
  *
  * @description
- * Current set of route parameters. The route parameters are a combination of the
- * {@link ng.$location $location} `search()`, and `path()`. The `path` parameters
- * are extracted when the {@link ng.$route $route} path is matched.
- *
- * In case of parameter name collision, `path` params take precedence over `search` params.
- *
- * The service guarantees that the identity of the `$routeParams` object will remain unchanged
- * (but its properties will likely change) even when a route change occurs.
+ * Текущие параметры для маршрутизации. Параметры маршрутизации, это комбинация методов сервиса
+ * {@link ng.$location $location} `search()`, и `path()`. Параметр `path` извлечен, когда найдет путь в 
+ * {@link ng.$route $route}.
+ * 
+ * В случае конфликта имен параметров, параметры `path` приоритетнее параметров `search`.
+ * 
+ * Сервис гарантирует что объект `$routeParams` не будет изменяться (но его свойства будут меняться) 
+ * даже когда маршрут будет изменен.
  *
  * @example
  * <pre>
- *  // Given:
+ *  // Дано:
  *  // URL: http://server.com/index.html#/Chapter/1/Section/2?search=moby
- *  // Route: /Chapter/:chapterId/Section/:sectionId
+ *  // Маршрут: /Chapter/:chapterId/Section/:sectionId
  *  //
- *  // Then
+ *  // Тогда
  *  $routeParams ==> {chapterId:1, sectionId:2, search:'moby'}
  * </pre>
  */
