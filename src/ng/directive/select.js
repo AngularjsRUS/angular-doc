@@ -6,59 +6,58 @@
  * @restrict E
  *
  * @description
- * HTML `SELECT` element with angular data-binding.
+ * HTML элемент `SELECT` с поддержкой связывания данных.
  *
  * # `ngOptions`
  *
- * Optionally `ngOptions` attribute can be used to dynamically generate a list of `<option>`
- * elements for a `<select>` element using an array or an object obtained by evaluating the
- * `ngOptions` expression.
+ * Необязательный атрибут `ngOptions` может использоваться для динамической генерации списка элементов 
+ * `<option>` для элемента `<select>` используя массив или объект, возвращенный заданным в `ngOptions` выражением.
  *˝˝
- * When an item in the select menu is select, the value of array element or object property
- * represented by the selected option will be bound to the model identified by the `ngModel`
- * directive of the parent select element.
+ * Когда элемент выбирается из списка, значение из массива элементов или свойство объекта привязывается к свойству, 
+ * заданному с помощью директивы `ngModel` родительского меню и устанавливается атрибут selected.
+ * 
+ * По желанию можно жестко задать один элемент `<option>`, значение которого установить в пустую строку, и 
+ * вложить его в элемент `<select>`. Этот элемент будет соответствовать значению null или опции «not selected». 
+ * Это продемонстрировано в примере ниже.
+ * 
+ * Примечание: `ngOptions` предоставляет итератор для элемента `<option>` который должен использоваться вместо 
+ * {@link ng.directive:ngRepeat ngRepeat} когда необходимо привязать модель `select` не к строковому значению. 
+ * Это потому, что элемент option в настоящее время может быть привязан только к строковому значению.
  *
- * Optionally, a single hard-coded `<option>` element, with the value set to an empty string, can
- * be nested into the `<select>` element. This element will then represent `null` or "not selected"
- * option. See example below for demonstration.
+ * @param {string} ngModel Angular-выражение для привязки данных.
+ * @param {string=} name Имя свойства в родительской форме, под которым элемент управления в ней публикуется.
+ * @param {string=} required Это элемент управления будет считаться правильным, только если значение введено.
+ * @param {string=} ngRequired Добавляет `required` атрибут и `required` проверку содержимого элемента, когда 
+ *    выражение `ngRequired` возвращает true. Используйте `ngRequired` вместо `required` когда нужно привязать
+ *    данные к атрибуту `required`.
+ * @param {comprehension_expression=} ngOptions в одной из следующих форм:
  *
- * Note: `ngOptions` provides iterator facility for `<option>` element which should be used instead
- * of {@link ng.directive:ngRepeat ngRepeat} when you want the
- * `select` model to be bound to a non-string value. This is because an option element can currently
- * be bound to string values only.
- *
- * @param {string} ngModel Assignable angular expression to data-bind to.
- * @param {string=} name Property name of the form under which the control is published.
- * @param {string=} required The control is considered valid only if value is entered.
- * @param {string=} ngRequired Adds `required` attribute and `required` validation constraint to
- *    the element when the ngRequired expression evaluates to true. Use `ngRequired` instead of
- *    `required` when you want to data-bind to the `required` attribute.
- * @param {comprehension_expression=} ngOptions in one of the following forms:
- *
- *   * for array data sources:
+ *   * когда источник данных — массив:
  *     * `label` **`for`** `value` **`in`** `array`
  *     * `select` **`as`** `label` **`for`** `value` **`in`** `array`
  *     * `label`  **`group by`** `group` **`for`** `value` **`in`** `array`
  *     * `select` **`as`** `label` **`group by`** `group` **`for`** `value` **`in`** `array`
- *   * for object data sources:
+ *   * когда источник данных — объект:
  *     * `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
  *     * `select` **`as`** `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
  *     * `label` **`group by`** `group` **`for (`**`key`**`,`** `value`**`) in`** `object`
  *     * `select` **`as`** `label` **`group by`** `group`
  *         **`for` `(`**`key`**`,`** `value`**`) in`** `object`
  *
- * Where:
+ * где:
  *
- *   * `array` / `object`: an expression which evaluates to an array / object to iterate over.
- *   * `value`: local variable which will refer to each item in the `array` or each property value
- *      of `object` during iteration.
- *   * `key`: local variable which will refer to a property name in `object` during iteration.
- *   * `label`: The result of this expression will be the label for `<option>` element. The
- *     `expression` will most likely refer to the `value` variable (e.g. `value.propertyName`).
- *   * `select`: The result of this expression will be bound to the model of the parent `<select>`
- *      element. If not specified, `select` expression will default to `value`.
- *   * `group`: The result of this expression will be used to group options using the `<optgroup>`
- *      DOM element.
+ *   * `array` / `object`: выражение, которое возвращает массив / объект для итерации.
+ *   * `value`: локальная переменная, которая будет ссылаться на перечисляемый элемент в массиве `array`
+ *      или перечисляемое значение свойства в объекте `object` при итерации.
+ *   * `key`: локальная переменная, которая будет ссылаться на имя свойства в объекте `object` 
+ *      который используется для итерации.
+ *   * `label`: выражение для вычисления результата, который будет размещен на метке элемента `<option>`.
+ *     Это выражение должно ссылаться на переменную `value` (например, `value.propertyName`).
+ *   * `select`: Выражения для вычисления результата, который будет привязан к модели родительского элемента 
+ *      `<select>` при выборе текущего элемента. Если не указано, выражение `select` будет по умолчанию равно 
+ *      переменной `value`.
+ *   * `group`: Выражение для вычисления результата, который будет использоваться для группирования элементов 
+ *      `option` используя DOM элемент `<optgroup>`.
  *
  * @example
     <doc:example>
