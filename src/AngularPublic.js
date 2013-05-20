@@ -4,14 +4,13 @@
  * @ngdoc property
  * @name angular.version
  * @description
- * An object that contains information about the current AngularJS version. This object has the
- * following properties:
+ * Объект, содержащий информацию о текущей версии AngularJS. Этот объект имеет следующие свойства:
  *
- * - `full` – `{string}` – Full version string, such as "0.9.18".
- * - `major` – `{number}` – Major version number, such as "0".
- * - `minor` – `{number}` – Minor version number, such as "9".
- * - `dot` – `{number}` – Dot version number, such as "18".
- * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
+ * - `full` – `{string}` – Строка полной версии, такая как "0.9.18".
+ * - `major` – `{number}` – Номер старшей версии, такой как "0".
+ * - `minor` – `{number}` – Номер младшей версии, такой как "9".
+ * - `dot` – `{number}` – Номер исправления, такой как "18".
+ * - `codeName` – `{string}` – Кодовое имя релиза, такое как "jiggling-armfat".
  */
 var version = {
   full: '"NG_VERSION_FULL"',    // all of these placeholder strings will be replaced by grunt's
