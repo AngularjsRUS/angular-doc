@@ -5,9 +5,9 @@
 <ul doc-tutorial-nav="0"></ul>
 
 
-You are now ready to build the AngularJS phonecat app. In this step, you will become familiar
-with the most important source code files, learn how to start the development servers bundled with
-angular-seed, and run the application in the browser.
+Теперь вы готовы приступить к созданию angular-приложения 'phonecat'. На этом этапе вы познакомитесь
+с наиболее важными файлами исходного кода, узнаете как начать разработку, используя angular-seed, 
+и запустите приложение в браузере.
 
 
 <div class="tabbable" show="true" ng-model="$cookies.platformPreference">
@@ -77,10 +77,12 @@ directory.</li>
 </div>
 
 
-You can now see the page in your browser. It's not very exciting, but that's OK.
+Сейчас вы можете запустить приложение или нажать на 
+<a href="http://angular.github.com/angular-phonecat/step-0/app">Демо</a> и увидеть страницу в браузере. 
+Это не очень интересно, но это нормально.
 
-The HTML page that displays "Nothing here yet!" was constructed with the HTML code shown below.
-The code contains some key Angular elements that we will need going forward.
+HTML страница, отображающая надпись "Nothing here yet!" была построена с помощью HTML приведенного ниже.
+Код содержит некоторые ключевые angular-элементы (директивы), которые потребуется нам в будущем.
 
 __`app/index.html`:__
 <pre>
@@ -103,22 +105,22 @@ __`app/index.html`:__
 
 
 
-## What is the code doing?
+## Что этот код делает?
 
-* `ng-app` directive:
+* директива `ng-app`:
 
           <html ng-app>
 
-  The `ng-app` attribute represents an Angular directive (named `ngApp`; Angular uses
-  `name-with-dashes` for attribute names and `camelCase` for the corresponding directive name)
-  used to flag an element which Angular should consider to be the root element of our application.
-  This gives application developers the freedom to tell Angular if the entire html page or only a
-  portion of it should be treated as the Angular application.
+  `ng-app` аттрибут является аngular-директивой (название `ngApp`; Angular использует
+  `имя-с-тире` для имен аттрибутов и `верблюжийРегистр` для соответствующих имен директив),
+  используемый как флаг (указательный елемент), который сообщает Angular-у корневой элемент нашего приложения.
+  Это дает разработчикам приложений свободу сказать Angular-у, что вся HTML страница или только некоторые ее
+  части должны рассматриваться как Angular-приложение.
 
-* AngularJS script tag:
+* AngularJS `script` тэг:
 
           <script src="lib/angular/angular.js">
-
+  
   This code downloads the `angular.js` script and registers a callback that will be executed by the
 browser when the containing HTML page is fully downloaded. When the callback is executed, Angular
 looks for the {@link api/ng.directive:ngApp ngApp} directive. If
