@@ -3,13 +3,14 @@
 @description
 
 Отличным способом познакомиться с AngularJS является работа с этим учебником, который проведет вас за руку 
-по пути создания AngularJS веб-приложения. Это приложение строит каталог, котором отображает список Android устройств,
-позволяет вам фильтровать список, чтобы увидеть только те устройства, которые вас интересуют, а затем просматреть детали 
-для устройства.
+по пути создания AngularJS веб-приложения. Это приложение строит каталог, в котором отображает список Android устройств,
+позволяет вам фильтровать список, чтобы увидеть только те устройства, которые вас интересуют, а затем просмотреть детали 
+для выбранного устройства.
 
 <img class="diagram" src="img/tutorial/catalog_screen.png" width="488" height="413">
 
-Работая с этим учебником, вы увидите как Angular делает браузеры умнее - без использования расширений или плагинов. 
+Работая с этим учебником, вы увидите как Angular делает браузеры умнее - без использования расширений или плагинов.
+
 Кроме того в этом учебнике вы сможите:
 
 * Увидить примеры того, как на стороне клиента происходит связывание данных и внедрение зависимости 
@@ -54,60 +55,78 @@
 следуйте инструкции по настройке вашего компьютера.
 
 <div class="tabbable" show="true">
-  <div class="tab-pane well" id="git-mac" title="Git on Mac/Linux">
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux">
     <ol>
-      <li><p>You will need Node.js and Karma to run unit tests, so please verify that you have
-      <a href="http://nodejs.org/">Node.js</a> v0.8 or better installed
-      and that the <code>node</code> executable is on your <code>PATH</code> by running the following
-      command in a terminal window:</p>
-      <pre>node --version</pre>
-      <p>Additionally install <a href="http://karma-runner.github.io/">Karma</a> if you
-      don't have it already:</p>
-      <pre>npm install -g karma</pre>
-      <li><p>You'll also need Git, which you can get from
-         <a href="http://git-scm.com/download">the Git site</a>.</p></li>
-      <li><p>Clone the angular-phonecat repository located at <a
-href="https://github.com/angular/angular-phonecat">Github</a> by running the following command:</p>
-      <pre>git clone git://github.com/angular/angular-phonecat.git</pre>
-      <p>This command creates the <code>angular-phonecat</code> directory in your current
-directory.</p></li>
-      <li><p>Change your current directory to <code>angular-phonecat</code>:</p>
-      <pre>cd angular-phonecat</pre>
-      <p>The tutorial instructions assume you are running all commands from the angular-phonecat
-directory.</p></li>
-      <li><p>You will need an http server running on your system. Mac and Linux machines typically
-have Apache pre-installed, but If you don't already have one installed, you can use <code>node</code>
-to run <code>scripts/web-server.js</code>,  a simple bundled http server.</p></li>
+      <li><p>Для запуска юнит тестов (unit tests) вам понадобятся Node.js и Karma, поэтому убедитесь,
+             что у вас установлен <a href="http://nodejs.org/">Node.js</a> версии 0.8 или выше
+             и что команда <code>node</code> является исполняемой и прописана в вашем <code>PATH</code>. 
+             Для этого запустите следующую команду в окне вашего терминала (в командной строке):
+          </p>
+          <pre>node --version</pre>
+          <p>Дополнительно установите <a href="http://karma-runner.github.io/">Karma</a>, если вы еще
+             не сделали это:
+          </p>
+          <pre>npm install -g karma</pre>
+      </li>
+      <li><p>Вам также потребуется Git, который вы можите получить на сайте
+             <a href="http://git-scm.com/download">the Git site</a>.
+          </p>
+      </li>
+      <li><p>Склонируйте репозиторий <code>angular-phonecat</code>, размещенный на 
+             <a href="https://github.com/angular/angular-phonecat">Github</a>. 
+             Для этого вам потребуется запустить следующую команду:
+          </p>
+          <pre>git clone git://github.com/angular/angular-phonecat.git</pre>
+          <p>Эта команда создаст <code>angular-phonecat</code> директорию в вашей текущей директории.</p>
+      </li>
+      <li><p>Перейдите в директорию <code>angular-phonecat</code>:</p>
+          <pre>cd angular-phonecat</pre>
+          <p>В учебнике предполагается, что вы запускаете все команды из <code>angular-phonecat</code> директории.</p>
+      </li>
+      <li><p>Также вам понадобится http-сервер, запущенный в вашей системе. Mac и Linux машины обычно имеют
+             предустановленный Apache-сервер, но если у вас он не установлен, вы можете использовать 
+             команду <code>node</code> для запуска <code>scripts/web-server.js</code>, 
+             это запустит простой http-сервер идущий в комплекте с Node.js.
+          </p>
+      </li>
     </ol>
   </div>
 
-  <div class="tab-pane well" id="git-win" title="Git on Windows">
+  <div class="tab-pane well" id="git-win" title="Git на Windows">
     <ol>
-      <li><p>You will need Node.js and Karma to run unit tests, so please verify that you have
-        <a href="http://nodejs.org/">Node.js</a> v0.8 or better installed
-        and that the <code>node</code> executable is on your <code>PATH</code> by running the following
-        command in a terminal window:</p>
-        <pre>node --version</pre>
-        <p>Additionally install <a href="http://karma-runner.github.io/">Karma</a> if you
-           don't have it already:</p>
-        <pre>npm install -g karma</pre>
+      <li><p>Для запуска юнит тестов (unit tests) вам понадобятся Node.js и Karma, поэтому убедитесь,
+             что у вас установлен <a href="http://nodejs.org/">Node.js</a> версии 0.8 или выше
+             и что команда <code>node</code> является исполняемой и прописана в вашем <code>PATH</code>.
+             Для этого запустите следующую команду в окне вашего терминала (в командной строке):
+          </p>
+          <pre>node --version</pre>
+          <p>Дополнительно установите <a href="http://karma-runner.github.io/">Karma</a>, если вы еще
+             не сделали это:</p>
+          <pre>npm install -g karma</pre>
       </li>
-      <li><p>You'll also need Git, which you can get from
-               <a href="http://git-scm.com/download">the Git site</a>.</p></li>
-      <li><p>Clone the angular-phonecat repository located at <a
-      href="https://github.com/angular/angular-phonecat">Github</a> by running the following command:</p>
-      <pre>git clone git://github.com/angular/angular-phonecat.git</pre>
-      <p>This command creates the angular-phonecat directory in your current directory.</p></li>
-      <li><p>Change your current directory to angular-phonecat.</p>
-      <pre>cd angular-phonecat</pre>
-      <p>The tutorial instructions assume you are running all commands from the angular-phonecat
-directory.</p>
-      <p>You should run all <code>git</code> commands from Git bash.</p>
-      <p>Other commands like <code>test.bat</code> or <code>e2e-test.bat</code> should be
-executed from the Windows command line.</li>
-      <li><p>You need an http server running on your system, but if you don't already have one
-already installed, you can use <code>node</code> to run <code>scripts\web-server.js</code>, a simple
-bundled http server.</p></li>
+      <li><p>Вам также потребуется Git, который вы можите получить на сайте
+             <a href="http://git-scm.com/download">the Git site</a>.
+          </p>
+      </li>
+      <li><p>Склонируйте репозиторий <code>angular-phonecat</code>, размещенный на 
+             <a href="https://github.com/angular/angular-phonecat">Github</a>. 
+             Для этого вам потребуется запустить следующую команду:</p>
+          <pre>git clone git://github.com/angular/angular-phonecat.git</pre>
+          <p>Эта команда создаст <code>angular-phonecat</code> директорию в вашей текущей директории.</p>
+      </li>
+      <li><p>Перейдите в директорию <code>angular-phonecat</code>:</p>
+          <pre>cd angular-phonecat</pre>
+          <p>В учебнике предполагается, что вы запускаете все команды из <code>angular-phonecat</code> директории.</p>
+          <p>Вы должны запускать <code>git</code> и все git-команды из <code>Git bash</code> 
+             (командной оболочки для Git).</p>
+          <p>Другие команды, такие как <code>test.bat</code> или <code>e2e-test.bat</code> должны запускаться
+             из командной строки Windows (<code>cmd</code>).</p>
+      </li>
+      <li><p>Также вам понадобится http-сервер, запущенный в вашей системе, если у вас он еще не установлен, 
+             вы можете использовать команду <code>node</code> для запуска <code>scripts/web-server.js</code>, 
+             это запустит простой http-сервер идущий в комплекте с Node.js.
+          </p>
+      </li>
     </ol>
   </div>
 
