@@ -5,13 +5,14 @@
  * @name ngMobile.directive:ngSwipeLeft
  *
  * @description
- * Specify custom behavior when an element is swiped to the left on a touchscreen device.
- * A leftward swipe is a quick, right-to-left slide of the finger.
- * Though ngSwipeLeft is designed for touch-based devices, it will work with a mouse click and drag too.
+ * Задает пользовательское поведение, когда элемент свайпнут налево на сенсорном экране устройства.
+ * Левый свайп это быстрое движение пальцем справа налево. 
+ * Хотя ngSwipeLeft предназначен для сенсорных устройств, он так же будет работать если щелккнуть и перетащить
+ * элемент мышью.
  *
  * @element ANY
- * @param {expression} ngSwipeLeft {@link guide/expression Expression} to evaluate
- * upon left swipe. (Event object is available as `$event`)
+ * @param {expression} ngSwipeLeft {@link guide/expression Выражение} вычисляемое при левом
+ * свайпе. (Объект события доступен как `$event`)
  *
  * @example
     <doc:example>
@@ -32,13 +33,14 @@
  * @name ngMobile.directive:ngSwipeRight
  *
  * @description
- * Specify custom behavior when an element is swiped to the right on a touchscreen device.
- * A rightward swipe is a quick, left-to-right slide of the finger.
- * Though ngSwipeRight is designed for touch-based devices, it will work with a mouse click and drag too.
+ * Задает пользовательское поведение, когда элемент свайпнут направо на сенсорном экране устройства.
+ * Правый свайп это быстрое движение пальцем слева направо. 
+ * Хотя ngSwipeRight предназначен для сенсорных устройств, он так же будет работать если щелккнуть и перетащить
+ * элемент мышью.
  *
  * @element ANY
- * @param {expression} ngSwipeRight {@link guide/expression Expression} to evaluate
- * upon right swipe. (Event object is available as `$event`)
+ * @param {expression} ngSwipeRight {@link guide/expression Выражение} вычисляемое при правом
+ * свайпе. (Объект события доступен как `$event`)
  *
  * @example
     <doc:example>
