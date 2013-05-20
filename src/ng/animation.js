@@ -3,8 +3,8 @@
  * @name ng.$animationProvider
  * @description
  *
- * The $AnimationProvider provider allows developers to register and access custom JavaScript animations directly inside
- * of a module.
+ * $AnimationProvider позволяет разработчикам зарегистрировать и получить доступ к обычной JavaScript-анимации
+ * непосредственно внутри модуля.
  *
  */
 $AnimationProvider.$inject = ['$provide'];
@@ -17,17 +17,17 @@ function $AnimationProvider($provide) {
    * @methodOf ng.$animationProvider
    *
    * @description
-   * Registers a new injectable animation factory function. The factory function produces the animation object which
-   * has these two properties:
+   * Регистрирует новую внедряемую фабричную функцию анимации. Фабричная функция создает объект анимации, который
+   * имеет два параметра:
    *
-   *   * `setup`: `function(Element):*` A function which receives the starting state of the element. The purpose
-   *   of this function is to get the element ready for animation. Optionally the function returns an memento which
-   *   is passed to the `start` function.
-   *   * `start`: `function(Element, doneFunction, *)` The element to animate, the `doneFunction` to be called on
-   *   element animation completion, and an optional memento from the `setup` function.
+   *   * `setup`: `function(Element):*` Функция, получающая начальное состояние элемента. Ее цель —
+   *   подготовить элемент к анимации. Опционально может вернуть напоминание, передаваемое в
+   *   функцию `start`.
+   *   * `start`: `function(Element, doneFunction, *)` Элемент для анимации, функция `doneFunction` будет
+   *   вызвана при завершении анимации элемента и опционально, напоминанием из функции `setup`.
    *
-   * @param {string} name The name of the animation.
-   * @param {function} factory The factory function that will be executed to return the animation object.
+   * @param {string} name Имя анимации.
+   * @param {function} factory Фабричная функция, возвращающая объект анимациипосле выполнения.
    * 
    */
   this.register = function(name, factory) {
@@ -41,13 +41,13 @@ function $AnimationProvider($provide) {
      * @function
      *
      * @description
-     * The $animation service is used to retrieve any defined animation functions. When executed, the $animation service
-     * will return a object that contains the setup and start functions that were defined for the animation.
+     * Сервис $animation используется, чтобы вернуть любую определенную функцию анимации. При выполнении сервис
+     * $animation вернет объект, содержащий параметры и функцию запуска, определенные для анимации.
      *
-     * @param {String} name Name of the animation function to retrieve. Animation functions are registered and stored
-     *        inside of the AngularJS DI so a call to $animate('custom') is the same as injecting `customAnimation`
-     *        via dependency injection.
-     * @return {Object} the animation object which contains the `setup` and `start` functions that perform the animation.
+     * @param {String} name Имя возвращаемой функции анимации. Функция анимации регистрируется и хранится
+     *        в системе внедрения зависимости AngularJS и вызывается как $animate('custom') являясь так же
+     *        внедренной `customAnimation` через внедрение зависимости.
+     * @return {Object} объект анимации, содержащий функции `setup` и `start` воспроизводимые при анимации.
      */
     return function $animation(name) {
       if (name) {
