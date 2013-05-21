@@ -5,16 +5,6 @@
  * @name ng.directive:ngCloak
  *
  * @description
- * The `ngCloak` directive is used to prevent the Angular html template from being briefly
- * displayed by the browser in its raw (uncompiled) form while your application is loading. Use this
- * directive to avoid the undesirable flicker effect caused by the html template display.
- *
- * The directive can be applied to the `<body>` element, but typically a fine-grained application is
- * preferred in order to benefit from progressive rendering of the browser view.
- *
- * `ngCloak` works in cooperation with a css rule that is embedded within `angular.js` and
- *  `angular.min.js` files. Following is the css rule:
- * 
  * Директива `ngCloak` используется для предотвращения показа в браузере шаблона Angular (до того как он будет
  * скомпилирован) при загрузке приложения. Используйте эту директиву, чтобы избежать нежелательного эффекта мерцания, вызванного кратковременным 
  * отображением html-шаблона.
