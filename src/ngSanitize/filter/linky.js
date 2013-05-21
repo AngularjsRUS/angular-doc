@@ -4,12 +4,12 @@
  * @function
  *
  * @description
- *   Finds links in text input and turns them into html links. Supports http/https/ftp/mailto and
- *   plain email address links.
+ *   Находит ссылки во входном тексте и преобразует их в ссылки html. Поддерживаются http/https/ftp/mailto и email 
+ *   ссылки.
  *
- * @param {string} text Input text.
- * @param {string} target Window (_blank|_self|_parent|_top) or named frame to open links in.
- * @returns {string} Html-linkified text.
+ * @param {string} text Входной текст.
+ * @param {string} target Окно (_blank|_self|_parent|_top) или имя фрейма в котором откроется ссылка.
+ * @returns {string} Текст с html-ссылками.
  *
  * @usage
    <span ng-bind-html="linky_expression | linky"></span>
