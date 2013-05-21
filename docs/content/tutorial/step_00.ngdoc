@@ -13,31 +13,32 @@
 <div class="tabbable" show="true">
   <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux">
     <ol>
-      <li><p>In angular-phonecat directory, run this command:</p>
+      <li><p>В директории `angular-phonecat`, выполните следующую команду:</p>
           <pre>git checkout -f step-0</pre>
-          <p>This resets your workspace to step 0 of the tutorial app.</p>
-          <p>You must repeat this for every future step in the tutorial and change the number to
-             the number of the step you are on. This will cause any changes you made within
-             your working directory to be lost.
+          <p>Она сбросит ваш рабочий код (workspace) в шаг 0 данного учебникого приложения.</p>
+          <p>Вам необходимо будет повторить это действие (сброс рабочего кода в соответствующий шаг)
+             для будущих шагов этого учебника. Для этого потребуется изменить число (N) в `step-N`, на
+             значение соответствующего шага, в который вы переходите. Это приведет к тому,
+             что все внесенные изменения в вашем рабочем каталоге, будут потеряны.
           </p>
       </li>
 
-      <li>To see the app running in a browser, do one of the following:
+      <li>Что бы увидеть запущенное приложение в браузере, сделайте одно из следующих дейчтвий:
         <ul>
-          <li><b>For node.js users:</b>
+          <li><b>Если вы используете node.js:</b>
               <ol>
-                <li>In a <i>separate</i> terminal tab or window, run
-                    <code>./scripts/web-server.js</code> to start the web server.
+                <li>В <i>отдельной</i> вкладе терминала или <i>новом</i> окне терминала, выполните команду
+                    <code>./scripts/web-server.js</code>. Она запустит веб-сервер.
                 </li>
-                <li>Open a browser window for the app and navigate to 
+                <li>Откройте окно браузера и в строке навигации введите следующий адрес
                     <a href="http://localhost:8000/app/index.html">http://localhost:8000/app/index.html</a>
                 </li>
               </ol>
           </li>
-          <li><b>For other http servers:</b>
+          <li><b>Для других http-серверов:</b>
               <ol>
-                <li>Configure the server to serve the files in the <code>angular-phonecat</code> directory.</li>
-                <li>Navigate in your browser to 
+                <li>Настройте сервер на обслуживание файлов в директории <code>angular-phonecat</code>.</li>
+                <li>В строке навигации вашего браузера введите адрес вида 
                     <code>http://localhost:[port-number]/[context-path]/app/index.html</code>.
                 </li>
               </ol>
@@ -50,30 +51,31 @@
 
   <div class="tab-pane well" id="git-win" title="Git на Windows">
     <ol>
-      <li><p>Open Git bash and run this command (in angular-phonecat directory):</p>
+      <li><p>Откройте Git bash и выполните следующую команду (в директории `angular-phonecat`):</p>
           <pre>git checkout -f step-0</pre>
-          <p>This resets your workspace to step 0 of the tutorial app.</p>
-          <p>You must repeat this for every future step in the tutorial and change the number to
-             the number of the step you are on. This will cause any changes you made within
-             your working directory to be lost.
+          <p>Она сбросит ваш рабочий код (workspace) в шаг 0 данного учебникого приложения.</p>
+          <p>Вам необходимо будет повторить это действие (сброс рабочего кода в соответствующий шаг)
+             для будущих шагов этого учебника. Для этого потребуется изменить число (N) в `step-N`, на
+             значение соответствующего шага, в который вы переходите. Это приведет к тому,
+             что все внесенные изменения в вашем рабочем каталоге, будут потеряны.
           </p>
       </li>
-      <li>To see the app running in a browser, do one of the following:
+      <li>Что бы увидеть запущенное приложение в браузере, сделайте одно из следующих дейчтвий:
         <ul>
-          <li><b>For node.js users:</b>
+          <li><b>Если вы используете node.js:</b>
             <ol>
-              <li>In a <i>separate</i> terminal tab or window, run 
-                  <code>node scripts\web-server.js</code> to start the web server.
+              <li>В <i>отдельной</i> вкладе терминала или <i>новом</i> окне терминала, выполните команду
+                  <code>node scripts\web-server.js</code>. Она запустит веб-сервер.
               </li>
-              <li>Open a browser window for the app and navigate to 
+              <li>Откройте окно браузера и в строке навигации введите следующий адрес
                   <a href="http://localhost:8000/app/index.html">http://localhost:8000/app/index.html</a>
               </li>
             </ol>
           </li>
-          <li><b>For other http servers:</b>
+          <li><b>Для других http-серверов:</b>
             <ol>
-              <li>Configure the server to serve the files in the <code>angular-phonecat</code> directory.</li>
-              <li>Navigate in your browser to 
+              <li>Настройте сервер на обслуживание файлов в директории <code>angular-phonecat</code>.</li>
+              <li>В строке навигации вашего браузера введите адрес вида 
                   <code>http://localhost:[port-number]/[context-path]/app/index.html</code>.
               </li>
             </ol>
@@ -152,69 +154,70 @@ __`app/index.html`:__
   Как и следовало ожидать, как только этот шаблон обработался Angular-ом, HTML-страница стала содержать текст:
   "Nothing here yet!".
 
-## Начальная загрузка AngularJS приложения
+## Инициализация AngularJS приложения
 
-Bootstrapping AngularJS apps automatically using the `ngApp` directive is very easy and suitable
-for most cases. In advanced cases, such as when using script loaders, you can use
-{@link guide/bootstrap imperative / manual way} to bootstrap the app.
+Инициализация AngularJS приложения происходит автоматически, используя `ngApp` директиву. Это очень просто
+и подходит в большинстве случаев. В продвинутых случаях, например, при использовании скриптовых загрузчиков
+(script loaders), вы можете использовать способы инициализации приложения описанные в 
+{@link guide/bootstrap разделе 'Инициализация'}
 
-There are 3 important things that happen during the app bootstrap:
+Есть 3 важные вещи, которые случаются во время инициализации приложения:
 
-1. The {@link api/AUTO.$injector injector} that will be used for dependency injection
-   within this app is created.
+1. {@link api/AUTO.$injector Инжектор}, который будет использоваться для внедрение зависимости (dependency injection)
+   в рамках создания приложения.
 
-2. The injector will then create the {@link api/ng.$rootScope root scope} that will
-   become the context for the model of our application.
+2. Инжектор будет создавать {@link api/ng.$rootScope корневую область видимости (root scope)}, котоая станет
+   контекстом для модели нашего приложения.
 
-3. Angular will then "compile" the DOM starting at the `ngApp` root element, processing any
-   directives and bindings found along the way.
+3. Angular будет "компилировать" DOM начиная с корневого элемента `ngApp`, подготавливая найденные директивы
+   и связывая директивы с соответствующими элементами.
+   
+Как только приложение инициализировалось, оно будет ожидать события от браузера (например, клик мыши,
+нажатие клавиши или пришедший HTTP-ответ), которые могут привести к изменению модели. Как только 
+такое событие случается, Angular пытается обнаружить изменениям в каких-нибудь моделях,
+если изменения будут найдены, Angular будет отражать их в представлении (view), путем обновления всех
+задетых связываных данных (bindings).
 
-
-Once an application is bootstrapped, it will then wait for incoming browser events (such as mouse
-click, key press or incoming HTTP response) that might change the model. Once such an event occurs,
-Angular detects if it caused any model changes and if changes are found, Angular will reflect them
-in the view by updating all of the affected bindings.
-
-The structure of our application is currently very simple. The template contains just one directive
-and one static binding, and our model is empty. That will soon change!
+Структура нашего приложения в настоящее время очень простоя. Шаблон содержит только одну директиву
+и одну статическую привязку (binding), и наша модель пуста. Это скоро изменится!
 
 <img class="diagram" src="img/tutorial/tutorial_00.png">
 
 
-## What are all these files in my working directory?
+## Что означают все эти файлы в моей рабочей директории?
 
-Most of the files in your working directory come from the {@link
-https://github.com/angular/angular-seed angular-seed project} which is typically used to bootstrap
-new Angular projects. The seed project includes the latest Angular libraries, test libraries,
-scripts and a simple example app, all pre-configured for developing a typical web app.
+Большинство файлов в вашей рабочей директории пришли из  
+{@link https://github.com/angular/angular-seed angular-seed проекта}, который обычно используется для создания новых
+Angular проектов. Проект `angular-seed` включает в себя последнюю версию Angular библиотеки, библиотеки для тестов,
+скрипты и простой пример приложения, все предварительно настроено для начала процесса разработки 
+типичного веб-приложения.
 
-For the purposes of this tutorial, we modified the angular-seed with the following changes:
+Для целей этого учебного шага мы внесли следующие изменения в angular-seed:
 
-* Removed the example app
-* Added phone images to `app/img/phones/`
-* Added phone data files (JSON) to `app/phones/`
-* Added [Bootstrap](http://twitter.github.com/bootstrap/) files to `app/css/` and `app/img/`
+* Удалили пример приложения
+* Добавили картинки телефонов в `app/img/phones/`
+* Добавили файлы в формате JSON с данными о телефоне в `app/phones/`
+* Добавили файлы [Bootstrap](http://twitter.github.com/bootstrap/) в `app/css/` и `app/img/`
 
 
 
-# Experiments
+# Давайте поэкспериментируем
 
-* Try adding a new expression to the `index.html` that will do some math:
+* Попробуйте добавить новое выражение в `index.html`, которое будет делать некоторое математическое вычисление:
 
           <p>1 + 2 = {{ 1 + 2 }}</p>
 
 
 
-# Summary
+# Идем дальше
 
-Now let's go to {@link step_01 step 1} and add some content to the web app.
-
+Мы законили шаг 0, теперь вы можете перейти к {@link step_01 шагу 1} и добавить контент в веб-приложение.
 
 <ul doc-tutorial-nav="0"></ul>
 
 <div style="display: none">
-Note: During the bootstrap the injector and the root scope will then be associated with the
-   element on which the `ngApp` directive was declared, so when debugging the app you can retrieve
-   them from browser console via `angular.element(rootElement).scope()` and
-   `angular.element(rootElement).injector()`.
+Примечание: Во время инициализации инжектор (injector) и корневая область видимости (root scope) будут связаны
+            с элементом, на котором была объявлена директива `ngApp`, так что при отладке приложения вы 
+            можете получить их в консоле браузера через `angular.element(rootElement).injector()` и 
+            `angular.element(rootElement).scope()`.
 </div>
