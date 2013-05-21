@@ -11,7 +11,7 @@
  * @name angular.mock
  * @description
  *
- * Namespace from 'angular-mocks.js' which contains testing related code.
+ * Пространство имен из 'angular-mocks.js', содержащее связанный с тестированием код.
  */
 angular.mock = {};
 
@@ -21,12 +21,11 @@ angular.mock = {};
  * @name ngMock.$browser
  *
  * @description
- * This service is a mock implementation of {@link ng.$browser}. It provides fake
- * implementation for commonly used browser apis that are hard to test, e.g. setTimeout, xhr,
- * cookies, etc...
- *
- * The api of this service is the same as that of the real {@link ng.$browser $browser}, except
- * that there are several helper methods available which can be used in tests.
+ * Этот сервис является имитацией реализацию {@link ng.$browser}. Он обеспечивает реализацию поддельной для 
+ * часто используемых браузером API, которые трудно проверить, например, SetTimeout, XHR, cookies, и т.д.
+ * 
+ * API этого сервиса является таким же, как реального {@link ng.$browser $browser}, за исключением того, 
+ * что существует несколько вспомогательных методов, которые могут быть использованы в тестах.
  */
 angular.mock.$BrowserProvider = function() {
   this.$get = function(){
@@ -99,9 +98,9 @@ angular.mock.$Browser = function() {
    * @methodOf ngMock.$browser
    *
    * @description
-   * Flushes all pending requests and executes the defer callbacks.
+   * Очищает все ожидающие выполнения запросы и выполняет колбэки должников.
    *
-   * @param {number=} number of milliseconds to flush. See {@link #defer.now}
+   * @param {number=} number of Количество миллисекунд для сброса. См. {@link #defer.now}
    */
   self.defer.flush = function(delay) {
     if (angular.isDefined(delay)) {
@@ -123,7 +122,7 @@ angular.mock.$Browser = function() {
    * @propertyOf ngMock.$browser
    *
    * @description
-   * Current milliseconds mock time.
+   * Текущее время имитации в миллисекундах.
    */
 
   self.$$baseHref = '';
@@ -138,7 +137,7 @@ angular.mock.$Browser.prototype = {
   * @methodOf ngMock.$browser
   *
   * @description
-  * run all fns in pollFns
+  * Выполняет все fns в pollFns
   */
   poll: function poll() {
     angular.forEach(this.pollFns, function(pollFn){
@@ -190,8 +189,8 @@ angular.mock.$Browser.prototype = {
  * @name ngMock.$exceptionHandlerProvider
  *
  * @description
- * Configures the mock implementation of {@link ng.$exceptionHandler} to rethrow or to log errors passed
- * into the `$exceptionHandler`.
+ * настройка имитированной реализации {@link ng.$exceptionHandler} для переброса или записи в лог ошибок
+ * в `$exceptionHandler`.
  */
 
 /**
@@ -199,9 +198,8 @@ angular.mock.$Browser.prototype = {
  * @name ngMock.$exceptionHandler
  *
  * @description
- * Mock implementation of {@link ng.$exceptionHandler} that rethrows or logs errors passed
- * into it. See {@link ngMock.$exceptionHandlerProvider $exceptionHandlerProvider} for configuration
- * information.
+ * Имитация сервиса ng.$exceptionHandler, которая регенерирует или логирует передаваемые ему ошибки.
+ * Подробнее о настройке см. в {@link ngMock.$exceptionHandlerProvider $exceptionHandlerProvider}.
  *
  *
  * <pre>
@@ -237,16 +235,16 @@ angular.mock.$ExceptionHandlerProvider = function() {
    * @methodOf ngMock.$exceptionHandlerProvider
    *
    * @description
-   * Sets the logging mode.
+   * Устанавливает режим ведения логов.
    *
-   * @param {string} mode Mode of operation, defaults to `rethrow`.
+   * @param {string} mode Режим операций, по умолчанию `rethrow`.
    *
-   *   - `rethrow`: If any errors are passed into the handler in tests, it typically
-   *                means that there is a bug in the application or test, so this mock will
-   *                make these tests fail.
-   *   - `log`: Sometimes it is desirable to test that an error is thrown, for this case the `log` mode stores an
-   *            array of errors in `$exceptionHandler.errors`, to allow later assertion of them.
-   *            See {@link ngMock.$log#assertEmpty assertEmpty()} and
+   *   - `rethrow`: Если любая ошибка передана в обработчик в тесте, это обычно
+   *                указывает на баг в приложении или тесте, так эта имитация
+   *                приведет к провалу теста.
+   *   - `log`: Иногда желательно, чтобы тест выпросил ошибку, в случае когда режим `log` хранит
+   *            массив ошибок в`$exceptionHandler.errors` для последующего их разрешения.
+   *            См. {@link ngMock.$log#assertEmpty assertEmpty()} и
    *             {@link ngMock.$log#reset reset()}
    */
   this.mode = function(mode) {
