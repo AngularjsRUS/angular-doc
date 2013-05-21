@@ -1,0 +1,27 @@
+@ngdoc overview
+@name Cookbook: Переключатели
+@description
+
+Реализация переключателя классов
+
+<example module="">
+  <file name="index.html">
+    <a href="" ng-init="c=['classA','classB','classC'];i=0" ng-click="i=i+1" ng-class="c[i%c.length]">Переключить</a>
+    <p>{{i%c.length}} - ({{i}})</p>
+  </file>
+  <file name="style.css">
+    .classA { background: red;}
+    .classB { background: orange;}
+    .classC { background: yellow;}
+  </file>
+</example>
+
+Стоит избегать использования в HTML сложных вычислений, но если без этого никак, то хотя бы записывать компактно
+<pre>
+  i=i+1
+</pre>
+
+вместо
+<pre>
+  i = i + 1
+</pre>
