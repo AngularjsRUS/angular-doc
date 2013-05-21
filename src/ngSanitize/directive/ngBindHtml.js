@@ -6,13 +6,13 @@
  * @name ngSanitize.directive:ngBindHtml
  *
  * @description
- * Creates a binding that will sanitize the result of evaluating the `expression` with the
- * {@link ngSanitize.$sanitize $sanitize} service and innerHTML the result into the current element.
- *
- * See {@link ngSanitize.$sanitize $sanitize} docs for examples.
+ * Создает привязки, которые очищают результат вычисления выражения `expression` с помощью сервиса 
+ * {@link ngSanitize.$sanitize $sanitize} и результат устанавливается с помощью innerHTML в текущий элемент.
+ * 
+ * См. пример в документации по {@link ngSanitize.$sanitize $sanitize}.
  *
  * @element ANY
- * @param {expression} ngBindHtml {@link guide/expression Expression} to evaluate.
+ * @param {expression} ngBindHtml {@link guide/expression Выражение} для вычисления.
  */
 angular.module('ngSanitize').directive('ngBindHtml', ['$sanitize', function($sanitize) {
   return function(scope, element, attr) {
