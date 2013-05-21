@@ -32,6 +32,7 @@
 * locale — локаль. Иногда лучше подходит _региональные установки_
 * loverCamelCase — нижнеВерблюжийРегистр
 * map — набор (в случаях events map, functions map и т.п.)
+* mock, mock implementation — имитация
 * observer — наблюдатель
 * optional — не обязательно. (Старый вариант опционально стоит выпилить)
 * polyfill — костыль
