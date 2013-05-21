@@ -29,14 +29,13 @@
  * @function
  *
  * @description
- *   The input is sanitized by parsing the html into tokens. All safe tokens (from a whitelist) are
- *   then serialized back to properly escaped html string. This means that no unsafe input can make
- *   it into the returned string, however, since our parser is more strict than a typical browser
- *   parser, it's possible that some obscure input, which would be recognized as valid HTML by a
- *   browser, won't make it through the sanitizer.
+ *   Вход очищается путем разбора лексем html. Все безопасные лексемы (из белого списка) затем возвращаются 
+ *   обратно в строку с экранированным html. Это означает, что не безопасный ввод может быть возвращен в 
+ *   строку, однако, так как наш анализатор является более строгим, чем типичный парсер браузера, вполне возможно, 
+ *   что некоторые данные, которые будут признаны как верный HTML в браузере, не будут признаны таковыми здесь.
  *
- * @param {string} html Html input.
- * @returns {string} Sanitized html.
+ * @param {string} html Html ввод.
+ * @returns {string} Очищенный html.
  *
  * @example
    <doc:example module="ngSanitize">
