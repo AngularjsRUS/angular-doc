@@ -1,25 +1,51 @@
 @ngdoc overview
-@name Tutorial: 2 - Angular Templates
+@name Tutorial: 2 - Шаблоны Angular-а
 @description
 
 <ul doc-tutorial-nav="2"></ul>
 
+Теперь настало время, чтобы сделать нашу веб-страницу динамичной - с помощью AngularJS. Мы также добавим тест, 
+который будет проверять код контроллера, который мы собираемся добавить.
 
-Now it's time to make the web page dynamic — with AngularJS. We'll also add a test that verifies the
-code for the controller we are going to add.
+Есть много способов как структурировать код приложения. Для Angular приложений, мы призываем использовать {@link 
+http://en.wikipedia.org/wiki/Model–View–Controller Шаблон проектирования "Модель-Представление-Контроллер" (MVC)}, 
+который разделяет модель данных приложения, пользовательский интерфейс и взаимодействие с пользователем на три 
+отдельных компонента и тем самым разделяет и локализует возможные проблемы. Имея в виду этот подход (MVC), 
+давайте, используя немного Angular-а и JavaScript-а, добавим модель (model), представление (view) и 
+контроллер (controller) в наше приложение.
 
-There are many ways to structure the code for an application. For Angular apps, we encourage the
-use of {@link http://en.wikipedia.org/wiki/Model–View–Controller the Model-View-Controller (MVC)
-design pattern} to decouple the code and to separate concerns. With that in mind, let's use a
-little Angular and JavaScript to add model, view, and controller components to our app.
+<div class="tabbable" show="true">
+
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux">
+    <ol>
+      <li><p>Откатите ваш рабочий код до шага 2.</p>
+          <pre>git checkout -f step-2</pre>
+      </li>
+      <li><p>Перезагрузите страницу или проверьте приложение на 
+             <a href="http://angular.github.com/angular-phonecat/step-2/app">сервере Angular</a>.
+          </p>
+      </li>
+    </ol>
+  </div>
+  
+  <div class="tab-pane well" id="git-win" title="Git на Windows">
+    <ol>
+      <li><p>Откатите ваш рабочуй код до шага 2.</p>
+          <pre>git checkout -f step-2</pre>
+      </li>
+      <li><p>Перезагрузите страницу или проверьте приложение на 
+             <a href="http://angular.github.com/angular-phonecat/step-2/app">сервере Angular</a>.
+          </p>
+      </li>
+    </ol>
+  </div>
+  
+</div>
 
 
-<div doc-tutorial-reset="2"></div>
+Сейчас ваше приложение содержит список с тремя телефонами.
 
-
-The app now contains a list with three phones.
-
-The most important changes are listed below. You can see the full diff on {@link
+Наиболее важные изменения перечислены ниже. Вы можете увидеть полный список изменений перейдя по ссылке {@link
 https://github.com/angular/angular-phonecat/compare/step-1...step-2 GitHub}:
 
 
