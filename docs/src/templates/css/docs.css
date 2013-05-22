@@ -188,6 +188,7 @@ ul.events > li > h3 {
   color: black;
   margin-top: 2em;
   margin-bottom: 2em;
+  position: static;
 }
 
 .tutorial-nav a {
