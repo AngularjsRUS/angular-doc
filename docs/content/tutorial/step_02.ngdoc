@@ -30,7 +30,7 @@ http://en.wikipedia.org/wiki/Model–View–Controller Шаблон проект
   
   <div class="tab-pane well" id="git-win" title="Git на Windows">
     <ol>
-      <li><p>Откатите ваш рабочуй код до шага 2.</p>
+      <li><p>Откатите ваш рабочий код до шага 2.</p>
           <pre>git checkout -f step-2</pre>
       </li>
       <li><p>Перезагрузите страницу или проверьте приложение на 
@@ -49,13 +49,13 @@ http://en.wikipedia.org/wiki/Model–View–Controller Шаблон проект
 https://github.com/angular/angular-phonecat/compare/step-1...step-2 GitHub}:
 
 
-## View and Template
+## Представление и Шаблон
 
-In Angular, the __view__ is a projection of the model through the HTML __template__. This means that
-whenever the model changes, Angular refreshes the appropriate binding points, which updates the
-view.
+В Angular-е, __представление__ (__view__) это проекция модели (model) через HTML __шаблон__ (__template__). 
+Это означает, что всякий раз, когда модель изменяется, Angular обновляет соответствующие связывания (binding points), 
+которые обновляют представление (view).
 
-The view component is constructed by Angular from this template:
+Представление (view) строится Angular-ом из шаблона. Для нашего приложения шаблон представлен ниже:
 
 __`app/index.html`:__
 <pre>
@@ -77,18 +77,17 @@ __`app/index.html`:__
 </html>
 </pre>
 
-We replaced the hard-coded phone list with the
-{@link api/ng.directive:ngRepeat ngRepeat directive} and two
-{@link guide/expression Angular expressions} enclosed in curly braces:
-`{{phone.name}}` and `{{phone.snippet}}`:
+Мы заменили список телефонов, который раньше был набран нами в ручную (hard-coded), на 
+{@link api/ng.directive:ngRepeat ngRepeat директиву} и два {@link guide/expression Angular выраженения}, 
+заключенных в фигурные скобки: `{{phone.name}}` и `{{phone.snippet}}`:
 
-* The `ng-repeat="phone in phones"` statement in the `<li>` tag is an Angular repeater. The
-repeater tells Angular to create a `<li>` element for each phone in the list using the first `<li>`
-tag as the template.
+* Оператор `ng-repeat="phone in phones"` в теге `<li>` это Angular-повторитель (Angular repeater).
+  Повторитель говорит Angular-у, что нужно создать элемент `<li>` для каждого телефона из списка, 
+  используя первый тег `<li>` как шаблон (основу).
 
-* As we've learned in step 0, the curly braces around `phone.name` and `phone.snippet` denote
-bindings. As opposed to evaluating constants, these expressions are referring to our application
-model, which was set up in our `PhoneListCtrl` controller.
+* Как мы узнали в шаге 0, фигурные скобки вокруг выражений `phone.name` и `phone.snippet` означают 
+  связывание данных (bindings). В отличие от константного значения, эти выражения ссылаются на модель нашего
+  приложения, которая была создана в контроллере `PhoneListCtrl`.
 
       <img class="diagram" src="img/tutorial/tutorial_02.png">
 
