@@ -1,23 +1,47 @@
 @ngdoc overview
-@name Tutorial: 1 - Static Template
+@name Tutorial: 1 - Статический Шаблон
 @description
 
 <ul doc-tutorial-nav="1"></ul>
 
 
-In order to illustrate how Angular enhances standard HTML, you will create a purely *static* HTML
-page and then examine how we can turn this HTML code into a template that Angular will use to
-dynamically display the same result with any set of data.
+Для того, чтобы проиллюстрировать, как Angular улучшает стандартный HTML, мы создадим *статическую* HTML-страницу, 
+а затем посмотрим, как мы можем превратить этот HTML код в шаблон, который Angular будет использовать для
+динамического отображения того же вида с другими данными.
 
-In this step you will add some basic information about two cell phones to an HTML page.
+В этом шаге мы добавим в HTML-страницу некоторые основные сведения о двух сотовых телефонах.
+
+<div class="tabbable" show="true">
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux">
+    <ol>
+      <li><p>Откатите ваш рабочий код до шага 1.</p>
+          <pre>git checkout -f step-1</pre>
+      </li>
+      <li><p>Перезагрузите страницу или проверьте приложение 
+             на <a href="http://angular.github.com/angular-phonecat/step-1/app">сервере Angular</a>.
+          </p>
+      </li>
+    </ol>
+  </div>
+  
+  <div class="tab-pane well" id="git-win" title="Git на Windows">
+    <ol>
+      <li><p>Откатите ваш рабочий код до шага 1.</p>
+          <pre>git checkout -f step-1</pre>
+      </li>
+      <li><p>Перезагрузите страницу или проверьте приложение 
+             на <a href="http://angular.github.com/angular-phonecat/step-1/app">сервере Angular</a>.
+          </p>
+      </li>
+    </ol>
+  </div>
+  
+</div>
 
 
-<div doc-tutorial-reset="1"></div>
+Сейчас страница содержит список с информацией о двух телефонах.
 
-
-The page now contains a list with information about two phones.
-
-The most important changes are listed below. You can see the full diff on {@link
+Наиболее важные изменения перечислены ниже. Вы можете увидеть целый список изменений по ссылке {@link
 https://github.com/angular/angular-phonecat/compare/step-0...step-1 GitHub}:
 
 __`app/index.html`:__
@@ -39,17 +63,17 @@ __`app/index.html`:__
 </pre>
 
 
-# Experiments
+# Давайте поэкспериментируем
 
-* Try adding more static HTML to `index.html`. For example:
+* Попробуйте добавить более статичный HTML в `index.html`. Для примера можете добавить следующий HTML:
 
           <p>Total number of phones: 2</p>
 
 
-# Summary
+# Идем дальше
 
-This addition to your app uses static HTML to display the list. Now, let's go to {@link step_02
-step 2} to learn how to use AngularJS to dynamically generate the same list.
+На этом шаге мы добывили к вашему приложению статический HTML для отображения списка. Теперь, давайте перейдем
+к {@link step_02 шагу 2}, чтобы узнать, как использовать AngularJS для динамической генерации того же списка.
 
 
 <ul doc-tutorial-nav="1"></ul>
