@@ -539,7 +539,8 @@ function $HttpProvider() {
      *    - **cache** – `{boolean|Cache}` – Если true, по умолчанию кэш $http будет использоваться для 
      *      кэширования GET запросов, однако если экземпляр кэша построен с помощью
      *      {@link ng.$cacheFactory $cacheFactory}, он может быть использован для кэширования.
-     *    - **timeout** – `{number}` – задержка в милисекундах.
+     *    - **timeout** – `{number|Promise}` – задержка в милисекундах или {@link ng.$q обещание}
+     *      которое при выполнении должно прервать запрос.
      *    - **withCredentials** - `{boolean}` - следует ли устанавливать флаг `withCredentials` для XHR объекта. 
      *      См. {@link https://developer.mozilla.org/en/http_access_control#section_5
      *      requests with credentials} для более детальной информации.
