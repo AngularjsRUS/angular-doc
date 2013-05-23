@@ -43,7 +43,7 @@ function $RouteProvider(){
    *      областью видимости или именем {@link angular.Module#controller registered controller}, если
    *      передается в виде строки.
    *    - `controllerAs` – `{string=}` – Псевдоним контроллера. Если задан, то контроллер будет доступен
-   *      в scope под именем `controllerAs`.
+   *      в области видимости под именем `controllerAs`.
    *    - `template` – `{string=|function()=}` – HTML шаблон в виде строки или функция, которая возвращает
    *      строку с HTML шаблоном, которая должна быть использована директивами {@link ng.directive:ngView ngView} 
    *      или {@link ng.directive:ngInclude ngInclude}. Это свойство имеет приоритет над `templateUrl`.
