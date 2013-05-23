@@ -15,11 +15,14 @@
  *
  * Ниже показано для каких событий поддерживается анимация в ng-директивах:
  *
- * * {@link ng.directive:ngRepeat#animations ngRepeat} — enter, leave и move
- * * {@link ng.directive:ngView#animations ngView} — enter и leave
- * * {@link ng.directive:ngInclude#animations ngInclude} — enter и leave
- * * {@link ng.directive:ngSwitch#animations ngSwitch} — enter и leave
- * * {@link ng.directive:ngShow#animations ngShow & ngHide} - show и hide соответственно
+ * | Директива                                                 | Поддерживаемая анимация                            |
+ * |========================================================== |====================================================|
+ * | {@link ng.directive:ngRepeat#animations ngRepeat}         | enter, leave and move                              |
+ * | {@link ng.directive:ngView#animations ngView}             | enter and leave                                    |
+ * | {@link ng.directive:ngInclude#animations ngInclude}       | enter and leave                                    |
+ * | {@link ng.directive:ngSwitch#animations ngSwitch}         | enter and leave                                    |
+ * | {@link ng.directive:ngIf#animations ngIf}                 | enter and leave                                    |
+ * | {@link ng.directive:ngShow#animations ngShow & ngHide}    | show and hide                                      |
  *
  * Подробную информацию об использовании анимации можно найти на странице каждой директивы.
  *
@@ -226,6 +229,20 @@ var $AnimatorProvider = function() {
          * @param {jQuery/jqLite element} element Элемент, который будет показан или скрыт
         */
         animator.hide = animateActionFactory('hide', noop, hide);
+
+        /**
+         * @ngdoc function
+         * @name ng.animator#animate
+         * @methodOf ng.$animator
+         * 
+         * @description
+         * Триггеры для пользовательского события анимации, которые будут выполнены для данного элемента
+         * 
+         * @param {jQuery/jqLite element} элемент, который будет анимирован
+         */
+        animator.animate = function(event, element) {
+           animateActionFactory(event, noop, noop)(element);
+        }
         return animator;
   
         function animateActionFactory(type, beforeFn, afterFn) {
