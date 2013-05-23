@@ -112,6 +112,14 @@
   </example>
  */
 
+/**
+ * @ngdoc event
+ * @name ng.directive:ngInclude#$includeContentRequested
+ * @eventOf ng.directive:ngInclude
+ * @eventType emit on область видимости, в которой была объявлена ngInclude
+ * @description
+ * Задействуется каждый раз когда запрашивается содержимое ngInclude.
+ */
 
 /**
  * @ngdoc event
@@ -119,8 +127,9 @@
  * @eventOf ng.directive:ngInclude
  * @eventType emit on текущаяя область видимости ngInclude
  * @description
- * Задействуется каждый раз когда содержимое ngInclude перезагружается.
+ * Задействуется каждый раз когда загружается содержимое ngInclude.
  */
+ 
 var ngIncludeDirective = ['$http', '$templateCache', '$anchorScroll', '$compile', '$animator',
                   function($http,   $templateCache,   $anchorScroll,   $compile,   $animator) {
   return {
