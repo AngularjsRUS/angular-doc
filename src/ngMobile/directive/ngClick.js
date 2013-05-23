@@ -2,14 +2,22 @@
 
 /**
  * @ngdoc directive
- * @name ngMobile.directive:ngTap
+ * @name ngMobile.directive:ngClick
  *
  * @description
- * Specify custom behavior when element is tapped on a touchscreen device.
- * A tap is a brief, down-and-up touch without much motion.
+ * Более мощная замена стандартного ngClick предназначенная для использования на устройствах с сенсорными экранами. 
+ * Большинство мобильных браузеров ждут около 300 мс после тапа перед генерацией события щелчка. Эта версия 
+ * поддерживает реагирует немедленно, а затем предотвращает следующее распространяемое событие щелчка.
+ * 
+ * 
+ * Директива может обрабатываеть щелчки стандартным способом, как и в настольных браузерах, так и в мобильных
+ * устройствах.
+ * 
+ * Директива также устанавливает класс CSS `ng-click-active` пока элемент нажат (по щелчку мыши или пальца),
+ * поэтому можно стилизовать отжатие элемента как угодно.
  *
  * @element ANY
- * @param {expression} ngClick {@link guide/expression Expression} to evaluate
+ * @param {expression} ngClick {@link guide/expression Выражение} для вычисления
  * upon tap. (Event object is available as `$event`)
  *
  * @example
