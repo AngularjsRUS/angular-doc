@@ -336,6 +336,19 @@ var $AnimatorProvider = function() {
           }
         }
   
+        /**
+         * @ngdoc function
+         * @name ng.animator#enabled
+         * @methodOf ng.$animator
+         * @function
+         *
+         * @param {Boolean=} Если установлено true, то анимации включены, иначе отключены
+         * @return {Boolean} Текущее глобальное состояние анимаций.
+         *
+         * @description
+         * Глобальное включение/выключение анимаций.
+         *
+         */
         function remove(element) {
           element.remove();
         }
