@@ -15,14 +15,14 @@
  *
  * Ниже показано для каких событий поддерживается анимация в ng-директивах:
  *
- * | Директива                                                 | Поддерживаемая анимация                            |
- * |========================================================== |====================================================|
- * | {@link ng.directive:ngRepeat#animations ngRepeat}         | enter, leave and move                              |
- * | {@link ng.directive:ngView#animations ngView}             | enter and leave                                    |
- * | {@link ng.directive:ngInclude#animations ngInclude}       | enter and leave                                    |
- * | {@link ng.directive:ngSwitch#animations ngSwitch}         | enter and leave                                    |
- * | {@link ng.directive:ngIf#animations ngIf}                 | enter and leave                                    |
- * | {@link ng.directive:ngShow#animations ngShow & ngHide}    | show and hide                                      |
+ * | Директива                                                 | Поддерживаемая анимация |
+ * |================                                           |======================== |
+ * | {@link ng.directive:ngRepeat#animations ngRepeat}         | enter, leave and move   |
+ * | {@link ng.directive:ngView#animations ngView}             | enter and leave         |
+ * | {@link ng.directive:ngInclude#animations ngInclude}       | enter and leave         |
+ * | {@link ng.directive:ngSwitch#animations ngSwitch}         | enter and leave         |
+ * | {@link ng.directive:ngIf#animations ngIf}                 | enter and leave         |
+ * | {@link ng.directive:ngShow#animations ngShow & ngHide}    | show and hide           |
  *
  * Подробную информацию об использовании анимации можно найти на странице каждой директивы.
  *
