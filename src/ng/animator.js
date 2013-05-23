@@ -15,14 +15,14 @@
  *
  * Ниже показано для каких событий поддерживается анимация в ng-директивах:
  *
- * | Директива                                                       | Поддерживаемая анимация               |<br/>
- * |================                                                 |=====================                  |<br/>
- * | {@link ng.directive:ngRepeat#animations ngRepeat}               | enter, leave and move                 |<br/>
- * | {@link ng.directive:ngView#animations ngView}                   | enter and leave                       |<br/>
- * | {@link ng.directive:ngInclude#animations ngInclude}             | enter and leave                       |<br/>
- * | {@link ng.directive:ngSwitch#animations ngSwitch}               | enter and leave                       |<br/>
- * | {@link ng.directive:ngIf#animations ngIf}                       | enter and leave                       |<br/>
- * | {@link ng.directive:ngShow#animations ngShow & ngHide}          | show and hide                         |<br/>
+ * | Директива                                                        | Поддерживаемая анимация               |<br/>
+ * |================                                                  |======================                 |<br/>
+ * | {@link ng.directive:ngRepeat#animations ngRepeat}                | enter, leave and move                 |<br/>
+ * | {@link ng.directive:ngView#animations ngView}                    | enter and leave                       |<br/>
+ * | {@link ng.directive:ngInclude#animations ngInclude}              | enter and leave                       |<br/>
+ * | {@link ng.directive:ngSwitch#animations ngSwitch}                | enter and leave                       |<br/>
+ * | {@link ng.directive:ngIf#animations ngIf}                        | enter and leave                       |<br/>
+ * | {@link ng.directive:ngShow#animations ngShow & ngHide}           | show and hide                         |<br/>
  *
  * Подробную информацию об использовании анимации можно найти на странице каждой директивы.
  *
