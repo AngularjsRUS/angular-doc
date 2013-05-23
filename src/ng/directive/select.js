@@ -36,13 +36,12 @@
  *     * `label` **`for`** `value` **`in`** `array`
  *     * `select` **`as`** `label` **`for`** `value` **`in`** `array`
  *     * `label`  **`group by`** `group` **`for`** `value` **`in`** `array`
- *     * `select` **`as`** `label` **`group by`** `group` **`for`** `value` **`in`** `array`
+ *     * `select` **`as`** `label` **`group by`** `group` **`for`** `value` **`in`** `array` **`track by`** `trackexpr`
  *   * когда источник данных — объект:
  *     * `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
  *     * `select` **`as`** `label` **`for (`**`key` **`,`** `value`**`) in`** `object`
  *     * `label` **`group by`** `group` **`for (`**`key`**`,`** `value`**`) in`** `object`
- *     * `select` **`as`** `label` **`group by`** `group`
- *         **`for` `(`**`key`**`,`** `value`**`) in`** `object`
+ *     * `select` **`as`** `label` **`group by`** `group` **`for` `(`**`key`**`,`** `value`**`) in`** `object`
  *
  * где:
  *
@@ -58,6 +57,9 @@
  *      переменной `value`.
  *   * `group`: Выражение для вычисления результата, который будет использоваться для группирования элементов 
  *      `option` используя DOM элемент `<optgroup>`.
+ *   * `trackexpr`: Используется при работе с объектами и массивами. Результат выполнения этого выражения
+ *      будет использоваться для идентификации объекта или массива. `trackexpr` скорее всего относится к переменной
++ *     `value` (напр.: `value.propertyName`).
  *
  * @example
     <doc:example>
