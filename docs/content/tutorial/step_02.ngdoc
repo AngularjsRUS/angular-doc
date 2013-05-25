@@ -141,11 +141,10 @@ function PhoneListCtrl($scope) {
 api/ng.$rootScope.Scope документация по Scope}.
 
 
+## Тесты
 
-## Tests
-
-The "Angular way" makes it easy to test code as it is being developed. Take a look at the following
-unit test for your newly created controller:
+"Путь Angular" позволяет легко тестировать код, который в настоящее время находиться в разработке. 
+Давайте рассмотрим следующий модульный тест (unit test) для созданного нами котроллера (controller):
 
 __`test/unit/controllersSpec.js`:__
 <pre>
@@ -163,73 +162,76 @@ describe('PhoneCat controllers', function() {
 });
 </pre>
 
-The test verifies that we have three records in the phones array and the example demonstrates how
-easy it is to create a unit test for code in Angular. Since testing is such a critical part of
-software development, we make it easy to create tests in Angular so that developers are encouraged
-to write them.
+Тест проверяет, что у нас есть три записи в массиве телефонов. Этот пример демонстрирует, как можно
+легко создать модульный тест (unit test) для кода в Angular-е. Поскольку тестирование является важной 
+частью разработки программного обеспечения, а мы можем легко создавать тесты в Angular-е, таким образом 
+разработчикам рекомендуется писать их.
 
-Angular developers prefer the syntax of Jasmine's Behavior-driven Development  (BDD) framework when
-writing tests. Although Angular does not require you to use Jasmine, we wrote all of the tests in
-this tutorial in Jasmine. You can learn about Jasmine on the {@link
-http://pivotal.github.com/jasmine/ Jasmine home page} and on the {@link
-https://github.com/pivotal/jasmine/wiki Jasmine wiki}.
+Angular разработчики предпочитают синтаксис фреймворка Jasmine, когда пишут тесты. Jasmine предоставляет 
+подход к тестированию JavaScript кода, называемый - разработка, основанная на функционировании 
+(Behavior-driven Development, BDD). Хотя Angular не требует использовать Jasmine, мы написали все тесты в
+этом учебнике на Jasmine-е. Вы можете больше узнать о Jasmine на {@link
+http://pivotal.github.com/jasmine/ Домашней странице Jasmine} и в {@link
+https://github.com/pivotal/jasmine/wiki Вики по Jasmine}.
 
-The angular-seed project is pre-configured to run all unit tests using {@link
-http://karma-runner.github.io/ Karma}. To run the test, do the following:
+Проект `angular-seed` предварительно настроен для запуска всех модульных тестов (unit tests) с помощью {@link
+http://karma-runner.github.io/ Karma}. Для запуска теста, выполните следующие действия:
 
-1. In a _separate_ terminal window or tab, go to the `angular-phonecat` directory and run
-`./scripts/test.sh` to start the Karma server (the config file necessary to start the server
-is located at `./config/testacular.conf.js`).
+1. В _отдельном_ окне терминала или новой вкладке, перейдите в директорию `angular-phonecat` и запустите 
+   файл `./scripts/test.sh`. Этот скрипт запустит Karma-сервер (конфигурационный файл, необходимый для 
+   запуска сервера, расположен в `./config/testacular.conf.js`).
 
-2. Karma will start a new instance of Chrome browser automatically. Just ignore it and let it run in
-   the background. Karma will use this browser for test execution.
+2. Karma автоматически запустит новый экземпляр браузера Chrome. Просто игнорируйте его, дайте ему поработать в
+   фоновом режиме. Karma будет использовать этот браузер для выполнения тестов.
 
-3. You should see the following or similar output in the terminal:
+3. Вы должны увидеть следующие или аналогичные сообщения в терминале:
 
              info: Karma server started at http://localhost:9876/
              info (launcher): Starting  browser "Chrome"
              info (Chrome 22.0): Connected on socket id tPUm9DXcLHtZTKbAEO-n
              Chrome 22.0: Executed 1 of 1 SUCCESS (0.093 secs / 0.004 secs)
 
-  Yay! The test passed! Or not...
+  Ура! Тест пройден! Или нет ...
 
-4. To rerun the tests, just change any of the source or test files. Karma will notice the change
-  and will rerun the tests for you. Now isn't that sweet?
+4. Чтобы снова запустить тесты, просто измените исходный код или тестовые файлы. Karma заметит изменения
+   и перезапустит тесты для вас. Разве это не мило?
 
-# Experiments
 
-* Add another binding to `index.html`. For example:
+# Давайте поэкспериментируем
+
+* Добавьте другое связывание (binding) в `index.html`. Для примера:
 
           <p>Total number of phones: {{phones.length}}</p>
 
-* Create a new model property in the controller and bind to it from the template. For example:
+* Создайте новое свойство модели в контроллере и свяжите его (новое свойство). Для примера:
 
           $scope.hello = "Hello, World!"
 
-  Refresh your browser to make sure it says, "Hello, World!"
+  Обновите браузер, чтобы убедиться, что отобразится: "Hello, World!"
 
-* Create a repeater that constructs a simple table:
+* Создайте повторитель, который строит простую таблицу:
 
           <table>
             <tr><th>row number</th></tr>
             <tr ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7]"><td>{{i}}</td></tr>
           </table>
 
-  Now, make the list 1-based by incrementing `i` by one in the binding:
+  Теперь, давайте сделаем список, начинающийся с 1, для этого в связывании данных (binding) 
+  прибавим к `i` единицу:
 
           <table>
             <tr><th>row number</th></tr>
             <tr ng-repeat="i in [0, 1, 2, 3, 4, 5, 6, 7]"><td>{{i+1}}</td></tr>
           </table>
 
-* Make the unit test fail by changing the `toBe(3)` statement to `toBe(4)`.
+* Сделайте, что бы модульный тест (unit test) не прошел, для этого измените оператор `toBe(3)` на `toBe(4)`.
 
 
-# Summary
+# Идем дальше
 
-You now have a dynamic app that features separate model, view, and controller components, and you
-are testing as you go. Now, let's go to {@link step_03 step 3} to learn how to add full text search
-to the app.
+Теперь у вас есть динамическое приложение, которое имеет отдельную модель (model), представление (view)
+и контроллер (controller), кроме того, вы можете тестировать ваш код. Теперь, давайте перейдем к {@link 
+step_03 шагу 3}, и вы узнаете, как добавить полнотекстовый поиск (full text search) в ваше приложение.
 
 
 <ul doc-tutorial-nav="2"></ul>
