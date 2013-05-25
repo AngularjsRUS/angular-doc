@@ -92,10 +92,11 @@ __`app/index.html`:__
       <img class="diagram" src="img/tutorial/tutorial_02.png">
 
 
-## Model and Controller
+##  Модель и Контроллер
 
-The data __model__ (a simple array  of phones in object literal notation) is instantiated within
-the `PhoneListCtrl` __controller__:
+Данные __модели__ (__model__) являются простым массивом телефонов. Каждое описание телефона представленно 
+в виде объекта в литеральной нотации, т.е. объектом-литералом (object literal notation). Модель создается
+в контроллере (__controller__) `PhoneListCtrl`:
 
 __`app/js/controllers.js`:__
 <pre>
@@ -114,28 +115,31 @@ function PhoneListCtrl($scope) {
 
 
 
-Although the controller is not yet doing very much controlling, it is playing a crucial role. By
-providing context for our data model, the controller allows us to establish data-binding between
-the model and the view. We connected the dots between the presentation, data, and logic components
-as follows:
+Хотя контроллер еще не сделал очень многого для управления, но он играет решающую роль. 
+Говоря про определении контекста (context) для нашей модели, отметим, что контроллер позволяет нам 
+установить связывание данных (data-binding) между моделью (model) и представлением (view). 
+Мы соединили точки между представлением (presentation), данными и логическими элементами следующим образом:
 
-* `PhoneListCtrl` — the name of our controller function (located in the JavaScript file
-`controllers.js`), matches the value of the
-{@link api/ng.directive:ngController ngController} directive located
-on the `<body>` tag.
+* `PhoneListCtrl` - имя нашей функции для контроллера (находится в файле JavaScript 
+  `controllers.js`), совпадает со значением директивы {@link api/ng.directive:ngController `ngController`},
+  расположенной в теге `<body>`.
 
-* The phone data is then attached to the *scope* (`$scope`) that was injected into our controller
-function. The controller scope is a prototypical descendant of the root scope that was created
-when the application bootstrapped. This controller scope is available to all bindings located within
-the `<body ng-controller="PhoneListCtrl">` tag.
+* Данные о телефоне устанавливаются и сохраняются в *областе видимости* (`$scope`), это происходит
+  внутри функции нашего контроллера. Область видимости контроллера (controller scope) является 
+  потомком корневой области видимости (root scope), которая была создана при инициализации приложения. 
+  Область видимости контроллера (controller scope) доступна для всех связанных данных (bindings)
+  в пределах тега `<body ng-controller="PhoneListCtrl">`.
 
-  The concept of a scope in Angular is crucial; a scope can be seen as the glue which allows the
-template, model and controller to work together. Angular uses scopes, along with the information
-contained in the template, data model, and controller, to keep models and views separate, but in
-sync. Any changes made to the model are reflected in the view; any changes that occur in the view
-are reflected in the model.
+Концепция *области видимости* (scope) является очень важной в Angular-е; *область видимости* (scope)
+можно рассматривать как клей, который позволяет шаблону (template), модели (model) и 
+контоллеру (controller) работать совместно. Angular использует *область видимости* (scope), 
+вместе с информацией из шаболна, даннами из модели и контроллером, для синхронизации данных между 
+моделями (models)и представлениями (views). Любые изменения, внесенные в модель отражаются 
+в представлении, любые изменения, которые происходят в представлении отражаются в модели.
 
-  To learn more about Angular scopes, see the {@link api/ng.$rootScope.Scope angular scope documentation}.
+Узнать больше об *области видимости* в Angular можно здесь {@link 
+api/ng.$rootScope.Scope документация по Scope}.
+
 
 
 ## Tests
