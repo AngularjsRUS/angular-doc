@@ -261,7 +261,7 @@ function $RootScopeProvider(){
        *    - `function(newValue, oldValue, scope)`: вычисляется с параметрами новое значение, старое значение 
        *    и текущая область видимости.
        *
-       * @param {boolean=} objectEquality Сравнивать эквивалентность объектов, а не ссылки.
+       * @param {boolean=} objectEquality Поэлементное сравнение объектов/массивов, если false, то сравниваются только ссылки на объекты/массивы.
        * @returns {function()} Возвращает функцию для завершения прослушивания данного события данных слушателем.
        */
       $watch: function(watchExp, listener, objectEquality) {
