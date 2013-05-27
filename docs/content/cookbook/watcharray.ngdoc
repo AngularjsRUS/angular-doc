@@ -3,7 +3,7 @@
 @description
 
 Отслеживание изменений всего массива и определение изменившегося элемента
-<example module="myApp" deps="angular-sanitize.js">
+<example module="myApp">
   <file name="index.html">
     <div ng-controller="TodoCtrl">
       <ul>
