@@ -15,7 +15,7 @@
     </div>
   </file>
   <file name="script.js">
-    angular.module('myApp')
+    angular.module('myApp',[])
     
     function TodoCtrl($scope) {
       $scope.todos = [
