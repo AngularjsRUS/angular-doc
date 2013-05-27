@@ -285,9 +285,9 @@ angular.mock.$ExceptionHandlerProvider = function() {
  * @name ngMock.$log
  *
  * @description
- * Mock implementation of {@link ng.$log} that gathers all logged messages in arrays
- * (one array per logging level). These arrays are exposed as `logs` property of each of the
- * level-specific log function, e.g. for level `error` the array is exposed as `$log.error.logs`.
+ * Мок реализация {@link ng.$log} которая собирает все сообщения системы логирования в массив (один массив 
+ * на каждый уровень логирования). Эти массивы предоставляются через свойство `logs` для каждого уровня логирования, 
+ * например для уровня ошибок этот массив доступен через `$log.error.logs`.
  *
  */
 angular.mock.$LogProvider = function() {
@@ -311,7 +311,7 @@ angular.mock.$LogProvider = function() {
      * @methodOf ngMock.$log
      *
      * @description
-     * Reset all of the logging arrays to empty.
+     * Обнуляет все массивы сообщений.
      */
     $log.reset = function () {
       /**
@@ -320,7 +320,7 @@ angular.mock.$LogProvider = function() {
        * @propertyOf ngMock.$log
        *
        * @description
-       * Array of logged messages.
+       * Массив сообщений системы логирования.
        */
       $log.log.logs = [];
       /**
@@ -329,7 +329,7 @@ angular.mock.$LogProvider = function() {
        * @propertyOf ngMock.$log
        *
        * @description
-       * Array of logged messages.
+       * Массив сообщений системы логирования.
        */
       $log.warn.logs = [];
       /**
@@ -338,7 +338,7 @@ angular.mock.$LogProvider = function() {
        * @propertyOf ngMock.$log
        *
        * @description
-       * Array of logged messages.
+       * Массив сообщений системы логирования.
        */
       $log.info.logs = [];
       /**
@@ -347,7 +347,7 @@ angular.mock.$LogProvider = function() {
        * @propertyOf ngMock.$log
        *
        * @description
-       * Array of logged messages.
+       * Массив сообщений системы логирования.
        */
       $log.error.logs = [];
     };
@@ -358,7 +358,7 @@ angular.mock.$LogProvider = function() {
      * @methodOf ngMock.$log
      *
      * @description
-     * Assert that the all of the logging methods have no logged messages. If messages present, an exception is thrown.
+     * Утверждение, что все методы логирования не имеют сообщений. Если сообщение имеется, выбрасывается исключение.
      */
     $log.assertEmpty = function() {
       var errors = [];
@@ -425,26 +425,25 @@ angular.mock.$LogProvider = function() {
    * @ngdoc object
    * @name angular.mock.TzDate
    * @description
+   * 
+   * *Примечание*: это не экземпляр для внедрения, просто глобально видимая имитация класса для Date.
+   * 
+   * Имитация класса для типа Date, который принимает временную зону в качестве аргумента конструктора.
+   * 
+   * Главная цель создания этого класса с временной зоной, указание требуемой временной зоны, так что вы можете
+   * тестировать код в зависимости от временной зоны установленной на машине, где код выполняется.
    *
-   * *NOTE*: this is not an injectable instance, just a globally available mock class of `Date`.
-   *
-   * Mock of the Date type which has its timezone specified via constructor arg.
-   *
-   * The main purpose is to create Date-like instances with timezone fixed to the specified timezone
-   * offset, so that we can test code that depends on local timezone settings without dependency on
-   * the time zone settings of the machine where the code is running.
-   *
-   * @param {number} offset Offset of the *desired* timezone in hours (fractions will be honored)
-   * @param {(number|string)} timestamp Timestamp representing the desired time in *UTC*
+   * @param {number} offset Сдвиг для нужной временной зоны в часах (дробная часть для представления минут)
+   * @param {(number|string)} timestamp Временной отпечаток UNIX для требуемого времени в *UTC*
    *
    * @example
-   * !!!! WARNING !!!!!
-   * This is not a complete Date object so only methods that were implemented can be called safely.
-   * To make matters worse, TzDate instances inherit stuff from Date via a prototype.
-   *
-   * We do our best to intercept calls to "unimplemented" methods, but since the list of methods is
-   * incomplete we might be missing some non-standard methods. This can result in errors like:
-   * "Date.prototype.foo called on incompatible Object".
+   * !!!! ПРЕДУПРЕЖДЕНИЕ !!!!!
+   * Это не полный объект Date так что безопасно можно вызывать только методы, которые были реализованы. 
+   * Что еще хуже, экземпляры TzDate наследуются от Date с использованием прототипа.
+   * 
+   * Мы делаем все возможное, для перехвата «нереализованных» методов, но т.к. список методов является не полным, 
+   * некоторые не стандартные методы могут отсутствовать. Это может в результате приводить к ошибкам типа: 
+   * «Date.prototype.foo вызвана для несовместимого объекта Object».
    *
    * <pre>
    * var newYearInBratislava = new TzDate(-1, '2009-12-31T23:00:00Z');
@@ -590,8 +589,8 @@ angular.mock.$LogProvider = function() {
  * @name angular.mock.createMockWindow
  * @description
  *
- * This function creates a mock window object useful for controlling access ot setTimeout, but mocking out
- * sufficient window's properties to allow Angular to execute.
+ * Функция создает имитацию объекта window, полезную для управления доступом к setTimeout, но имитирование
+ * раскрывает достаточные свойства window, чтобы позволить Angular работать.
  *
  * @example
  *
@@ -643,15 +642,16 @@ angular.mock.createMockWindow = function() {
  * @ngdoc function
  * @name angular.mock.dump
  * @description
- *
- * *NOTE*: this is not an injectable instance, just a globally available function.
- *
- * Method for serializing common angular objects (scope, elements, etc..) into strings, useful for debugging.
- *
- * This method is also available on window, where it can be used to display objects on debug console.
- *
- * @param {*} object - any object to turn into string.
- * @return {string} a serialized string of the argument
+ * 
+ * *Примечание*: это не экземпляр для внедрения зависимостей, только глобально доступная функция.
+ * 
+ * Метод для сериализации управляющих объектов Angular (области видимости, элементы, и т.д.) в строку, 
+ * обычно используемый для отладки.
+ * 
+ * Этот метод также доступен для window, и может быть использован для отображения объекта в отладочной консоли.
+ * 
+ * @param {*} object - любой объект для преобразования в строку.
+ * @return {string} сериализованная строка представляющая аргумент.
  */
 angular.mock.dump = function(object) {
   return serialize(object);
@@ -709,105 +709,98 @@ angular.mock.dump = function(object) {
  * @ngdoc object
  * @name ngMock.$httpBackend
  * @description
- * Fake HTTP backend implementation suitable for unit testing applications that use the
- * {@link ng.$http $http service}.
- *
- * *Note*: For fake HTTP backend implementation suitable for end-to-end testing or backend-less
- * development please see {@link ngMockE2E.$httpBackend e2e $httpBackend mock}.
- *
- * During unit testing, we want our unit tests to run quickly and have no external dependencies so
- * we don’t want to send {@link https://developer.mozilla.org/en/xmlhttprequest XHR} or
- * {@link http://en.wikipedia.org/wiki/JSONP JSONP} requests to a real server. All we really need is
- * to verify whether a certain request has been sent or not, or alternatively just let the
- * application make requests, respond with pre-trained responses and assert that the end result is
- * what we expect it to be.
- *
- * This mock implementation can be used to respond with static or dynamic responses via the
- * `expect` and `when` apis and their shortcuts (`expectGET`, `whenPOST`, etc).
- *
- * When an Angular application needs some data from a server, it calls the $http service, which
- * sends the request to a real server using $httpBackend service. With dependency injection, it is
- * easy to inject $httpBackend mock (which has the same API as $httpBackend) and use it to verify
- * the requests and respond with some testing data without sending a request to real server.
- *
- * There are two ways to specify what test data should be returned as http responses by the mock
- * backend when the code under test makes http requests:
- *
- * - `$httpBackend.expect` - specifies a request expectation
- * - `$httpBackend.when` - specifies a backend definition
- *
- *
- * # Request Expectations vs Backend Definitions
- *
- * Request expectations provide a way to make assertions about requests made by the application and
- * to define responses for those requests. The test will fail if the expected requests are not made
- * or they are made in the wrong order.
- *
- * Backend definitions allow you to define a fake backend for your application which doesn't assert
- * if a particular request was made or not, it just returns a trained response if a request is made.
- * The test will pass whether or not the request gets made during testing.
- *
+ * Имитация HTTP, подходящая для модульного тестирования приложения, использующего сервис {@link ng.$http $http}.
+ * 
+ * *Примечание*: Для имитации серверного HTTP для системного тестирования или разработчиков, не управляющих
+ * серверной частью, см. {@link ngMockE2E.$httpBackend e2e имитация $httpBackend}.
+ * 
+ * Во время модульного тестирования мы хотим, чтобы наши тесты выполнялись быстро не имели внешних зависимостей, 
+ * так что мы не хотим отравлять реальные запросы {@link https://developer.mozilla.org/en/xmlhttprequest XHR} или 
+ * {@link http://en.wikipedia.org/wiki/JSONP JSONP} на реальный сервер. Все что нам реально нужно, 
+ * это проверить, был ли определенный запрос отправлен, или нет, и в качестве альтернативы, мы даем приложению 
+ * возможность делать запросы, на которые будет реагировать поддельный объект заранее определенными ответами, 
+ * а мы сможем проверить утверждения в тестах.
+ * 
+ * Эта имитация может отвечать статическими или динамическими ответами, через `expect` и `when` api и других, 
+ * удобных версий (`expectGET`, `whenPOST`, и т.д.).
+ * 
+ * Когда приложение Angular нуждается в каких-либо данных с сервера, вызывается сервис $http, который отправляет 
+ * запрос на реальный сервер используя сервис $httpBackend. С внедрением зависимостей легко внедрить имитацию 
+ * $httpBackend (который имеет тот же API что и $httpBackend) и использовать его для проверки запросов и ответов 
+ * при тестировании данных, без отправки запроса на реальный сервер.
+ * 
+ * Существует два способа указать, какие данные должны быть возвращены как http ответы имитации, когда тестируемый 
+ * код делает запросы:
+ * 
+ * - $httpBackend.expect – указывает ожидания для запроса
+ * - $httpBackend.when – задает определение бэкенда
+ * 
+ * # Запрос ожиданий и бэкенд определений
+ * 
+ * Запрос ожиданий предоставляет способ сделать утверждения о созданных запросах, и определить ответы на эти 
+ * запросы. Тест будет ошибочным, если ожидаемые запросы не сделаны, или сделаны в неправильном порядке.
+ * 
+ * Бэкенд определения позволяют вам определить поддельный бэкенд для вашего приложения, который не проверяет, 
+ * сделан ли конкретный запрос или нет, а просто возвращает подготовленный ответ, если запрос был сделан. 
+ * Во время прохождения теста, тест будет считать что данные получены и работать с ними.
  *
  * <table class="table">
- *   <tr><th width="220px"></th><th>Request expectations</th><th>Backend definitions</th></tr>
+ *   <tr><th width="220px"></th><th>Запрос ожиданий</th><th>Бэкенд определения</th></tr>
  *   <tr>
- *     <th>Syntax</th>
+ *     <th>Синтаксис</th>
  *     <td>.expect(...).respond(...)</td>
  *     <td>.when(...).respond(...)</td>
  *   </tr>
  *   <tr>
- *     <th>Typical usage</th>
- *     <td>strict unit tests</td>
- *     <td>loose (black-box) unit testing</td>
+ *     <th>Типичное использование</th>
+ *     <td>строгие модульные тесты</td>
+ *     <td>свободное (черный ящик) модульное тестирование</td>
  *   </tr>
  *   <tr>
- *     <th>Fulfills multiple requests</th>
- *     <td>NO</td>
- *     <td>YES</td>
+ *     <th>Выполняет несколько запросов</th>
+ *     <td>нет</td>
+ *     <td>да</td>
  *   </tr>
  *   <tr>
- *     <th>Order of requests matters</th>
- *     <td>YES</td>
- *     <td>NO</td>
+ *     <th>Проверка порядка запросов</th>
+ *     <td>да</td>
+ *     <td>нет</td>
  *   </tr>
  *   <tr>
- *     <th>Request required</th>
- *     <td>YES</td>
- *     <td>NO</td>
+ *     <th>Обязательный запрос</th>
+ *     <td>да</td>
+ *     <td>нет</td>
  *   </tr>
  *   <tr>
- *     <th>Response required</th>
- *     <td>optional (see below)</td>
- *     <td>YES</td>
+ *     <th>Обязательный ответ</th>
+ *     <td>не обязательно (см. ниже)</td>
+ *     <td>да</td>
  *   </tr>
  * </table>
  *
- * In cases where both backend definitions and request expectations are specified during unit
- * testing, the request expectations are evaluated first.
- *
- * If a request expectation has no response specified, the algorithm will search your backend
- * definitions for an appropriate response.
- *
- * If a request didn't match any expectation or if the expectation doesn't have the response
- * defined, the backend definitions are evaluated in sequential order to see if any of them match
- * the request. The response from the first matched definition is returned.
- *
- *
- * # Flushing HTTP requests
- *
- * The $httpBackend used in production, always responds to requests with responses asynchronously.
- * If we preserved this behavior in unit testing, we'd have to create async unit tests, which are
- * hard to write, follow and maintain. At the same time the testing mock, can't respond
- * synchronously because that would change the execution of the code under test. For this reason the
- * mock $httpBackend has a `flush()` method, which allows the test to explicitly flush pending
- * requests and thus preserving the async api of the backend, while allowing the test to execute
- * synchronously.
- *
- *
- * # Unit testing with mock $httpBackend
+ * В случаях когда оба, бэкенд определения и запроса ожидания указаны при выполнении теста, запрос ожиданий
+ * выполняется в первую очередь.
+ * 
+ * Если для запроса ожиданий не имеет заданного ответа, то алгоритм будет искать бэкенд определение для этого 
+ * запроса чтобы получить ответ.
+ * 
+ * Если запрос не находит ожидания ли если ожидание не имеет определенного ответа, бэкенд определения будут 
+ * оцениваются все по очереди, чтобы увидеть, содержат ли они соответствующий запрос. Ответ из первого совпадающего
+ * определения будет возвращен.
+ * 
+ * # Сброс HTTP запросов
+ * 
+ * Используемый в рабочей версии $httpBackend всегда отвечает на запросы асинхронно. Если мы оставим это 
+ * поведение в тестировочном варианте, мы будем создавать тесты в асинхронной манере, которые трудно создавать, 
+ * отслеживать и поддерживать. В то же время тестировочная подделка, не должна отвечать синхронно, так как это
+ * приведет к изменению тестируемого кода. По этой причине у поддельного объекта $httpBackend имеется метод 
+ * `flush()`, который позволяет тесту явно сбрасывать результаты отложенных запросов, таким образом сохраняя
+ * асинхронное api бэкенда, позволяет тесту выполняться синхронно.
+ * 
+ * # Модульное тестирование с имитацией $httpBackend
  *
  * <pre>
-   // controller
+   // контроллер
    function MyController($scope, $http) {
      $http.get('/auth.py').success(function(data) {
        $scope.user = data;
@@ -823,13 +816,13 @@ angular.mock.dump = function(object) {
      };
    }
 
-   // testing controller
+   // тестирование контроллера
    var $httpBackend;
 
    beforeEach(inject(function($injector) {
      $httpBackend = $injector.get('$httpBackend');
 
-     // backend definition common for all tests
+     // бэкенд определение для всех тестов
      $httpBackend.when('GET', '/auth.py').respond({userId: 'userX'}, {'A-Token': 'xxx'});
    }));
 
@@ -848,10 +841,10 @@ angular.mock.dump = function(object) {
 
 
    it('should send msg to server', function() {
-     // now you don’t care about the authentication, but
-     // the controller will still send the request and
-     // $httpBackend will respond without you having to
-     // specify the expectation and response for this request
+     // сейчас вы не заботитесь об аутентификации, но
+     // контроллер по прежнему будет отправлять запрос и
+     // $httpBackend будет отвечать, без необходимости
+     // указывать ожидание и ответ для запроса
      $httpBackend.expectPOST('/add-msg.py', 'message content').respond(201, '');
 
      var controller = scope.$new(MyController);
@@ -865,8 +858,8 @@ angular.mock.dump = function(object) {
 
    it('should send auth header', function() {
      $httpBackend.expectPOST('/add-msg.py', undefined, function(headers) {
-       // check if the header was send, if it wasn't the expectation won't
-       // match the request and the test will fail
+       // проверка, был ли отправлен заголовок, если не ожидается
+       // тест закончится неудачно
        return headers['Authorization'] == 'xxx';
      }).respond(201, '');
 
@@ -972,20 +965,19 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#when
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new backend definition.
+   * Создает новое бэкенд определение.
    *
-   * @param {string} method HTTP method.
+   * @param {string} method HTTP метод.
    * @param {string|RegExp} url HTTP url.
-   * @param {(string|RegExp)=} data HTTP request body.
-   * @param {(Object|function(Object))=} headers HTTP headers or function that receives http header
-   *   object and returns true if the headers match the current definition.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   *   request is handled.
+   * @param {(string|RegExp)=} data HTTP тело запроса.
+   * @param {(Object|function(Object))=} headers HTTP заголовки или функция которая извлекает объект http 
+   *  заголовков и возвращает true, если имеются в текущем определении.
+   * @returns {requestHandler} Возвращает объект, который содержит метод `respond`, контролирующий как будет 
+   *  обрабатываться совпадающий запрос.
    *
    *  - respond – `{function([status,] data[, headers])|function(function(method, url, data, headers)}`
-   *    – The respond method takes a set of static data to be returned or a function that can return
-   *    an array containing response status (number), response data (string) and response headers
-   *    (Object).
+   *    – Метод respond устанавливает статические данные которые должны возвращаться, или функцию которая 
+   *    будет возвращать массив содержащий статус ответа (число), данные ответа (строка) и заголовки ответа (объект).
    */
   $httpBackend.when = function(method, url, data, headers) {
     var definition = new MockHttpExpectation(method, url, data, headers),
@@ -1010,12 +1002,12 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#whenGET
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new backend definition for GET requests. For more info see `when()`.
+   * Создает новое бэкенд определение для запроса GET. Для большей информации смотрите `when()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {(Object|function(Object))=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   * request is handled.
+   * @param {(Object|function(Object))=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, который содержит метод `respond`, контролирующий как будет 
+   * обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1023,12 +1015,12 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#whenHEAD
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new backend definition for HEAD requests. For more info see `when()`.
+   * Создает новое бэкенд определение для запроса HEAD. Для большей информации смотрите `when()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {(Object|function(Object))=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   * request is handled.
+   * @param {(Object|function(Object))=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, который содержит метод `respond`, контролирующий как будет 
+   * обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1036,12 +1028,12 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#whenDELETE
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new backend definition for DELETE requests. For more info see `when()`.
+   * Создает новое бэкенд определение для запроса DELETE. Для большей информации смотрите `when()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {(Object|function(Object))=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   * request is handled.
+   * @param {(Object|function(Object))=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, который содержит метод `respond`, контролирующий как будет 
+   * обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1049,13 +1041,13 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#whenPOST
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new backend definition for POST requests. For more info see `when()`.
+   * Создает новое бэкенд определение для запроса POST. Для большей информации смотрите `when()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {(string|RegExp)=} data HTTP request body.
-   * @param {(Object|function(Object))=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   * request is handled.
+   * @param {(string|RegExp)=} data HTTP тело запроса.
+   * @param {(Object|function(Object))=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, который содержит метод `respond`, контролирующий как будет 
+   * обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1063,13 +1055,13 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#whenPUT
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new backend definition for PUT requests.  For more info see `when()`.
+   * Создает новое бэкенд определение для запроса PUT. Для большей информации смотрите `when()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {(string|RegExp)=} data HTTP request body.
-   * @param {(Object|function(Object))=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   * request is handled.
+   * @param {(string|RegExp)=} data HTTP тело запроса.
+   * @param {(Object|function(Object))=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, который содержит метод `respond`, контролирующий как будет 
+   * обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1077,11 +1069,11 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#whenJSONP
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new backend definition for JSONP requests. For more info see `when()`.
+   * Создает новое бэкенд определение для запроса JSONP. Для большей информации смотрите `when()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   * request is handled.
+   * @returns {requestHandler} Возвращает объект, который содержит метод `respond`, контролирующий как будет 
+   * обрабатываться совпадающий запрос.
    */
   createShortMethods('when');
 
