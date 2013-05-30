@@ -10,7 +10,7 @@
  * соответствующему роли описанной в
  * {@link http://dev.w3.org/html5/spec/Overview.html#the-indicated-part-of-the-document спецификации Html5}.
  * 
- * Он также следить за `$location.hash()` и осуществляет прокрутку снова при обнаружении изменений. 
+ * Он также следит за `$location.hash()` и осуществляет прокрутку снова при обнаружении изменений. 
  * Это поведение можно отключить вызвав `$anchorScrollProvider.disableAutoScrolling()`.
  */
 function $AnchorScrollProvider() {
