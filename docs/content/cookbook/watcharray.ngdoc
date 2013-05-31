@@ -2,34 +2,39 @@
 @name Cookbook: $watch для списков
 @description
 
-Отслеживание изменений всего массива и определение изменившегося элемента
+Отслеживание изменений всего массива и определение изменившегося элемента. А так же использование 
+наследования областей видимости в контроллере.
 <example module="myApp">
   <file name="index.html">
-    <div ng-controller="TodoCtrl">
-      <ul>
-        <li ng-repeat="todo in todos" ng-controller="TodoItemCtrl">
-          <input type="checkbox" ng-model="todo.done">
-          {{todo.text}}
+    <div ng-app ng-controller="UserListCtrl">
+      <ul class="langmenu langmenu-area">
+        <li ng-repeat="user in users" ng-controller="UserItemCtrl" ng-model="users">
+          <input value="{{user.name}}" ng-model="user.name"/>
         </li>
       </ul>
+      <div>
+        Последнее изменение: {{last.name}}
+      </div>
     </div>
   </file>
   <file name="script.js">
-    angular.module('myApp',[])
-    
-    function TodoCtrl($scope) {
-      $scope.todos = [
-        {done: true, text: "foo"},
-        {done: false, text: "bar"}
-      ];
-    }  
-    function TodoItemCtrl($scope) {
-      $scope.$watch('todos[$index]',
-        function(newval, oldval, scope) {
-          alert(
-            "Был выбран:" + $scope.todos[$scope.$index].text
-          );
-        }, true);
+    function UserListCtrl($scope) {
+      $scope.users = [{name: 'Oleg', age: 27},
+                      {name: 'Diana', age: 25},
+                      {name: 'Bob', age: 30}];
+      $scope.last = {name: 'нет'};
+    }
+    function UserItemCtrl($scope) {
+      $scope.$watch('users[$index]', function(newValue, oldValue, scope) {
+        if (newValue === oldValue) return;
+        $scope.last.name = $scope.users[$scope.$index].name;
+        
+        //Мы используем параметр 'name' из объекта 'last', чтобы Angular, не найдя 'last'
+        //в текущей области видимости стал бы искать в родительской (где объявлен объект 'last')
+        //Если бы мы задавали 'name' напрямую ($scope.name = '—'), то Angular просто создал бы
+        //такой параметр в дочерней области видимости, перекрыв им значение из родительской области
+        
+      }, true);
     }
   </file>
 </example>
