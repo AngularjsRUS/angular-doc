@@ -6,7 +6,7 @@
 наследования областей видимости в контроллере.
 <example module="myApp">
   <file name="index.html">
-    <div ng-app ng-controller="UserListCtrl">
+    <div ng-controller="UserListCtrl">
       <ul class="langmenu langmenu-area">
         <li ng-repeat="user in users" ng-controller="UserItemCtrl" ng-model="users">
           <input value="{{user.name}}" ng-model="user.name"/>
@@ -29,10 +29,11 @@
         if (newValue === oldValue) return;
         $scope.last.name = $scope.users[$scope.$index].name;
         
-        //Мы используем параметр 'name' из объекта 'last', чтобы Angular, не найдя 'last'
-        //в текущей области видимости стал бы искать в родительской (где объявлен объект 'last')
+        //Мы используем параметр 'name' из объекта 'last', чтобы Angular, не найдя 'last' в
+        //текущей области видимости стал бы искать в родительской (где объявлен объект 'last')
         //Если бы мы задавали 'name' напрямую ($scope.name = '—'), то Angular просто создал бы
-        //такой параметр в дочерней области видимости, перекрыв им значение из родительской области
+        //такой параметр в дочерней области видимости, перекрыв им значение из родительской
+        //области
         
       }, true);
     }
