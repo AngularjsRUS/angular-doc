@@ -7,7 +7,7 @@
 <example module="myApp">
   <file name="index.html">
     <div ng-controller="UserListCtrl">
-      <ul class="langmenu langmenu-area">
+      <ul>
         <li ng-repeat="user in users" ng-controller="UserItemCtrl" ng-model="users">
           <input value="{{user.name}}" ng-model="user.name"/>
         </li>
@@ -18,12 +18,15 @@
     </div>
   </file>
   <file name="script.js">
+    angular.module('myApp', [])
+    
     function UserListCtrl($scope) {
       $scope.users = [{name: 'Oleg', age: 27},
                       {name: 'Diana', age: 25},
                       {name: 'Bob', age: 30}];
       $scope.last = {name: 'нет'};
     }
+    
     function UserItemCtrl($scope) {
       $scope.$watch('users[$index]', function(newValue, oldValue, scope) {
         if (newValue === oldValue) return;
