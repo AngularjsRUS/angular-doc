@@ -2,7 +2,10 @@
 @name Cookbook: Переключатели
 @description
 
-Реализация простого переключателя классов
+## Простая реализация переключателя классов
+
+Стоит избегать использования в HTML-атрибутах сложных вычислений, но если без этого никак, то хотя бы записывать 
+компактно: `i=i+1` вместо `i = i + 1`.
 
 <example module="">
   <file name="index.html">
@@ -18,5 +21,80 @@
 
 В качестве бонуса можно получить общее количество нажатий.
 
-Стоит избегать использования в HTML-атрибутах сложных вычислений, но если без этого никак, то хотя бы записывать 
-компактно: `i=i+1` вместо `i = i + 1`.
+## Правильная реализация переключателя
+
+Код вынесен в отдельную директиву
+
+<example module="myApp">
+  <file name="index.html">
+    <div ng-controller="ButtonsCtrl">
+    <h4>Toggle</h4>
+    <pre>{{toggleModel}}</pre>
+    <button type="button" class="btn btn-primary" ng-model="toggleModel" btn-toggle>
+      <i class="icon-white icon-eye-open" btn-toggle-val="open"></i>
+      <i class="icon-white icon-eye-close" btn-toggle-val="close"></i>
+      <i class="icon-white icon-lock" btn-toggle-val="lock"></i>
+    </button>
+    </div>
+  </file>
+  <file name="index.js">
+    angular.module('myApp', ['ui.toggle']);
+    
+    var ButtonsCtrl = function ($scope) {
+
+      $scope.toggleModel = 'open';
+
+    };
+  </file>
+  <file name="toggle.js">
+    angular.module('ui.toggle', [])
+  
+    .constant('buttonConfig', {
+      activeClass:'active',
+      toggleEvent:'click'
+    })
+  
+    .directive('btnToggle', ['buttonConfig', function (buttonConfig) {
+    var activeClass = buttonConfig.activeClass || 'active';
+    var toggleEvent = buttonConfig.toggleEvent || 'click';
+  
+    return {
+  
+      require:'ngModel',
+      link:function (scope, element, attrs, ngModelCtrl) {
+      
+        var values = [], inverse = {};
+        
+        angular.forEach(element.children(), function (value, key) {
+          values[key] = angular.element(value).attr('btn-toggle-val');;
+          inverse[values[key]] = key;
+        });
+  
+        var size = values.length;
+        
+        //model -> UI
+        scope.$watch(function () {
+          return ngModelCtrl.$modelValue;
+        }, function (modelValue) {               
+          element.children()
+            .removeClass(activeClass)
+            .css('display','none')
+            .eq(inverse[modelValue])
+            .addClass(activeClass)
+            .css('display','inline-block');
+        });
+  
+        //ui->model
+        element.bind(toggleEvent, function () {
+          scope.$apply(function () {
+            for(var i = 0; i < size; i++) if(values[i] === ngModelCtrl.$modelValue) {
+              ngModelCtrl.$setViewValue(values[(i+1)%size]);
+              break;
+            }
+          });
+        });
+      }
+    };
+    }]);
+  </file>
+</example>
