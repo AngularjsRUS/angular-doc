@@ -5,29 +5,58 @@
 <ul doc-tutorial-nav="3"></ul>
 
 
-We did a lot of work in laying a foundation for the app in the last step, so now we'll do something
-simple; we will add full text search (yes, it will be simple!). We will also write an end-to-end
-test, because a good end-to-end test is a good friend. It stays with your app, keeps an eye on it,
-and quickly detects regressions.
+В последнем шаге, мы с вами проделали большую работу, создавая основу для приложения. Теперь мы попробуем сделать
+что-то простое. Давайте добавим полнотекстовый поиск (full text search). Да, это будет просто! Также мы продолжим
+писать тесты и напишем тесты для системного тестирования (end-to-end test). Хорошие системные тесты являются
+хорошими друзьями. Они остаются с вашим приложением, следят за ним и быстро обнаруживают регрессию.
 
 
-<div doc-tutorial-reset="3"></div>
+<div class="tabbable" show="true">
+
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux" value="gitUnix">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочик код до шага 3.</p>
+        <pre>git checkout -f step-3</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-3/app">сервере Angular</a>.
+        </p>
+      </li>
+    </ol>
+  </div>
+  
+  <div class="tab-pane well" title="Git на Windows" value="gitWin">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 3.</p>
+        <pre>git checkout -f step-3</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-3/app">сервере Angular</a>.
+        </p>
+      </li>
+    </ol>
+  </div>
+  
+</div>
 
 
-The app now has a search box. Notice that the phone list on the page changes depending on what a
-user types into the search box.
+Теперь приложение имеет окно для поиска (search box). Обратите внимание, что список телефонов на странице меняется 
+в зависимости от того, что пользователь вводит в окно поиска.
 
-The most important differences between Steps 2 and 3 are listed below. You can see the full diff on
-{@link https://github.com/angular/angular-phonecat/compare/step-2...step-3
- GitHub}:
-
-
-## Controller
-
-We made no changes to the controller.
+Наиболее важные изменения между шагом 2 и текущим шагом (шагом 3) перечислены ниже. Вы можете увидеть полный список 
+изменений перейдя по ссылке {@link https://github.com/angular/angular-phonecat/compare/step-2...step-3 GitHub}:
 
 
-## Template
+## Контроллер
+
+Нам не потребовалось вносить изменения в контроллер.
+
+
+## Шаблон
 
 __`app/index.html`:__
 <pre>
@@ -54,28 +83,29 @@ __`app/index.html`:__
   </div>
 </pre>
 
-We added a standard HTML `<input>` tag and used Angular's
-{@link api/ng.filter:filter $filter} function to process the input for the
-{@link api/ng.directive:ngRepeat ngRepeat} directive.
+Мы добавили стандартный HTML тег `<input>` и воспользовались магией Angular-а, а именно функцией 
+{@link api/ng.filter:filter $filter}, которая обрабатывает входные данные для директивы
+{@link api/ng.directive:ngRepeat ngRepeat}.
 
-This lets a user enter search criteria and immediately see the effects of their search on the phone
-list. This new code demonstrates the following:
+Это позволяет пользователю вводить критерии поиска и сразу же видеть результат своего поиска по списку
+телефонов. Этот новый код демонстрирует следующее:
 
-* Data-binding: This is one of the core features in Angular. When the page loads, Angular binds the
-name of the input box to a variable of the same name in the data model and keeps the two in sync.
+* Cвязывание данных: Это одна из основных особенностей в Angular-е. При загрузке страницы, Angular связывает
+  имя поля ввода с переменной, с таким же именем, в моделе (data model) и синхронизирует их между собой.
 
-  In this code, the data that a user types into the input box (named __`query`__) is immediately
-available as a filter input in the list repeater (`phone in phones | filter:`__`query`__). When
-changes to the data model cause the repeater's input to change, the repeater efficiently updates
-the DOM to reflect the current state of the model.
+  В этом коде, данные, которые пользователь вводит в поле ввода (с именем __`query`__) сразу же
+  доступны как фильтр входных данных для списка повторителя (repeater) (`phone in phones | filter:`__`query`__).
+  Когда изменяется модель (data model) это вызывает изменение входных данных для повторителя (repeater's input),
+  повторитель обновляет DOM, чтобы отразить текущее состояние модели.
 
       <img  class="diagram" src="img/tutorial/tutorial_03.png">
 
-* Use of the `filter` filter: The {@link api/ng.filter:filter filter} function uses the
-`query` value to create a new array that contains only those records that match the `query`.
+* Использование `filter` фильтра: {@link api/ng.filter:filter Фильтер(filter) } функция использует значение
+  переменной `query` для создания нового массива, который содержит только те записи, которые соответствуют `query`.
 
-  `ngRepeat` automatically updates the view in response to the changing number of phones returned
-by the `filter` filter. The process is completely transparent to the developer.
+  `ngRepeat` автоматически обновляет представление (view) в ответ на изменение количества телефонов, которые
+  возвращает фильтр `filter`. Процесс полностью прозрачен для разработчика.
+
 
 ## Test
 
