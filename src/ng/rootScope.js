@@ -575,7 +575,7 @@ function $RootScopeProvider(){
        * @eventType broadcast on scope being destroyed
        *
        * @description
-       * Broadcasted when a scope and its children are being destroyed.
+       * Распространяется при уничтожении области видимости или ее потомков.
        */
 
       /**
