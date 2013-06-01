@@ -9,7 +9,7 @@
     <div ng-controller="UserListCtrl">
       <ul>
         <li ng-repeat="user in users" ng-controller="UserItemCtrl" ng-model="users">
-          <input value="{{user.name}}" ng-model="user.name"/>
+          <input ng-model="user.name"/>
         </li>
       </ul>
       <div>
