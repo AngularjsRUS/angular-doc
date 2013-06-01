@@ -2,6 +2,8 @@
 @name Cookbook: Переключатели
 @description
 
+Циклические переключатели
+
 ## Простая реализация переключателя классов
 
 Стоит избегать использования в HTML-атрибутах сложных вычислений, но если без этого никак, то хотя бы записывать 
@@ -28,7 +30,6 @@
 <example module="myApp">
   <file name="index.html">
     <div ng-controller="ButtonsCtrl">
-    <h4>Toggle</h4>
     <pre>{{toggleModel}}</pre>
     <button type="button" class="btn btn-primary" ng-model="toggleModel" btn-toggle>
       <i class="icon-white icon-eye-open" btn-toggle-val="open"></i>
@@ -41,9 +42,7 @@
     angular.module('myApp', ['ui.toggle']);
     
     var ButtonsCtrl = function ($scope) {
-
       $scope.toggleModel = 'open';
-
     };
   </file>
   <file name="toggle.js">
