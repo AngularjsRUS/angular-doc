@@ -1083,20 +1083,19 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#expect
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new request expectation.
+   * Создает новый ожидание для запроса.
    *
-   * @param {string} method HTTP method.
+   * @param {string} method HTTP метод.
    * @param {string|RegExp} url HTTP url.
-   * @param {(string|RegExp)=} data HTTP request body.
-   * @param {(Object|function(Object))=} headers HTTP headers or function that receives http header
-   *   object and returns true if the headers match the current expectation.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   *  request is handled.
+   * @param {(string|RegExp)=} data HTTP тело запроса.
+   * @param {(Object|function(Object))=} headers HTTP заголовки или функция которая извлекает http заголовок и 
+   *   возвращает true если заголовок найден в текущем ожидании.
+   * @returns {requestHandler} Возвращает объект, который содержит метод `respond`, контролирующий как будет 
+   *   обрабатываться совпадающий запрос.
    *
    *  - respond – `{function([status,] data[, headers])|function(function(method, url, data, headers)}`
-   *    – The respond method takes a set of static data to be returned or a function that can return
-   *    an array containing response status (number), response data (string) and response headers
-   *    (Object).
+   *    – Метод respond принимает набор статических данных которые будут возвращены, или функцию, которая может 
+   *    возвращать массив, содержащий состояние ответа (число), данные ответа (строка) и заголовки ответа (объект).
    */
   $httpBackend.expect = function(method, url, data, headers) {
     var expectation = new MockHttpExpectation(method, url, data, headers);
@@ -1114,12 +1113,12 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#expectGET
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new request expectation for GET requests. For more info see `expect()`.
+   * Создает новое ожидание для запроса GET. См. так же `expect()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {Object=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   * request is handled. See #expect for more info.
+   * @param {Object=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, содержащий метод `respond`, контролирующий как будет 
+   *   обрабатываться совпадающий запрос. См. так же #expect.
    */
 
   /**
@@ -1127,12 +1126,12 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#expectHEAD
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new request expectation for HEAD requests. For more info see `expect()`.
+   * Создает новое ожидание для запроса HEAD. См. так же `expect()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {Object=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   *   request is handled.
+   * @param {Object=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, содержащий метод `respond`, контролирующий как будет 
+   *   обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1140,12 +1139,12 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#expectDELETE
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new request expectation for DELETE requests. For more info see `expect()`.
+   * Создает новое ожидание для запроса DELETE. См. так же `expect()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {Object=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   *   request is handled.
+   * @param {Object=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, содержащий метод `respond`, контролирующий как будет 
+   *   обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1153,13 +1152,13 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#expectPOST
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new request expectation for POST requests. For more info see `expect()`.
+   * Создает новое ожидание для запроса POST. См. так же `expect()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {(string|RegExp)=} data HTTP request body.
-   * @param {Object=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   *   request is handled.
+   * @param {(string|RegExp)=} data HTTP тело запроса.
+   * @param {Object=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, содержащий метод `respond`, контролирующий как будет 
+   *   обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1167,13 +1166,13 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#expectPUT
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new request expectation for PUT requests. For more info see `expect()`.
+   * Создает новое ожидание для запроса PUT. См. так же `expect()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {(string|RegExp)=} data HTTP request body.
-   * @param {Object=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   *   request is handled.
+   * @param {(string|RegExp)=} data HTTP тело запроса.
+   * @param {Object=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, содержащий метод `respond`, контролирующий как будет 
+   *   обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1181,13 +1180,13 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#expectPATCH
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new request expectation for PATCH requests. For more info see `expect()`.
+   * Создает новое ожидание для запроса PATCH. См. так же `expect()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @param {(string|RegExp)=} data HTTP request body.
-   * @param {Object=} headers HTTP headers.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   *   request is handled.
+   * @param {(string|RegExp)=} data HTTP тело запроса.
+   * @param {Object=} headers HTTP заголовки.
+   * @returns {requestHandler} Возвращает объект, содержащий метод `respond`, контролирующий как будет 
+   *   обрабатываться совпадающий запрос.
    */
 
   /**
@@ -1195,11 +1194,11 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#expectJSONP
    * @methodOf ngMock.$httpBackend
    * @description
-   * Creates a new request expectation for JSONP requests. For more info see `expect()`.
+   * Создает новое ожидание для запроса JSONP. См. так же `expect()`.
    *
    * @param {string|RegExp} url HTTP url.
-   * @returns {requestHandler} Returns an object with `respond` method that control how a matched
-   *   request is handled.
+   * @returns {requestHandler} Возвращает объект, содержащий метод `respond`, контролирующий как будет 
+   *   обрабатываться совпадающий запрос.
    */
   createShortMethods('expect');
 
@@ -1209,11 +1208,11 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#flush
    * @methodOf ngMock.$httpBackend
    * @description
-   * Flushes all pending requests using the trained responses.
+   * Сбрасывает все ожидающие запросы с использованием подготовленных ответов.
    *
-   * @param {number=} count Number of responses to flush (in the order they arrived). If undefined,
-   *   all pending requests will be flushed. If there are no pending requests when the flush method
-   *   is called an exception is thrown (as this typically a sign of programming error).
+   * @param {number=} count Количество ответов для сброса (в порядке их объявления). Если не определено, 
+   *   все запросы будут разрешены. Если нет ожидающих запросов, тогда этот метод выбросит исключение (это 
+   *   обычное соглашение при программировании).
    */
   $httpBackend.flush = function(count) {
     $rootScope.$digest();
@@ -1238,11 +1237,11 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#verifyNoOutstandingExpectation
    * @methodOf ngMock.$httpBackend
    * @description
-   * Verifies that all of the requests defined via the `expect` api were made. If any of the
-   * requests were not made, verifyNoOutstandingExpectation throws an exception.
-   *
-   * Typically, you would call this method following each test case that asserts requests using an
-   * "afterEach" clause.
+   * Проверяет, что все запросы, определенные с использование `expect` api, были сделаны. Если любой из запросов 
+   * не был сделан, verifyNoOutstandingExpectation выбрасывает исключение.
+   * 
+   * Как правило, вы будете вызывать этот метод после каждого тестового случая, когда утверждение используется 
+   * внутри блока «afterEach».
    *
    * <pre>
    *   afterEach($httpBackend.verifyExpectations);
@@ -1261,10 +1260,10 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#verifyNoOutstandingRequest
    * @methodOf ngMock.$httpBackend
    * @description
-   * Verifies that there are no outstanding requests that need to be flushed.
-   *
-   * Typically, you would call this method following each test case that asserts requests using an
-   * "afterEach" clause.
+   * Проверяется что нет не сброшенных результатов запросов.
+   * 
+   * Как правило, вы будете вызывать этот метод после каждого тестового случая, когда утверждение используется 
+   * внутри блока «afterEach».
    *
    * <pre>
    *   afterEach($httpBackend.verifyNoOutstandingRequest);
@@ -1282,9 +1281,9 @@ function createHttpBackendMock($rootScope, $delegate, $browser) {
    * @name ngMock.$httpBackend#resetExpectations
    * @methodOf ngMock.$httpBackend
    * @description
-   * Resets all request expectations, but preserves all backend definitions. Typically, you would
-   * call resetExpectations during a multiple-phase test when you want to reuse the same instance of
-   * $httpBackend mock.
+   * Сбрасывает все ожидания запросов, но сохраняет все бэкенд определения. Типично, вы можете вызывать метод
+   * resetExpectations при выполнении много фазных тестов, когда вам нужно повторно использовать ту же
+   * имитацию объекта $httpBackend.
    */
   $httpBackend.resetExpectations = function() {
     expectations.length = 0;
@@ -1401,8 +1400,8 @@ function MockXhr() {
  * @name ngMock.$timeout
  * @description
  *
- * This service is just a simple decorator for {@link ng.$timeout $timeout} service
- * that adds a "flush" and "verifyNoPendingTasks" methods.
+ * Этот сервис простая декорация для сервиса {@link ng.$timeout $timeout}
+ * с добавлением методов «flush» и «verifyNoPendingTasks».
  */ 
 
 angular.mock.$TimeoutDecorator = function($delegate, $browser) {
@@ -1413,7 +1412,7 @@ angular.mock.$TimeoutDecorator = function($delegate, $browser) {
    * @methodOf ngMock.$timeout
    * @description
    *
-   * Flushes the queue of pending tasks.
+   * Сбрасывает очередь незаконченных задач.
    */
   $delegate.flush = function() {
     $browser.defer.flush();
@@ -1425,7 +1424,7 @@ angular.mock.$TimeoutDecorator = function($delegate, $browser) {
    * @methodOf ngMock.$timeout
    * @description
    *
-   * Verifies that there are no pending tasks that need to be flushed.
+   * Проверяет, что остались задачи, нуждающиеся в сбросе.
    */
   $delegate.verifyNoPendingTasks = function() {
     if ($browser.deferredFns.length) {
@@ -1460,8 +1459,8 @@ angular.mock.$RootElementProvider = function() {
  * @name ngMock
  * @description
  *
- * The `ngMock` is an angular module which is used with `ng` module and adds unit-test configuration as well as useful
- * mocks to the {@link AUTO.$injector $injector}.
+ * `ngMock` это модуль Angular, который используется совместно с модулем `ng` для добавлнения конфигурации
+ * модульного тестирования, а за одно полезной имитации в {@link AUTO.$injector $injector}.
  */
 angular.module('ngMock', ['ng']).provider({
   $browser: angular.mock.$BrowserProvider,
@@ -1478,9 +1477,9 @@ angular.module('ngMock', ['ng']).provider({
  * @name ngMockE2E
  * @description
  *
- * The `ngMockE2E` is an angular module which contains mocks suitable for end-to-end testing.
- * Currently there is only one mock present in this module -
- * the {@link ngMockE2E.$httpBackend e2e $httpBackend} mock.
+ * `ngMockE2E` это модуль Angular, содержащий имитации, полезные для системного тестирования.
+ * В настоящее время этот модуль содержит только одну имитацию - имитацию
+ * {@link ngMockE2E.$httpBackend e2e $httpBackend}.
  */
 angular.module('ngMockE2E', ['ng']).config(function($provide) {
   $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
