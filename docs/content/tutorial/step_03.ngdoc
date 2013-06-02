@@ -1,5 +1,5 @@
 @ngdoc overview
-@name Tutorial: 3 - Filtering Repeaters
+@name Tutorial: 3 - Фильтрация для повторителей
 @description
 
 <ul doc-tutorial-nav="3"></ul>
@@ -107,15 +107,15 @@ __`app/index.html`:__
   возвращает фильтр `filter`. Процесс полностью прозрачен для разработчика.
 
 
-## Test
+## Тесты
 
-In Step 2, we learned how to write and run unit tests. Unit tests are perfect for testing
-controllers and other components of our application written in JavaScript, but they can't easily
-test DOM manipulation or the wiring of our application. For these, an end-to-end test is a much
-better choice.
+На шаге 2 мы узнали, как написать и запустить модульные тесты (unit tests). Модульные тесты идеально подходят 
+для тестирования контроллеров и других компонентов нашего приложения, написанных на JavaScript, но модульными тестами
+не очень легко тестировать DOM-манипуляции или связи нашего приложения. Для этих целей системные тесты являются 
+гораздо лучшим выбором.
 
-The search feature was fully implemented via templates and data-binding, so we'll write our first
-end-to-end test, to verify that the feature works.
+Функция поиска была полностью реализована через шаблоны (templates) и связывание данных (data-binding), 
+поэтому мы напишем наш первый системный тест, чтобы убедиться, что эта функция работает.
 
 __`test/e2e/scenarios.js`:__
 <pre>
@@ -141,59 +141,59 @@ describe('PhoneCat App', function() {
 });
 </pre>
 
-Even though the syntax of this test looks very much like our controller unit test written with
-Jasmine, the end-to-end test uses APIs of {@link guide/dev_guide.e2e-testing Angular's end-to-end
-test runner}.
+Хотя синтаксис этого теста очень похож на модульный тест для нашего контроллера, написанный при помощи Jasmine, но
+системный тест использует API, из {@link guide/dev_guide.e2e-testing Angular E2E тестирования}.
 
-To run the end-to-end test, open one of the following in a new browser tab:
+Для запуска системного теста, откройте одну из следующих ссылок в новой вкладке браузера:
 
-* node.js users: {@link http://localhost:8000/test/e2e/runner.html}
-* users with other http servers:
+* для пользователей node.js: {@link http://localhost:8000/test/e2e/runner.html}
+* для пользователей других http-серверов:
 `http://localhost:[port-number]/[context-path]/test/e2e/runner.html`
-* casual reader: {@link http://angular.github.com/angular-phonecat/step-3/test/e2e/runner.html}
+* если вы просто читаете этот учебник: {@link http://angular.github.com/angular-phonecat/step-3/test/e2e/runner.html}
 
-Previously we've seen how Karma can be used to execute unit tests. Well, it can also run the
-end-to-end tests! Use `./scripts/e2e-test.sh` script for that. End-to-end tests are slow, so unlike
-with unit tests, Karma will exit after the test run and will not automatically rerun the test
-suite on every file change. To rerun the test suite, execute the `e2e-test.sh` script again.
+Ранее мы видели, как Karma-у можно использовать для выполнения модульных тестов. Кроме того, Karma-а так же может 
+запускать системные тесты. Для этого можете воспользоваться скриптом `./scripts/e2e-test.sh`. 
+Системные тесты медленные, в отличие от модульных тестов. Karma будет завершаться (exit) после выполнения теста 
+и автоматически не перезапускает набор тестов для каждого изменения файла. Чтобы снова запустить набор тестов, 
+необходимо заново запустить скрипт `e2e-test.sh`.
 
-This test verifies that the search box and the repeater are correctly wired together. Notice how
-easy it is to write end-to-end tests in Angular. Although this example is for a simple test, it
-really is that easy to set up any functional, readable, end-to-end test.
+Этот тест проверяет, что поле поиска и повторитель правильно соединены (wired) друг с другом. Обратите внимание, как
+легко писать системные тесты в Angular-е. Хотя этот пример является простым тестом, он действительно легко 
+переписывается на любой функционал и легко читаем.
 
-# Experiments
 
-* Display the current value of the `query` model by adding a `{{query}}` binding into the
-`index.html` template, and see how it changes when you type in the input box.
+# Давайте поэкспериментируем
 
-* Let's see how we can get the current value of the `query` model to appear in the HTML page title.
+* Отображение текущего значения `query` модели происходит путем добавления `{{query}}` связывания (binding) в
+  `index.html` шаблоне. Посмотрите, как меняется модель, когда вы что-нибудь вводите в поле ввода.
 
-  You might think you could just add the {{query}} to the title tag element as follows:
+* Давайте посмотрим, как мы можем получить текущее значение `query` модели и отобразить ее 
+  в заголовке (title) HTML-страницы.
+
+  Вы могли бы подумать, что нужно просто добавить {{query}} в title тег следующим образом:
 
           <title>Google Phone Gallery: {{query}}</title>
 
-  However, when you reload the page, you won't see the expected result. This is because the "query"
-model lives in the scope defined by the body element:
+  Однако, когда вы перезагрузите страницу, вы не увидите ожидаемого результата. Это происходит потому, 
+  что `query` модель живет в областе видимости (scope), определенной body элементом:
 
           <body ng-controller="PhoneListCtrl">
 
-  If you want to bind to the query model from the `<title>` element, you must __move__ the
-`ngController` declaration to the HTML element because it is the common parent of both the body
-and title elements:
+  Если вы хотите связать `query` модель с `<title>` элементом, вы должны __переместить__ объявление
+  `ngController` в html элемент, потому что он является общим родителем для body и title элементов:
 
           <html ng-app ng-controller="PhoneListCtrl">
 
-  Be sure to __remove__ the `ng-controller` declaration from the body element.
+  Обязательно __удалите__ декларацию `ng-controller` из body элемента.
 
-  While using double curlies works fine within the title element, you might have noticed that
-for a split second they are actually displayed to the user while the page is loading. A better
-solution would be to use the {@link api/ng.directive:ngBind
-ngBind} or {@link api/ng.directive:ngBindTemplate
-ngBindTemplate} directives, which are invisible to the user while the page is loading:
+  Использовании двойных фигурных скобок хорошо работает в title элементе, но вы могли заметить, что на самом деле,
+  фигурные скобоки на долю секунды отображаются пользователю при загрузке страницы. Лучшим решением было 
+  бы использовать {@link api/ng.directive:ngBind ngBind} или {@link api/ng.directive:ngBindTemplate
+ngBindTemplate} директивы, которые невидимы для пользователя при загрузке страницы:
 
           <title ng-bind-template="Google Phone Gallery: {{query}}">Google Phone Gallery</title>
 
-* Add the following end-to-end test into the `describe` block within `test/e2e/scenarios.js`:
+* Добавьте следующий код в блоке `describe`, системного теста `test/e2e/scenarios.js`:
 
   <pre>
     it('should display the current filter value within an element with id "status"',
@@ -204,27 +204,27 @@ ngBindTemplate} directives, which are invisible to the user while the page is lo
 
       expect(element('#status').text()).toMatch(/Current filter: nexus\s*$/);
 
-      //alternative version of the last assertion that tests just the value of the binding
+      //альтернативный вариант последнего утверждения (assertion), которое проверяет является ли значение связанным
       using('#status').expect(binding('query')).toBe('nexus');
     });
   </pre>
 
-  Refresh the browser tab with the end-to-end test runner to see the test fail. To make the test
-pass, edit the `index.html` template to add a `div` or `p` element with `id` `"status"` and content
-with the `query` binding, prefixed by "Current filter:". For instance:
+  Обновите вкладку браузера с запущенным системным тестом, чтобы увидеть, что тест не проходит. Для того, чтобы тест
+  прошел, отредактируем шаблон `index.html`, добавив `div` или `p` элемент с `id` `"status"`, содержащий
+  переменную `query` и текст "Current filter:". Например:
 
           <div id="status">Current filter: {{query}}</div>
 
-* Add a `pause()` statement inside of an end-to-end test and rerun it. You'll see the runner pause;
-this gives you the opportunity to explore the state of your application while it is displayed in
-the browser. The app is live! You can change the search query to prove it. Notice how useful this
-is for troubleshooting end-to-end tests.
+* Добавьте оператор `pause()` внутри системного теста и перезапустить тест. Вы увидите, что возникнет пауза;
+  это дает вам возможность исследовать состояние приложения в тот момент, когда оно отображается в браузере. 
+  Приложение работает! Вы можете изменить поисковый запрос, чтобы убедиться в этом. Обратите внимание, насколько 
+  полезно это для устранения неполадок системных тестов.
 
 
-# Summary
+# Идем дальше
 
-We have now added full text search and included a test to verify that search works! Now let's go on
-to {@link step_04 step 4} to learn how to add sorting capability to the phone app.
+Вот мы и добавили полнотекстовый поиск и тест, чтобы убедиться, что поиск работает! Теперь можем идти дальше
+на {@link step_04 Шаг 4}, чтобы узнать, как добавить возможность сортировки телефон в приложение.
 
 
 <ul doc-tutorial-nav="3"></ul>
