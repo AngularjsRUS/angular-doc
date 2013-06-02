@@ -166,11 +166,11 @@ function $RouteProvider(){
      * и сервисом {@link ng.$routeParams $routeParams}
      *
      * @example
-       This example shows how changing the URL hash causes the `$route` to match a route against the
-       URL, and the `ngView` pulls in the partial.
-
-       Note that this example is using {@link ng.directive:script inlined templates}
-       to get it working on jsfiddle as well.
+     * Этот пример показывает как в случае изменения хэша URL сервис $route находит маршрут следующего URL, 
+     * и ngView получает свое представление.
+     *   
+     * Заметьте, что этот пример использует {@link ng.directive:script строковые шаблоны}, 
+     * это сделано для чтобы получить его в процессе работы.
 
      <example module="ngView">
        <file name="index.html">
