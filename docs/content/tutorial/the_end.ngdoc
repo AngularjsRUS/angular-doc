@@ -2,20 +2,20 @@
 @name Tutorial: The End
 @description
 
-Our application is now complete. Feel free to experiment with the code further, and jump back to
-previous steps using the `git checkout` command.
+Итак, наше приложение готово! Теперь вы можете дописать в него что-то новое, или в любой момент
+откатиться назад с помощью команды `git checkout`.
 
-For more details and examples of the Angular concepts we touched on in this tutorial, see the
-{@link guide/ Developer Guide}.
+Чтобы подробнее рассмотреть темы, которых мы едва коснулись в этом учебнике, обратитесь к
+{@link guide/ Руководству разработчика}.
 
-For several more examples of code, see the {@link cookbook/ Cookbook}.
+Примеры кода вы можете найти в {@link cookbook/ кукбуке}.
 
-When you are ready to start developing a project using Angular, we recommend that you bootstrap
-your development with the {@link https://github.com/angular/angular-seed angular-seed} project.
+Когда будете готовы разработать своё собственное приложение на Angular, мы рекомендуем начать с
+подключения {@link https://github.com/angular/angular-seed минимального Angular приложения}.
 
-We hope this tutorial was useful to you and that you learned enough about Angular to make you want
-to learn more. We especially hope you are inspired to go out and develop Angular web apps of your
-own, and that you might be interested in {@link misc/contribute contributing} to Angular.
+Мы надеемся, этот учебник был полезен вам и вы узнали достаточно нового, чтобы захотеть узнать об Angular
+ещё больше. Мы очень надеемся, что вдохновили вас на создание собственных Angular-приложений, а также на то,
+что вы можете быть заинтересованными в {@link misc/contribute участии в разработке Angular}.
 
-If you have questions or feedback or just want to say "hi", please post a message at {@link
-https://groups.google.com/forum/#!forum/angular}.
+Если у вас остались какие-либо вопросы, фидбэк, или вы просто хотите сказать нам "Привет!", пожалуйста,
+отправьте сообщение в {@link https://groups.google.com/forum/#!forum/angular}.
