@@ -1,10 +1,13 @@
 @ngdoc overview
-@name Cookbook: $watch для списков
+@name Cookbook: Обработка списков ($watch)
 @description
 
 Отслеживание изменений всего массива и определение изменившегося элемента. А так же использование 
 наследования областей видимости в контроллере.
-<example module="myApp">
+
+##С использованием $watch
+
+<example module="app1">
   <file name="index.html">
     <div ng-controller="UserListCtrl">
       <ul>
@@ -18,7 +21,7 @@
     </div>
   </file>
   <file name="script.js">
-    angular.module('myApp', []);
+    angular.module('app1', []);
     
     function UserListCtrl($scope) {
       $scope.users = [{name: 'Oleg', age: 27},
@@ -39,6 +42,38 @@
         //из родительской области.
         
       }, true);
+    }
+  </file>
+</example>
+
+##С использованием колбека
+В большинстве случаев этот способ предпочтительнее, т.к. более декларативен, заставляет помнить об обработчике события,
+в то время как про $watch можно забыть.
+
+<example module="app2">
+  <file name="index.html">
+    <div ng-controller="UserListCtrl">
+      <ul>
+        <li ng-repeat="user in users" ng-model="users">
+          <input ng-change="change(user)" ng-model="user.name"/>
+        </li>
+      </ul>
+      <div>
+        Последнее изменение: {{lastname}}
+      </div>
+    </div>
+  </file>
+  <file name="script.js">
+    angular.module('app2', []);
+    
+    function UserListCtrl($scope) {
+      $scope.users = [{name: 'Oleg', age: 27},
+                      {name: 'Diana', age: 25},
+                      {name: 'Bob', age: 30}];
+      $scope.lastname = 'нет';
+      $scope.change = function (user) {
+        $scope.lastname = user.name
+      };
     }
   </file>
 </example>
