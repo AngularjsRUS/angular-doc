@@ -23,8 +23,8 @@
  * и **leave**.
  *
  * @animations
- * enter - happens after the ngSwtich contents change and the matched child element is placed inside the container
- * leave - happens just after the ngSwitch contents change and just before the former contents are removed from the DOM
+ * enter - происходит после изменения выражения в ngSwitch и после того, как дочерний элемент добавлен в контейнер
+ * leave - происходит сразу после изменения выражения в ngSwitch и до того, как предыдущий элемент удалён из DOM
  *
  * @usage
  * <ANY ng-switch="expression">
