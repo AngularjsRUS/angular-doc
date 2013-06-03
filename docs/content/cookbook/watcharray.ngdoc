@@ -9,7 +9,7 @@
 
 <example module="app1">
   <file name="index.html">
-    <div ng-controller="UserListCtrl">
+    <div ng-controller="UserListCtrl1">
       <ul>
         <li ng-repeat="user in users" ng-controller="UserItemCtrl" ng-model="users">
           <input ng-model="user.name"/>
@@ -23,7 +23,7 @@
   <file name="script.js">
     angular.module('app1', []);
     
-    function UserListCtrl($scope) {
+    function UserListCtrl1($scope) {
       $scope.users = [{name: 'Oleg', age: 27},
                       {name: 'Diana', age: 25},
                       {name: 'Bob', age: 30}];
@@ -55,7 +55,7 @@
 
 <example module="app2">
   <file name="index.html">
-    <div ng-controller="UserListCtrl">
+    <div ng-controller="UserListCtrl2">
       <ul>
         <li ng-repeat="user in users" ng-model="users">
           <input ng-change="change($index, user)" ng-model="user.name"/>
@@ -69,7 +69,7 @@
   <file name="script.js">
     angular.module('app2', []);
     
-    function UserListCtrl($scope) {
+    function UserListCtrl2($scope) {
       $scope.users = [{name: 'Oleg', age: 27},
                       {name: 'Diana', age: 25},
                       {name: 'Bob', age: 30}];
