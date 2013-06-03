@@ -16,7 +16,7 @@
         </li>
       </ul>
       <div>
-        Последнее изменение: {{last.name}}
+        Последнее изменение: № {{last.index}} {{last.name}}
       </div>
     </div>
   </file>
@@ -27,12 +27,15 @@
       $scope.users = [{name: 'Oleg', age: 27},
                       {name: 'Diana', age: 25},
                       {name: 'Bob', age: 30}];
-      $scope.last = {name: 'нет'};
+      $scope.last = {name: 'нет',
+                     index: '-'};
     }
     
     function UserItemCtrl($scope) {
       $scope.$watch('users[$index]', function(newValue, oldValue, scope) {
         if (newValue === oldValue) return;
+        
+        $scope.last.index = $scope.$index;
         $scope.last.name = $scope.users[$scope.$index].name;
         
         //Мы используем параметр 'name' из объекта 'last', чтобы Angular, не найдя 'last'
@@ -55,11 +58,11 @@
     <div ng-controller="UserListCtrl">
       <ul>
         <li ng-repeat="user in users" ng-model="users">
-          <input ng-change="change(user)" ng-model="user.name"/>
+          <input ng-change="change($index, user)" ng-model="user.name"/>
         </li>
       </ul>
       <div>
-        Последнее изменение: {{lastname}}
+        Последнее изменение: № {{lastindex}} {{lastname}}
       </div>
     </div>
   </file>
@@ -71,8 +74,10 @@
                       {name: 'Diana', age: 25},
                       {name: 'Bob', age: 30}];
       $scope.lastname = 'нет';
-      $scope.change = function (user) {
-        $scope.lastname = user.name
+      $scope.lastindex = '-';
+      $scope.change = function (index, user) {
+        $scope.lastindex = index;
+        $scope.lastname = user.name;
       };
     }
   </file>
