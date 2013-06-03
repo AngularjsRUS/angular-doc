@@ -4,20 +4,48 @@
 
 <ul doc-tutorial-nav="4"></ul>
 
+В этом шаге мы с вами добавим еще одну возможность в наше приложение. Пользователи нашего приложения смогут 
+управлять сортировкой списка телефонов. Динамическая сортировка будет реализована через создание нового свойства 
+у модели, связывание этого свойства с повторителем (repeater) и позволим магии связывания данных (data binding)
+сделать остальную часть работы за нас.
 
-In this step, you will add a feature to let your users control the order of the items in the phone
-list. The dynamic ordering is implemented by creating a new model property, wiring it together with
-the repeater, and letting the data binding magic do the rest of the work.
+<div class="tabbable" show="true">
 
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux" value="gitUnix">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 4.</p>
+        <pre>git checkout -f step-4</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-4/app">сервере Angular</a>.
+        </p>
+      </li>
+    </ol>
+  </div>
 
-<div doc-tutorial-reset="4"></div>
+  <div class="tab-pane well" title="Git на Windows" value="gitWin">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 4.</p>
+        <pre>git checkout -f step-4</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-4/app">сервере Angular</a>
+        </p>
+      </li>
+    </ol>
+  </div>
 
+</div>
 
-You should see that in addition to the search box, the app displays a drop down menu that allows
-users to control the order in which the phones are listed.
+Вы должны увидеть, что в дополнение к окну поиска, в приложение появилось выпадающее меню, которое позволяет
+пользователям управлять порядок сортировки телефонов.
 
-The most important differences between Steps 3 and 4 are listed below. You can see the full diff on
-{@link https://github.com/angular/angular-phonecat/compare/step-3...step-4 GitHub}:
+Наиболее важные изменения между шагами 3 и 4 приведены ниже. Вы можете увидеть полный список изменений 
+перейдя по ссылке {@link https://github.com/angular/angular-phonecat/compare/step-3...step-4 GitHub}:
 
 
 ## Template
