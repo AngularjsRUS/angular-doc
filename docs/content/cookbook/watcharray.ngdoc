@@ -35,8 +35,8 @@
       $scope.$watch('users[$index]', function(newValue, oldValue, scope) {
         if (newValue === oldValue) return;
         
-        $scope.last.index = $scope.$index;
-        $scope.last.name = $scope.users[$scope.$index].name;
+        $scope.last.index = scope.$index;
+        $scope.last.name = scope.users[scope.$index].name;
         
         //Мы используем параметр 'name' из объекта 'last', чтобы Angular, не найдя 'last'
         //в текущей области видимости стал бы искать в родительской (где объявлен объект 
