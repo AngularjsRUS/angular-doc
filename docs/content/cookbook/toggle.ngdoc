@@ -38,13 +38,6 @@
     </button>
     </div>
   </file>
-  <file name="index.js">
-    angular.module('myApp', ['ui.toggle']);
-    
-    var ButtonsCtrl = function ($scope) {
-      $scope.toggleModel = 'open';
-    };
-  </file>
   <file name="toggle.js">
     angular.module('ui.toggle', [])
   
@@ -95,5 +88,12 @@
       }
     };
     }]);
+  </file>
+  <file name="index.js">
+    angular.module('myApp', ['ui.toggle']);
+    
+    var ButtonsCtrl = function ($scope) {
+      $scope.toggleModel = 'open';
+    };
   </file>
 </example>
