@@ -16,7 +16,7 @@
   <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux" value="gitUnix">
     <ol>
       <li>
-        <p>Откатите ваш рабочик код до шага 3.</p>
+        <p>Откатите ваш рабочий код до шага 3.</p>
         <pre>git checkout -f step-3</pre>
       </li>
       <li>
