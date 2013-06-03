@@ -1,31 +1,30 @@
 @ngdoc overview
-@name Tutorial: 9 - Filters
+@name Tutorial: 9 - Фильтры
 @description
 
 <ul doc-tutorial-nav="9"></ul>
 
 
-In this step you will learn how to create your own custom display filter.
+В этом уроке вы научитесь создавать свои собственные фильтры.
 
 
 <div doc-tutorial-reset="9"></div>
 
 
-Navigate to one of the detail pages.
+Перейдите на любую страницу с подробным описанием телефона.
 
-In the previous step, the details page displayed either "true" or "false" to indicate whether
-certain phone features were present or not. We have used a custom filter to convert those text
-strings into glyphs: ✓ for "true", and ✘ for "false". Let's see what the filter code looks like.
+На предыдущем этапе, для отображения наличия либо отсутствия определённой фичи у телефона использовались
+булевы значения "true" и "false". Теперь же, мы применили фильтр, чтобы отображать на месте этих строк
+пиктограммки: ✓ вместо "true" и ✘ вместо "false". Давайте посмотрим, что представляет из себя код фильтра.
 
-The most important changes are listed below. You can see the full diff on {@link
-https://github.com/angular/angular-phonecat/compare/step-8...step-9
-GitHub}:
+Ключевые изменения приведены ниже, полный дифф вы можете просмотреть на {@link
+https://github.com/angular/angular-phonecat/compare/step-8...step-9 GitHub}:
 
 
-## Custom Filter
+## Создание фильтра
 
-In order to create a new filter, you are going to create a `phonecatFilters` module and register
-your custom filter with this module:
+Для создания нового фильтра, вам придётся написать новый модуль `phonecatFilters` и зарегистрировать
+свежесозданный фильтр в нём:
 
 __`app/js/filters.js`:__
 <pre>
@@ -36,12 +35,12 @@ angular.module('phonecatFilters', []).filter('checkmark', function() {
 });
 </pre>
 
-The name of our filter is "checkmark". The `input` evaluates to either `true` or `false`, and we
-return one of two unicode characters we have chosen to represent true or false (`\u2713` and
-`\u2718`).
+Имя нашего фильтра - "checkmark". В качестве входного параметра `input` он ожидает булево значение -
+истину либо ложь и мы используем тернарный оператор для чтобы вернуть один из символов юникода, которые
+мы выбрали для представления истины или лжи (`\u2713` и `\u2718`).
 
-Now that our filter is ready, we need to register the `phonecatFilters` module as a dependency for
-our main `phonecat` module.
+Теперь, когда фильтр готов, мы должны зарегистрировать модуль `phonecatFilters` как зависимость для
+главного модуля `phonecat`:
 
 __`app/js/app.js`:__
 <pre>
@@ -51,10 +50,9 @@ angular.module('phonecat', ['phonecatFilters']).
 </pre>
 
 
-## Template
+## Шаблон
 
-Since the filter code lives in the `app/js/filters.js` file, we need to include this file in our
-layout template.
+Так как код фильтра лежит в `app/js/filters.js`, мы должны подключить его в наш шаблон:
 
 __`app/index.html`:__
 <pre>
@@ -64,11 +62,11 @@ __`app/index.html`:__
 ...
 </pre>
 
-The syntax for using filters in Angular templates is as follows:
+Синтакс использования фильтров в Angular:
 
     {{ expression | filter }}
 
-Let's employ the filter in the phone details template:
+Посмотрим, как работает фильтр на странице подробного описания телефона:
 
 
 
@@ -76,7 +74,7 @@ __`app/partials/phone-detail.html`:__
 <pre>
 ...
     <dl>
-      <dt>Infrared</dt>
+      <dt>ИК-порт</dt>
       <dd>{{phone.connectivity.infrared | checkmark}}</dd>
       <dt>GPS</dt>
       <dd>{{phone.connectivity.gps | checkmark}}</dd>
@@ -85,9 +83,10 @@ __`app/partials/phone-detail.html`:__
 </pre>
 
 
-## Test
+## Тестирование
 
-Filters, like any other component, should be tested and these tests are very easy to write.
+Фильтры, как и любые другие компоненты, должны быть покрыты тестами, а тесты, в свою очередь, не должны
+быть сложными для написания:.
 
 __`test/unit/filtersSpec.js`:__
 <pre>
@@ -98,7 +97,7 @@ describe('filter', function() {
 
   describe('checkmark', function() {
 
-    it('should convert boolean values to unicode checkmark or cross',
+    it('должен конвертировать истину и ложь в галочку и крестик',
         inject(function(checkmarkFilter) {
       expect(checkmarkFilter(true)).toBe('\u2713');
       expect(checkmarkFilter(false)).toBe('\u2718');
@@ -107,33 +106,32 @@ describe('filter', function() {
 });
 </pre>
 
-Note that you need to configure our test injector with the `phonecatFilters` module before any of
-our filter tests execute.
+Обратите внимание, что вам нужно сконфигурировать тестовый инжектор для использования модуля `phonecatFilters`,
+иначе код фильтра не будет внедрён и выполнен.
 
-You should now see the following output in the Karma tab:
+Теперь, вы можете видеть следующий вывод в закладке Karma:
 
         Chrome 22.0: Executed 4 of 4 SUCCESS (0.034 secs / 0.012 secs)
 
 
-# Experiments
+# Давайте поэкспериментируем
 
-* Let's experiment with some of the {@link api/ng.$filter built-in Angular filters} and add the
-following bindings to `index.html`:
-  * `{{ "lower cap string" | uppercase }}`
+* Поэкспериментируйте со {@link api/ng.$filter встроенными фильтрами Angular} и добавьте следующие привязки на
+`index.html`:
+  * `{{ "строка в нижнем регистре" | uppercase }}`
   * `{{ {foo: "bar", baz: 23} | json }}`
   * `{{ 1304375948024 | date }}`
   * `{{ 1304375948024 | date:"MM/dd/yyyy @ h:mma" }}`
 
-*  We can also create a model with an input element, and combine it with a filtered binding. Add
-the following to index.html:
+*  А ещё, можно создать модель, привязанную к текстовому полю и выводить уже фильтрованное значение, например:
 
         <input ng-model="userInput"> Uppercased: {{ userInput | uppercase }}
 
 
-# Summary
+# Идём дальше
 
-Now that you have learned how to write and test a custom filter, go to {@link step_10 step 10} to
-learn how we can use Angular to enhance the phone details page further.
+Теперь, когда вы знаете как писать и тестировать свои фильтры, переходите к  {@link step_10 шагу 10}, чтобы
+узнать как можно сделать станичку описания телефона ещё более клёвой!
 
 
 <ul doc-tutorial-nav="9"></ul>
