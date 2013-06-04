@@ -4,7 +4,7 @@
 
 # UI-Router
 
-####Finally a de-facto solution to nested views and routing.
+## Finally a de-facto solution to nested views and routing.
 >* Latest release 0.0.1: [Compressed](http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js) / [Uncompressed](http://angular-ui.github.io/ui-router/release/angular-ui-router.js)
 >* Latest snapshot: [Compressed](http://angular-ui.github.io/ui-router/build/angular-ui-router.min.js) / [Uncompressed](http://angular-ui.github.io/ui-router/build/angular-ui-router.js)
 
@@ -24,10 +24,10 @@ To evolve the concept of an [angularjs](http://angularjs.org/) [***route***](htt
 
 4. **Multiple Parallel Views**
 >
-```
+<pre>
 <div ui-view="chart1">
 <div ui-view="chart2">
-```
+</pre>
 5. **Nested Views**
 >load templates that contain nested `ui-view`s as deep as you'd like.
 
@@ -53,23 +53,23 @@ To evolve the concept of an [angularjs](http://angularjs.org/) [***route***](htt
 
 1. Add angular-ui-router.min.js to your index.html
 > 
-```html
+<pre>
 <!doctype html>
 <html ng-app="myapp">
 <head>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
       <script src="angular-ui-router.min.js"></script> <!-- Insert after main angular.js file -->
-```
+</pre>
 
 2. Set `ui.state` as a dependency in your module
 >
-```javascript
+<pre>
 var myapp = angular.module('myapp', ['ui.state']) 
-```
+</pre>
 
 3. Add one or more `ui-view` to your app, give them names.
 >
-```html
+<pre>
 <body>
     <div ui-view="viewA"></div>
     <div ui-view="viewB"></div>
@@ -77,11 +77,11 @@ var myapp = angular.module('myapp', ['ui.state'])
     <a href="#/route1">Route 1</a>
     <a href="#/route2">Route 2</a>
 </body>
-```
+</pre>
 
 4. Set up your states in the module config
 >
-```javascript
+<pre>
 myapp.config(function($stateProvider, $routeProvider){
   $stateProvider
   	.state('index', {
@@ -118,7 +118,7 @@ myapp.config(function($stateProvider, $routeProvider){
 			}
 		})
 })
-```
+</pre>
 
 5. See this quick start example in action. 
 >**[Go to Quick Start Plunker](http://plnkr.co/edit/vDURUN?p=preview)**
