@@ -1,5 +1,72 @@
 @ngdoc overview
-@name FAQ
+@name UI-Router: FAQ
 @description
 
-Angular UI - FAQ
+### How to: Configure ui-router from multiple modules
+
+How do I configure ui-router from multiple modules, it doesn't seem to get the same state provider?
+
+What often goes wrong is dependencies. E.g:
+
+```javascript
+angular.module('application', [...]).config(function ($stateProvider) {
+    $stateProvider
+        .state("feature1", { url : '/Feature1'...})
+        .state("feature2", { url : '/Feature2'...});
+});
+angular.module('feature1', ['application', ...]).config(function ($stateProvider) {
+    $stateProvider
+        .state("feature1.home", {...})
+        .state("feature1.detail", {...});
+});
+```
+
+**Example:** http://plnkr.co/edit/WSmPX7JITGOsZ07L1UQP?p=preview
+
+**Note:** Remember only to declare dependencies once on module creation, so if you make several calls to `angular.module` for the same module, only the first should define dependencies.
+
+
+### How To: Open a dialog/modal at a certain state
+
+How do I tell ui-router that I'd like a certain state to open a dialog or modal instead of swapping out ui-view templates?
+
+Here's an example of to do it using ui-bootstrap's [$dialog](https://github.com/angular-ui/bootstrap/blob/master/src/dialog/README.md) service. This example only specifies an onEnter function. There is no template, controller, etc. So essentially the dialog is shown, then when its closed it returns to the `items` state. You are still responsible for handling what state your app transitions to when the dialog closes.
+
+```javascript
+$stateProvider.state("items.add", {
+    url: "/add",
+    onEnter: function($stateParams, $state, $dialog, $resource) {
+
+        var Item = $resource(...);
+
+        $dialog.dialog({
+            keyboard: true,
+            templateUrl: "items/add",
+            backdropClick: false,
+            dialogFade: true,
+            controller: ['$scope', function($scope) {
+
+                angular.extend($scope, {
+                    title: "Create new item",
+                    button: "Add",
+                    campaign: new Item(),
+                    $stateParams: $stateParams,
+                    $state: $state,
+                    save: function() {
+                        var self = $scope;
+
+                        this.item.$save(function() {
+                            self.$emit('items.refresh');
+                            $state.transitionTo('items');
+                        });
+                    }
+                });
+            }]
+        }).open().then(function(result) {
+            if (!result) {
+                return $state.transitionTo("items");
+            }
+        });
+    }
+});
+```
