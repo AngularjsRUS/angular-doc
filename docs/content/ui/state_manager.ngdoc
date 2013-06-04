@@ -1,5 +1,122 @@
 @ngdoc overview
-@name State Manager
+@name UI-Router
 @description
 
-Angular UI - State Manager
+[[Next (Nested States & Nested Views) ►|Nested States & Nested Views]]
+
+##### This In-Depth Guide will take you through all aspects of the UI-Router and its components and options.
+
+## State Manager
+
+The new $stateProvider works similar to Angular's v1 router, but it focuses purely on state. 
+* A state corresponds to a "place" in the application in terms of the overall UI and navigation. 
+* A state describes (via the controller / template / view properties) what the UI looks like and does at that place. 
+* States often have things in common, and the primary way of factoring out these commonalities in this model is via the state hierarchy, i.e. parent/child states aka nested states. 
+
+### The simplest form of state
+A state in its simplest form can be added like this (typically within module.config):
+```html
+<!-- in index.html -->
+<body ng-controller="MainCtrl">
+<section ui-view></section>
+</body>
+```
+```javascript
+// in app-states.js (or whatever you want to name it)
+$stateProvider.state('contacts', {
+  template: '<h1>My Contacts</h1>'
+})
+
+// main-controller.js
+function MainCtrl($state){
+  $state.transitionTo('contacts');
+}
+
+```
+The template is automatically placed into the lone `ui-view` when the state is transitioned to.
+
+#### Alternative ways to set the Template
+Instead of writing the template inline you can load a partial. **This is probably how you'll set templates most of the time.**
+```javascript
+$stateProvider.state('contacts', {
+  templateUrl: 'contacts.html'
+})
+```
+Or you can use a template provider function which can be injected and has access to locals, like this:
+```javascript
+$stateProvider.state('contacts', {
+  templateProvider: function ($timeout, $stateParams) {
+    return $timeout(function () { return '<h1>'+$stateParams.contactId+'</h1>' }, 100);
+  }
+})
+```
+### Controllers
+You can pair a template with a controller like this:
+```javascript
+$stateProvider.state('contacts', {
+  template: '<h1>{{title}}</h1>',
+  controller: function($scope){
+    $scope.title = 'My Contacts';
+  }
+})
+```
+
+Or if you already have a controller defined on the module, like this:
+```javascript
+$stateProvider.state('contacts', {
+  controller: 'ContactsCtrl'
+})
+```
+
+#### Resolve
+You can use resolve to provide your controller with content or data that is custom to the state. Resolve is an optional map of dependencies which should be injected into the controller. If any of these dependencies are promises, they will be resolved and converted to a value before the controller is instantiated and the $routeChangeSuccess event is fired. The map object is:
+* key – {string}: a name of a dependency to be injected into the controller.
+* factory - {string|function}: If string then it is an alias for a service. Otherwise if function, then it is injected and the return value is treated as the dependency. If the result is a promise, it is resolved before its value is injected into the controller.
+
+Here's a resolved service example. Assume you had a service called translations that stored translated copies of all strings in your application.
+```javascript
+$stateProvider.state('contacts', {
+  template: '<h1>{{title}}</h1>',
+  resolve: { translations: "translations" },
+  controller: function($scope, translations){
+    $scope.title = translations.lang.title;
+  }
+})
+```
+
+Here's a resolved factory function example. The factory function is injectable as well (not shown).
+```javascript
+$stateProvider.state('contacts', {
+  template: '<h1>{{title}}</h1>',
+  resolve: { title: function(){ return 'My Contacts' } },
+  controller: function($scope, title){
+    $scope.title = title;
+  }
+})
+```
+### onEnter and onExit callbacks
+There are also optional 'onEnter' and 'onExit' callbacks that get called when a state becomes active and inactive respectively. The callbacks also have access to all the resolved dependencies.
+```javascript
+$stateProvider.state("contacts", {
+  template: '<h1>{{title}}</h1>',
+  resolve: { title: 'My Contacts' },
+  controller: function($scope, title){
+    $scope.title = 'My Contacts';
+  },
+  onEnter: function(title){
+    if(title){ ... do something ... }
+  },
+  onExit: function(title){
+    if(title){ ... do something ... }
+  }
+})
+```
+
+### State Change Events
+* `$stateChangeSuccess` - fired once the state transition is complete. 
+* `$stateChangeStart` - fired when the transition begins.
+* `$stateChangeError` - fired when an error occurs during transition.
+
+All these events are fired at the `$rootScope` level.
+
+[[Next (Nested States & Nested Views) ►|Nested States & Nested Views]]
