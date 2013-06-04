@@ -39,7 +39,7 @@ function $RouteProvider(){
    *
    *    Свойства объекта:
    *
-   *    - `controller` – `{(string|function()=}` – Контроллер, которая должен быть связан созданной
+   *    - `controller` – `{(string|function()=}` – Контроллер, который должен быть связан созданной
    *      областью видимости или именем {@link angular.Module#controller registered controller}, если
    *      передается в виде строки.
    *    - `controllerAs` – `{string=}` – Псевдоним контроллера. Если задан, то контроллер будет доступен
