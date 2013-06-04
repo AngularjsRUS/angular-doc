@@ -1,5 +1,5 @@
 @ngdoc overview
-@name UI-Router
+@name UI-Router: Менеджер состояний
 @description
 
 [[Next (Nested States & Nested Views) ►|Nested States & Nested Views]]
