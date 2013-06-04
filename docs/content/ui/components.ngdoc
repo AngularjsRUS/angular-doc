@@ -1,5 +1,11 @@
 @ngdoc overview
-@name Components
+@name UI-Router: Components
 @description
 
-Angular UI - Components
+* **$state** / **$stateProvider**: Manages state definitions, the current state, and state transitions. This includes triggering transition-related events and callbacks, asynchronously resolving any dependencies of the target state, and updating $location to reflect the current state. For states that have URLs, a rule is automatically registered with $urlRouterProvider that performs a transition to that state.
+* **ui-view** directive: Renders views defined in the current state. Essentially ui-view directives are (optionally named) placeholders that gets filled with views defined in the current state. 
+* **$urlRouter** / **$urlRouterProvider**: Manages a list of _rules_ that are matched against $location whenever it changes. At the lowest level, a rule can be an arbitrary function that inspects $location and returns true if it was handled. Support is provided on top of this for RegExp rules and URL patterns that are compiled into UrlMatcher objects via $urlMatcherFactory.
+* **$urlMatcherFactory**: Compiles URL patterns with placeholders into UrlMatcher objects. In addition to the placeholder syntax supported by $routeProvider, it also supports an extended syntax that allows a regexp to be specified for the placeholder, and has the ability to extract named parameters from the query part of the URL.
+* **$templateFactory**: Loads templates via $http / $templateCache. Used by $state.
+
+[[◄ Back (Important Concepts)|Important Concepts]] `      ` [[Next (Backwards Compatibility) ►|Backwards Compatibility]]
