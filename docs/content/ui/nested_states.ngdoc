@@ -1,5 +1,161 @@
 @ngdoc overview
-@name Nested states
+@name UI-Router: Nested states
 @description
 
-Angular UI - Nested states
+[[◄ Back (State Manager)|Home]] `      ` [[Next (Multiple Named Views) ►|Multiple Named Views]]
+
+States can be nested within each other. You can specify nesting in several ways:
+
+You can use dot syntax to infer your heirarchy to the $stateProvider. Below, `contacts.list` becomes a child of `contacts`. 
+```javascript
+$stateProvider
+  .state('contacts', {})
+  .state('contacts.list', {});
+```
+
+Alternately, you can specify the parent of a state via the `parent` property.
+```javascript
+$stateProvider
+  .state('contacts', {})
+  .state('list', {
+    parent: 'contacts'
+  });
+```
+
+#### Object-based States
+If you aren't fond of using string-based states, you can also use object-based states. The `name` property goes _in_ the object and the `parent` property must be set on all child states, like this:
+
+```javascript
+var contacts = { 
+    name: 'contacts',  //mandatory
+    templateUrl: 'contacts.html'
+}
+var contactsList = { 
+    name: 'list',      //mandatory
+    parent: contacts,  //mandatory
+    templateUrl: 'contacts.list.html'
+}
+
+$stateProvider
+  .state(contacts)
+  .state(contactsList)
+```
+
+You can usually reference the object directly when using other methods and property comparisons:
+```javascript
+$state.transitionTo(states.contacts);
+$state.self === states.contacts;
+$state.includes(states.contacts)
+```
+
+#### Attach Custom Data to State Objects
+You can attach custom data to the state object (we recommend using a `data` property to avoid conflicts). 
+```javascript
+// Example shows an object-based state and a string-based state
+var contacts = { 
+    name: 'contacts',
+    templateUrl: 'contacts.html',
+    data: {
+        customData1: 5,
+        customData2: "blue"
+    }  
+}
+$stateProvider
+  .state(contacts)
+  .state('contacts.list', {
+    templateUrl: 'contacts.list.html',
+    data: {
+        customData1: 44,
+        customData2: "red"
+    } 
+  })
+```
+With the above example states you could access the data like this:
+```javascript
+function Ctrl($state){
+    console.log($state.current.data.customData1) // outputs 5;
+    console.log($state.current.data.customData2) // outputs "blue";
+}
+```
+
+### Nested views
+Child states will load their templates into their parent's `ui-view`.
+```javascript
+$stateProvider
+  .state('contacts', {
+    templateUrl: 'contacts.html',
+    controller: function($scope){
+      $scope.contacts = [{ name: 'Alice' }, { name: 'Bob' }];
+    }
+  })
+  .state('contacts.list', {
+    templateUrl: 'contacts.list.html'
+  });
+
+function MainCtrl($state){
+  $state.transitionTo('contacts.list');
+}
+```
+```html
+<!-- index.html -->
+<body ng-controller="MainCtrl">
+  <div ui-view></div>
+</body>
+```
+```html
+<!-- contacts.html -->
+<h1>My Contacts</h1>
+<div ui-view></div>
+```
+```html
+<!-- contacts.list.html -->
+<ul>
+  <li ng-repeat="contact in contacts">
+    <a>{{contact.name}}</a>
+  </li>
+</ul>
+```
+
+### Inheritance from parent states
+When the application is in a particular State (aka when a state is "active"), all its ancestor states are implicitly active as well. In the sample, when "contacts.list" state is active, the "contacts" state is implicitly active as well. Child states inherit views (templates/controllers) and resolved dependencies from parent state(s), which they can override.
+
+Here `contacts.list` and `contacts.detail` are both inheriting the controller from `contacts`:
+```javascript
+$stateProvider
+  .state('contacts', {
+    template: '<h1>My Contacts</h1>',
+    controller: function($scope){
+      $scope.contacts = [{ name: "Alice", favpet: "Mouse" }, 
+                         { name: "Bob", favpet: "Python" }];
+    }
+  })
+  .state('contacts.list', {
+    template: '<ul><li ng-repeat="contact in contacts">' +
+                 '<a ui-state-ref="contacts.detail">{{contact.name}}</a>' +
+              '</li></ul>'
+  })
+  .state('contacts.detail', {
+    template: "{{contact.name}}'s favorite pet is {{contact.favpet}}"
+  });
+```
+#### Abstract States
+An abstract state can have child states but can not get activated itself. An 'abstract' state is simply a state that can't be transitioned to, because it's simply there to provide some UI or dependencies that are common to its child states. 
+
+Here is an example where the 'contacts' state is abstract. Its main purpose is to provide its child states with access to the $scope.contacts data. $scope.contacts will be available to both child state views for interpolation. 
+```javascript
+$stateProvider
+    .state('contacts', {
+        abstract: true,
+        templateUrl: 'contacts.html',
+        controller: function($scope){
+            $scope.contacts = [{ name: "Alice" }, { name: "Bob" }];
+    })
+    .state('contacts.list', {
+        templateUrl: 'contacts.list.html'
+    })
+    .state('contacts.detail', {
+        templateUrl: 'contacts.detail.html'
+    })
+```
+
+[[◄ Back (State Manager)|Home]] `      ` [[Next (Multiple Named Views) ►|Multiple Named Views]]
