@@ -19,7 +19,7 @@
     // before the base attribute is added, causing 404 and terribly slow loading of the docs app.
     (function() {
       var indexFile = (location.pathname.match(/\/(index[^\.]*\.html)/) || ['', 'index.html'])[1],
-          rUrl = /(#!\/|api|guide|misc|tutorial|cookbook|index[^\.]*\.html).*$/,
+          rUrl = /(#!\/|api|guide|misc|tutorial|cookbook|ui|index[^\.]*\.html).*$/,
           baseUrl = location.href.replace(rUrl, indexFile),
           jQuery = /index-jq[^\.]*\.html$/.test(baseUrl),
           debug = /index[^\.]*-debug\.html$/.test(baseUrl),

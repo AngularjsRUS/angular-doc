@@ -37,7 +37,7 @@ cat > "main.js" << EOF
   });
   app.use(express.static(__dirname + '/'));
   // HTML5 URL Support
-  app.get('^\/?(guide|api|cookbook|misc|tutorial)(/)?*$', function(req, res) {
+  app.get('^\/?(guide|api|cookbook|misc|tutorial|ui)(/)?*$', function(req, res) {
     res.sendfile('index.html');
   });
   var port = process.env.PORT || 8000;

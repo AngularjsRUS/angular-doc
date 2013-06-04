@@ -250,6 +250,7 @@ docsApp.serviceFactory.sections = function sections() {
     tutorial: [],
     misc: [],
     cookbook: [],
+    ui: [],
     getPage: function(sectionId, partialId) {
       var pages = sections[sectionId];
 
@@ -281,7 +282,7 @@ docsApp.serviceFactory.sections = function sections() {
 
 docsApp.controller.DocsController = function($scope, $location, $window, $cookies, sections) {
   var OFFLINE_COOKIE_NAME = 'ng-offline',
-      DOCS_PATH = /^\/(api)|(guide)|(cookbook)|(misc)|(tutorial)/,
+      DOCS_PATH = /^\/(api)|(guide)|(cookbook)|(misc)|(tutorial)|(ui)/,
       INDEX_PATH = /^(\/|\/index[^\.]*.html)$/,
       GLOBALS = /^angular\.([^\.]+)$/,
       MODULE = /^((?:(?!^angular\.)[^\.])+)$/,
@@ -347,7 +348,8 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
     guide: 'Developer Guide',
     misc: 'Miscellaneous',
     tutorial: 'Tutorial',
-    cookbook: 'Examples'
+    cookbook: 'Examples',
+    ui: 'Angular UI'
   };
   $scope.$watch(function docsPathWatch() {return $location.path(); }, function docsPathWatchAction(path) {
     // ignore non-doc links which are used in examples
