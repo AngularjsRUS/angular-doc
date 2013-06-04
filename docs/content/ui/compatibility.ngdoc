@@ -1,5 +1,7 @@
 @ngdoc overview
-@name Compatibility
+@name UI-Router: Compatibility
 @description
 
-Angular UI - Compatibility
+Full backwards compatibility with $routeProvider is **not** a primary goal this project. However, we are trying to have a clear migration path from $routeProvider to $stateProvider, and to use compatible terminology where this is possible and makes sense. At this point, most features of $routeProvider cleanly map to a sub-set of $stateProvider functionality, so that providing a compatibility shim that allows applications to be migrated bit by bit is feasible.
+
+[[◄ Back (The Components)|The Components]] `      ` [[Next (Start In-Depth Guide) ►|State Manager]]
