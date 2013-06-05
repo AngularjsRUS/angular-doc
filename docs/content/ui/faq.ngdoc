@@ -8,7 +8,7 @@ How do I configure ui-router from multiple modules, it doesn't seem to get the s
 
 What often goes wrong is dependencies. E.g:
 
-```javascript
+<pre>
 angular.module('application', [...]).config(function ($stateProvider) {
     $stateProvider
         .state("feature1", { url : '/Feature1'...})
@@ -19,7 +19,7 @@ angular.module('feature1', ['application', ...]).config(function ($stateProvider
         .state("feature1.home", {...})
         .state("feature1.detail", {...});
 });
-```
+</pre>
 
 **Example:** http://plnkr.co/edit/WSmPX7JITGOsZ07L1UQP?p=preview
 
@@ -32,7 +32,7 @@ How do I tell ui-router that I'd like a certain state to open a dialog or modal 
 
 Here's an example of to do it using ui-bootstrap's [$dialog](https://github.com/angular-ui/bootstrap/blob/master/src/dialog/README.md) service. This example only specifies an onEnter function. There is no template, controller, etc. So essentially the dialog is shown, then when its closed it returns to the `items` state. You are still responsible for handling what state your app transitions to when the dialog closes.
 
-```javascript
+<pre>
 $stateProvider.state("items.add", {
     url: "/add",
     onEnter: function($stateParams, $state, $dialog, $resource) {
@@ -69,4 +69,4 @@ $stateProvider.state("items.add", {
         });
     }
 });
-```
+</pre>
