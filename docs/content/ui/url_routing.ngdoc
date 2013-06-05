@@ -1,26 +1,24 @@
 @ngdoc overview
-@name UI-Router: URL routing
+@name UI-Router: URL роутинг
 @description
-
-[[◄ Back (Multiple Named Views)|Multiple Named Views]]
 
 Most states in your application will probably have a url associated with them. URL Routing was not an after thought to the state mechanics, but was figured into the design from the beginning (all while keeping states separate from url routing) 
 
 Here's how you set a basic url.
-```javascript
+<pre>
 $stateProvider
     .state('contacts', {
         url: "/contacts",
         templateUrl: 'contacts.html'
     })
-```
+</pre>
 
 Now when the user accesses `index.html/contacts` then the 'contacts' state would become active and the main `ui-view` will be populated with the 'contacts.html' partial. Alternatively, if the user were to transition to the 'contacts' state via `transitionTo('contacts')` then the url would be updated to `index.html/contacts`
 
 ### URL Parameters
 
 Often, URLs have dynamic parts to them which are called parameters. There are several options for specifying parameters. A basic parameter looks like this:
-```javascript
+<pre>
 $stateProvider
     .state('contacts.detail', {
         url: "/contacts/:contactId",
@@ -30,24 +28,24 @@ $stateProvider
             expect($stateParams).toBe({contactId: 42});
         }]
     })
-```
+</pre>
 
 Alternatively you can also use curly brackets:
-```javascript
+<pre>
 // identical to previous example
 url: "/contacts/{contactId}" 
-```
+</pre>
 A bonus to using curly brackets is the ability to set a Regular Expression rule for the parameter:
-```javascript
+<pre>
 // will only match a contactId of one to eight number characters
 url: "/contacts/{contactId:[0-9]{1,8}}"
-```
+</pre>
 
 ### URL Routing for Nested States
 
 When using url routing together with nested states the default behavior is to concatenate url paths through the inheritance chain.
 
-```javascript
+<pre>
 $stateProvider
   .state('contacts', {
      url: '/contacts',
@@ -57,11 +55,11 @@ $stateProvider
      url: '/list',
      ...
   });
-```
+</pre>
 Then the state 'contacts.list' is matched when url is '/contacts/list'.
 
 If you want to have absolute url matching, then you need to prefix your url string with a special symbol '^'.
-```javascript
+<pre>
 $stateProvider
   .state('contacts', {
      url: '/contacts',
@@ -71,12 +69,12 @@ $stateProvider
      url: '^/list',
      ...
   });
-```
+</pre>
 Now the state 'contacts.list' is matched when url is '/list'.
 
 ### $stateParams Service
 As you saw previously the $stateParams service is an object that will have one key per url parameter. The $stateParams is a perfect way to provide your controllers or other services with the individual parts of the navigated url.
-```
+<pre>
 // If you had a url on your state of:
 url: '/users/:id/details/{type}/{repeat:[0-9]+}?from&to'
 
@@ -91,6 +89,4 @@ url: '/users/:id/details/{type}/{repeat:[0-9]+}?from&to'
 
 // Your $stateParams object would be
 { id:'123', type:'default', repeat:'0', from='there', to='here' }
-```
-
-[[◄ Back (Multiple Named Views)|Multiple Named Views]]
+</pre>
