@@ -10,18 +10,18 @@ What often goes wrong is dependencies. E.g:
 
 <pre>
 angular.module('application', [...]).config(function ($stateProvider) {
-    $stateProvider
-        .state("feature1", { url : '/Feature1'...})
-        .state("feature2", { url : '/Feature2'...});
+  $stateProvider
+    .state("feature1", { url : '/Feature1'...})
+    .state("feature2", { url : '/Feature2'...});
 });
 angular.module('feature1', ['application', ...]).config(function ($stateProvider) {
-    $stateProvider
-        .state("feature1.home", {...})
-        .state("feature1.detail", {...});
+  $stateProvider
+    .state("feature1.home", {...})
+    .state("feature1.detail", {...});
 });
 </pre>
 
-**Example:** http://plnkr.co/edit/WSmPX7JITGOsZ07L1UQP?p=preview
+**Example:** {@link http://plnkr.co/edit/WSmPX7JITGOsZ07L1UQP?p=preview}
 
 **Note:** Remember only to declare dependencies once on module creation, so if you make several calls to `angular.module` for the same module, only the first should define dependencies.
 
