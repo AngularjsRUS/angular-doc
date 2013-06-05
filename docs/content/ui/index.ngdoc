@@ -4,54 +4,54 @@
 
 # UI-Router
 
-## Finally a de-facto solution to nested views and routing.
->* Latest release 0.0.1: [Compressed](http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js) / [Uncompressed](http://angular-ui.github.io/ui-router/release/angular-ui-router.js)
->* Latest snapshot: [Compressed](http://angular-ui.github.io/ui-router/build/angular-ui-router.min.js) / [Uncompressed](http://angular-ui.github.io/ui-router/build/angular-ui-router.js)
+## Окончательное решение де-факто для вложенных видов и маршрутизации.
+>* Последний релиз 0.0.1: [сжатый](http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js) / [без сжатия](http://angular-ui.github.io/ui-router/release/angular-ui-router.js)
+>* Последняя сборка: [сжатый](http://angular-ui.github.io/ui-router/build/angular-ui-router.min.js) / [без сжатия](http://angular-ui.github.io/ui-router/build/angular-ui-router.js)
 
 
-## Main Goal
-To evolve the concept of an [angularjs](http://angularjs.org/) [***route***](http://docs.angularjs.org/api/ng.$routeProvider) into a more general concept of a ***state*** for managing complex application UI states.
+## Основная цель
+Развить концепцию [angularjs](http://angularjs.org/) [***роутинга***](http://docs.angularjs.org/api/ng.$routeProvider) в более общую концепцию ***состояний*** для управления сложными интерфейсами приложений.
 
-## Main Features
-1. **Robust State Management**
->`$state` and `$stateProvider`
+## Основные особенности
+1. **Управление фиксированными состояниями**
+>`$state` и `$stateProvider`
 
-2. **More Powerful Views**
->`ui-view` directive (used in place of `ng-view`)
+2. **Более мощные виды**
+>директива `ui-view` (используется вместо `ng-view`)
 
-3. **Named Views**
+3. **Именованные виды**
 >`<div ui-view="chart">`
 
-4. **Multiple Parallel Views**
+4. **Множество параллельных видов**
 >
 <pre>
 <div ui-view="chart1">
 <div ui-view="chart2">
 </pre>
-5. **Nested Views**
->load templates that contain nested `ui-view`s as deep as you'd like.
+5. **Вложенные виды**
+>загрузка шаблонов, содержащих вложенные `ui-view`s на любую глубину.
 
-6. **Routing**
->States can map to URLs (though it's not required)
-
-
-*Basically, do whatever you want with states and routes.*
+6. **Роутинг**
+>Состояния могут соответствовать URL-адресам (хотя это не обязательно)
 
 
-## Resources
+*В общем, делай что хочешь с состояниями и маршрутами.*
 
-* [In-Depth Overview](https://github.com/angular-ui/ui-router/wiki)
+
+## Ресурсы
+
+* [Глубокий обзор](https://github.com/angular-ui/ui-router/wiki)
 * [FAQ](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions)
-* [Sample App](http://angular-ui.github.com/ui-router/sample/) ([Source](https://github.com/angular-ui/ui-router/tree/master/sample))
-* [Generated Docs](http://angular-ui.github.com/ui-router/build/doc/)
+* [Простое приложение](http://angular-ui.github.com/ui-router/sample/) ([Источник](https://github.com/angular-ui/ui-router/tree/master/sample))
+* [Созданная документация](http://angular-ui.github.com/ui-router/build/doc/)
 
-## Quick Start
-1. Get ui-router:
->* with bower: `bower install angular-ui-router`
->* fork this repo
->* download the latest release ([compressed](http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js) | [uncompressed](http://angular-ui.github.io/ui-router/release/angular-ui-router.js))
+## Быстрый старт
+1. Загрузка ui-router:
+>* используя bower: `bower install angular-ui-router`
+>* форк репозитория
+>* загрузка последнего релиза ([сжатый](http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js) | [без сжатия](http://angular-ui.github.io/ui-router/release/angular-ui-router.js))
 
-1. Add angular-ui-router.min.js to your index.html
+1. Добавление angular-ui-router.min.js в index.html
 > 
 <pre>
 <!doctype html>
@@ -61,25 +61,25 @@ To evolve the concept of an [angularjs](http://angularjs.org/) [***route***](htt
   <script src="angular-ui-router.min.js"></script> <!-- Insert after main angular.js file -->
 </pre>
 
-2. Set `ui.state` as a dependency in your module
+2. Установка `ui.state` в качестве зависимости для вашего модуля
 >
 <pre>
 var myapp = angular.module('myapp', ['ui.state']) 
 </pre>
 
-3. Add one or more `ui-view` to your app, give them names.
+3. Добавление одного или более `ui-view` в приложение, с присвоением им имен.
 >
 <pre>
 <body>
 	<div ui-view="viewA"></div>
 	<div ui-view="viewB"></div>
-	<!-- Also a way to navigate -->
+	<!-- А так же, навигация -->
 	<a href="#/route1">Route 1</a>
 	<a href="#/route2">Route 2</a>
 </body>
 </pre>
 
-4. Set up your states in the module config
+4. Настройка необходимых состояний в конфигураторе модуля
 >
 <pre>
 myapp.config(function($stateProvider, $routeProvider){
@@ -120,25 +120,26 @@ myapp.config(function($stateProvider, $routeProvider){
 })
 </pre>
 
-5. See this quick start example in action. 
->**[Go to Quick Start Plunker](http://plnkr.co/edit/vDURUN?p=preview)**
+5. Пример для быстрого старта в действии. 
+>**[Запустить в Plunker](http://plnkr.co/edit/vDURUN?p=preview)**
 
-6. This only scratches the surface! You've only seen Named Views and Parallel Views. Learn more about `state()` options, Nested Views, URL routing options, backwards compatibility, and more! 
->**[Dive Deeper!](https://github.com/angular-ui/ui-router/wiki)**
+6. Это еще цветочки! Были показаны только множественные и именованные виды. Читайте подробнее о свойстве `state()`, 
+вложенных видах, праметрах URL роутинга, обратной совместимости и проч.! 
+>**[Глубокое погружение!](https://github.com/angular-ui/ui-router/wiki)**
 
-## Developing
+## Разработка
 
-UI-Router uses <code>grunt >= 0.4.x</code> make sure to upgrade your environment and read the
-[Migration Guide](http://gruntjs.com/upgrading-from-0.3-to-0.4).
+UI-Router использует <code>grunt >= 0.4.x</code>, убедитесь, что обновили его и читайте
+[руководство по переходу](http://gruntjs.com/upgrading-from-0.3-to-0.4).
 
-Dependencies for building from source and running tests:
+Зависимости для сборки из исходников и запуска тестов:
 
 * [grunt-cli](https://github.com/gruntjs/grunt-cli) - run: `$ npm install -g grunt-cli`
-* Then install development dependencies with: `$ npm install`
+* Затем инсталируете зависимости разработчика: `$ npm install`
 
-There is a number of targets in the gruntfile that is used to building the solution, documents etc.
+Существует ряд исполнителей в grunt-файле, который используется для построения решений, документов и т.д.
 
-* `grunt`: Perform a normal build, runs jshint and karma tests
-* `grunt build`: Perform a normal build
-* `grunt dist`: Perform a clean build and generate documentation
-* `grunt dev`: Run dev server (sample app) and watch for changes, builds and runs karma tests on changes.
+* `grunt`: Производство нормальной сборки, зауск jshint и karma тестов
+* `grunt build`: Производство нормальной сборки
+* `grunt dist`: Производство чистой сборки и генерация документации
+* `grunt dev`: Запуск сервера разработчика (простое приложение) и наблюдение за изменениями, сборка и запуск karma-тестов при изменении.
