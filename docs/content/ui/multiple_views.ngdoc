@@ -1,5 +1,5 @@
 @ngdoc overview
-@name UI-Router: Multiple views
+@name UI-Router: Множественные виды
 @description
 
 You can name your views so that you can have more than one `ui-view` per state. Let's say you had an application 
