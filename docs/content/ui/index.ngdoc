@@ -57,8 +57,8 @@ To evolve the concept of an [angularjs](http://angularjs.org/) [***route***](htt
 <!doctype html>
 <html ng-app="myapp">
 <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
-      <script src="angular-ui-router.min.js"></script> <!-- Insert after main angular.js file -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js"></script>
+  <script src="angular-ui-router.min.js"></script> <!-- Insert after main angular.js file -->
 </pre>
 
 2. Set `ui.state` as a dependency in your module
@@ -71,11 +71,11 @@ var myapp = angular.module('myapp', ['ui.state'])
 >
 <pre>
 <body>
-    <div ui-view="viewA"></div>
-    <div ui-view="viewB"></div>
-    <!-- Also a way to navigate -->
-    <a href="#/route1">Route 1</a>
-    <a href="#/route2">Route 2</a>
+	<div ui-view="viewA"></div>
+	<div ui-view="viewB"></div>
+	<!-- Also a way to navigate -->
+	<a href="#/route1">Route 1</a>
+	<a href="#/route2">Route 2</a>
 </body>
 </pre>
 
@@ -84,39 +84,39 @@ var myapp = angular.module('myapp', ['ui.state'])
 <pre>
 myapp.config(function($stateProvider, $routeProvider){
   $stateProvider
-  	.state('index', {
-			url: "", // root route
-			views: {
-				"viewA": {
-					templateUrl: "index.viewA.html"
-				},
-				"viewB": {
-					templateUrl: "index.viewB.html"
-				}
-			}
-		})
-		.state('route1', {
-			url: "/route1",
-			views: {
-				"viewA": {
-					templateUrl: "route1.viewA.html"
-				},
-				"viewB": {
-					templateUrl: "route1.viewB.html"
-				}
-			}
-		})
-		.state('route2', {
-			url: "/route2",
-			views: {
-				"viewA": {
-					templateUrl: "route2.viewA.html"
-				},
-				"viewB": {
-					templateUrl: "route2.viewB.html"
-				}
-			}
-		})
+   .state('index', {
+      url: "", // root route
+      views: {
+        "viewA": {
+          templateUrl: "index.viewA.html"
+        },
+        "viewB": {
+          templateUrl: "index.viewB.html"
+        }
+      }
+    })
+    .state('route1', {
+      url: "/route1",
+      views: {
+        "viewA": {
+          templateUrl: "route1.viewA.html"
+        },
+        "viewB": {
+          templateUrl: "route1.viewB.html"
+        }
+      }
+    })
+    .state('route2', {
+      url: "/route2",
+      views: {
+        "viewA": {
+          templateUrl: "route2.viewA.html"
+        },
+        "viewB": {
+          templateUrl: "route2.viewB.html"
+        }
+      }
+    })
 })
 </pre>
 
