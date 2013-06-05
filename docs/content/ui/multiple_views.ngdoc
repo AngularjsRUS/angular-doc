@@ -2,9 +2,8 @@
 @name UI-Router: Multiple views
 @description
 
-[[◄ Back (Nested States & Nested Views)|Nested States & Nested Views]] `      ` [[Next (URL Routing) ►|URL Routing]]
-
-You can name your views so that you can have more than one `ui-view` per state. Let's say you had an application state that needed to dynamically populate a graph, some table data and filters for the table like this:
+You can name your views so that you can have more than one `ui-view` per state. Let's say you had an application 
+state that needed to dynamically populate a graph, some table data and filters for the table like this:
 
 
 ![Multiple Named Views Mockup](https://raw.github.com/wiki/angular-ui/ui-router/MultipleNamedViewsExample.png)
@@ -12,20 +11,22 @@ You can name your views so that you can have more than one `ui-view` per state. 
 When setting multiple views you need to use the `views` property on state. `views` is an object. 
 
 ### Views override state's template properties
-If you define a `views` object, your state's `templateUrl`, `template` and `templateProvider` will be ignored. So in case of a parent layout of these views, you can define an abstract state that contain a template, and a child state under the layout state that contain the 'views' object.
+If you define a `views` object, your state's `templateUrl`, `template` and `templateProvider` will be ignored. 
+So in case of a parent layout of these views, you can define an abstract state that contain a template, and a 
+child state under the layout state that contain the 'views' object.
 
 ### Example - Name Matching
 
 The property keys on `views` should match your view names, like so:
-```html
+<pre>
 <!-- somereportthing.html -->
 <body>
   <div ui-view="filters"></div>
   <div ui-view="tabledata"></div>
   <div ui-view="graph"></div>
 </body>
-```
-```javascript
+</pre>
+<pre>
 $stateProvider
   .state('report', {
     views: {
@@ -34,9 +35,9 @@ $stateProvider
       'graph': {},
     }
   })
-```
+</pre>
 Then each view in `views` can set up its own templates, controllers, and resolve data.
-```javascript
+<pre>
 $stateProvider
   .state('report',{
     views: {
@@ -54,12 +55,12 @@ $stateProvider
       },
     }
   })
-```
+</pre>
 
 ### View Names
 Every view gets assigned an absolute name that follows a scheme of viewname@statename, where viewname is the name used in the view directive and state name is the state's absolute name, e.g. contact.item. The previous example could also be written as such:
 
-```javascript
+<pre>
   .state('report',{
     views: {
       'filters@report': {
@@ -67,32 +68,32 @@ Every view gets assigned an absolute name that follows a scheme of viewname@stat
         controller: function($scope){ ... controller stuff just for filters view ... }
       },
       ... other views ...
-```
+</pre>
 Notice that the view name is now specified as the absolute name, as opposed to the relative name. It is targeting the 'filters' view located in the 'report' state. This let's us do some powerful view targeting. Let's assume we had several nested views set up like this (this example is not realistic, its just to illustrate view targeting): 
 
-```html
+<pre>
 <!-- index.html -->
 <body ng-app>
 <div ui-view></div> <!-- Assume contacts.html plugs in here -->
 <div ui-view="status"></div>
 </body>
-```
+</pre>
 
-```html
+<pre>
 <!-- contacts.html -->
 <h1>My Contacts</h1>
 <div ui-view></div>
 <div ui-view="detail"></div> <!-- Assume contacts.detail.html plugs in here -->
-```
+</pre>
 
-```html
+<pre>
 <!-- contacts.detail.html -->
 <h1>Contacts Details</h1>
 <div ui-view></div>
 <div ui-view="info"></div>
-```
+</pre>
 Let's look at the various views you could target from within the contacts.detail state. Remember that if an `@` is used then the view path is considered absolute:
-```javascript
+<pre>
 $stateProvider
   .state('contacts.detail', {
     views: {
@@ -109,19 +110,17 @@ $stateProvider
         // absolutely targets the unnamed view in root unnamed state:
         "@" : { /* ... */ } 
   });
-```
+</pre>
 
 You can see how this ability to not only set multiple views within the same state but ancestor states could become a veritable playground for developer :).
 
 ### View Loaded Event
 Once the view is loaded (DOM is rendered), the '$scope' of the view emits an event - '$viewContentLoaded', that can be captured by the view's scope and any parent of it until the '$rootScope'. You can use this event to perform actions on the view once the view content has been loaded.
 
-```javascript
+<pre>
 var viewController = function($scope){
     $scope.$on('$viewContentLoaded', function(){
         console.log('View Content Loaded');
     });
 };
-```
-
-[[◄ Back (Nested States & Nested Views)|Nested States & Nested Views]] `      ` [[Next (URL Routing) ►|URL Routing]]
+</pre>
