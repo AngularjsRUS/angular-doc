@@ -71,11 +71,11 @@ var myapp = angular.module('myapp', ['ui.state'])
 >
 <pre>
 <body>
-	<div ui-view="viewA"></div>
-	<div ui-view="viewB"></div>
-	<!-- А так же, навигация -->
-	<a href="#/route1">Route 1</a>
-	<a href="#/route2">Route 2</a>
+  <div ui-view="viewA"></div>
+  <div ui-view="viewB"></div>
+  <!-- А так же, навигация -->
+  <a href="#/route1">Route 1</a>
+  <a href="#/route2">Route 2</a>
 </body>
 </pre>
 
