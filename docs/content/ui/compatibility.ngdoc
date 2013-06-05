@@ -2,7 +2,8 @@
 @name UI-Router: Обратная совместимость
 @description
 
-Full backwards compatibility with $routeProvider is **not** a primary goal this project. However, we are trying 
-to have a clear migration path from $routeProvider to $stateProvider, and to use compatible terminology where this 
-is possible and makes sense. At this point, most features of $routeProvider cleanly map to a sub-set of $stateProvider
-functionality, so that providing a compatibility shim that allows applications to be migrated bit by bit is feasible.
+Полная обратная совместимость с $routeProvider **не является** основной целью этого проекта. Тем не менее, 
+мы пытаемся обозначить четкий путь перехода от $routeProvider к $stateProvider, а также использовать совместимую 
+терминологию, где это возможно и имеет смысл. На данный момент, большинство функций $routeProvider прямо сопоставлены
+подмножеству функциональности $stateProvider, так что обеспечивается совместимость, которая позволяет переносить
+приложения по крупицам.
