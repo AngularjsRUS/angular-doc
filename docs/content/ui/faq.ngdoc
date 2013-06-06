@@ -2,11 +2,11 @@
 @name UI-Router: FAQ
 @description
 
-### How to: Configure ui-router from multiple modules
+### Как: Настройка ui-router из множества модулей
 
-How do I configure ui-router from multiple modules, it doesn't seem to get the same state provider?
+Как настроить ui-router измножественных модулей, чтобы не оказалось, что передается тот же провайдер состояния?
 
-What often goes wrong is dependencies. E.g:
+Чаще всего проблема возникает из-за неправильно определения зависимостей. Например:
 
 <pre>
 angular.module('application', [...]).config(function ($stateProvider) {
@@ -21,16 +21,21 @@ angular.module('feature1', ['application', ...]).config(function ($stateProvider
 });
 </pre>
 
-**Example:** {@link http://plnkr.co/edit/WSmPX7JITGOsZ07L1UQP?p=preview}
+**Пример:** {@link http://plnkr.co/edit/WSmPX7JITGOsZ07L1UQP?p=preview}
 
-**Note:** Remember only to declare dependencies once on module creation, so if you make several calls to `angular.module` for the same module, only the first should define dependencies.
+**Примечание:** Помните, что зависимости объявляются только один раз во время создания модуля, поэтому если сделать 
+несколько вызовов `angular.module` для одного и того же модуля, то только первый вызов должен определять зависимости.
 
+### Как: Открытие диалогового/модального окна в определенном состоянии
 
-### How To: Open a dialog/modal at a certain state
+Как сказать ui-router'у, чтобы в определенном состоянии он открыл диалоговое или модальное окно вместо выгрузки
+шаблонов из ui-view?
 
-How do I tell ui-router that I'd like a certain state to open a dialog or modal instead of swapping out ui-view templates?
-
-Here's an example of to do it using ui-bootstrap's [$dialog](https://github.com/angular-ui/bootstrap/blob/master/src/dialog/README.md) service. This example only specifies an onEnter function. There is no template, controller, etc. So essentially the dialog is shown, then when its closed it returns to the `items` state. You are still responsible for handling what state your app transitions to when the dialog closes.
+Вот пример, как это сделать, используя 
+[$dialog](https://github.com/angular-ui/bootstrap/blob/master/src/dialog/README.md) из сервиса ui-bootstrap.
+Показывается только на примере функции onEnter. Без шаблона, контроллера и т.д. Так, по существу, будет показана 
+диалоговое окно, а затем, при закрытии, происходит переход в состояние `items`. Вы по-прежнему отвечаете за 
+обработку того, в какое состоянии перейдет приложение при загрытии диалогового окна.
 
 <pre>
 $stateProvider.state("items.add", {
