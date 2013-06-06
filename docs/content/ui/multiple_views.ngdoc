@@ -2,22 +2,21 @@
 @name UI-Router: Множественные виды
 @description
 
-You can name your views so that you can have more than one `ui-view` per state. Let's say you had an application 
-state that needed to dynamically populate a graph, some table data and filters for the table like this:
-
+Можно назвать виды, так чтобы иметь более одного `ui-view` на состояние. Скажем, приложение имеет состояние, в котором
+показываются динамически наполняемые график, таблица с данными и фильтры для таблицы. Примерно как здесь:
 
 ![Multiple Named Views Mockup](https://raw.github.com/wiki/angular-ui/ui-router/MultipleNamedViewsExample.png)
 
-When setting multiple views you need to use the `views` property on state. `views` is an object. 
+При задании нескольких видов необходимо использовать параметр `views` в определении состояния. `views` это объект.
 
-### Views override state's template properties
-If you define a `views` object, your state's `templateUrl`, `template` and `templateProvider` will be ignored. 
-So in case of a parent layout of these views, you can define an abstract state that contain a template, and a 
-child state under the layout state that contain the 'views' object.
+### Виды переопределяют параметры шаблонов состояния
+Если определить объект `views`, то `templateUrl`, `template` и `templateProvider` в соответствующем состоянии будут
+проигнорированы. Так что, в случае родительского размещения этих видов, можно определить абстрактное состояние,
+содержащее шаблон и дочернее состояние под размещенным состоянем, содержащим объект «views».
 
-### Example - Name Matching
+### Пример - согласование имен
 
-The property keys on `views` should match your view names, like so:
+Ключи `views` должны соответствовать именам видов, как здесь:
 <pre>
 <!-- somereportthing.html -->
 <body>
@@ -36,45 +35,49 @@ $stateProvider
     }
   })
 </pre>
-Then each view in `views` can set up its own templates, controllers, and resolve data.
+Затем для каждого вида из `views` можно определить собственный шаблон, контроллер и принимаемые данных.
 <pre>
 $stateProvider
   .state('report',{
     views: {
       'filters': {
         templateUrl: 'report-filters.html',
-        controller: function($scope){ ... controller stuff just for filters view ... }
+        controller: function($scope){ ... контроллер для вида с фильтрами ... }
       },
       'tabledata': {
         templateUrl: 'report-table.html',
-        controller: function($scope){ ... controller stuff just for tabledata view ... }
+        controller: function($scope){ ... контроллер для вида с таблицей ... }
       },
       'graph': {
         templateUrl: 'report-graph.html',
-        controller: function($scope){ ... controller stuff just for graph view ... }
+        controller: function($scope){ ... контроллер для вида с графиком ... }
       },
     }
   })
 </pre>
 
-### View Names
-Every view gets assigned an absolute name that follows a scheme of viewname@statename, where viewname is the name used in the view directive and state name is the state's absolute name, e.g. contact.item. The previous example could also be written as such:
+### имена видов
+Каждому виду можно назначить абсолютное имя, соответствующее схеме viewname@statename, где viewname это имя,
+используемое в директиве вида и statename это абсолютное имя состояния, например, contact.item. Предыдущий пример
+можно записать так:
 
 <pre>
   .state('report',{
     views: {
       'filters@report': {
         templateUrl: 'report-filters.html',
-        controller: function($scope){ ... controller stuff just for filters view ... }
+        controller: function($scope){ ... контроллер только для вида с фильтрами ... }
       },
-      ... other views ...
+      ... другие виды ...
 </pre>
-Notice that the view name is now specified as the absolute name, as opposed to the relative name. It is targeting the 'filters' view located in the 'report' state. This let's us do some powerful view targeting. Let's assume we had several nested views set up like this (this example is not realistic, its just to illustrate view targeting): 
-
+Обратите внимание, что имя видо теперь указано как абсолютное, в отличие от относительного имени. Оно ориентировано
+на вид «filters» расположеный в состоянии «report». Это позволяет производить достаточно мощное позиционирование 
+видов. Предположим, что у нас было задано несколько вложенныхвидов, как здесь (Пример не реалистичный, он нужен 
+только для иллюстрации позиционирования видов):
 <pre>
 <!-- index.html -->
 <body ng-app>
-<div ui-view></div> <!-- Assume contacts.html plugs in here -->
+<div ui-view></div> <!-- Поместите contacts.html сюда -->
 <div ui-view="status"></div>
 </body>
 </pre>
@@ -83,7 +86,7 @@ Notice that the view name is now specified as the absolute name, as opposed to t
 <!-- contacts.html -->
 <h1>My Contacts</h1>
 <div ui-view></div>
-<div ui-view="detail"></div> <!-- Assume contacts.detail.html plugs in here -->
+<div ui-view="detail"></div> <!-- Поместите contacts.detail.html сюда -->
 </pre>
 
 <pre>
@@ -92,30 +95,33 @@ Notice that the view name is now specified as the absolute name, as opposed to t
 <div ui-view></div>
 <div ui-view="info"></div>
 </pre>
-Let's look at the various views you could target from within the contacts.detail state. Remember that if an `@` is used then the view path is considered absolute:
+Давайте посмотрим на различные виды, для которых можно настроить позиционирование изнутри состояния contacts.detail. 
+Помните, что если используется `@` то путь вида считается абсолютным:
 <pre>
 $stateProvider
   .state('contacts.detail', {
     views: {
-        // relatively targets the "info" view in "contacts.detail" state:
+        // относительно позиционированный вид «info» в состоянии «contacts.detail»:
         "info" : { /* ... */ }            
-        // relatively targets the unnamed view in "contacts.detail" state:
+        // относительно позиционированный безымянный вид в состоянии «contacts.detail»:
         "" : { /* ... */ } 
-        // absolutely targets the "detail" view in parent "contacts" state:
+        // абсолютно позиционированный вид «detail» в родительском состоянии «contacts»:
         "detail@contacts" : { /* ... */ }
-        // absolutely targets the unnamed view in parent "contacts" state:
+        // абсолютно позиционированный безымянный вид в родительском состоянии «contacts»:
         "@contacts" : { /* ... */ }
-        // absolutely targets the "status" view in root unnamed state:
+        // абсолютно позиционированный вид «status» в корневом безымянном состоянии:
         "status@" : { /* ... */ }
-        // absolutely targets the unnamed view in root unnamed state:
+        // абсолютно позиционированный безымянный вид в корневом безымянном состоянии:
         "@" : { /* ... */ } 
   });
 </pre>
 
-You can see how this ability to not only set multiple views within the same state but ancestor states could become a veritable playground for developer :).
-
-### View Loaded Event
-Once the view is loaded (DOM is rendered), the '$scope' of the view emits an event - '$viewContentLoaded', that can be captured by the view's scope and any parent of it until the '$rootScope'. You can use this event to perform actions on the view once the view content has been loaded.
+Можно увидеть, что это возможность не только установить несколько видов в рамках одного состояния, но родительского
+состояния, что могло бы стать настоящей площадкой для разработчиков :).
+### События загрузки вида
+Как только вид загружен (DOM отрендерен), «$scope» этого вида генерирует событие - «$viewContentLoaded», которое
+может быть перехвачено областью видимости вида и любого родителя от него до «$rootScope». Можно использовать это 
+событие для выполнения действий для этого вида, как только будет загружено содержимое вида.
 
 <pre>
 var viewController = function($scope){
