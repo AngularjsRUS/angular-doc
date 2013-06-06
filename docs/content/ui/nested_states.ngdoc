@@ -22,16 +22,18 @@ $stateProvider
 </pre>
 
 #### Объектно ориентированные состояния
-If you aren't fond of using string-based states, you can also use object-based states. The `name` property goes _in_ the object and the `parent` property must be set on all child states, like this:
+Если не любите использовать состояния на основе строки, можно также использовать объектно-ориентированные состояния.
+Имя `name` свойства переходит _в_ объект и свойство родителя `parent` должно быть установлено во всех дочерних
+состояниях, как показано здесь:
 
 <pre>
 var contacts = { 
-    name: 'contacts',  //mandatory
+    name: 'contacts',  //обязательно
     templateUrl: 'contacts.html'
 }
 var contactsList = { 
-    name: 'list',      //mandatory
-    parent: contacts,  //mandatory
+    name: 'list',      //обязательно
+    parent: contacts,  //обязательно
     templateUrl: 'contacts.list.html'
 }
 
@@ -40,17 +42,18 @@ $stateProvider
   .state(contactsList)
 </pre>
 
-You can usually reference the object directly when using other methods and property comparisons:
+Обычно можно ссылаться на объект напрямую, когда используются другие методы и параметры сравнения:
 <pre>
 $state.transitionTo(states.contacts);
 $state.self === states.contacts;
 $state.includes(states.contacts)
 </pre>
 
-#### Attach Custom Data to State Objects
-You can attach custom data to the state object (we recommend using a `data` property to avoid conflicts). 
+#### Прикрепление пользовательских данных к объекту состояния
+Можно прикрепить пользовательские данные к объекту состояния (для избежания конфликтов рекомендуем использовать
+параметр `data`). 
 <pre>
-// Example shows an object-based state and a string-based state
+// Пример показывает объектно ориентированное состояние и состояние на основе строки
 var contacts = { 
     name: 'contacts',
     templateUrl: 'contacts.html',
@@ -69,16 +72,16 @@ $stateProvider
     } 
   })
 </pre>
-With the above example states you could access the data like this:
+Учитывая указанные выше примеры состояний, можно получить доступ к данным следующим образом:
 <pre>
 function Ctrl($state){
-    console.log($state.current.data.customData1) // outputs 5;
-    console.log($state.current.data.customData2) // outputs "blue";
+    console.log($state.current.data.customData1) // результат 5;
+    console.log($state.current.data.customData2) // результат "blue";
 }
 </pre>
 
-### Nested views
-Child states will load their templates into their parent's `ui-view`.
+### Вложенные виды
+Дочерние состояния будут загружать свои шаблоны в `ui-view` их родителей.
 <pre>
 $stateProvider
   .state('contacts', {
@@ -115,10 +118,13 @@ function MainCtrl($state){
 </ul>
 </pre>
 
-### Inheritance from parent states
-When the application is in a particular State (aka when a state is "active"), all its ancestor states are implicitly active as well. In the sample, when "contacts.list" state is active, the "contacts" state is implicitly active as well. Child states inherit views (templates/controllers) and resolved dependencies from parent state(s), which they can override.
+### Наследование от родительских состояний
+Когда приложение находится в конкретном состоянии (или, когда состояние является «active»), все состояния его предков
+также неявно активируются. В примере, когда состояние «contacts.list» активно, состояние «contacts» так же невно
+активно. Дочерние состояния наследуют виды (шаблоны/контроллеры)и разрешают зависимости от родительского состояния(й),
+которое они могут переопределить.
 
-Here `contacts.list` and `contacts.detail` are both inheriting the controller from `contacts`:
+Здесь `contacts.list` и `contacts.detail` оба наследуют контроллер от `contacts`:
 <pre>
 $stateProvider
   .state('contacts', {
@@ -137,10 +143,14 @@ $stateProvider
     template: "{{contact.name}}'s favorite pet is {{contact.favpet}}"
   });
 </pre>
-#### Abstract States
-An abstract state can have child states but can not get activated itself. An 'abstract' state is simply a state that can't be transitioned to, because it's simply there to provide some UI or dependencies that are common to its child states. 
+#### Абстрактные состояния
+Абстрактное состояние может иметь дочерние состояния, но не может получить активированное само себя. «Абстрактное»
+состояние это простое состояние, в которое нельзя переходить, потому что оно просто обеспечивает некоторое UI или 
+зависимости, являющиеся общими для своих дочерних состояний.
 
-Here is an example where the 'contacts' state is abstract. Its main purpose is to provide its child states with access to the $scope.contacts data. $scope.contacts will be available to both child state views for interpolation. 
+Ниже пример, где состояние «contacts» является абстрактным. Его основной целью является предоставление своих дочерних
+состояний, имеющих доступ к данным $scope.contacts. $scope.contacts будет доступно для интерполяции как дочернее 
+состояние вида.
 <pre>
 $stateProvider
     .state('contacts', {
