@@ -2,17 +2,17 @@
 @name UI-Router: Компоненты
 @description
 
-* **$state** / **$stateProvider**: Manages state definitions, the current state, and state transitions. This includes
-triggering transition-related events and callbacks, asynchronously resolving any dependencies of the target state, 
-and updating $location to reflect the current state. For states that have URLs, a rule is automatically registered 
-with $urlRouterProvider that performs a transition to that state.
-* **ui-view** directive: Renders views defined in the current state. Essentially ui-view directives are (optionally 
-named) placeholders that gets filled with views defined in the current state. 
-* **$urlRouter** / **$urlRouterProvider**: Manages a list of _rules_ that are matched against $location whenever it 
-changes. At the lowest level, a rule can be an arbitrary function that inspects $location and returns true if it was
-handled. Support is provided on top of this for RegExp rules and URL patterns that are compiled into UrlMatcher
-objects via $urlMatcherFactory.
-* **$urlMatcherFactory**: Compiles URL patterns with placeholders into UrlMatcher objects. In addition to the 
-placeholder syntax supported by $routeProvider, it also supports an extended syntax that allows a regexp to be
-specified for the placeholder, and has the ability to extract named parameters from the query part of the URL.
-* **$templateFactory**: Loads templates via $http / $templateCache. Used by $state.
+* **$state** / **$stateProvider**: управляет определениями состояний, текущего состояния и переходов в состояния. 
+Включает в себя запуск связанных с переходом событий и колбэков, асинхронное разрешение любых зависимостей целевого 
+состояния и обновление $location для отображения текущего состояния. Для состояний, к которым привязан URL-адрес,
+как правило, автоматически регистрируется $urlRouterProvider, выполняющий переход к этому состоянию.
+* директива **ui-view**: рендерит виды, определенные в текущем состоянии. По существу, директивы ui-view (которым
+можно так же задать свои имена) являются местами, куда вставляются виды, определенными в текущем состоянии.
+* **$urlRouter** / **$urlRouterProvider**: управляет списком _правил_, которые сопоставляются с $location при каждом
+его изменении. На самом низком уровне, правило может быть произвольной функцией, проверяющей $location и возвращающей
+истину, если было изменение. Поддержка предоставляется на вершине этого правила для RegExp и URL-шаблонов, которые 
+компилируются в объекты UrlMatcher с помощью $urlMatcherFactory.
+* **$urlMatcherFactory**: компилирует шаблоны URL с заполнителями в объекты UrlMatcher. В дополнение к синтаксису
+заполнителей, поддерживаемому $routeProvider, также поддерживает расширенный синтаксис, который позволяет задавать
+заполнитель регулярным выражением, и может извлечь имена параметров из части URL, содержащей запросы.
+* **$templateFactory**: загружает шаблоны через $http / $templateCache. Используется $state.
