@@ -2,16 +2,17 @@
 @name UI-Router: Вложенные состояния
 @description
 
-States can be nested within each other. You can specify nesting in several ways:
+Состояние могут быть вложенными друг в друга. Задать вложенность можно несколькими способами:
 
-You can use dot syntax to infer your heirarchy to the $stateProvider. Below, `contacts.list` becomes a child of `contacts`. 
+Можно использовать синтаксис с точкой, чтобы заключить иерархию в $stateProvider. Ниже, `contacts.list` становится
+потомком `contacts`. 
 <pre>
 $stateProvider
   .state('contacts', {})
   .state('contacts.list', {});
 </pre>
 
-Alternately, you can specify the parent of a state via the `parent` property.
+В качестве альтернативы, можно указать родительское состояние через свойство `parent`.
 <pre>
 $stateProvider
   .state('contacts', {})
@@ -20,7 +21,7 @@ $stateProvider
   });
 </pre>
 
-#### Object-based States
+#### Объектно ориентированные состояния
 If you aren't fond of using string-based states, you can also use object-based states. The `name` property goes _in_ the object and the `parent` property must be set on all child states, like this:
 
 <pre>
