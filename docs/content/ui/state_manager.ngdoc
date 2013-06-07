@@ -2,17 +2,20 @@
 @name UI-Router: Менеджер состояний
 @description
 
-##### This In-Depth Guide will take you through all aspects of the UI-Router and its components and options.
+##### Это подробное руководство проведет по всем аспектам UI-Router, его компонентам и возможностям.
 
-# State Manager
 
-The new $stateProvider works similar to Angular's v1 router, but it focuses purely on state. 
-* A state corresponds to a "place" in the application in terms of the overall UI and navigation. 
-* A state describes (via the controller / template / view properties) what the UI looks like and does at that place. 
-* States often have things in common, and the primary way of factoring out these commonalities in this model is via the state hierarchy, i.e. parent/child states aka nested states. 
+# Менеджер состояний
 
-### The simplest form of state
-A state in its simplest form can be added like this (typically within module.config):
+Новый $stateProvider работает аналогично первой версии роутера в Angular, но он сосредоточен исключительно 
+на состоянии.
+* Состоянию соответствует «месту» в приложении с точки зрения общего пользовательского интерфейса и навигации.
+* Состояние описывает (через контроллер / шаблон / свойства вида) как выглядит и что делает интерфейс в этом месте.
+* В состояниях часто есть что-то общее и основной способ разложения этих общностей в этой модели с помощью 
+  иерархии состояний, то есть родительских/дочерних состояний, называемыми вложенными состояниями.
+
+### Простейший вид состояния
+Состояние, в своей простейшей форме может быть добавлено, как показано здесь (обычно внутрь module.config):
 <pre>
 <!-- in index.html -->
 <body ng-controller="MainCtrl">
@@ -20,7 +23,7 @@ A state in its simplest form can be added like this (typically within module.con
 </body>
 </pre>
 <pre>
-// in app-states.js (or whatever you want to name it)
+// в app-states.js (или любой другой)
 $stateProvider.state('contacts', {
   template: '<h1>My Contacts</h1>'
 })
@@ -31,16 +34,17 @@ function MainCtrl($state){
 }
 
 </pre>
-The template is automatically placed into the lone `ui-view` when the state is transitioned to.
+Шаблон автоматически помещается в одиночный `ui-view`, когда совершается переход на состояние.
 
-#### Alternative ways to set the Template
-Instead of writing the template inline you can load a partial. **This is probably how you'll set templates most of the time.**
+#### Альтернативный способ задания шаблона
+Вместо того чтобы описывать шаблоны в скрипте, можно загрузить частичку. **Скорее всего так вы будете задавать шаблоны
+в большинстве случаев.**
 <pre>
 $stateProvider.state('contacts', {
   templateUrl: 'contacts.html'
 })
 </pre>
-Or you can use a template provider function which can be injected and has access to locals, like this:
+Или можно использовать функцию-провайдер, которая может быть внедрена и получить доступ к локалям, как здесь:
 <pre>
 $stateProvider.state('contacts', {
   templateProvider: function ($timeout, $stateParams) {
@@ -48,8 +52,8 @@ $stateProvider.state('contacts', {
   }
 })
 </pre>
-### Controllers
-You can pair a template with a controller like this:
+### Контроллеры
+Можно задать сразу и шаблон и контроллер:
 <pre>
 $stateProvider.state('contacts', {
   template: '<h1>{{title}}</h1>',
@@ -59,19 +63,25 @@ $stateProvider.state('contacts', {
 })
 </pre>
 
-Or if you already have a controller defined on the module, like this:
+Или, если контроллер уже определен в модуле:
 <pre>
 $stateProvider.state('contacts', {
   controller: 'ContactsCtrl'
 })
 </pre>
 
-#### Resolve
-You can use resolve to provide your controller with content or data that is custom to the state. Resolve is an optional map of dependencies which should be injected into the controller. If any of these dependencies are promises, they will be resolved and converted to a value before the controller is instantiated and the $routeChangeSuccess event is fired. The map object is:
-* key – {string}: a name of a dependency to be injected into the controller.
-* factory - {string|function}: If string then it is an alias for a service. Otherwise if function, then it is injected and the return value is treated as the dependency. If the result is a promise, it is resolved before its value is injected into the controller.
+#### Разрешение
+Можно использовать разрешение для провайдера контроллера с контентом или данными, заданными для состояния. Разрешение
+может быть списком зависимостей, которые будут внедрены в контроллер. Если любая из этих зависимостей обещана, 
+они будут разрешены и преобразованы в значение до создания экземпляра контроллера и сбросится событие 
+$routeChangeSuccess. Списком объектов является:
+* key – {string}: имя зависимости, которая будет внедрена в контроллер.
+* factory - {string|function}: Если строка, то это псевдоним сервиса. Если функция, то она будет внедрена и
+возвратит значение, которое будет считаться зависимостью. Если результат — обещание, то оно решиться до того
+как значение будет внедренов контроллер.
 
-Here's a resolved service example. Assume you had a service called translations that stored translated copies of all strings in your application.
+Пример разрешения сервиса. Допустим, имеется сервис с именем translations который хранит хопии переводов всех строк
+в приложении.
 <pre>
 $stateProvider.state('contacts', {
   template: '<h1>{{title}}</h1>',
@@ -82,7 +92,7 @@ $stateProvider.state('contacts', {
 })
 </pre>
 
-Here's a resolved factory function example. The factory function is injectable as well (not shown).
+Пример разрешения фабричной функции. Фабричная функция так же внедряема (не показано).
 <pre>
 $stateProvider.state('contacts', {
   template: '<h1>{{title}}</h1>',
@@ -92,8 +102,9 @@ $stateProvider.state('contacts', {
   }
 })
 </pre>
-### onEnter and onExit callbacks
-There are also optional 'onEnter' and 'onExit' callbacks that get called when a state becomes active and inactive respectively. The callbacks also have access to all the resolved dependencies.
+### Колбэки onEnter и onExit
+Опционально могут задаваться колбэки 'onEnter' и 'onExit', когда состояние становится активным или соответственно 
+деактивируется. Колбэки так же имеют доступ ко всем разрешенным зависимостям.
 <pre>
 $stateProvider.state("contacts", {
   template: '<h1>{{title}}</h1>',
@@ -110,9 +121,9 @@ $stateProvider.state("contacts", {
 })
 </pre>
 
-### State Change Events
-* `$stateChangeSuccess` - fired once the state transition is complete. 
-* `$stateChangeStart` - fired when the transition begins.
-* `$stateChangeError` - fired when an error occurs during transition.
+### События изменения состояния
+* `$stateChangeSuccess` - выбрасывается один раз при окончатльном переходе в состояние. 
+* `$stateChangeStart` - выбрасывается при начале перехода.
+* `$stateChangeError` - выбрасывается, если во время перехода появились ошибки.
 
-All these events are fired at the `$rootScope` level.
+Все эти события выбрасываются на уровне `$rootScope`.
