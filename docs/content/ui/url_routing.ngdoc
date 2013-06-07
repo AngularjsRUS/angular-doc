@@ -2,9 +2,15 @@
 @name UI-Router: URL роутинг
 @description
 
-Most states in your application will probably have a url associated with them. URL Routing was not an after thought to the state mechanics, but was figured into the design from the beginning (all while keeping states separate from url routing) 
+Most states in your application will probably have a url associated with them. URL Routing was not an after thought
+to the state mechanics, but was figured into the design from the beginning (all while keeping states separate from 
+url routing) 
 
-Here's how you set a basic url.
+Большинство состояний в приложении, вероятно, будут связаны с URL-адесом. Не нужно думать, что URL-ротинг это
+механическое продолжение идеи состояний, он фигурировал в проекте с самого начала (сохраняя при этом все 
+состояния отдельно от URL маршрутизации)
+
+Так можно задать базовый url-адрес
 <pre>
 $stateProvider
     .state('contacts', {
@@ -13,11 +19,14 @@ $stateProvider
     })
 </pre>
 
-Now when the user accesses `index.html/contacts` then the 'contacts' state would become active and the main `ui-view` will be populated with the 'contacts.html' partial. Alternatively, if the user were to transition to the 'contacts' state via `transitionTo('contacts')` then the url would be updated to `index.html/contacts`
+Теперь, когда пользователь переходит на `index.html/contacts` состояние «contacts» станет активным и главный `ui-view`
+будет заполнен частичкой «contacts.html». Так же, если бы пользователь перешел в состояние «contacts»
+через transitionTo('contacts')` тогда URL-адрес изменился бы на `index.html/contacts`.
 
-### URL Parameters
+### Параметры URL
 
-Often, URLs have dynamic parts to them which are called parameters. There are several options for specifying parameters. A basic parameter looks like this:
+Часто URL-адреса имеют изменяемые части, которые называют параметрами. Параметры определяют несколько свойств.
+Основной параметр выглядит так:
 <pre>
 $stateProvider
     .state('contacts.detail', {
@@ -30,20 +39,21 @@ $stateProvider
     })
 </pre>
 
-Alternatively you can also use curly brackets:
+В качестве альтернативы можно использовать фигурные скобки:
 <pre>
-// identical to previous example
+// идентично предыдущему примеру
 url: "/contacts/{contactId}" 
 </pre>
 A bonus to using curly brackets is the ability to set a Regular Expression rule for the parameter:
 <pre>
-// will only match a contactId of one to eight number characters
+// будет соответствовать только contactId из восьми цифр
 url: "/contacts/{contactId:[0-9]{1,8}}"
 </pre>
 
-### URL Routing for Nested States
+### URL роутинг для вложенных состояний
 
-When using url routing together with nested states the default behavior is to concatenate url paths through the inheritance chain.
+Когда URL-роутинг используется вместе в вложенными состояниями, по умолчанию пути объединяются через цепочку 
+наследований.
 
 <pre>
 $stateProvider
@@ -56,9 +66,9 @@ $stateProvider
      ...
   });
 </pre>
-Then the state 'contacts.list' is matched when url is '/contacts/list'.
+Затем при переходе по URL «/contacts/list» будет установлено состояние «contacts.list». 
 
-If you want to have absolute url matching, then you need to prefix your url string with a special symbol '^'.
+Если необходимо чтобы URL полностью совпадал, то нужно предварить URL строку специальным символом '^'.
 <pre>
 $stateProvider
   .state('contacts', {
@@ -70,23 +80,24 @@ $stateProvider
      ...
   });
 </pre>
-Now the state 'contacts.list' is matched when url is '/list'.
+Теперь состояние «contacts.list» будет установлено при переходе на «/list».
 
-### $stateParams Service
-As you saw previously the $stateParams service is an object that will have one key per url parameter. The $stateParams is a perfect way to provide your controllers or other services with the individual parts of the navigated url.
+### Сервис $stateParams
+Как было показано ранее, сревис $stateParams это объект, который будет иметь один ключ на URL-параметр. $StateParams
+это идеальный способо предоставить контроллерам или другим сервисам отдельные части URL-адреса.
 <pre>
-// If you had a url on your state of:
+// Если имеется url для состояния:
 url: '/users/:id/details/{type}/{repeat:[0-9]+}?from&to'
 
-// Then you navigated your browser to:
+// Тогда браузер перейдет на:
 '/users/123/details//0'
 
-// Your $stateParams object would be
+// Объект $stateParams станет:
 { id:'123', type:'', repeat:'0' }
 
-// Then you navigated your browser to:
+// Тогда браузер перейдет на:
 '/users/123/details/default/0?from=there&to=here'
 
-// Your $stateParams object would be
+// Объект $stateParams станет:
 { id:'123', type:'default', repeat:'0', from='there', to='here' }
 </pre>
