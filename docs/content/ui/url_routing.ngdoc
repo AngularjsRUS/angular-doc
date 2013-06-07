@@ -2,10 +2,6 @@
 @name UI-Router: URL роутинг
 @description
 
-Most states in your application will probably have a url associated with them. URL Routing was not an after thought
-to the state mechanics, but was figured into the design from the beginning (all while keeping states separate from 
-url routing) 
-
 Большинство состояний в приложении, вероятно, будут связаны с URL-адесом. Не нужно думать, что URL-ротинг это
 механическое продолжение идеи состояний, он фигурировал в проекте с самого начала (сохраняя при этом все 
 состояния отдельно от URL маршрутизации)
