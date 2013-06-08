@@ -1489,39 +1489,40 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @ngdoc object
  * @name ngMockE2E.$httpBackend
  * @description
- * Fake HTTP backend implementation suitable for end-to-end testing or backend-less development of
- * applications that use the {@link ng.$http $http service}.
+ * Мок реализация HTTP для end-to-end тестирования или backend-less разработчиков для приложений использующих сервис $http.
+ * Имитация реализации HTTP бэкенда подходящая для системного тестирования или для разработки приложений без
+ * бэкенда, которые используют сервис {@link ng.$http $http}.
  *
- * *Note*: For fake http backend implementation suitable for unit testing please see
- * {@link ngMock.$httpBackend unit-testing $httpBackend mock}.
+ * *Note*: Для имитации реализации http бэкенда в целях модульного тестирования, пожалуйста, смотрите
+ * {@link ngMock.$httpBackend имитацию $httpBackend для модульных тестов}.
  *
- * This implementation can be used to respond with static or dynamic responses via the `when` api
- * and its shortcuts (`whenGET`, `whenPOST`, etc) and optionally pass through requests to the
- * real $httpBackend for specific requests (e.g. to interact with certain remote apis or to fetch
- * templates from a webserver).
- *
- * As opposed to unit-testing, in an end-to-end testing scenario or in scenario when an application
- * is being developed with the real backend api replaced with a mock, it is often desirable for
- * certain category of requests to bypass the mock and issue a real http request (e.g. to fetch
- * templates or static files from the webserver). To configure the backend with this behavior
- * use the `passThrough` request handler of `when` instead of `respond`.
- *
- * Additionally, we don't want to manually have to flush mocked out requests like we do during unit
- * testing. For this reason the e2e $httpBackend automatically flushes mocked out requests
- * automatically, closely simulating the behavior of the XMLHttpRequest object.
- *
- * To setup the application to run with this http backend, you have to create a module that depends
- * on the `ngMockE2E` and your application modules and defines the fake backend:
- *
+ * Эта реализация может использоваться для статических или динамических ответов с использованием `when` api или
+ * его коротких записей (`whenGET`, `whenPOST`, и т.д.) и необязательно отправляет запросы через реальный 
+ * $httpBackend для определенных запросов (например, для взаимодействия с некоторыми удаленными сервисами или 
+ * для получения шаблонов с сервера).
+ * 
+ * Как и в модульном тестировании, в сценариях системного тестирования, или в сценариях, когда приложение 
+ * будет разрабатываться, с реальным серверным api заменяемого на имитацию, но часто возникает необходимости 
+ * обойти имитацию, и осуществить запрос к реальному серверу (например, для получения шаблонов или статических 
+ * файлов от сервера). Чтобы настроить такое поведение используйте `passThrough` обработчик запроса для `when`
+ * вместо `respond`.
+ * 
+ * К тому же, мы не хотим вручную сбрасывать результаты выполнения запросов потребителям, как мы это делали при 
+ * модульном тестировании. По этой причине e2e $httpBackend автоматически сбрасывает значения из имитации, 
+ * закрывая симуляцию поведения объекта XMLHttpRequest.
+ * 
+ * Чтобы настроить приложение на запуск с http взаимодействием, вам нужно создать модуль зависимый от `ngMockE2E`
+ * и модулей вашего приложения и определить имитацию:
+ * 
  * <pre>
  *   myAppDev = angular.module('myAppDev', ['myApp', 'ngMockE2E']);
  *   myAppDev.run(function($httpBackend) {
  *     phones = [{name: 'phone1'}, {name: 'phone2'}];
  *
- *     // returns the current list of phones
+ *     // возвращает текущий список телефонов
  *     $httpBackend.whenGET('/phones').respond(phones);
  *
- *     // adds a new phone to the phones array
+ *     // добавляет новый телефон в массив телефонов
  *     $httpBackend.whenPOST('/phones').respond(function(method, url, data) {
  *       phones.push(angular.fromJSON(data));
  *     });
@@ -1530,7 +1531,7 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  *   });
  * </pre>
  *
- * Afterwards, bootstrap your app with this new module.
+ * После этого, начните загрузку приложения с этого модуля.
  */
 
 /**
@@ -1538,23 +1539,21 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @name ngMockE2E.$httpBackend#when
  * @methodOf ngMockE2E.$httpBackend
  * @description
- * Creates a new backend definition.
+ * Создает новое определение бэкенда.
  *
- * @param {string} method HTTP method.
+ * @param {string} method HTTP метод.
  * @param {string|RegExp} url HTTP url.
- * @param {(string|RegExp)=} data HTTP request body.
- * @param {(Object|function(Object))=} headers HTTP headers or function that receives http header
- *   object and returns true if the headers match the current definition.
- * @returns {requestHandler} Returns an object with `respond` and `passThrough` methods that
- *   control how a matched request is handled.
+ * @param {(string|RegExp)=} data тело HTTP запроса.
+ * @param {(Object|function(Object))=} headers HTTP заголовки или функция извлекающая объект из http заголовков 
+ *   и возвращающая true, если заголовки найдены в текущем определении.
+ * @returns {requestHandler} Возвращает объект, содержащий методы `respond` и `passThrough`, которые контролируют
+ *   как обрабатываются совпадающие запросы.
  *
  *  - respond – `{function([status,] data[, headers])|function(function(method, url, data, headers)}`
- *    – The respond method takes a set of static data to be returned or a function that can return
- *    an array containing response status (number), response data (string) and response headers
- *    (Object).
- *  - passThrough – `{function()}` – Any request matching a backend definition with `passThrough`
- *    handler, will be pass through to the real backend (an XHR request will be made to the
- *    server.
+ *    – Этот метод устанавливает статические данные для возврата или функцию, которая будет возвращать массив, 
+ *    содержащий статус ответа (число), данные ответа (строка) и заголовки ответа (объект).
+ *  - passThrough – `{function()}` – Любой запрос, который совпадает с определенным ожиданием в обработчике 
+ *    `passThrough`, будет проходить через реальный бэкенд (и XHR запрос будет отправлен на сервер).
  */
 
 /**
@@ -1562,12 +1561,12 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @name ngMockE2E.$httpBackend#whenGET
  * @methodOf ngMockE2E.$httpBackend
  * @description
- * Creates a new backend definition for GET requests. For more info see `when()`.
+ * Создает новое определение бэкенда для запросов GET. См. так же `when()`.
  *
  * @param {string|RegExp} url HTTP url.
- * @param {(Object|function(Object))=} headers HTTP headers.
- * @returns {requestHandler} Returns an object with `respond` and `passThrough` methods that
- *   control how a matched request is handled.
+ * @param {(Object|function(Object))=} headers HTTP заголовки.
+ * @returns {requestHandler} Возвращает объект, содержащий методы `respond` и `passThrough`, которые контролируют 
+ *   как обрабатываются совпадающие запросы.
  */
 
 /**
@@ -1575,12 +1574,12 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @name ngMockE2E.$httpBackend#whenHEAD
  * @methodOf ngMockE2E.$httpBackend
  * @description
- * Creates a new backend definition for HEAD requests. For more info see `when()`.
+ * Создает новое определение бэкенда для запросов HEAD. См. так же `when()`.
  *
  * @param {string|RegExp} url HTTP url.
- * @param {(Object|function(Object))=} headers HTTP headers.
- * @returns {requestHandler} Returns an object with `respond` and `passThrough` methods that
- *   control how a matched request is handled.
+ * @param {(Object|function(Object))=} headers HTTP заголовки.
+ * @returns {requestHandler} Возвращает объект, содержащий методы `respond` и `passThrough`, которые контролируют 
+ *   как обрабатываются совпадающие запросы.
  */
 
 /**
@@ -1588,12 +1587,12 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @name ngMockE2E.$httpBackend#whenDELETE
  * @methodOf ngMockE2E.$httpBackend
  * @description
- * Creates a new backend definition for DELETE requests. For more info see `when()`.
+ * Создает новое определение бэкенда для запросов DELETE. См. так же `when()`.
  *
  * @param {string|RegExp} url HTTP url.
- * @param {(Object|function(Object))=} headers HTTP headers.
- * @returns {requestHandler} Returns an object with `respond` and `passThrough` methods that
- *   control how a matched request is handled.
+ * @param {(Object|function(Object))=} headers HTTP заголовки.
+ * @returns {requestHandler} Возвращает объект, содержащий методы `respond` и `passThrough`, которые контролируют 
+ *   как обрабатываются совпадающие запросы.
  */
 
 /**
@@ -1601,13 +1600,13 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @name ngMockE2E.$httpBackend#whenPOST
  * @methodOf ngMockE2E.$httpBackend
  * @description
- * Creates a new backend definition for POST requests. For more info see `when()`.
+ * Создает новое определение бэкенда для запросов POST. См. так же `when()`.
  *
  * @param {string|RegExp} url HTTP url.
- * @param {(string|RegExp)=} data HTTP request body.
- * @param {(Object|function(Object))=} headers HTTP headers.
- * @returns {requestHandler} Returns an object with `respond` and `passThrough` methods that
- *   control how a matched request is handled.
+ * @param {(string|RegExp)=} data тело HTTP запроса.
+ * @param {(Object|function(Object))=} headers HTTP заголовки.
+ * @returns {requestHandler} Возвращает объект, содержащий методы `respond` и `passThrough`, которые контролируют 
+ *   как обрабатываются совпадающие запросы.
  */
 
 /**
@@ -1615,13 +1614,13 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @name ngMockE2E.$httpBackend#whenPUT
  * @methodOf ngMockE2E.$httpBackend
  * @description
- * Creates a new backend definition for PUT requests.  For more info see `when()`.
+ * Создает новое определение бэкенда для запросов PUT. См. так же `when()`.
  *
  * @param {string|RegExp} url HTTP url.
- * @param {(string|RegExp)=} data HTTP request body.
- * @param {(Object|function(Object))=} headers HTTP headers.
- * @returns {requestHandler} Returns an object with `respond` and `passThrough` methods that
- *   control how a matched request is handled.
+ * @param {(string|RegExp)=} data тело HTTP запроса.
+ * @param {(Object|function(Object))=} headers HTTP заголовки.
+ * @returns {requestHandler} Возвращает объект, содержащий методы `respond` и `passThrough`, которые контролируют 
+ *   как обрабатываются совпадающие запросы.
  */
 
 /**
@@ -1629,13 +1628,13 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @name ngMockE2E.$httpBackend#whenPATCH
  * @methodOf ngMockE2E.$httpBackend
  * @description
- * Creates a new backend definition for PATCH requests.  For more info see `when()`.
+ * Создает новое определение бэкенда для запросов PATCH. См. так же `when()`.
  *
  * @param {string|RegExp} url HTTP url.
- * @param {(string|RegExp)=} data HTTP request body.
- * @param {(Object|function(Object))=} headers HTTP headers.
- * @returns {requestHandler} Returns an object with `respond` and `passThrough` methods that
- *   control how a matched request is handled.
+ * @param {(string|RegExp)=} data тело HTTP запроса.
+ * @param {(Object|function(Object))=} headers HTTP заголовки.
+ * @returns {requestHandler} Возвращает объект, содержащий методы `respond` и `passThrough`, которые контролируют 
+ *   как обрабатываются совпадающие запросы.
  */
 
 /**
@@ -1643,11 +1642,11 @@ angular.module('ngMockE2E', ['ng']).config(function($provide) {
  * @name ngMockE2E.$httpBackend#whenJSONP
  * @methodOf ngMockE2E.$httpBackend
  * @description
- * Creates a new backend definition for JSONP requests. For more info see `when()`.
+ * Создает новое определение бэкенда для запросов JSONP. См. так же `when()`.
  *
  * @param {string|RegExp} url HTTP url.
- * @returns {requestHandler} Returns an object with `respond` and `passThrough` methods that
- *   control how a matched request is handled.
+ * @returns {requestHandler} Возвращает объект, содержащий методы `respond` и `passThrough`, которые контролируют 
+ *   как обрабатываются совпадающие запросы.
  */
 angular.mock.e2e = {};
 angular.mock.e2e.$httpBackendDecorator = ['$rootScope', '$delegate', '$browser', createHttpBackendMock];
@@ -1729,16 +1728,16 @@ window.jstestdriver && (function(window) {
    * @name angular.mock.module
    * @description
    *
-   * *NOTE*: This function is also published on window for easy access.<br>
+   * *Примечание*: Эта функция также опубликован в window для быстрого доступа.<br>
    *
-   * This function registers a module configuration code. It collects the configuration information
-   * which will be used when the injector is created by {@link angular.mock.inject inject}.
+   * Эта функция регистрирует код конфигурации модуля. Она собирает информацию о конфигурации, которая будет 
+   * использоваться, при создании инжектора с помощью {@ ссылка angular.mock.inject inject}.
    *
-   * See {@link angular.mock.inject inject} for usage example
+   * См. {@link angular.mock.inject inject} для примера использования
    *
-   * @param {...(string|Function)} fns any number of modules which are represented as string
-   *        aliases or as anonymous module initialization functions. The modules are used to
-   *        configure the injector. The 'ng' and 'ngMock' modules are automatically loaded.
+   * @param {...(string|Function)} fns любое количество модулей, которые представлены в виде строки псевдонимов
+   *        или как анонимные функции инициализации модуля. Модули используются для настройки инжектора. «ng» и 
+   *        «ngMock» модули загружаются автоматически.
    */
   window.module = angular.mock.module = function() {
     var moduleFns = Array.prototype.slice.call(arguments, 0);
@@ -1761,15 +1760,14 @@ window.jstestdriver && (function(window) {
    * @name angular.mock.inject
    * @description
    *
-   * *NOTE*: This function is also published on window for easy access.<br>
+   * *Примечание*: Эта функция также опубликован в window для быстрого доступа.<br>
    *
-   * The inject function wraps a function into an injectable function. The inject() creates new
-   * instance of {@link AUTO.$injector $injector} per test, which is then used for
-   * resolving references.
+   * Вводит функцию обертывания функции в инъекционной функции. inject() создает новый экземпляр
+   * {@link AUTO.$injector $injector} на тест, который затем используется для разрешения ссылок.
    *
-   * See also {@link angular.mock.module module}
+   * См. так же {@link angular.mock.module module}
    *
-   * Example of what a typical jasmine tests looks like with the inject method.
+   * Пример того, как типичные jasmine-тесты выглядят с методом inject.
    * <pre>
    *
    *   angular.module('myApplicationModule', [])
@@ -1779,21 +1777,21 @@ window.jstestdriver && (function(window) {
    *
    *   describe('MyApp', function() {
    *
-   *     // You need to load modules that you want to test,
-   *     // it loads only the "ng" module by default.
+   *     // необходимо загрузить модули, которые нужны для тестов,
+   *     // у нас загружается только модуль «ng» по умолчанию.
    *     beforeEach(module('myApplicationModule'));
    *
    *
-   *     // inject() is used to inject arguments of all given functions
+   *     // inject() используется для внедрения аргументов всех вычисляемых функций
    *     it('should provide a version', inject(function(mode, version) {
    *       expect(version).toEqual('v1.0.1');
    *       expect(mode).toEqual('app');
    *     }));
    *
    *
-   *     // The inject and module method can also be used inside of the it or beforeEach
+   *     // Методы inject и module могут так же использоваться внутри этого или beforeEach
    *     it('should override a version and test the new version is injected', function() {
-   *       // module() takes functions or strings (module aliases)
+   *       // module() принимает функции или строки (псевдонимы модулей)
    *       module(function($provide) {
    *         $provide.value('version', 'overridden'); // override version here
    *       });
@@ -1806,7 +1804,7 @@ window.jstestdriver && (function(window) {
    *
    * </pre>
    *
-   * @param {...Function} fns any number of functions which will be injected using the injector.
+   * @param {...Function} fns любое количество функций, которые будут внедрены с использованием инжектора.
    */
   window.inject = angular.mock.inject = function() {
     var blockFns = Array.prototype.slice.call(arguments, 0);
