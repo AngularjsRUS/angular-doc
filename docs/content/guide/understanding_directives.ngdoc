@@ -154,7 +154,7 @@ ui.directive('a', ... )
 myApp.directive('a', ... )
 </pre>
 ### Шаблонизация
-You can leverage `<ng-include>` or simply create a directive that generates the HTML with the primary directive attached.
+Можно использовать `<ng-include>` или просто создать директиву, которая генерирует HTML с основной директивой.
 <pre>
 // <div b></div>
 ui.directive('a', ... )
