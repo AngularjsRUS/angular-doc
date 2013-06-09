@@ -266,35 +266,76 @@ http://onehungrymind.com/angularjs-sticky-notes-pt-1-architecture/. Вместо
 
 ### <a id="directives"></a> Диретивы
 
-  1. default (`scope: false`) - the directive does not create a new scope, so there is no inheritance here. This is easy, but also dangerous because, e.g., a directive might think it is creating a new property on the scope, when in fact it is clobbering an existing property. This is not a good choice for writing directives that are intended as reusable components.
-  2. `scope: true` - the directive creates a new child scope that prototypically inherits from the parent scope. If more than one directive (on the same DOM element) requests a new scope, only one new child scope is created. Since we have "normal" prototypal inheritance, this is like ng-include and ng-switch, so be wary of 2-way data binding to parent scope primitives, and child scope hiding/shadowing of parent scope properties.
-  3. `scope: { ... }` - the directive creates a new isolate/isolated scope. It does not prototypically inherit. This is usually your best choice when creating reusable components, since the directive cannot accidentally read or modify the parent scope. However, such directives often need access to a few parent scope properties. The object hash is used to set up two-way binding (using '=') or one-way binding (using '@') between the parent scope and the isolate scope. There is also '&' to bind to parent scope expressions. So, these all create local scope properties that are derived from the parent scope. Note that attributes are used to help set up the binding -- you can't just reference parent scope property names in the object hash, you have to use an attribute. E.g., this won't work if you want to bind to parent property `parentProp` in the isolated scope: `<div my-directive>` and `scope: { localProp: '@parentProp' }`. An attribute must be used to specify each parent property that the directive wants to bind to: `<div my-directive the-Parent-Prop=parentProp>` and `scope: { localProp: '@theParentProp' }`.
-<br>Isolate scope's `__proto__` references a [Scope](http://docs.angularjs.org/api/ng.$rootScope.Scope) object (the picture below needs to be updated to show an orange 'Scope' object instead of an 'Object'). Isolate scope's $parent references the parent scope, so although it is isolated and doesn't inherit prototypically from the parent scope, it is still a child scope.
-<br>For the picture below we have 
-<br>`<my-directive interpolated="{{parentProp1}}" twowayBinding="parentProp2">` and
+  1. по умолчанию (`scope: false`) - директива не создать новую область видимости, так что никакого наследования не
+  происходит. Это легко, но опасно, потому что, например, директива может подумать, что создает новое свойство в
+  области видимости, когда фактически она затрет существующее свойство. Не лучший выбор при написании директив,
+  предназначенных для компонентов многоразового использования.
+  2. `scope: true` - директива создает новую дочернюю область видимости, прототипически унаследованную от
+  родительской области. Если более чем одна директива (на одном и том же DOM элемнете) запрашивают новую область,
+  все равно будет создана только одна дочерняя область. Т. к. у нас «нормальное» прототипное наследование, 
+  как в ng-include и ng-switch, то будьте осторожны с двухсторонней привязкой данных к примитивам родительской
+  области видимости и перекрытием свойств родительской области свойствами дочерней.
+  3. `scope: { ... }` - директива создает новые изолированные области видимости. Они не наследуются прототипически. 
+  Как правило, это лучший вариант для создания компонентов многоразового использования, т. к. директива не сможет
+  случайно прочитать или изменить данные из родительской области. тем не менее, таким директивам часто необходим
+  доступ к некоторым свойствам из родительской области. Хэш-объект используется для создания двухсторонней привязки
+  (с помощью «=») или односторонней (с помощью «@») между родительской областью и изолированной. Есть так же «&» 
+  для привязки к выражениям в родительской области. Таким образом, все они создают локальные свойства области
+  видимости, получаемые из родительской области. Обратите внимание, что атрибуты используются чтобы помочь установить
+  привязки — невозможно сослаться на имена свойств из родительской области в хэш-объекте, без использования этих 
+  атрибутов. Например, привязка к родительскому свойству `parentProp` в изолированной области: `<div my-directive>` 
+  и `scope: { localProp: '@parentProp' }` не будет работать. Атрибут должен использоваться для указания на каждое
+  родительское свойство к которому нужно привязаться в директиве: `<div my-directive the-Parent-Prop=parentProp>` и
+  `scope: { localProp: '@theParentProp' }`.
+<br>`__proto__` изолированной области ссылается на объект [Scope](http://docs.angularjs.org/api/ng.$rootScope.Scope) 
+(рисунок ниже необходимо обновить, чтобы показать оранжевый объект «Scope» вместо «Object»). $parent изолированной
+области ссылается на родительскйю область видимости, так что, хотя он изолированный и не наследуется прототипически
+от родительской области, он всё же является потомком.
+<br>Для рисунка ниже имеем
+<br>`<my-directive interpolated="{{parentProp1}}" twowayBinding="parentProp2">` и
 <br> `scope: { interpolatedProp: '@interpolated', twowayBindingProp: '=twowayBinding' }` 
-<br>Also, assume the directive does this in its linking function: `scope.someIsolateProp = "I'm isolated"`
-<br>![isolate scope](http://i.stack.imgur.com/MUxS4.png)
-<br>One final note: use `attrs.$observe('attr_name', function(value) { ... }` in the linking function to get the interpolated value of isolate scope properties that use the '@' notation.  E.g., if we have this in the linking function -- `attrs.$observe('interpolated', function(value) { ... }` -- `value` would be set to 11.  (`scope.interpolatedProp` is undefined in the linking function.  In contrast, `scope.twowayBindingProp` is defined in the linking function, since it uses the '=' notation.)
-<br>For more information on isolate scopes see http://onehungrymind.com/angularjs-sticky-notes-pt-2-isolated-scope/
-  4. `transclude: true` - the directive creates a new "transcluded" child scope, which prototypically inherits from the parent scope.  So if your transcluded content (i.e., the stuff that ng-transclude will be replaced with) requires 2-way data binding to a primitive in the parent scope, use $parent, or change the model to be an object and then bind to a property of that object. This will avoid child scope hiding/shadowing of parent scope properties.<br>The transcluded and the isolated scope (if any) are siblings -- the $parent property of each scope references the same parent scope. When a transcluded and an isolate scope both exist, isolate scope property $$nextSibling will reference the transcluded scope.
-<br>For more information on transcluded scopes, see [AngularJS two way binding not working in directive with transcluded scope](http://stackoverflow.com/a/14484903/215945)
-<br>For the picture below, assume the same directive as above with this addition: `transclude: true`
-<br>![transcluded scope](http://i.stack.imgur.com/fkWHA.png)
+<br>Предположим так же, что директива делает это в связующей функции: `scope.someIsolateProp = "I'm isolated"`
+<br>![изолированная область видимости](http://i.stack.imgur.com/MUxS4.png)
+<br>Последнее замечание: используйте `attrs.$observe('attr_name', function(value) { ... }` в связующией функции
+для получения интерполированного значения свойства из изолированной области видимости, записанного с помощью «@».
+Например, если такое содержится в связующей функции — `attrs.$observe('interpolated', function(value) { ... }` —
+`value` будет установлено в 11.  (`scope.interpolatedProp` неопределено в связующей функции. В противоположность
+этому, `scope.twowayBindingProp` определено в связующей функции, т. к. задано с помощью «=».)
+<br>Подробнее об изолированных областях видимости читайте в http://onehungrymind.com/angularjs-sticky-notes-pt-2-isolated-scope/
+  4. `transclude: true` - директива создает новую «включенную» дочернюю область видимости, которая прототипически
+  наследуется от родительской области. Поэтому, если включенный контент (т. е., материал, который будет заменен
+  ng-transclude) двухстороннюю привязку данных к примитиву из родительской области видимости, используйте $parent,
+  или или превратите модель в объект и затем привяжитесь к свойству этого объекта. Это позволит избежать перекрытия
+  свойства родительской области свойством дочерней
+<br>Включенная и изолированная области видимости (если таковые имеются) являются потомками одно уровня — 
+  свойство $parent каждой из этих областей ссылается на одного и того же родителя. Если существуют и включенная и 
+  изолированная области, свойство $$nextSibling изолированной области будет ссылаться на включенную область.
+<br>По включенным областям видимости см. так же [AngularJS two way binding not working in directive with transcluded scope](http://stackoverflow.com/a/14484903/215945)
+<br>Для рисунка ниже имеем, такую же директиву как указано выше с этим дополнением: `transclude: true`
+<br>![включенная область видимости](http://i.stack.imgur.com/fkWHA.png)
 
-This [fiddle](http://jsfiddle.net/mrajcok/7g3QM/) has a `showScope()` function that can be used to examine an isolate scope and its associated transcluded scope. See the instructions in the comments in the fiddle.
+Этот [фидл](http://jsfiddle.net/mrajcok/7g3QM/) содержит функцию `showScope()` которую можно использовать для
+изучения изолированной области видимости и ассоциированной с ней включенной области. Смотрите инструкции в
+комментариях к фидлу..
 
-## Summary
+## Заключение
 
-There are four types of scopes:
+Существует четыре типа областей видимости:
 
-  1. normal prototypal scope inheritance -- ng-include, ng-switch, ng-controller, directive with `scope: true`
-  2. normal prototypal scope inheritance with a copy/assignment -- ng-repeat. Each iteration of ng-repeat creates a new child scope, and that new child scope always gets a new property.
-  3. isolate scope -- directive with `scope: {...}`. This one is not prototypal, but '=', '@', and '&' provide a mechanism to access parent scope properties, via attributes.
-  4. transcluded scope -- directive with `transclude: true`. This one is also normal prototypal scope inheritance, but it is also a sibling of any isolate scope.
+  1. прототипически наследуемая область — ng-include, ng-switch, ng-controller, директивы с `scope: true`
+  2. прототипически наследуемая область с несколькими копиями — ng-repeat. Каждая итерация ng-repeat создает новую
+  дочернюю область видимости, и эта новая облать всегда получает новые свойства.
+  3. изолированная область — директивы с `scope: {...}`. не наследуется прототипически, но «=», «@», и «&» 
+  обеспечивают механизм для доступа к свойствам родительской области через атрибуты.
+  4. включаемая область — директивы с `transclude: true`. Так же прототипически наследуется, но так же соседствует 
+  с какой-то изолированной областью.
 
-For all scopes (prototypal or not), Angular always tracks a parent-child relationship (i.e., a hierarchy), via properties $parent and $$childHead and $$childTail.
+Для всех областей (наследуемых или нет), Angular всегда отслеживает отношения родитель-ребенок (т. е. иерархию),
+через свойства $parent, $$childHead и $$childTail.
 
-Diagrams were generated with [GraphViz](http://graphviz.org) "*.dot" files, which are on [github](https://github.com/mrajcok/angularjs-prototypal-inheritance-diagrams). Tim Caswell's ["Learning JavaScript with Object Graphs"](http://howtonode.org/object-graphs) was the inspiration for using GraphViz for the diagrams.
+Диаграммы созданы с помощью [GraphViz](http://graphviz.org) "*.dot" файлов, которые лежат на 
+[github](https://github.com/mrajcok/angularjs-prototypal-inheritance-diagrams).
+Tim Caswell's ["Learning JavaScript with Object Graphs"](http://howtonode.org/object-graphs) был вовлечен в 
+использование GraphViz для диаграмм.
 
-The above was originally posted on [StackOverflow](http://stackoverflow.com/questions/14049480/what-are-the-nuances-of-scope-prototypal-prototypical-inheritance-in-angularjs).
+первоначальное размещение оригинала [StackOverflow](http://stackoverflow.com/questions/14049480/what-are-the-nuances-of-scope-prototypal-prototypical-inheritance-in-angularjs).
