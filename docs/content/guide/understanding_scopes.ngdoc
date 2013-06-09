@@ -199,21 +199,24 @@ MyObject — находит его в родительской области.
 
 ### <a id="ngRepeat"></a> ng-repeat
 
-Ng-repeat работает немного по-другому. Предположим, что в контроллере содержится следующее:
-
-    $scope.myArrayOfPrimitives = [ 11, 22 ];
-    $scope.myArrayOfObjects    = [{num: 101}, {num: 202}]
-
+ng-repeat работает немного по-другому. Предположим, что в контроллере содержится следующее:
+<pre>
+  $scope.myArrayOfPrimitives = [ 11, 22 ];
+  $scope.myArrayOfObjects    = [{num: 101}, {num: 202}]
+</pre>
 И в HTML:
-
-    <ul><li ng-repeat="num in myArrayOfPrimitives">
-           <input ng-model="num">
-        </li>
-    <ul>
-    <ul><li ng-repeat="obj in myArrayOfObjects">
-           <input ng-model="obj.num">
-        </li>
-    <ul>
+<pre>
+  <ul>
+    <li ng-repeat="num in myArrayOfPrimitives">
+      <input ng-model="num">
+    </li>
+  <ul>
+  <ul>
+    <li ng-repeat="obj in myArrayOfObjects">
+      <input ng-model="obj.num">
+    </li>
+  <ul>
+</pre>
 Для каждого элемента/итерации, ng-repeat создает новую область видимости, которая прототипически наследуется от
 родительской, **но он также присваивает значение элемента новым свойствам в новой дочерней области**. (Названием
 нового свойства является имя переменной из цикла.) Ниже показан фактический исходный код для ng-repeat:
