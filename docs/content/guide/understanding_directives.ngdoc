@@ -45,10 +45,14 @@ myApp.directive('uiJq', function InjectingFunction(){
 })
 </pre>
 
-You can _only_ access data in `$scope` inside the **LinkingFunction**. Since the template logic may remove or duplicate elements, you can _only_ rely on the final DOM configuration in the **LinkingFunction**. You still _cannot_ rely upon **children** or **following-siblings** since they have not been linked yet.
+Доступ к данным можно получить _только_ в `$scope` внутри **СвязующейФункции**. Так как логика шаблона может удалять
+или копировать элементы, то можно рассчитывать _только_ на окончательно настроенный DOM в **СвязующейФункции**. 
+Всё еще _нельзя_ рассчитывать на потмков или соседей, так как они еще не связаны.
 
-## Pre vs Post Linking Functions
-Anywhere you can use a `LinkingFunction()`, you can alternatively use an object with a pre and post linking function. [Oddly enough](https://github.com/angular/angular.js/issues/2592), a `LinkingFunction()` is a `PostLinkingFunction()` by default:
+## Пре- и Пост-связующие функции
+Везде, где можно использовать `LinkingFunction()`, вместо нее можно использовать объект с пре- и пост-связующими
+функциями. [Как ни странно](https://github.com/angular/angular.js/issues/2592), `LinkingFunction()` является
+`PostLinkingFunction()` по умолчанию:
 <pre>
 link: function LinkingFunction($scope, $element, $attributes) { ... }
 ...
@@ -58,37 +62,53 @@ link: {
 }
 </pre>
 
-The difference is that `PreLinkingFunction()` will fire on the parent first, then child, and so on. A `PostLinkingFunction()` goes in reverse, firing on the child first, then parent, and so on. Here's a demo: http://plnkr.co/edit/qrDMJBlnwdNlfBqEEXL2?p=preview
+Разница в том, что `PreLinkingFunction()` будет сначала обрабатывать родителя, а затем потомка и так далее.
+`PostLinkingFunction()` идет в обратном направлении, обрабатывая сначала потомка, а затем родителя, и так далее.
+Вот демо: {@link http://plnkr.co/edit/qrDMJBlnwdNlfBqEEXL2?p=preview}
 
-**When do I want this reverse `PostLinking` behavior?** Sometimes jQuery plugins need to know the number and size of children DOM element's (such as slideshows or layout managers like Isotope). There are a few ways to support these:
+**Когда нужно использовать обратное `PostLinking` поведение?** Иногда JQuery-плагину необходимо знать количество 
+и размер потомков DOM элемента (например, слайд-шоу или менеджеру слоев, такому как Isotope). Есть несколько способов,
+сделать поддержку этого:
 
-* **(Worst)** Delay the plugin's execution using [$timeout](http://docs.angularjs.org/api/ng.$timeout)
-* Nested directives. If each child has a directive, it can  `require: '^parentDirective'` which will give you access to the `parentDirective` controller.
-  * If you use the `PreLinkingFunction()` on `parentDirective`, you can instantiate the container empty, and use then update it every time the 
+* **(Наихудший)** Задержка выполнения плагина с использованием [$timeout](http://docs.angularjs.org/api/ng.$timeout)
+* Вложенные директивы. Когда у каждого потомка есть директива, которая требует родительскую
+  `require: '^parentDirective'` которая предоставит доступ к контроллеру `parentDirective`.
+  * Если используется `PreLinkingFunction()` в `parentDirective`, можно создать пустой экземпляр контейнера,
+  и затем обновлять его все время.
 
-**This does _NOT_ accomodate for async changes such as loading `$scope` data via AJAX**
+**Всё это _НЕ_ подходит для асинхронного изменения, такого как загрузка данных в `$scope` через AJAX**
 
-If you need to wait till your `$scope` data finishes loading try using [ui-if](http://angular-ui.github.com/#directives-if) to defer linking of a block of DOM.
+Если необходимо подождать, пока в `$scope` не поступят данные, воспользуйтесь `ng-if` для отложенной загрузки 
+блока DOM.
 
 ## $element === angular.element() === jQuery() === $()
 
-To make working with the DOM easier, AngularJS contains a miniaturized version of jQuery called jqlite. This emulates some of the core features of jQuery using an _almost_ identical API as jQuery. Any time you see an AngularJS DOM element, it will be the equivalent to a `jQuery()` wrapped DOM element.
+Чтобы сделать работу с DOM проще, AngularJS содержит упрощенную версию JQuery, под названием jqlite. Она позволяет 
+эмулировать некоторые из основных особенностей JQuery, используя _практически_ идентичный API. Каждый 
+раз, когда видите DOM-элемент AngularJS, он будет эквивалентен элементу, обернутому в `JQuery()`.
 
-**You do _NOT_ have to wrap AngularJS elements in `jQuery()`**
+**_НЕ_ следует оборачивать элементы AngularJS в `jQuery()`**
 
-If you are noticing that the full array of jQuery methods (or plugins) aren't available on an AngularJS element, it's because you either forgot to load the jQuery lib, or you forgot to load it **BEFORE** loading AngularJS. If AngularJS doesn't see jQuery already loaded by the time AngularJS loads, it will use its own jqlite library instead.
+Если заметили, что полный набор методов JQuery (или плагинов) не доступен в элементе AngularJS, это потому, что
+вы либо забыли загрузить библтотеку JQuery, либо забыли загрузить ее **ПЕРЕД** загрузкой AngularJS. Если AngularJS не 
+увидит JQuery ко времени своей загрузки, то вместо неё будет использовать свою собственную библиотеку jqlite.
 
 ## $attributes.$observe()
 
-If you have a _sibling_ attribute that will contain `{{}}` then the attribute will need to be evaluated and could even change multiple times. **Don't do this manually!**
+Если имеется _соседский_ атрибут, который будет содержать `{{}}` то этот атрибут будет вычислен и даже может 
+измениться несколько раз. **Не делайте это вручную!**
 
-Instead use `$attributes.$observe('myOtherAttribute', function(newValue))` exactly as you would have used `$scope.$watch()`. The only difference is the first argument is the attribute name (not an expression) and the callback function only has `newValue` (already evaluated for you). It will re-fire the callback every single time the evaluation changes too.
+Вместо этого используйте `$attributes.$observe('myOtherAttribute', function(newValue))` так, как если бы вы
+использовали `$scope.$watch()`. Единственным отличием является первый аргумент, в котором содержится имя атрибута
+(не выражения) и колбэк, принимающий только новое значение `newValue` (уже вычисленное). Так же колбэк будет 
+запускаться повторно всякий раз при изменении вычисленного выражения.
 
-**NOTE:** This means that you can only access this attribute _asynchronously_
+**Примечание:** Это означает, что к этому атрибуту можно получить доступ только _асинхронно_
 
-**NOTE:** If you want to _reliably_ access the attribute pre-evaluation then you should do it in the CompileFunction
+**Примечание:** Если необходимо получить доступ к _достоверному_ предварительно вычисленному значению атрибута, 
+то нужно сделать это в КомпилирующейФункции
 
-## Extending Directives
+## Расширение директив
 
 Lets say you want to use a 3rd-party directive, but you want to extend it without modifying it. There are several ways you can go about doing this.
 
