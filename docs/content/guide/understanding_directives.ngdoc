@@ -9,55 +9,54 @@
 
 ## Внедряющая, компилирующая и связующая функции
 
-When you create a directive, there are essentially up to 3 function layers for you to define[1](#footnotes):
+Когда создается директива, по сути, определяется три функциональных слоя (на самом деле 
+[включающая функция](http://docs.angularjs.org/guide/directive) является четвертым слоем, но она не используется uiJq).
 
-```js
+<pre>
 myApp.directive('uiJq', function InjectingFunction(){
 
-  // === InjectingFunction === //
-  // Logic is executed 0 or 1 times per app (depending on if directive is used).
-  // Useful for bootstrap and global configuration
+  // === ВнедряющаяФункция === //
+  // Выполняется только один раз в приложении или не выполняется (в зависимости от того, используется ли директива).
+  // Полезна для инициализации и глобальной настройки
 
   return {
     compile: function CompilingFunction($templateElement, $templateAttributes) {
 
-      // === CompilingFunction === //
-      // Logic is executed once (1) for every instance of ui-jq in your original UNRENDERED template.
-      // Scope is UNAVAILABLE as the templates are only being cached.
-      // You CAN examine the DOM and cache information about what variables
-      //   or expressions will be used, but you cannot yet figure out their values.
-      // Angular is caching the templates, now is a good time to inject new angular templates 
-      //   as children or future siblings to automatically run..
+      // === ФункцияКомпиляции === //
+      // Выполняется один раз для каждого экземпляра ui-jq в исходном НЕОТРЕНДЕРЕНОМ шаблоне. 
+      // Область видимости НЕДОСТУПНА, т. к. шаблоны только в кэше. МОЖНО исследовать DOM и информацию из кэша
+      //   о том, какие переменные и выражения будут использоваться, но пока нельзя определить их значения.
+      // Angular закэшировал шаблоны и сейчас самое подходящее время, чтобы внедрить новые шаблоны в качестве потомков
+      //   или будущих соседей для автоматического запуска.
 
       return function LinkingFunction($scope, $linkElement, $linkAttributes) {
 
-        // === LinkingFunction === //
-        // Logic is executed once (1) for every RENDERED instance.
-        // Once for each row in an ng-repeat when the row is created.
-        // If ui-if or ng-switch may also affect if this is executed.
-        // Scope IS available because controller logic has finished executing.
-        // All variables and expression values can finally be determined.
-        // Angular is rendering cached templates. It's too late to add templates for angular
-        //  to automatically run. If you MUST inject new templates, you must $compile them manually.
-
+        // === СвязующаяФункция === //
+        // Выполняется один раз для каждого ОТРЕНДЕРЕНОГО экземпляра.
+        // Один раз для каждой строки ng-repeat при её создании.
+        // ng-if или ng-switch при выполнении также могут влиять.
+        // Область вилдимости ДОСТУПНА, потому что логическа контроллера уже отработала.
+        // Все переменные и значения выражений могут быть окончательно определены.
+        // Angular отрендерил кэш шаблонов. Уже поздно добавлять шаблоны для автоматического запуска.
+        //  Если НЕОБХОДИМО внедрить новые шаблоны, нужно использовать $compile вручную
       };
     }
   };
 })
-```
+</pre>
 
 You can _only_ access data in `$scope` inside the **LinkingFunction**. Since the template logic may remove or duplicate elements, you can _only_ rely on the final DOM configuration in the **LinkingFunction**. You still _cannot_ rely upon **children** or **following-siblings** since they have not been linked yet.
 
 ## Pre vs Post Linking Functions
 Anywhere you can use a `LinkingFunction()`, you can alternatively use an object with a pre and post linking function. [Oddly enough](https://github.com/angular/angular.js/issues/2592), a `LinkingFunction()` is a `PostLinkingFunction()` by default:
-```js
+<pre>
 link: function LinkingFunction($scope, $element, $attributes) { ... }
 ...
 link: {
   pre: function PreLinkingFunction($scope, $element, $attributes) { ... },
   post: function PostLinkingFunction($scope, $element, $attributes) { ... },
 }
-```
+</pre>
 
 The difference is that `PreLinkingFunction()` will fire on the parent first, then child, and so on. A `PostLinkingFunction()` goes in reverse, firing on the child first, then parent, and so on. Here's a demo: http://plnkr.co/edit/qrDMJBlnwdNlfBqEEXL2?p=preview
 
@@ -97,7 +96,7 @@ Lets say you want to use a 3rd-party directive, but you want to extend it withou
 Some well-designed directives (such as those found in AngularUI) can be configured globally so that you do not have to pass in your options into every instance.
 ### Require Directives
 Create a new directive that assumes the first directive has already been applied. You can require it on a parent DOM element, OR on the same DOM element. If you need to access functionality found in the primary directive, make it exposed via the directive controller (this may require submitting a Pull Request or feature request to the plugin developer).  
-```js
+<pre>
 // <div a b></div>
 ui.directive('a', function(){
   return {
@@ -119,17 +118,17 @@ myApp.directive('b', function(){
     }
   }
 })
-```
+</pre>
 ### Stacking Directives
 You can create a new directive with the exact same name as the original directive. Both directives will be executed. However, you can use the priority to control which directive fires first (again, may require a Pull Request or feature request)
-```js
+<pre>
 // <div a></div>
 ui.directive('a', ... )
 myApp.directive('a', ... )
-```
+</pre>
 ### Templating
 You can leverage `<ng-include>` or simply create a directive that generates the HTML with the primary directive attached.
-```js
+<pre>
 // <div b></div>
 ui.directive('a', ... )
 myApp.directive('b', function(){
@@ -137,7 +136,4 @@ myApp.directive('b', function(){
     template: '<div a="someOptions"></div>'
   }
 })
-```
-## Footnotes
-
-1. A [transcluding function](http://docs.angularjs.org/guide/directive) is actually a 4th layer, but this is not used by uiJq
+</pre>
