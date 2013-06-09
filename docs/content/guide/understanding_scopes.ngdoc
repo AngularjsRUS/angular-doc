@@ -1,27 +1,40 @@
 @ngdoc overview
-@name Developer Guide: Понимание областей видимости
+@name Developer Guide: Понимание областей
 @description
 
-**Executive Summary:**
+**Резюме:**
 
-In AngularJS, a child scope normally prototypically inherits from its parent scope. One exception to this rule is a directive that uses `scope: { ... }` -- this creates an "isolate" scope that does not prototypically inherit. This construct is often used when creating a "reusable component" directive.
+В AngularJS, дочерняя область видимости обычно прототипически наследуется от родительской. Единственным исключением 
+является директива, в которой используется `scope: { ... }`, что создает «изолированную» область видимости,
+которая не наследуется прототипически. Такая конструкция часто используется при создании директивы для компонента
+«многоразового использования»
 
-Scope inheritance is normally straightforward, and you often don't even need to know it is happening... until you try **2-way data binding** (i.e., form elements, ng-model) **to a primitive** (e.g., number, string, boolean) defined on the parent scope from inside the child scope.  It doesn't work the way most people expect it should work.  What happens is that the child scope gets its own property that hides/shadows the parent property of the same name.  This is not something AngularJS is doing &ndash; this is how JavaScript prototypal inheritance works.  New AngularJS developers often do not realize that ng-repeat, ng-switch, ng-view and ng-include all create new child scopes, so the problem often shows up when these directives are involved.
+Наследование областей, как правило, прямое, и часто даже не нужно знать, как оно делается... пока не столкнешься
+с **двухсторонней привязкой данных** (т. е. элементами формы, ng-model) **к примитивам** (напр., числу, строке, 
+логическому типу), определенными в родительской области видимости из дочерней. Она работает не так, как этого
+ожидают большинство людей. Происходит так, что потомок создает собственную область видимости, которая перекрывает
+родительское свойство с одноименным названием. Это не особенность AngularJS, так работает прототипное наследование в 
+JavaScript. Новые разработчики AngularJS часто не понимают, что ng-repeat, ng-switch, ng-view и ng-include 
+создают новые дочерние области, так что проблема появляется при использовании этих директив.
 
-This issue with primitives can be easily avoided by following the "best practice" of [always have a '.' in your ng-models](http://www.youtube.com/watch?v=ZhfUv0spHCY&feature=youtu.be&t=30m) &ndash;  watch 3 minutes worth.  Misko demonstrates the primitive binding issue with ng-switch.  
+Этой проблемы легко избежать, следуя «[лучшим практикам](http://habrahabr.ru/post/181882/)», где
+говорится, что выражение в ng-model должно всегда содержать точку.
 
-Having a '.' in your models will ensure that prototypal inheritance is in play.  So, use <br>
-`<input type="text" ng-model="someObj.prop1">` rather than <br>
+Точка «.» в модели гарантирует, что прототипное наследование работает как надо. Поэтому
+`<input type="text" ng-model="someObj.prop1">` лучше чем <br>
 `<input type="text" ng-model="prop1">`.
 
 If you really want/need to use a primitive, there are two workarounds:
- 1. Use `$parent.parentScopeProperty` in the child scope.  This will prevent the child scope from creating its own property.
- 2. Define a function on the parent scope, and call it from the child, passing the primitive value up to the parent (not always possible)
+Если действительно хотите/нужно использовать примитивы, есть два пути решения проблемы:
+  1. Используйте `$parent.parentScopeProperty` в дочерней области видимости. Это запретит дочерней области создавать
+     собственное свойство.
+  2. Определите функцию в родительской области видимости, и обратитесь к ней из потомка, передавая элементарное 
+     значение в родителя (не всегда возможно)
 
-**The Details:**
+**Детали:**
 
-* [JavaScript Prototypal Inheritance](#JSproto)
-* [Angular Scope Inheritance](#Angular)
+* [Прототипное наследование в JavaScript](#JSproto)
+* [Наследование областей видимости в Angular](#Angular)
   * [ng-include](#ngInclude)
   * [ng-switch](#ngSwitch)
   * [ng-repeat](#ngRepeat)
@@ -29,80 +42,94 @@ If you really want/need to use a primitive, there are two workarounds:
   * [ng-controller](#ngController)
   * [directives](#directives)
 
-## <a id="JSproto"></a>JavaScript Prototypal Inheritance
+## <a id="JSproto"></a>Прототипное наследование в JavaScript
 
-It is important to first have a solid understanding of JavaScript prototypal inheritance, especially if you are coming from a server-side background and you are more familiar with classical inheritance. So let's review that first.
+В первую очередь, важно иметь четкое представление о прототипном наследовании в JavaScript, особенно если 
+пришли из серверного программирования и больше знакомы с классическим наследованием.
 
-Suppose parentScope has properties aString, aNumber, anArray, anObject, and aFunction. If childScope prototypically inherits from parentScope, we have:
+Предположим parentScope имеет свойства aString, aNumber, anArray, anObject, и aFunction. Если childScope
+прототипически наследуется от parentScope, имеем:
 
-![normal prototypal inheritance](http://i.stack.imgur.com/aTAGg.png)
+![нормальное прототипное наследование](http://i.stack.imgur.com/aTAGg.png)
 
-(Note that to save space, I show the `anArray` object as a single blue object with its three values, rather than an single blue object with three separate gray literals.)
+(Обратите внимание, что для экономии места, показываю объект `anArray` как одиночный голубой объект с тремя значениями,
+а не одиночный голубой объект с тремя отдельными серыми литералами.)
 
-If we try to access a property defined on the parentScope from the child scope, JavaScript will first look in the child scope, not find the property, then look in the inherited scope, and find the property. (If it didn't find the property in the parentScope, it would continue up the prototype chain... all the way up to the root scope). So, these are all true:
+Если попытаться получить доступ к свойствам по умолчанию, определенным в parentScope, из дочерней области видимости,
+JavaScript сначала ищет в дочерней области и, не найдя там, затем смотрит в родительской область и находит свойство. 
+(Если не нашел бы в parentScope, то продолжил поиск по цепочке прототипов... всех, вплоть до корневой области
+видимости). Итак, это все правда:
 
     childScope.aString === 'parent string'
     childScope.anArray[1] === 20
     childScope.anObject.property1 === 'parent prop1'
     childScope.aFunction() === 'parent output'
 
-Suppose we then do this:
+Предположим, что после этого сделали так:
 
     childScope.aString = 'child string'
 
-The prototype chain is not consulted, and a new aString property is added to the childScope. **This new property hides/shadows the parentScope property with the same name**. This will become very important when we discuss ng-repeat and ng-include below.
+Цепочка прототипов не принята во внимание, а новое свойство aString добавляется в childScope. **Это новое свойство 
+перекрывает свойство из parentScope с таким же названием.** Это будет очень важным, при обсуждении ng-repeat и
+ng-include ниже.
 
-![shadowing](http://i.stack.imgur.com/OyVPW.png)
+![перекрытие](http://i.stack.imgur.com/OyVPW.png)
 
-Suppose we then do this:
+Предположим, что после этого сделали так:
 
     childScope.anArray[1] = '22'
     childScope.anObject.property1 = 'child prop1'
 
-The prototype chain is consulted because the objects (anArray and anObject) are not found in the childScope. The objects are found in the parentScope, and the property values are updated on the original objects. No new properties are added to the childScope; no new objects are created. (Note that in JavaScript arrays and functions are also objects.)
+Цепочка прототипов взята во внимание, так как объекты (anArray и anObject) не найдены в childScope. Объекты
+находятся в parentScope, а значения свойства обновляются в исходных объектах. Новые свойства не добавляются в
+childScope; новые объекты не создаются. (Отметим, что в JavaScript массивы и функции также являются объектами.)
 
-![follow the chain](http://i.stack.imgur.com/2QceU.png)
+![следование по цепочке](http://i.stack.imgur.com/2QceU.png)
 
-Suppose we then do this:
+Предположим, что после этого сделали так:
 
     childScope.anArray = [100, 555]
     childScope.anObject = { name: 'Mark', country: 'USA' }
 
-The prototype chain is not consulted, and child scope gets two new object properties that hide/shadow the parentScope object properties with the same names.
+Цепочка прототипов не принята во внимание, и дочерняя область видимости получает два новых свойства объекта, которые
+перекрывают свойства  объекта из parentScope с теми же именами.
 
-![not following the chain](http://i.stack.imgur.com/hKetH.png)
+![не следование по цепочке](http://i.stack.imgur.com/hKetH.png)
 
-Takeaways:
+Готовое решение:
 
-* If we read childScope.propertyX, and childScope has propertyX, then the prototype chain is not consulted.
-* If we set childScope.propertyX, the prototype chain is not consulted.
+* Если читаем childScope.propertyX и childScope имеет propertyX, то цепочка прототипа не принимается во внимание.
+* Если устанавливаем childScope.propertyX, цепочка прототипов принимается во внимание.
 
-One last scenario:
+И последний сценарий:
 
     delete childScope.anArray
     childScope.anArray[1] === 22  // true
 
-We deleted the childScope property first, then when we try to access the property again, the prototype chain is consulted.
+Сперва удалим свойство из childScope, а затем, когда попытаемся получить доступ к свойству снова, состоится переход
+по цепочке прототипов.
 
-![after deleting a property](http://i.stack.imgur.com/56uoe.png)
+![после удаления свойства](http://i.stack.imgur.com/56uoe.png)
 
-## <a id="Angular"></a>Angular Scope Inheritance
+## <a id="Angular"></a>Наследование областей видимости в Angular
 
-The contenders:
+Кандидаты:
 
- * The following create new scopes, and inherit prototypically: ng-repeat, ng-include, ng-switch, ng-view, ng-controller, directive with `scope: true`, directive with `transclude: true`.
- * The following creates a new scope which does not inherit prototypically: directive with `scope: { ... }`. This creates an "isolate" scope instead.
+  * Создают новые области видимости, которые прототипически наследуются: ng-repeat, ng-include, ng-switch,
+    ng-view, ng-controller, директивы с `scope: true`, директивы с `transclude: true`.
+  * Создает новую область, которая не наследуется прототипически: директивы с `scope: { ... }`. Вместо этого они
+    создают «изолированную» область видимости.
 
-Note, by default, directives do not create new scope -- i.e., the default is `scope: false`.
+Обратите внимание, что по умолчанию, директивы не создают новые области, т.е. по умолчанию `scope: false`.
 
 ### <a id="ngInclude"></a>ng-include
 
-Suppose we have in our controller:
+Предположим, что имеем в контроллере:
 
     $scope.myPrimitive = 50;
     $scope.myObject    = {aNumber: 11};
 
-And in our HTML:
+И в HTML:
 
     <script type="text/ng-template" id="/tpl1.html">
         <input ng-model="myPrimitive">
@@ -114,13 +141,16 @@ And in our HTML:
     </script>
     <div ng-include src="'/tpl2.html'"></div>
 
-Each ng-include generates a new child scope, which prototypically inherits from the parent scope.
+Каждая ng-include создает новую дочернюю область видимости, прототипически унаследованную от родительской области.
 
 ![ng-include](http://i.stack.imgur.com/ziDfx.png)
 
-Typing (say, "77") into the first input textbox causes the child scope to get a new myPrimitive scope property that hides/shadows the parent scope property of the same name. This is probably not what you want/expect.
+Набор (скажем, «77») в первом текстовом поле приведет к тому, что дочерняя область видимости получит новое свойство 
+myPrimitive из области видимости, которое перекроет свойство родительской области с одноименным названием.
 
-![ng-include primitive](http://i.stack.imgur.com/7l8dg.png)
+Вероятно, это не то, чего вы хотите или ожидаете.
+
+![примитив в ng-include](http://i.stack.imgur.com/7l8dg.png)
 
 Typing (say, "99") into the second input textbox does not result in a new child property. Because tpl2.html binds the model to an object property, prototypal inheritance kicks in when the ngModel looks for object myObject -- it finds it in the parent scope.
 
