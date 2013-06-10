@@ -1,29 +1,27 @@
 @ngdoc overview
-@name Tutorial: 6 - Templating Links & Images
+@name Tutorial: 6 - Ссылки и картинки
 @description
 
 <ul doc-tutorial-nav="6"></ul>
 
-
-In this step, you will add thumbnail images for the phones in the phone list, and links that, for
-now, will go nowhere. In subsequent steps you will use the links to display additional information
-about the phones in the catalog.
+В этом шаге мы добавим миниатюры изображений (thumbnail images) для телефонов в список телефонов, а также ссылки, 
+который на данный момент никуда не будут вести. В последующих шагах, мы будем использовать эти ссылки 
+для отображения дополнительной информации о телефонах в каталоге.
 
 
 <div doc-tutorial-reset="6"></div>
 
 
-You should now see links and images of the phones in the list.
+Теперь вы должны увидеть ссылки и изображения телефонов в списке.
 
-The most important changes are listed below. You can see the full diff on {@link
-https://github.com/angular/angular-phonecat/compare/step-5...step-6
-GitHub}:
+Наиболее важные изменения приведены ниже. Вы можете увидеть полный список изменений перейдя по ссылке {@link
+https://github.com/angular/angular-phonecat/compare/step-5...step-6 GitHub}:
 
 
-## Data
+## Данные
 
-Note that the `phones.json` file contains unique ids and image urls for each of the phones. The
-urls point to the `app/img/phones/` directory.
+Обратите внимание, что файл `phones.json` содержит уникальные идентификаторы и url-адреса изображений 
+для каждого телефона. URL-адреса указывают на директорию `app/img/phones/`.
 
 __`app/phones/phones.json`__ (sample snippet):
 <pre>
@@ -40,7 +38,7 @@ __`app/phones/phones.json`__ (sample snippet):
 </pre>
 
 
-## Template
+## Шаблон
 
 __`app/index.html`:__
 <pre>
@@ -55,20 +53,19 @@ __`app/index.html`:__
 ...
 </pre>
 
-To dynamically generate links that will in the future lead to phone detail pages, we used the
-now-familiar double-curly brace binding in the `href` attribute values. In step 2, we added the
-`{{phone.name}}` binding as the element content. In this step the `{{phone.id}}` binding is used in
-the element attribute.
+Для динамической генерации ссылок, которые будут в будущем вести на страницы детального описания телефона, 
+мы использовали уже знакомые двойные фигурные скобки (для связывания) в значении атрибута `href`. В шаге 2 
+мы добавили связывание `{{phone.name}}` как значение для содержания. На этом этапе связывание `{{phone.id}}`
+используется в атрибуте элемента.
 
-We also added phone images next to each record using an image tag with the {@link
-api/ng.directive:ngSrc ngSrc} directive. That directive prevents the
-browser from treating the angular `{{ expression }}` markup literally, and initiating a request to
-invalid url `http://localhost:8000/app/{{phone.imageUrl}}`, which it would have done if we had only
-specified an attribute binding in a regular `src` attribute (`<img  class="diagram" src="{{phone.imageUrl}}">`).
-Using the `ngSrc` directive prevents the browser from making an http request to an invalid location.
+Мы также добавили изображение телефона рядом с каждой записью, используя тег `image` с директивой {@link
+api/ng.directive:ngSrc ngSrc}. Эта директива предотвращает браузер от обработки `{{ expression }}` разметки буквально, 
+и инициации запроса на неправильный URL `http://localhost:8000/app/{{phone.imageUrl}}`, который он сделал бы, если бы
+у нас было только буквальное связывание в атрибуте `src` (`<img  class="diagram" src="{{phone.imageUrl}}">`).
+Использование директивы `ngSrc` предотвращает браузер от HTTP-запросов на недопустимые ресурсы.
 
 
-## Test
+## Тестирование
 
 __`test/e2e/scenarios.js`__:
 <pre>
@@ -81,31 +78,30 @@ __`test/e2e/scenarios.js`__:
 ...
 </pre>
 
-We added a new end-to-end test to verify that the app is generating correct links to the phone
-views that we will implement in the upcoming steps.
+Мы добавили новый системный тест, чтобы убедиться, что приложение генерирует правильные ссылки на страницы телефонов,
+которые мы будем реализовывать в последующих шагах.
 
-You can now rerun `./scripts/e2e-test.sh` or refresh the browser tab with the end-to-end test
-runner to see the tests run, or you can see them running on {@link
-http://angular.github.com/angular-phonecat/step-6/test/e2e/runner.html
-Angular's server}.
-
-
-# Experiments
-
-* Replace the `ng-src` directive with a plain old `src` attribute. Using tools such as Firebug,
-or Chrome's Web Inspector, or inspecting the webserver access logs, confirm that the app is indeed
-making an extraneous request to `/app/%7B%7Bphone.imageUrl%7D%7D` (or
-`/app/{{phone.imageUrl}}`).
-
-  The issue here is that the browser will fire a request for that invalid image address as soon as
-it hits the `img` tag, which is before Angular has a chance to evaluate the expression and inject
-the valid address.
+Теперь вы можете перезапустить скрипт `./scripts/e2e-test.sh` или обновить вкладку браузера с системным тестом и
+убедиться, что тесты пройдены, или вы можете увидеть их на {@link
+http://angular.github.com/angular-phonecat/step-6/test/e2e/runner.html нашем сервере Angular}.
 
 
-# Summary
+# Давайте поэкспериментируем
 
-Now that you have added phone images and links, go to {@link step_07 step 7} to learn about Angular
-layout templates and how Angular makes it easy to create applications that have multiple views.
+* Попробуйте заменить директиву `ng-src` старым атрибутом `src`. Используя такие инструменты, как Firebug,
+  или в Chrome's Web Inspector, или посмотрите журналы доступа веб-сервера, убедитесь, что приложение действительно
+  делает запрос на `/app/%7B%7Bphone.imageUrl%7D%7D` (или `/app/{{phone.imageUrl}}`).
+
+Проблема здесь в том, что браузер будет совершать (fire) запрос на неверный адрес изображения, как только
+он попадает на тега `img`, который еще находится в обработке Angular-ом. Таким образом, запрос может быть раньше, чем
+Angular вычислит выражение и подставит правильный адрес.
+
+
+# Идем дальше
+
+Теперь, когда вы добавили изображения телефонов и ссылки, вы можете идти дальше на {@link step_07 Шаг 7}, 
+чтобы узнать об Angular-их макетах шаблонов и как Angular позволяет легко создавать приложения, 
+которые имеют несколько представлений (multiple views).
 
 
 <ul doc-tutorial-nav="6"></ul>
