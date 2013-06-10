@@ -1,26 +1,23 @@
 @ngdoc overview
-@name Tutorial: 10 - Event Handlers
+@name Tutorial: 10 - Обработчики событий
 @description
 
 <ul doc-tutorial-nav="10"></ul>
 
-
-In this step, you will add a clickable phone image swapper to the phone details page.
+В этом уроке, вы добавите переключатель картинок на страницу деталей телефона.
 
 
 <div doc-tutorial-reset="10"></div>
 
+Страница с описанием телефона отображает одну большую фотографию выбранного телефона и несколько миниатюр.
+Было бы здорово, если бы мы могли отображать на месте большого изображения увеличенную копию любой из миниатюр с
+помощью щелчка по миниатюре. Давайте-ка посмотрим, как это можно сделать с помощью Angular.
 
-The phone details view displays one large image of the current phone and several smaller thumbnail
-images. It would be great if we could replace the large image with any of the thumbnails just by
-clicking on the desired thumbnail image. Let's have a look at how we can do this with Angular.
-
-The most important changes are listed below. You can see the full diff on {@link
-https://github.com/angular/angular-phonecat/compare/step-9...step-10
-GitHub}:
+Ключевые изменения приведены ниже, полный дифф вы можете просмотреть на {@link
+https://github.com/angular/angular-phonecat/compare/step-9...step-10 GitHub}:
 
 
-## Controller
+## Контроллер
 
 __`app/js/controllers.js`:__
 <pre>
@@ -39,13 +36,13 @@ function PhoneDetailCtrl($scope, $routeParams, $http) {
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', '$http'];
 </pre>
 
-In the `PhoneDetailCtrl` controller, we created the `mainImageUrl` model property and set its
-default value to the first phone image URL.
+В контроллере `PhoneDetailCtrl` мы создали свойство `mainImageUrl` и установили его по умолчанию в URL первого
+изображения телефона.
 
-We also created a `setImage` event handler function that will change the value of `mainImageUrl`.
+Ещё, мы добавили обработчки события с именем `setImage`, который будет изменять значение `mainImageUrl`.
 
 
-## Template
+## Шаблон
 
 __`app/partials/phone-detail.html`:__
 <pre>
@@ -61,37 +58,36 @@ __`app/partials/phone-detail.html`:__
 ...
 </pre>
 
-We bound the `ngSrc` directive of the large image to the `mainImageUrl` property.
+Привязали директиву-аттрибут `ngSrc` большой картинки к свойству `mainImageUrl`.
 
-We also registered an {@link api/ng.directive:ngClick `ngClick`}
-handler with thumbnail images. When a user clicks on one of the thumbnail images, the handler will
-use the `setImage` event handler function to change the value of the `mainImageUrl` property to the
-URL of the thumbnail image.
+Также, мы зарегистрировали обработчик {@link api/ng.directive:ngClick `ngClick`}для каждой миниатюры.
+Когда пользователь кликает по миниатюре, будет вызван именно этот обработчик, который вызовет `setImage`
+для подмены свойства `mainImageUrl` на URL изображения с миниатюры.
 
 <div style="display: none">
 TODO!
 <img  class="diagram" src="img/tutorial/tutorial_10-11_final.png">
 </div>
 
-## Test
+## Тестирование
 
-To verify this new feature, we added two end-to-end tests. One verifies that the main image is set
-to the first phone image by default. The second test clicks on several thumbnail images and
-verifies that the main image changed appropriately.
+Чтобы протестировать эту фичу, мы завели два системных теста. Первый проверяет что по умолчанию отображается
+первая картинка телефона. Второй - совершает несколько кликов по миниатюрам и проверяет, что большое изображение
+изменяется в ответ.
 
 __`test/e2e/scenarios.js`:__
 <pre>
 ...
-  describe('Phone detail view', function() {
+  describe('Страница описания телефона', function() {
 
 ...
 
-    it('should display the first phone image as the main phone image', function() {
+    it('по умолчанию должна быть выбрана первая картинка', function() {
       expect(element('img.phone').attr('src')).toBe('img/phones/nexus-s.0.jpg');
     });
 
 
-    it('should swap main image if a thumbnail image is clicked on', function() {
+    it('картинка должна меняться в ответ на клик', function() {
       element('.phone-thumbs li:nth-child(3) img').click();
       expect(element('img.phone').attr('src')).toBe('img/phones/nexus-s.2.jpg');
 
@@ -102,24 +98,23 @@ __`test/e2e/scenarios.js`:__
 });
 </pre>
 
-You can now rerun `./scripts/e2e-test.sh` or refresh the browser tab with the end-to-end test
-runner to see the tests run, or you can see them running on {@link
-http://angular.github.com/angular-phonecat/step-8/test/e2e/runner.html
-Angular's server}.
+Теперь вы можете запустить `./scripts/e2e-test.sh` или обновить страничку браузера с системными тестами чтобы
+проверить ход выполнения тестов. Или же вы можете наблюдать за ними в
+{@link http://angular.github.com/angular-phonecat/step-8/test/e2e/runner.html сервере Angular}.
 
-# Experiments
+# Давайте поэкспериментируем
 
-* Let's add a new controller method to `PhoneDetailCtrl`:
+* Добавьте новый метод в контроллер `PhoneDetailCtrl`:
 
           $scope.hello = function(name) {
-              alert('Hello ' + (name || 'world') + '!');
+              alert('Привет, ' + (name || 'мир') + '!');
           }
 
-  and add:
+  и элемент:
 
-          <button ng-click="hello('Elmo')">Hello</button>
+          <button ng-click="hello('Elmo')">Привет</button>
 
-  to the `phone-details.html` template.
+  в шаблон `phone-details.html`.
 
 <div style="display: none">
 TODO!
@@ -132,10 +127,10 @@ template remains operational.
 </div>
 
 
-# Summary
+# Идём дальше
 
-With the phone image swapper in place, we're ready for {@link step_11 step 11} (the last step!) to
-learn an even better way to fetch data.
+Итак, с переключателем картинок мы готовы для {@link step_11 11 урока} (последнего!). Из него мы узнаем, как
+лучше запрашивать данные из бэкэнда.
 
 
 <ul doc-tutorial-nav="10"></ul>
