@@ -1,36 +1,33 @@
 @ngdoc overview
-@name Tutorial: 8 - More Templating
+@name Tutorial: 8 - Больше шаблонов!
 @description
 
 <ul doc-tutorial-nav="8"></ul>
 
 
-In this step, you will implement the phone details view, which is displayed when a user clicks on a
-phone in the phone list.
+В этом уроке, вы напишете страничку с подробным описанием телефона, которая будет появляться когда
+пользователь кликает по телефону из списка.
 
 
 <div doc-tutorial-reset="8"></div>
 
+Теперь, когда вы выбираете телефон из списка, появляется страничка с подробной информацией о нём.
 
-Now when you click on a phone on the list, the phone details page with phone-specific information
-is displayed.
+Для получения данных, мы используем сервис {@link api/ng.$http $http}, а отображать их
+будем через шаблон `phone-detail.html`.
 
-To implement the phone details view we will use {@link api/ng.$http $http} to fetch
-our data, and we'll flesh out the `phone-detail.html` view template.
-
-The most important changes are listed below. You can see the full diff on {@link
-https://github.com/angular/angular-phonecat/compare/step-7...step-8
-GitHub}:
+Ключевые изменения приведены ниже, полный дифф вы можете просмотреть на {@link
+https://github.com/angular/angular-phonecat/compare/step-7...step-8 GitHub}:
 
 ## Data
 
-In addition to `phones.json`, the `app/phones/` directory also contains one json file for each
-phone:
+В дополнение к `phones.json`, директория `app/phones/` также содержит по одному JSON-файлу для каждого
+телефона:
 
-__`app/phones/nexus-s.json`:__ (sample snippet)
+__`app/phones/nexus-s.json`:__ (пример)
 <pre>
 {
-  "additionalFeatures": "Contour Display, Near Field Communications (NFC),...",
+  "additionalFeatures": "Цветной дисплей, NFC, ...",
   "android": {
       "os": "Android 2.3",
       "ui": "Android"
@@ -50,14 +47,14 @@ __`app/phones/nexus-s.json`:__ (sample snippet)
 </pre>
 
 
-Each of these files describes various properties of the phone using the same data structure. We'll
-show this data in the phone detail view.
+Каждый из этих файлов описывает характеристики телефона в однотипной структуре данных. Мы будем
+отображать эти данные на странице описания телефона.
 
 
-## Controller
+## Контроллер
 
-We'll expand the `PhoneDetailCtrl` by using the `$http` service to fetch the json files. This works
-the same way as the phone list controller.
+Данные в контроллер `PhoneDetailCtrl` будут поступать из сервиса `$http`, который будет загружать JSON-файлы, как 
+это делается в контроллере списка телефонов.
 
 __`app/js/controllers.js`:__
 <pre>
@@ -70,15 +67,15 @@ function PhoneDetailCtrl($scope, $routeParams, $http) {
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', '$http'];
 </pre>
 
-To construct the URL for the HTTP request, we use `$routeParams.phoneId` extracted from the current
-route by the `$route` service.
+URL для HTTP-запроса формируется на основе параметра `$routeParams.phoneId`, который извлекается из
+текущего пути сервисом `$route`.
 
 
-## Template
+## Шаблон
 
-The TBD placeholder line has been replaced with lists and bindings that comprise the phone details.
-Note where we use the angular `{{expression}}` markup and `ngRepeat` to project phone data from
-our model into the view.
+Мы заменили заглушку в предыдущем шаблоне на следующий код, который выводит данные о телефоне.
+Обратите внимание на использование синтаксиса `{{выражение}}` и директиву `ngRepeat`, которые используются
+для построения UI.
 
 
 __`app/partials/phone-detail.html`:__
@@ -116,10 +113,9 @@ TODO!
 <img  class="diagram" src="img/tutorial/tutorial_08-09_final.png">
 </div>
 
-## Test
+## Тестирование
 
-We wrote a new unit test that is similar to the one we wrote for the `PhoneListCtrl` controller in
-step 5.
+Мы написали новый юнит-тест, очень похожий на тот, что мы написали для контроллера `PhoneListCtrl` в пятом уроке.
 
 __`test/unit/controllersSpec.js`:__
 <pre>
@@ -147,13 +143,13 @@ __`test/unit/controllersSpec.js`:__
 ...
 </pre>
 
-You should now see the following output in the Karma tab:
+Теперь, вы можете видеть следующий вывод в закладке Karma:
 
     Chrome 22.0: Executed 3 of 3 SUCCESS (0.039 secs / 0.012 secs)
 
 
-We also added a new end-to-end test that navigates to the Nexus S detail page and verifies that the
-heading on the page is "Nexus S".
+Ещё мы добавили новый системный тест, который переходит на страничку информации о Nexus S и проверяет,
+что заголовок страницы равен "Nexus S".
 
 __`test/e2e/scenarios.js`:__
 <pre>
@@ -173,22 +169,21 @@ __`test/e2e/scenarios.js`:__
 </pre>
 
 
-You can now rerun `./scripts/e2e-test.sh` or refresh the browser tab with the end-to-end test
-runner to see the tests run, or you can see them running on {@link
-http://angular.github.com/angular-phonecat/step-8/test/e2e/runner.html
-Angular's server}.
+Теперь вы можете запустить `./scripts/e2e-test.sh` или обновить страничку браузера с системными тестами чтобы
+проверить ход выполнения тестов. Или же вы можете наблюдать за ними в
+{@link http://angular.github.com/angular-phonecat/step-8/test/e2e/runner.html сервере Angular}.
 
 
-# Experiments
+# Давайте поэкспериментируем
 
-* Using the {@link guide/dev_guide.e2e-testing Angular's end-to-end test runner API}, write a test
-that verifies that we display 4 thumbnail images on the Nexus S details page.
+* Используя {@link guide/dev_guide.e2e-testing API системных тестов}, напишите тест, который проверяет что на
+страничке информации о Nexus S отображается 4 миниатюры.
 
 
-# Summary
+# Идём дальше
 
-Now that the phone details view is in place, proceed to {@link step_09 step 9} to learn how to
-write your own custom display filter.
+Теперь, когда страничка с подробной информацией о телефоне готова, переходите к {@link step_09 депятому уроку}, чтобы
+узнать, как писать собственные фильтры.
 
 
 <ul doc-tutorial-nav="8"></ul>
