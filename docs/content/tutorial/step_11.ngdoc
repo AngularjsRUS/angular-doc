@@ -1,31 +1,29 @@
 @ngdoc overview
-@name Tutorial: 11 - REST and Custom Services
+@name Tutorial: 11 - REST и сервиса
 @description
 
 <ul doc-tutorial-nav="11"></ul>
 
 
-In this step, you will improve the way our app fetches data.
+В этом уроке вы узнаете о том как улучшить способы получения данных в приложении.
 
 
 <div doc-tutorial-reset="11"></div>
 
+Последним улучшением нашего приложения станет написание сервсиса, который будет выступать в роли
+{@link http://ru.wikipedia.org/wiki/REST REST-клиента}. Его использование упростит работу с
+с XHR-запросами. Больше не нужно будет использовать низкоуровневые {@link api/ng.$http $http} API, разбираться
+с HTTP-методами и URL.
 
-The last improvement we will make to our app is to define a custom service that represents a {@link
-http://en.wikipedia.org/wiki/Representational_State_Transfer RESTful} client. Using this client we
-can make XHR requests for data in an easier way, without having to deal with the lower-level {@link
-api/ng.$http $http} API, HTTP methods and URLs.
-
-The most important changes are listed below. You can see the full diff on {@link
-https://github.com/angular/angular-phonecat/compare/step-10...step-11
-GitHub}:
+Ключевые изменения приведены ниже, полный дифф вы можете просмотреть на {@link
+https://github.com/angular/angular-phonecat/compare/step-10...step-11 GitHub}:
 
 
-## Template
+## Шаблон
 
-The custom service is defined in `app/js/services.js` so we need to include this file in our layout
-template. Additionally, we also need to load the `angular-resource.js` file, which contains the
-`ngResource` module and in it the `$resource` service, that we'll soon use:
+Сервис объявлен в `app/js/services.js`, поэтому надо подключить этот скрипт к нашему шаблону.
+Также, для корректной работы сервиса нужен файл `angular-resource.js`, который содержит модуль
+`ngResource`, содержащий, в свою очередь, сервис `$resource`:
 
 __`app/index.html`.__
 <pre>
@@ -35,7 +33,7 @@ __`app/index.html`.__
 ...
 </pre>
 
-## Service
+## Сервис
 
 __`app/js/services.js`.__
 <pre>
@@ -47,15 +45,15 @@ angular.module('phonecatServices', ['ngResource']).
 });
 </pre>
 
-We used the module API to register a custom service using a factory function. We passed in the name
-of the service - 'Phone' - and the factory function. The factory function is similar to a
-controller's constructor in that both can declare dependencies via function arguments. The Phone
-service declared a dependency on the `$resource` service.
+Мы использовали API модулей Angular, чтобы зарегистрировать сервис с помощью функции-фабрики.
+Ей передаётся имя сервиса - 'Phone' и ещё одна порождающая функция. Эта функция похожа на конструктор
+контроллера - её зависимости также перечисляются в списке аргументов. В данном случае, наш сервис
+заисит от сервиса `$resource`.
 
-The {@link api/ngResource.$resource `$resource`} service makes it easy to create a
-{@link http://en.wikipedia.org/wiki/Representational_State_Transfer RESTful} client with just a few
-lines of code. This client can then be used in our application, instead of the lower-level {@link
-api/ng.$http $http} service.
+Сервис {@link api/ngResource.$resource `$resource`} упрощает создание {@link http://ru.wikipedia.org/wiki/REST
+REST-клиентов}, сводя его к написанию лишь пары строк кода. В последствии, такие клиенты могут использоваться в
+приложении вместо низкоуровневого {@link api/ng.$http сервиса $http}.
+
 
 __`app/js/app.js`.__
 <pre>
@@ -64,16 +62,14 @@ angular.module('phonecat', ['phonecatFilters', 'phonecatServices']).
 ...
 </pre>
 
-We need to add 'phonecatServices' to 'phonecat' application's requires array.
+Добавим 'phonecatServices' к списку зависимостей 'phonecat'.
 
 
-## Controller
+## Контроллер
 
-We simplified our sub-controllers (`PhoneListCtrl` and `PhoneDetailCtrl`) by factoring out the
-lower-level {@link api/ng.$http $http} service, replacing it with a new service called
-`Phone`. Angular's {@link api/ngResource.$resource `$resource`} service is easier to
-use than `$http` for interacting with data sources exposed as RESTful resources. It is also easier
-now to understand what the code in our controllers is doing.
+Мы упростили наши контроллеры `PhoneListCtrl` и `PhoneDetailCtrl`, заместив низкоуровневый сервис {@link api/ng.$http $http} на
+новый сервис `Phone`. Сервис {@link api/ngResource.$resource `$resource`} более удобен для использования с бэкэндом, написанном
+в соответствии с REST-принципами, нежели `$http`. Код в контроллерах стал прозрачнее для понимания.
 
 __`app/js/controllers.js`.__
 <pre>
@@ -101,43 +97,39 @@ function PhoneDetailCtrl($scope, $routeParams, Phone) {
 //PhoneDetailCtrl.$inject = ['$scope', '$routeParams', 'Phone'];
 </pre>
 
-Notice how in `PhoneListCtrl` we replaced:
+Обратите внимание, мы заменили
 
     $http.get('phones/phones.json').success(function(data) {
       $scope.phones = data;
     });
 
-with:
+на:
 
     $scope.phones = Phone.query();
 
-This is a simple statement that we want to query for all phones.
+Вот так, всего лишь вызовом одного метода мы указываем, что хотим получить список всех телефонов.
 
-An important thing to notice in the code above is that we don't pass any callback functions when
-invoking methods of our Phone service. Although it looks as if the result were returned
-synchronously, that is not the case at all. What is returned synchronously is a "future" — an
-object, which will be filled with data when the XHR response returns. Because of the data-binding
-in Angular, we can use this future and bind it to our template. Then, when the data arrives, the
-view will automatically update.
+Важно отметить, что мы не передаём никаких колбэков, когда используем сервис `Phone`. Всё выглядит так,
+словно результат возвращается синхронно, что на самом деле не так. На самом деле синхронно возвращается
+объект `future`, который примет данные, когда XHR-запрос завершится. Благодаря механизму привязки данных в
+Angular, мы можем просто привязать этот объект к шаблону. Затем, когда поступят реальные данные, шаблон будет
+автоматически перерисован.
 
-Sometimes, relying on the future object and data-binding alone is not sufficient to do everything
-we require, so in these cases, we can add a callback to process the server response. The
-`PhoneDetailCtrl` controller illustrates this by setting the `mainImageUrl` in a callback.
+Иногда, возможностей `future` и привязки данных не хватает для выполнения всех требуемых действий. В таком случае,
+мы можем добавить колбэк, чтобы тот обработал результат запроса. Контроллер `PhoneDetailCtrl` демонстирирует
+такую возможность, утсановив  `mainImageUrl` в колбэке.
 
 
-## Test
+## Тестирование
 
-We have modified our unit tests to verify that our new service is issuing HTTP requests and
-processing them as expected. The tests also check that our controllers are interacting with the
-service correctly.
+Мы модифицировали наши юнит-тесты, чтобы убедиться что наш сервис делает HTTP-запросы и обрабатывает их
+как следует. Также в тестах проверяется правильность работы с сервисом в контроллерах.
 
-The {@link api/ngResource.$resource $resource} service augments the response object
-with methods for updating and deleting the resource. If we were to use the standard `toEqual`
-matcher, our tests would fail because the test values would not match the responses exactly. To
-solve the problem, we use a newly-defined `toEqualData` {@link
-http://pivotal.github.com/jasmine/jsdoc/symbols/jasmine.Matchers.html Jasmine matcher}. When the
-`toEqualData` matcher compares two objects, it takes only object properties into account and
-ignores methods.
+Сервис {@link api/ngResource.$resource $resource} дополняет объект ответа методами для обновления и
+удаления ресурса. Если бы мы использовали стандартный алгоритм сравнения `toEqual`, наши тесты провалились бы,
+потому что данные не полностью совпадают. Чтобы решить эту проблемы, мы будем использовать новый `toEqualData` {@link
+http://pivotal.github.com/jasmine/jsdoc/symbols/jasmine.Matchers.html сравниватель Jasmine}. Он сравнивает данные лишь по полям,
+игнорируя методы.
 
 
 __`test/unit/controllersSpec.js`:__
@@ -214,15 +206,15 @@ describe('PhoneCat controllers', function() {
 });
 </pre>
 
-You should now see the following output in the Karma tab:
+Теперь, вы можете видеть следующий вывод в закладке Karma:
 
     Chrome 22.0: Executed 4 of 4 SUCCESS (0.038 secs / 0.01 secs)
 
 
-# Summary
+# Итоги
 
-There you have it!  We have created a web app in a relatively short amount of time. In the {@link
-the_end closing notes} we'll cover where to go from here.
+Вот и всё! Мы создали веб-приложение за относительно короткий промежуток времени. В {@link
+the_end заключении} мы расскажем вам, куда двигаться дальше.
 
 
 <ul doc-tutorial-nav="11"></ul>
