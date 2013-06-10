@@ -124,10 +124,10 @@ function PhoneListCtrl($scope) {
 в обратном направлении - от пользовательского интерфейса в модель.
 
 
-## Test
+## Тестирование
 
-The changes we made should be verified with both a unit test and an end-to-end test. Let's look at
-the unit test first.
+Изменения, которые мы сделали должны быть проверены как модульным тестом (unit test),
+так и системным тестом (end-to-end test). Давайте для начала посмотрим на модульный тест.
 
 __`test/unit/controllersSpec.js`:__
 <pre>
@@ -154,18 +154,17 @@ describe('PhoneCat controllers', function() {
 });
 </pre>
 
+Данный модульный тест проверяет, что значение свойства для сортировки установлено по умолчанию.
 
-The unit test now verifies that the default ordering property is set.
+Мы использовали API Jasmine-а, чтобы извлечь коструктор для контроллера в блоке `beforeEach`, который
+общие для всех тестов в родительском блоке `describe`.
 
-We used Jasmine's API to extract the controller construction into a `beforeEach` block, which is
-shared by all tests in the parent `describe` block.
-
-You should now see the following output in the Karma tab:
+После запуска вы должны увидеть следующий вывод в вкладке Karma:
 
         Chrome 22.0: Executed 2 of 2 SUCCESS (0.021 secs / 0.001 secs)
 
 
-Let's turn our attention to the end-to-end test.
+Давайте теперь посмотрим на системный тест.
 
 __`test/e2e/scenarios.js`:__
 <pre>
@@ -188,26 +187,28 @@ __`test/e2e/scenarios.js`:__
 ...
 </pre>
 
-The end-to-end test verifies that the ordering mechanism of the select box is working correctly.
+Системный тест проверяет, что механизм сортировки выпадающего меню элемента `<select>` работает правильно.
 
-You can now rerun `./scripts/e2e-test.sh` or refresh the browser tab with the end-to-end test
-`runner.html` to see the tests run, or you can see them running on {@link
+Теперь вы можете перезапустить скрипт `./scripts/e2e-test.sh` или обновите вкладку браузера с системным тестом
+`runner.html`, чтобы убедиться, что тесты пройдены, или вы можете увидеть их на {@link
 http://angular.github.com/angular-phonecat/step-4/test/e2e/runner.html
-Angular's server}.
+нашем сервере Angular-а}.
 
-# Experiments
 
-* In the `PhoneListCtrl` controller, remove the statement that sets the `orderProp` value and
-you'll see that Angular will temporarily add a new "unknown" option to the drop-down list and the
-ordering will default to unordered/natural order.
+# Давайте поэкспериментируем
 
-* Add an `{{orderProp}}` binding into the `index.html` template to display its current value as
-text.
+* В контроллере `PhoneListCtrl`, попробуйте удалить оператор, который устанавливает значение для `orderProp` и
+  вы увидите, что Angular будет временно добавлять новую "unknown" опцию в выпадающем меню и сортировка 
+  по умолчанию будет неупорядоченный/естественный порядок.
 
-# Summary
+* Давайте добавим связывание `{{orderProp}}` в шаблоне `index.html` для отображения текущего значения 
+  типа сортировки в виде текста.
 
-Now that you have added list sorting and tested the app, go to {@link step_05 step 5} to learn
-about Angular services and how Angular uses dependency injection.
+
+# Идем дальше
+
+Теперь, когда мы добавили список типов сортировки и протестировали приложение, мы можем идти дальше на {@link step_05 
+Шаг 5}, чтобы узнать о сервисах Angular-а и как использовать внедрение зависимости в Angular-е.
 
 
 <ul doc-tutorial-nav="4"></ul>
