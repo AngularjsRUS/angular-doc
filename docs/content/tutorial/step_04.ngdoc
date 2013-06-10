@@ -116,12 +116,6 @@ function PhoneListCtrl($scope) {
   в `age`. Если бы мы не установили бы значение по умолчанию здесь, то модель оставалась бы неинициализированной,
   пока пользователь не выбрал бы один из вариантов в выпадающем меню.
 
-  This is a good time to talk about two-way data-binding. Notice that when the app is loaded in the
-browser, "Newest" is selected in the drop down menu. This is because we set `orderProp` to `'age'`
-in the controller. So the binding works in the direction from our model to the UI. Now if you
-select "Alphabetically" in the drop down menu, the model will be updated as well and the phones
-will be reordered. That is the data-binding doing its job in the opposite direction — from the UI
-to the model.
 Настало время, чтобы поговорить о двустороннем связывание данных (two-way data-binding). Обратите внимание, что, когда 
 приложение загружается в браузер, опция "Newest" выбрана в выпадающем меню. Это происходит потому, что мы 
 устанавливаем в контроллере `orderProp` в значение `'age'`. Таким образом, связывание работает в направлении от 
