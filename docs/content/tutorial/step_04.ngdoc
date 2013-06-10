@@ -1,5 +1,5 @@
 @ngdoc overview
-@name Tutorial: 4 - Two-way Data Binding
+@name Tutorial: 4 - Двустороннее связывание данных
 @description
 
 <ul doc-tutorial-nav="4"></ul>
@@ -48,7 +48,7 @@
 перейдя по ссылке {@link https://github.com/angular/angular-phonecat/compare/step-3...step-4 GitHub}:
 
 
-## Template
+## Шаблон
 
 __`app/index.html`:__
 <pre>
@@ -68,28 +68,27 @@ __`app/index.html`:__
   </ul>
 </pre>
 
-We made the following changes to the `index.html` template:
+Мы сделали следующие изменения в шаблоне `index.html`:
 
-* First, we added a `<select>` html element named `orderProp`, so that our users can pick from the
-two provided sorting options.
+* Во-первых, мы добавили HTML элемент `<select>`, связанный с моделью `orderProp`, теперь наши пользователи могут 
+  выбрать одно из двух условий сортировки.
 
       <img  class="diagram" src="img/tutorial/tutorial_04.png">
 
-* We then chained the `filter` filter with {@link api/ng.filter:orderBy `orderBy`}
-filter to further process the input into the repeater. `orderBy` is a filter that takes an input
-array, copies it and reorders the copy which is then returned.
+* Также мы связали фильтр `filter` с фильтром {@link api/ng.filter:orderBy `orderBy`} для дальнейшей обработки 
+  входных данных для повторителя (repeater). `orderBy` это фильтр, который принимает входной массив, 
+  копирует его и сортирует элементы по условию, а потом возвращает отсортированный массив.
 
-Angular creates a two way data-binding between the select element and the `orderProp` model.
-`orderProp` is then used as the input for the `orderBy` filter.
+Angular создает двустороннее связывания данных (data-binding) между элементом `<select>` и моделью `orderProp`.
+`orderProp` затем используется в качестве условия для сортировки в фильтре `orderProp`.
 
-As we discussed in the section about data-binding and the repeater in step 3, whenever the model
-changes (for example because a user changes the order with the select drop down menu), Angular's
-data-binding will cause the view to automatically update. No bloated DOM manipulation code is
-necessary!
+Как мы уже говорили в разделе о связывании данных и повторителе в шаге 3, всякий раз, когда модель
+изменяется (например, потому что пользователь изменяет порядок сортировки с помощью выпадающее меню 
+для элемента `<select>`), Angular-овское связывание данных автоматически будет обновлять вид (view).
+Нет раздутого кода для манипуляции c DOM-моделью!
 
 
-
-## Controller
+## Контроллер
 
 __`app/js/controllers.js`:__
 <pre>
@@ -110,12 +109,12 @@ function PhoneListCtrl($scope) {
 }
 </pre>
 
-* We modified the `phones` model - the array of phones - and added an `age` property to each phone
-record. This property is used to order phones by age.
+* Мы модифицированной модель `phones` - массив телефонов - добавив свойство `age` для каждой записи телефона. 
+  Это свойство используется для сортировки телефонов по возрасту.
 
-* We added a line to the controller that sets the default value of `orderProp` to `age`. If we had
-not set the default value here, the model would stay uninitialized until our user would pick an
-option from the drop down menu.
+* Мы добавили новую строчку кода в контроллере, которая устанавливает значение по умолчанию для `orderProp` 
+  в `age`. Если бы мы не установили бы значение по умолчанию здесь, то модель оставалась бы неинициализированной,
+  пока пользователь не выбрал бы один из вариантов в выпадающем меню.
 
   This is a good time to talk about two-way data-binding. Notice that when the app is loaded in the
 browser, "Newest" is selected in the drop down menu. This is because we set `orderProp` to `'age'`
@@ -123,7 +122,12 @@ in the controller. So the binding works in the direction from our model to the U
 select "Alphabetically" in the drop down menu, the model will be updated as well and the phones
 will be reordered. That is the data-binding doing its job in the opposite direction — from the UI
 to the model.
-
+Настало время, чтобы поговорить о двустороннем связывание данных (two-way data-binding). Обратите внимание, что, когда 
+приложение загружается в браузер, опция "Newest" выбрана в выпадающем меню. Это происходит потому, что мы 
+устанавливаем в контроллере `orderProp` в значение `'age'`. Таким образом, связывание работает в направлении от 
+нашей модели в пользовательский интерфейс. Теперь, если вы выберите в выпадающем меню опцию "Alphabetically", 
+модель будет обновляться, а также список телефонов будет пересортирован. То есть связывание данных делает свою работу 
+в обратном направлении - от пользовательского интерфейса в модель.
 
 
 ## Test
