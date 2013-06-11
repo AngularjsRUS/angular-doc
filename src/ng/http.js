@@ -467,10 +467,6 @@ function $HttpProvider() {
      * - {@link http://haacked.com/archive/2008/11/20/anatomy-of-a-subtle-json-vulnerability.aspx
      *   JSON уязвимостей}
      * - {@link http://en.wikipedia.org/wiki/Cross-site_request_forgery XSRF}
-     *
-     * Both server and the client must cooperate in order to eliminate these threats. Angular comes
-     * pre-configured with strategies that address these issues, but for this to work backend server
-     * cooperation is required.
      * 
      * И сервер и клиент, должны работать совместно для ликвидации этих угроз. Angular поставляется с 
      * предварительно настроенными стратегиями, учитывающими эти вопросы, но также требуется сотрудничество сервера.
