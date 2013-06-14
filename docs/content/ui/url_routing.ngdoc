@@ -17,7 +17,7 @@ $stateProvider
 
 Теперь, когда пользователь переходит на `index.html/contacts` состояние «contacts» станет активным и главный `ui-view`
 будет заполнен частичкой «contacts.html». Так же, если бы пользователь перешел в состояние «contacts»
-через transitionTo('contacts')` тогда URL-адрес изменился бы на `index.html/contacts`.
+через `transitionTo('contacts')` тогда URL-адрес изменился бы на `index.html/contacts`.
 
 ### Параметры URL
 
