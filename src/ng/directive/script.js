@@ -11,23 +11,23 @@
  * @restrict E
  * @param {'text/ng-template'} type должен быть установлен в `'text/ng-template'`
  *
- * @example
-  <doc:example>
-    <doc:source>
+ * @example  
+  <example module="myApp">
+    <file name="index.html">
       <script type="text/ng-template" id="/tpl.html">
         Содержимое шаблона.
       </script>
 
       <a ng-click="currentTpl='/tpl.html'" id="tpl-link">Загрузить содержимое шаблона</a>
       <div id="tpl-content" ng-include src="currentTpl"></div>
-    </doc:source>
-    <doc:scenario>
+    </file>
+    <file name="scenario.js">
       it('should load template defined inside script tag', function() {
         element('#tpl-link').click();
         expect(element('#tpl-content').text()).toMatch(/Содержимое шаблона/);
       });
-    </doc:scenario>
-  </doc:example>
+    </file>
+</example>
  */
 var scriptDirective = ['$templateCache', function($templateCache) {
   return {
