@@ -544,7 +544,7 @@ docsApp.controller.DocsController = function($scope, $location, $window, $cookie
   function loadDisqus(currentPageId) {
     // http://docs.disqus.com/help/2/
     //window.disqus_shortname = 'angularjs-next';
-    window.disqus_shortname = 'angular-ru';
+    window.disqus_shortname = 'angularjs-ru';
     window.disqus_identifier = currentPageId;
     window.disqus_url = 'http://angular.ru' + currentPageId;
 
