@@ -1,71 +1,63 @@
 @ngdoc overview
-@name Tutorial: 7 - Routing & Multiple Views
+@name Tutorial: 7 - Маршрутизация и множетвенные виды
 @description
 
 <ul doc-tutorial-nav="7"></ul>
 
 
-In this step, you will learn how to create a layout template and how to build an app that has
-multiple views by adding routing.
+На этом шаге вы научитесь создвать шаблон разметки, а также узнаете как создать приложение с несколькими
+видами, переключаемыми с помощью маршрутизации.
 
 
 <div doc-tutorial-reset="7"></div>
 
 
-Note that when you now navigate to `app/index.html`, you are redirected to `app/index.html#/phones`
-and the same phone list appears in the browser. When you click on a phone link the stub of a phone
-detail page is displayed.
+Обратите внимание, что теперь при переходе на `app/index.html`, вы перенаправляетесь на `app/index.html#/phones`, где
+отображается список телефонов. При клике на ссылку с телефоном появляется заготовка странички подробного описания.
 
 
-The most important changes are listed below. You can see the full diff on {@link
-https://github.com/angular/angular-phonecat/compare/step-6...step-7
-GitHub}.
+Ключевые изменения приведены ниже, полный дифф вы можете просмотреть на {@link
+https://github.com/angular/angular-phonecat/compare/step-6...step-7 GitHub}.
 
+## Множественные виды, маршрутизация и шаблоны
 
-## Multiple Views, Routing and Layout Template
+Наше приложение потихоньку разрастается и становится более сложным. До этого момента, оно отображало
+всю информацию о телефонах на одной страничке, а весь код шаблона этой страницы содержался в  файле `index.html`.
+Следующим шагом станет написание страницы с детализированной информацией о каждом телефоне из списка.
 
-Our app is slowly growing and becoming more complex. Before step 7, the app provided our users with
-a single view (the list of all phones), and all of the template code was located in the
-`index.html` file. The next step in building the app is to add a view that will show detailed
-information about each of the devices in our list.
+Чтобы достигнуть этого мы могли бы добавить код нового шаблона в `index.html`, но, добавляя новые шаблоны в один файл,
+мы делаем его всё более и более запутанным. Вместо этого мы превратим `index.html` в своего рода каркас для других шаблонов.
+Этот каркас будет общим для всех страниц приложения, а отдельные его части будут меняться в зависимости от текушего маршрута -
+вида, который отображается пользователю.
 
-To add the detailed view, we could expand the `index.html` file to contain template code for both
-views, but that would get messy very quickly. Instead, we are going to turn the `index.html`
-template into what we call a "layout template". This is a template that is common for all views in
-our application. Other "partial templates" are then included into this layout template depending on
-the current "route" — the view that is currently displayed to the user.
+Маршруты в Angular задаются с помощью {@link api/ng.$routeProvider $routeProvider'а}, который предоставляет
+{@link api/ng.$route сервис $route}. Этот сервис позволяет легко связывать воедино контроллеры, шаблоны представления и
+текущий URL браузера. Используя эту возможность, мы можем реализовать
+{@link http://ru.wikipedia.org/wiki/Внешнее_связывание внешнее связывание}, которое позволяет использовать кноку "Назад"
+в браузере и создавать закладки на определённые страницы.
 
-Application routes in Angular are declared via the
-{@link api/ng.$routeProvider $routeProvider}, which is the provider of the
-{@link api/ng.$route $route service}. This service makes it easy to wire together
-controllers, view templates, and the current
-URL location in the browser. Using this feature we can implement {@link
-http://en.wikipedia.org/wiki/Deep_linking deep linking}, which lets us utilize the browser's
-history (back and forward navigation) and bookmarks.
+### Заметка о DI, Инжекторе и Поставщиках
 
+Как вы {@link tutorial/step_05 заметили}, {@link guide/di внедрение зависимостей} (DI) - ключевая фишка AngularJS,
+поэтому важно понимать как оно работает.
 
-### A Note About DI, Injector and Providers
+Когда страница загружается, Angular создаёт инжектор, который будет использован для DI-плюшек
+во всём приложении. Сам по себе инжектор ничего не знает о сервисах `$http` или `$route`, например.
+Он даже не догадывается об их существовании до того момента, пока не будет сконфигурирован с нужным
+модулем. Единственной обязанностью инжектора является загрузка указанного модуля/модулей, регистрация
+всех поставщиков сервисов, определённых в этих модулях и внедрение этих сервисов в функции по требованию.
+Сами же сервиса отложенно инициализируются сответствующими поставщиками.
 
-As you {@link tutorial/step_05 noticed}, {@link guide/di dependency injection} (DI) is the core feature of
-AngularJS, so it's important for you to understand a thing or two about how it works.
+Поставщики создают сервиса и предоставляют конфигурационные API, контролирующие процесс создания
+и поведение сервисов. В случае сервиса `$route`, поставщиком является `$routeProvider`, с помощью
+API которого вы можете настраивать маршруты в приложении.
 
-When the application bootstraps, Angular creates an injector that will be used for all DI stuff in
-this app. The injector itself doesn't know anything about what `$http` or `$route` services do, in
-fact it doesn't even know about the existence of these services unless it is configured with proper
-module definitions. The sole responsibilities of the injector are to load specified module
-definition(s), register all service providers defined in these modules and when asked inject
-a specified function with dependencies (services) that it lazily instantiates via their providers.
+Модули решают проблему глобального состояния в приложении а также конфигурируют соответствующие инжекторы.
+В противоположность AMD или require.js, модули Angular не пытается управлять порядком загрузки скриптов или
+их ленивой подгрузкой. Эти задачи находятся вне ответсвенности Angular, и обе модульные системы могут
+существовать вместе, решая каждая свои задачи.
 
-Providers are objects that provide (create) instances of services and expose configuration APIs
-that can be used to control the creation and runtime behavior of a service. In case of the `$route`
-service, the `$routeProvider` exposes APIs that allow you to define routes for your application.
-
-Angular modules solve the problem of removing global state from the application and provide a way
-of configuring the injector. As opposed to AMD or require.js modules, Angular modules don't try to
-solve the problem of script load ordering or lazy script fetching. These goals are orthogonal and
-both module systems can live side by side and fulfil their goals.
-
-## The App Module
+## Модуль приложения
 
 __`app/js/app.js`:__
 <pre>
@@ -78,38 +70,35 @@ angular.module('phonecat', []).
 }]);
 </pre>
 
-In order to configure our application with routes, we need to create a module for our application.
-We call this module `phonecat` and using the `config` API we request the `$routeProvider` to be
-injected into our config function and use `$routeProvider.when` API to define our routes.
+Для настройки маршрутизации в приложении нам нужно создать модуль. Назовём его `phonecat`. Используя
+функцию `config`, запросим зависимость `$routeProvider` для внедрения и используем `$routeProvider.when`
+для конфигурации маршрутов.
 
-Note that during the injector configuration phase, the providers can be injected as well, but they
-will not be available for injection once the injector is created and starts creating service
-instances.
+Во время конфигурации инжектора провайдеры могут быть внедрены в качестве зависипостей, но как только
+инжектор будет создан и приступит к созданию сервисов, они станут недоступны.
 
-Our application routes were defined as follows:
+Маршруты в приложении настроены следующим образом:
 
-* The phone list view will be shown when the URL hash fragment is `/phones`. To construct this
-view, Angular will use the `phone-list.html` template and the `PhoneListCtrl` controller.
+* Список телефонов будет отображаться когда хэш-фрагмент URL в браузере будет `/phones`. Для отображения
+этого вида Angular будет использовать шаблон `phone-list.html` и контроллер `PhoneListCtrl`.
 
-* The phone details view will be shown when the URL hash fragment matches '/phone/:phoneId', where
-`:phoneId` is a variable part of the URL. To construct the phone details view, angular will use the
-`phone-detail.html` template and the `PhoneDetailCtrl` controller.
+* Характеристики телефона будут отображаться когда хэш-фрагмент URL совпадёт с маской '/phone/:phoneId',
+где `:phoneId` - изменяемая часть URL. Для отображения этого вида Angular будет использовать шаблон
+`phone-detail.html` и контроллер `PhoneDetailCtrl`.
 
-We reused the `PhoneListCtrl` controller that we constructed in previous steps and we added a new,
-empty `PhoneDetailCtrl` controller to the `app/js/controllers.js` file for the phone details view.
+Мы используем написанный ранее контроллер `PhoneListCtrl` и добавим новый (пока пустой) контроллер
+`PhoneDetailCtrl` в файл `app/js/controllers.js` для страницы описания телефона.
 
-The statement `$route.otherwise({redirectTo: '/phones'})` triggers a redirection to `/phones` when
-the browser address doesn't match either of our routes.
+Строка `$route.otherwise({redirectTo: '/phones'})` включает перенаправление на `/phones` в случае когда
+URL в браузере не подпадает под остальные маршруты.
 
-Note the use of the `:phoneId` parameter in the second route declaration. The `$route` service uses
-the route declaration — `'/phones/:phoneId'` — as a template that is matched against the current
-URL. All variables defined with the `:` notation are extracted into the
-{@link api/ng.$routeParams $routeParams} object.
+Обратите внимание на параметр `:phoneId` в объявлении второго маршрута. Сервис `$route` использует
+определение маршрута — `'/phones/:phoneId'` — как шаблон, по которому будет проверяться текущий URL
+браузера. Все параметры, определённые с помощью префикса `:` будут доступны через объект {@link api/ng.$routeParams
+$routeParams}.
 
-
-In order for our application to bootstrap with our newly created module we'll also need to specify
-the module name as the value of the {@link api/ng.directive:ngApp ngApp}
-directive:
+Для того чтобы приложение подхватило наш модуль, нужно указать его название в директиве
+{@link api/ng.directive:ngApp ngApp}:
 
 __`app/index.html`:__
 <pre>
@@ -119,7 +108,7 @@ __`app/index.html`:__
 </pre>
 
 
-## Controllers
+## Контроллеры
 
 __`app/js/controllers.js`:__
 <pre>
@@ -132,11 +121,10 @@ function PhoneDetailCtrl($scope, $routeParams) {
 </pre>
 
 
-## Template
+## Шаблон
 
-The `$route` service is usually used in conjunction with the {@link api/ng.directive:ngView
-ngView} directive. The role of the `ngView` directive is to include the view template for the current
-route into the layout template, which makes it a perfect fit for our `index.html` template.
+Сервис `$route` обычно используется в сочетании с директивой {@link api/ng.directive:ngView ngView}.
+`ngView` нужна для того чтобы включать в себя шаблон текущего вида.
 
 __`app/index.html`:__
 <pre>
@@ -155,9 +143,8 @@ __`app/index.html`:__
 </html>
 </pre>
 
-Note that we removed most of the code in the `index.html` template and replaced it with a single
-line containing a div with the `ng-view` attribute. The code that we removed was placed into the
-`phone-list.html` template:
+Мы убрали большую часть кода из `index.html` и заменили его на единственную строчку, содержащую div c
+атрибутом `ng-view`. Удалённый код мы поместили в шаблон `phone-list.html`:
 
 __`app/partials/phone-list.html`:__
 <pre>
@@ -166,11 +153,11 @@ __`app/partials/phone-list.html`:__
     <div class="span2">
       <!--Sidebar content-->
 
-      Search: <input ng-model="query">
-      Sort by:
+      Поиск: <input ng-model="query">
+      Сортировать по:
       <select ng-model="orderProp">
-        <option value="name">Alphabetical</option>
-        <option value="age">Newest</option>
+        <option value="name">Алфавиту</option>
+        <option value="age">Времени поступления в продажу</option>
       </select>
 
     </div>
@@ -195,20 +182,20 @@ TODO!
 <img  class="diagram" src="img/tutorial/tutorial_07_final.png">
 </div>
 
-We also added a placeholder template for the phone details view:
+Ещё мы добавили заготовку для страницы характеристик телефона:
 
 __`app/partials/phone-detail.html`:__
 <pre>
 TBD: detail view for {{phoneId}}
 </pre>
 
-Note how we are using `phoneId` model defined in the `PhoneDetailCtrl` controller.
+Обратите внимание, мы используем модель `phoneId`, определённую в контролёре `PhoneDetailCtrl`.
 
 
-## Test
+## Тесты
 
-To automatically verify that everything is wired properly, we wrote end-to-end tests that navigate
-to various URLs and verify that the correct view was rendered.
+Чтобы проверить что всё настроено правильно, мы написали системный тест, который переходит по разным
+URL и проверяет, что отображается нужный вид.
 
 <pre>
 ...
@@ -231,19 +218,17 @@ to various URLs and verify that the correct view was rendered.
  });
 </pre>
 
-
-You can now rerun `./scripts/e2e-test.sh` or refresh the browser tab with the end-to-end test
-runner to see the tests run, or you can see them running on {@link
-http://angular.github.com/angular-phonecat/step-7/test/e2e/runner.html
-Angular's server}.
+Теперь вы можете запустить `./scripts/e2e-test.sh` или обновить страничку браузера с системными
+тестами чтобы проверить ход выполнения тестов. Или же вы можете наблюдать за ними в
+{@link http://angular.github.com/angular-phonecat/step-7/test/e2e/runner.html Angular's server}.
 
 
-# Experiments
+# Давайте поэкспериментируем
 
-* Try to add an `{{orderProp}}` binding to `index.html`, and you'll see that nothing happens even
-when you are in the phone list view. This is because the `orderProp` model is visible only in the
-scope managed by `PhoneListCtrl`, which is associated with the `<div ng-view>` element. If you add
-the same binding into the `phone-list.html` template, the binding will work as expected.
+* Попробуйте добавить привязку `{{orderProp}}` на страницу `index.html` и вы увидите, что это свойство
+пусто. Это произошло потому что оно доуступно лишь в области, управляемой контроллером `PhoneListCtrl`,
+который привязан к элементу `<div ng-view>`. Если вы добавите эту же привязку на страницу `phone-list.html`,
+всё будет работать как положено.
 
 <div style="display: none">
 * In `PhoneCatCtrl`, create a new model called "`hero`" with `this.hero = 'Zoro'`. In
@@ -253,10 +238,10 @@ the same binding into the `phone-list.html` template, the binding will work as e
 inheritance and model property shadowing do some wonders.
 </div>
 
-# Summary
+# Идём дальше
 
-With the routing set up and the phone list view implemented, we're ready to go to {@link step_08
-step 8} to implement the phone details view.
+С настроенной маршрутизацией и полностью завершённым списком телефонов мы готовы двигаться дальше
+к {@link step_08 8-му шагу} и написать шаблон страницы характеристик телефона.
 
 
 <ul doc-tutorial-nav="7"></ul>
