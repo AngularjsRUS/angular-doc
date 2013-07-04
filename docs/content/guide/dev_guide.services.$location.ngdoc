@@ -73,7 +73,7 @@ https://developer.mozilla.org/en/window.location window.location}) и делае
 
 ## Чего не происходит?
 Изменение URL в браузере не вызовет полной перезагрузки страницы. Для обновления страницы после
-изменения URL, используйте API более низкого уровня, `$ window.location.href`.
+изменения URL, используйте API более низкого уровня, `$window.location.href`.
 
 # Основной обзор API
 
