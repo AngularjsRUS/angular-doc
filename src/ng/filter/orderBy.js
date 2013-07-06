@@ -6,27 +6,26 @@
  * @function
  *
  * @description
- * Orders a specified `array` by the `expression` predicate.
+ * Упорядочивание заданного массива `array` наосновании выражения `expression`.
  *
- * Note: this function is used to augment the `Array` type in Angular expressions. See
- * {@link ng.$filter} for more information about Angular arrays.
+ * Примечание: эта функция используется для расширения типа `Array` в выражениях Angular. См. так же {@link ng.$filter}
  *
- * @param {Array} array The array to sort.
- * @param {function(*)|string|Array.<(function(*)|string)>} expression A predicate to be
- *    used by the comparator to determine the order of elements.
+ * @param {Array} array Массив для сортировки.
+ * @param {function(*)|string|Array.<(function(*)|string)>} expression Выражение, использующееся для сравнения при
+ *    определении порядка элементов.
  *
- *    Can be one of:
+ *    Может быть одним из:
  *
- *    - `function`: Getter function. The result of this function will be sorted using the
- *      `<`, `=`, `>` operator.
- *    - `string`: An Angular expression which evaluates to an object to order by, such as 'name'
- *      to sort by a property called 'name'. Optionally prefixed with `+` or `-` to control
- *      ascending or descending sort order (for example, +name or -name).
- *    - `Array`: An array of function or string predicates. The first predicate in the array
- *      is used for sorting, but when two items are equivalent, the next predicate is used.
+ *    - `function`: Функция получатель. Результат этой функции будет отсортирован с помощью операторов
+ *      `<`, `=`, `>`.
+ *    - `string`: Выражение Angular, которое вычисляет объект для сортировки по порядку, такому как 'name'
+ *      для сортировки по свойству с именем 'name'. Может начинаться с `+` или `-` для возрастания
+ *      и убывания сортировки (напр., +name или -name).
+ *    - `Array`: Массивфункций или выражений. Первое выражение в массиве используется для сортировки,
+ *      но если элементы эквиваленты, то используется следующее выражение.
  *
- * @param {boolean=} reverse Reverse the order the array.
- * @returns {Array} Sorted copy of the source array.
+ * @param {boolean=} reverse Обратный порядок в массиве.
+ * @returns {Array} отсортированная копия исходного массива.
  *
  * @example
    <doc:example>
