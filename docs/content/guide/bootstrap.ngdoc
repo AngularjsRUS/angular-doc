@@ -91,7 +91,7 @@ Angular автоматически инициализируется по соб�
     <script src="http://code.angularjs.org/angular.js"></script>
     <script>
        angular.element(document).ready(function() {
-         angular.bootstrap(document);
+         angular.bootstrap(document, ['optionalModuleName']);
        });
     </script>
   </body>
