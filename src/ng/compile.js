@@ -36,32 +36,32 @@ var NON_ASSIGNABLE_MODEL_EXPRESSION = 'Non-assignable model expression: ';
  * 
  * Шаблонная функция может использоваться только для создания представления, или, как это происходит в случае 
  * с долговременными {@link ng.directive:ngRepeat повторителями}, для каждого вычисления результирующего 
- * представления клонирует оригинальной шаблон DOM.
+ * представления клонирует оригинальный шаблон DOM.
  *
  <doc:example module="compile">
    <doc:source>
     <script>
-      // declare a new module, and inject the $compileProvider
+      // объявление нового модуля, и внедрение $compileProvider
       angular.module('compile', [], function($compileProvider) {
-        // configure new 'compile' directive by passing a directive
-        // factory function. The factory function injects the '$compile'
+        // настройка новой директивы 'compile' с помощью интегрирования в директиву фабричной функции.
+        // фабричная функция внедряет '$compile'
         $compileProvider.directive('compile', function($compile) {
-          // directive factory creates a link function
+          // фабрика директивы создает связующую функцию
           return function(scope, element, attrs) {
             scope.$watch(
               function(scope) {
-                 // watch the 'compile' expression for changes
+                 // наблюдение за изменениями выражения 'compile'
                 return scope.$eval(attrs.compile);
               },
               function(value) {
-                // when the 'compile' expression changes
-                // assign it into the current DOM
+                // Когда выражение 'compile' изменилось
+                // назначаем его в текущий DOM
                 element.html(value);
 
-                // compile the new DOM and link it to the current
-                // scope.
-                // NOTE: we only compile .childNodes so that
-                // we don't get into infinite loop compiling ourselves
+                // компилируем новый DOM и связываем с текущей областью
+                // sвидимости.
+                // Примечание: мы компилируем только потомков (.childNodes) так что
+                // не получаем бесконечного цикла компиляции самого себя
                 $compile(element.contents())(scope);
               }
             );
