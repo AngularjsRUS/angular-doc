@@ -219,7 +219,7 @@ function $HttpProvider() {
      * сервером с помощью браузерного объекта {@link https://developer.mozilla.org/en/xmlhttprequest
      * XMLHttpRequest} или {@link http://en.wikipedia.org/wiki/JSONP JSONP}.
      * 
-     * Для модульное тестирования приложения использующего сервис `$http`, смотрите 
+     * Для модульного тестирования приложения использующего сервис `$http`, смотрите 
      * {@link ngMock.$httpBackend $httpBackend mock}.
      * 
      * Для изучения высокоуровневых абстракций, посмотрите сервис {@link ngResource.$resource
