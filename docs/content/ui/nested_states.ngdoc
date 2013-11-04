@@ -2,15 +2,23 @@
 @name UI-Router: Вложенные состояния
 @description
 
+## Methods for Nesting States
 Состояние могут быть вложенными друг в друга. Задать вложенность можно несколькими способами:
 
-Можно использовать синтаксис с точкой, чтобы заключить иерархию в $stateProvider. Ниже, `contacts.list` становится
-потомком `contacts`. 
+1. Используя 'нотацию точки'. Например, `.state('contacts.list', {})`.
+2. Используя свойство `parent` с именем родителя в виде **строки**. Например: `parent: 'contacts'`
+3. Используя свойство `parent` с родительским **объектом**. Например, `parent: contacts` (где 'contacts' объект состояния)
+
+### Нотация точки
+
+Можно писать через точку, чтобы добавить иерархию в $stateProvider. Ниже, `contacts.list` становится потомком `contacts`. 
 <pre>
 $stateProvider
   .state('contacts', {})
   .state('contacts.list', {});
-</pre>
+```
+
+### Имя родителя в виде строки
 
 В качестве альтернативы, можно указать родительское состояние через свойство `parent`.
 <pre>
@@ -21,10 +29,9 @@ $stateProvider
   });
 </pre>
 
-#### Объектно ориентированные состояния
-Если не любите использовать состояния на основе строки, можно также использовать объектно-ориентированные состояния.
-Имя `name` свойства переходит _в_ объект и свойство родителя `parent` должно быть установлено во всех дочерних
-состояниях, как показано здесь:
+### Объектно-ориентированные состояния
+Если не нравися использовать состояния в виде строки, можно задавать состояние а объекто-ориентированном стиле.
+Свойство `name` переходит _в_ объект и свойство `parent` **должно** быть установлено во всех дочерних состояниях:
 
 <pre>
 var contacts = { 
@@ -43,45 +50,34 @@ $stateProvider
 </pre>
 
 Обычно можно ссылаться на объект напрямую, когда используются другие методы и параметры сравнения:
+
 <pre>
 $state.transitionTo(states.contacts);
-$state.self === states.contacts;
+$state.current === states.contacts;
 $state.includes(states.contacts)
 </pre>
 
-#### Прикрепление пользовательских данных к объекту состояния
-Можно прикрепить пользовательские данные к объекту состояния (для избежания конфликтов рекомендуем использовать
-параметр `data`). 
-<pre>
-// Пример показывает объектно ориентированное состояние и состояние на основе строки
-var contacts = { 
-    name: 'contacts',
-    templateUrl: 'contacts.html',
-    data: {
-        customData1: 5,
-        customData2: "blue"
-    }  
-}
-$stateProvider
-  .state(contacts)
-  .state('contacts.list', {
-    templateUrl: 'contacts.list.html',
-    data: {
-        customData1: 44,
-        customData2: "red"
-    } 
-  })
-</pre>
-Учитывая указанные выше примеры состояний, можно получить доступ к данным следующим образом:
-<pre>
-function Ctrl($state){
-    console.log($state.current.data.customData1) // результат 5;
-    console.log($state.current.data.customData2) // результат "blue";
-}
-</pre>
+### Порядок регистрации состояний
+Можно регистрировать состояния в любом порядке и разными модулями.
+Можно зарегистрировать дочернее состояние до родительского. Оно будет помещено в очередь
+и зарегистрируется сразуже после регистрации родительского состояния.
 
-### Вложенные виды
+### Именование состояний
+
+У состояний не могут быть одинаковые имена. Когда используется нотация точки в случае двусмысленности подразумевается
+`родитель`, но это не меняет имя состояния. Когда нотация точки не используется, `родитель` должен быть недвусмысленно
+указан, но всё еще нельзя называть два состояния одним именем, например, нельзя иметь два разных состояния с именем
+"edit" даже если у них разные родители.
+
+
+### Вложенные состояния и виды
+Когда приложение находится в определенном состоянии-when и состояние "активно"—все, подразумевается, что
+все его предки так же активны. Ниже, когда состояние состояние "contacts.list" активно, состояние "contacts"
+подразумевается так же активным, потому что оно родитель состояния "contacts.list".
+
 Дочерние состояния будут загружать свои шаблоны в `ui-view` их родителей.
+
+Пример в Plunkr: http://plnkr.co/edit/7FD5Wf?p=preview
 <pre>
 $stateProvider
   .state('contacts', {
@@ -118,51 +114,145 @@ function MainCtrl($state){
 </ul>
 </pre>
 
-### Наследование от родительских состояний
-Когда приложение находится в конкретном состоянии (или, когда состояние является «active»), все состояния его предков
-также неявно активируются. В примере, когда состояние «contacts.list» активно, состояние «contacts» так же неявно
-активно. Дочерние состояния наследуют виды (шаблоны/контроллеры)и разрешают зависимости от родительского состояния(й),
-которое они могут переопределить.
 
-Здесь `contacts.list` и `contacts.detail` оба наследуют контроллер от `contacts`:
+### Наследование от родительских состояний
+Состояния-потомки **наследуются** от родительских состояний следующим образом:
+* [Внедрениме зависимостей через `resolve`](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-resolved-dependencies)
+* [Пользовательским свойством `data`](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-custom-data)
+
+Ничто другое не наследуется (без контроллеров, шаблонов, url и проч.)
+
+
+### Наследование зависимостей через Resolved
+Появилось в версии 0.2.0
+
+Дочерние состояния будут наследоваться разрешением зависимостей от родительского состояния(й),
+которые они переопределяют. Затем можно внедрить разрешенные зависимости в контроллеры и разрешить функции
+дочерних состояний.
+
 <pre>
-$stateProvider
-  .state('contacts', {
-    template: '<h1>My Contacts</h1>',
-    controller: function($scope){
-      $scope.contacts = [{ name: "Alice", favpet: "Mouse" }, 
-                         { name: "Bob", favpet: "Python" }];
-    }
-  })
-  .state('contacts.list', {
-    template: '<ul><li ng-repeat="contact in contacts">' +
-                 '<a ui-state-ref="contacts.detail">{{contact.name}}</a>' +
-              '</li></ul>'
-  })
-  .state('contacts.detail', {
-    template: "{{contact.name}}'s favorite pet is {{contact.favpet}}"
-  });
+$stateProvider.state('parent', {
+      resolve:{
+         resA:  function(){
+            return {'value': 'A'};
+         }
+      },
+      controller: function($scope, resA){
+          $scope.resA = resA.value;
+      }
+   })
+   .state('parent.child', {
+      resolve:{
+         resB: function(resA){
+            return {'value': resA.value + 'B'};
+         }
+      },
+      controller: function($scope, resA, resB){
+          $scope.resA2 = resA.value;
+          $scope.resB = resB.value;
+      }
 </pre>
-#### Абстрактные состояния
+
+### Наследование пользовательских данных
+Дочерние состояния будут наследовать свойство данных из родительского сотояния(й), которые они могут переопределить.
+
+<pre>
+$stateProvider.state('parent', {
+      data:{
+         customData1:  "Hello",
+         customData2:  "World!"
+      }
+   })
+   .state('parent.child', {
+      data:{
+         // customData1 inherited from 'parent'
+         // but we'll overwrite customData2
+         customData2:  "UI-Router!"
+      }
+   });
+
+$rootScope.$on('$stateChangeStart', function(event, toState){ 
+    var greeting = toState.data.customData1 + " " + toState.data.customData2;
+    console.log(greeting);
+
+    // Would print "Hello World!" when 'parent' is activated
+    // Would print "Hello UI-Router!" when 'parent.child' is activated
+})
+</pre>
+
+
+### Наследование состояний только через иерархию видов
+Имейте в виду, что свойства области видимости наследуются только вниз по-цепочке если виды состояний вложены.
+Наследование свойств области видимости не имеет ничего общего с вложением состояний и аналогично вложению видов (шаблонов).
+
+[Вполне возможно](https://github.com/angular-ui/ui-router/wiki/Multiple-Named-Views#view-names---relative-vs-absolute-names),
+что вложенные состояния, чьи шаблоны включены в ui-views для различных не вложенных локаций внутри сайта.
+В этом сценарии нельзя полагаться на доступ к переменным области видимости родительского состояния видов внутри
+видов дочерних состояний.
+
+
+### Абстрактные состояния
 Абстрактное состояние может иметь дочерние состояния, но не может получить активированное само себя. «Абстрактное»
 состояние это простое состояние, в которое нельзя переходить, потому что оно просто обеспечивает некоторое UI или 
 зависимости, являющиеся общими для своих дочерних состояний.
 
-Ниже пример, где состояние «contacts» является абстрактным. Его основной целью является предоставление своих дочерних
-состояний, имеющих доступ к данным $scope.contacts. $scope.contacts будет доступно для интерполяции как дочернее 
-состояние вида.
+Несколько примеров использования абстрактного состояния:
+* Предворение [`url`](https://github.com/angular-ui/ui-router/wiki/URL-Routing#url-routing-for-nested-states) для всех urls дочерних состояний.
+* Вставка [`шаблона`](https://github.com/angular-ui/ui-router/wiki#templates) with its own `ui-view(s)` который будет заполнен дочерними состояниями.
+    * Опционально установим `controller` в шаблон. Контроллер **должен** иметь в паре шаблон. 
+    * Дополнительно, наследуем объект $scope потомками, только понимайте, что это происходит через [иерархию видов](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#scope-inheritance-by-view-hierarchy-only), а не черз иерархию состояний.
+* [Обеспечение разрешения зависимостей](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-resolved-dependencies) via `resolve` for use by child states.
+* [Обеспечение наследования пользовательских данных](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-custom-data) via `data` for use by child states or an event listener.
+* Работа функций `onEnter` или `onExit` которые могут однажды модифицировать приложение.
+* И комбинации перечисленного выше.
+
+**Помните:** Абстрактные состояния по-прежнему нуждаются в собственном `<ui-view/>` для включения потомков.
+Если абстрактое состояние используется только для предворения  url, установки resolves/data, или работы функций
+onEnter/Exit, то, возможно, придется использовать `template: "<ui-view/>"`.
+
+#### Примеры использования абстрактных состояний:
+
+**Предворение url в url состояний-потомков**
+<pre>
+$stateProvider
+    .state('contacts', {
+        abstract: true, 
+	url: '/contacts',
+
+        // Примечание: абстрактоне состояние все еще нуждается в ui-view для вставки потомков.
+        // Можно просто добавить его в одну строчку.
+        template: '<ui-view/>'
+    })
+    .state('contacts.list', {
+	// url станет '/contacts/list'
+        url: '/list'
+	//...и т. д.
+    })
+    .state('contacts.detail', {
+	// url станет '/contacts/detail'
+        url: '/detail',
+	//...и т. д.
+    })
+</pre>
+
+**Вставка шаблона в собственный `ui-view` для вставки состояний-потомков**
 <pre>
 $stateProvider
     .state('contacts', {
         abstract: true,
-        templateUrl: 'contacts.html',
-        controller: function($scope){
-            $scope.contacts = [{ name: "Alice" }, { name: "Bob" }];
-    })
+        templateURL: 'contacts.html'
+    )
     .state('contacts.list', {
+        // загрузка в ui-view родительского шаблона
         templateUrl: 'contacts.list.html'
     })
     .state('contacts.detail', {
+        // загрузка ui-view родительского шаблона
         templateUrl: 'contacts.detail.html'
     })
+</pre>
+<pre>
+<!-- contacts.html -->
+<h1>Contacts Page</h1>
+<div ui-view></div>
 </pre>
