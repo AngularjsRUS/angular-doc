@@ -10,8 +10,8 @@
   * {@link concepts#startup быстрый старт (startup)} - приложение типа Hello world
   * {@link concepts#runtime среда исполнения (runtime)} - обзор среды исполнения Angular
   * {@link concepts#scope область видимости (scope)} - связующее звено между представлением и контроллером
-  * {@link concepts#controller контроллер (controller)} - поведение програмы
-  * {@link concepts#model модель (model)} - данные програмы
+  * {@link concepts#controller контроллер (controller)} - поведение программы
+  * {@link concepts#model модель (model)} - данные программы
   * {@link concepts#view вид или представление (view)} - то что видит пользователь
   * {@link concepts#directives директивы (directives)} - расширение HTML-синтаксиса
   * {@link concepts#filters фильтры (filters)} - форматируют данные в соответствии с региональными установками пользователя
