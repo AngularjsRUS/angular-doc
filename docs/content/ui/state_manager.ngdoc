@@ -28,33 +28,76 @@
 $stateProvider.state('contacts', {
   template: '<h1>My Contacts</h1>'
 })
-
-// main-controller.js
-function MainCtrl($state){
-  $state.transitionTo('contacts');
-}
-
 </pre>
-Шаблон автоматически помещается в одиночный `ui-view`, когда совершается переход в состояние.
+### Где получить вставленый шаблон?
 
-#### Альтернативный способ задания шаблона
+Шаблон автоматически помещается в одиночный `ui-view` родительского состояния, когда совершается переход в состояние.
+Если это состояние верхнего уровня (не имеет родителя), то вставка происходит в index.html.
+
+Состояние 'contacts' пока не может быть активировано.Давайте посмотрим, как активировать состояния.
+
+### Активация состояний
+
+Существуют три пути активации состояния:
+
+1. Вызвать `$state.go()`. Удобный высокоуровневый метод. [См. так же](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#stategoto--toparams--options)
+2. Щелкнуть на ссылку, содержащуюся в `ui-sref` директиве. [См. так же](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-sref)
+3. Перейти по `url`, связанному с состоянием. [[См. так же|URL Routing]].
+
+
+***
+
+## Шаблоны
+
+Существует несколько методов для настройки шаблонов состояния
+
+Как показано выше, самый простой способ - установить `template` в настройке конфигурации.
+<pre>
+$stateProvider.state('contacts', {
+  template: '<h1>My Contacts</h1>'
+})
+</pre>
+
 Вместо того чтобы описывать шаблоны в скрипте, можно загрузить их извне. **Скорее всего так вы будете задавать шаблоны
-в большинстве случаев.**
 <pre>
 $stateProvider.state('contacts', {
   templateUrl: 'contacts.html'
 })
 </pre>
-Или можно использовать функцию-провайдер, которая может быть внедрена и получит доступ к локальным данным:
+templateUrl может быть функцией, возвращающей url. Она принимает предварительно заданный параметр, stateParams,
+который не был внедрен. 
 <pre>
 $stateProvider.state('contacts', {
-  templateProvider: function ($timeout, $stateParams) {
-    return $timeout(function () { return '<h1>'+$stateParams.contactId+'</h1>' }, 100);
+  templateUrl: function (stateParams){
+    return '/partials/contacts.' + stateParams.filterBy + '.html';
   }
 })
 </pre>
+Или можно использовать функцию-провайдер, которая будучи внедренной получит доступ к локальным данными и вернет HTML-шаблон:
+<pre>
+$stateProvider.state('contacts', {
+  templateProvider: function ($timeout, $stateParams) {
+    return $timeout(function () {
+      return '<h1>' + $stateParams.contactId + '</h1>'
+    }, 100);
+  }
+})
+</pre>
+Если необходимо, чтобы `<ui-view>` содержал контент по умолчанию до активации состояния, это так же можно сделать.
+Контент будет зменен как только состояние активируется и в ui-view вставится шаблон.
+<pre>
+<body>
+    <ui-view>
+        <i>Some content will load here!</i>
+    </ui-view>
+</body>
+</pre>
+
 ### Контроллеры
-Можно задать сразу и шаблон и контроллер:
+Можно определять контроллеры для шаблона. **Предупреждение:** Экземпляр контроллера **не будет** создан, 
+если шаблон не определен.
+
+Задать контроллер `controller` можно так:
 <pre>
 $stateProvider.state('contacts', {
   template: '<h1>{{title}}</h1>',
@@ -64,47 +107,169 @@ $stateProvider.state('contacts', {
 })
 </pre>
 
-Или, если контроллер уже определен в модуле:
+Или, если контроллер уже существует `controller` определите его в модуле:
 <pre>
 $stateProvider.state('contacts', {
+  template: ...,
   controller: 'ContactsCtrl'
 })
 </pre>
 
-#### Разрешение зависимостей
-Можно использовать разрешение зависимостей для провайдера контроллера с контентом или данными, заданными для состояния.
-Разрешение может быть списком зависимостей, которые будут внедрены в контроллер. Если любая из этих зависимостей 
-обещана, они будут разрешены и преобразованы в значение до создания экземпляра контроллера и выдадут событие 
-$routeChangeSuccess. Список представляет собой объект, состоящий из:
-
-* key – {string}: имя зависимости, которая будет внедрена в контроллер.
-* factory - {string|function}: Если строка, то это псевдоним сервиса. Если функция, то она будет внедрена и
-возвратит значение, которое будет считаться зависимостью. Если результат это обещание, то оно разрешиться до того
-как значение будет внедренов контроллер.
-
-Пример разрешения сервиса. Допустим, имеется сервис с именем translations который хранит копии переводов всех строк
-в приложении.
+Или используйте псевдоним:
 <pre>
 $stateProvider.state('contacts', {
-  template: '<h1>{{title}}</h1>',
-  resolve: { translations: "translations" },
-  controller: function($scope, translations){
-    $scope.title = translations.lang.title;
+  template: ...,
+  controller: 'ContactsCtrl as contact'
+})
+</pre>
+
+Или для расширенных возможностей используйте `controllerProvider` который динамически вернет или функцию-контроллера или строку:
+<pre>
+$stateProvider.state('contacts', {
+  template: ...,
+  controllerProvider: function($stateParams) {
+      var ctrlName = $stateParams.type + "Controller";
+      return ctrlName;
   }
 })
 </pre>
 
-Пример разрешения фабричной функции. Фабричная функция так же внедряема (не показано).
+Контроллеры могут использовать метод $scope.on() для подписки на события, вызываемые переходами состояний.
+
+Экземпляры контроллеров создаются по мере надобности, когда создается соответствующая область видимости,
+т.е. когда пользователь вручную переходить в состояние через URL, $stateProvider загрузит правильный шаблон в вид,
+а затем подключит контроллер к области видимости шаблона.
+
+#### Resolve
+Можно использовать resolve чтобы задать контроллеру контент или данные необходимые состоянию. Resolve это
+опциональный набор зависимостей, которые должны быть внедрены в контроллер. 
+
+Если какие-то из этих зависимостей обещания, они будут решены и преобразованы в значения **до** создания
+экземпляра контроллера и произойдет событие $routeChangeSuccess. 
+
+Свойство `resolve` это объект зависимостей. Объект содержит пары значний key/value:
+* key – {string}: имя зависимости для внедрения в контроллер.
+* factory - {string|function}: 
+    * Если строка, тогда это псевдоним для сервиса. 
+    * Если функция, тогда она внедрит и вернет значение как зависимость. Если результат обезание, оно решится до создания экземпляра контроллера и его значение будет внедрено в контроллер.
+
+**Примеры:**
+
+Каждый объект в `resolve` ниже должен быть решен (через `deferred.resolve()` емли они обещания) до того как будет
+создан экземпляр `controller`. Обратите внимание, что каждый объект из resolve внедряется в контроллер как параметр.
+
 <pre>
-$stateProvider.state('contacts', {
-  template: '<h1>{{title}}</h1>',
-  resolve: { title: function(){ return 'My Contacts' } },
-  controller: function($scope, title){
-    $scope.title = title;
-  }
-})
+$stateProvider.state('myState', {
+      resolve:{
+
+         // Пример использования функции, возвращающей значение
+         // Т.к. это не обещание, то решается немедленно
+         simpleObj:  function(){
+            return {value: 'simple!'};
+         },
+
+         // Пример функции, возвращающей обещание
+         // Это типичный случай использования resolve.
+         // Необходимо внедрить использующиеся сервисы, например $http
+         promiseObj:  function($http){
+            // $http returns a promise for the url data
+            return $http({method: 'GET', url: '/someUrl'});
+         },
+
+         // Другой пример обещания. Если необходимо сделать какую-то
+         // обработку результата используйте .then и ваше
+         // обещание будет свободно подцеплено. Это другой
+         // типичный случай использования resolve.
+         promiseObj2:  function($http){
+            return $http({method: 'GET', url: '/someUrl'})
+               .then (function (data) {
+                   return doSomeStuffFirst(data);
+               });
+         },        
+
+         // Пример использования сервиса по имени.
+         // Выглядит как сервис 'translations'
+         // внутри модуля и возвращающий его.
+         // Примечение: Сервис мог бы вернуть обещание
+         // и оно работало бы как в примере выше
+         translations: "translations",
+
+         // Пример внедрения сервиса в
+         // функцию resolve. Затем сервис возвращает
+         // обещание. Совет: Внедряйте $stateParams чтобы получить
+         // доступ к параметрам url.
+         translations2: function(translations, $stateParams){
+             // Предположим, что getLang это сервисный метод
+             // который использует $http для извлечения переводов.
+             // Так же предположим, что наш url такой "/:lang/home".
+             translations.getLang($stateParams.lang);
+         },
+
+         // Пример показывающий возврат пользовательского обещания
+         greeting: function($q, $timeout){
+             var deferred = $q.defer();
+             $timeout(function() {
+                 deferred.resolve('Hello!');
+             }, 1000);
+             return deferred.promise;
+         }
+      },
+
+      // Контроллер ожидает все из перечисленного выше
+      // чтобы быть полностью решенным до создания экземпляра. Например,
+      // экземпляр контроллера не создается пока обещание promiseObj 
+      // не будет решено. Затем объекты, внедренные в контроллер
+      // будут доступны для использования
+      controller: function($scope, simpleObj, promiseObj, promiseObj2, translations, translations2, greeting){
+          $scope.simple = simpleObj.value;
+
+          // Нужно быть уверенным, что promiseObj готов к использованию!
+          $scope.items = promiseObj.items;
+          $scope.items = promiseObj2.items;
+
+          $scope.title = translations.getLang("english").title;
+          $scope.title = translations2.title;
+
+          $scope.greeting = greeting;
+      }
+   })
 </pre>
-### Колбэки onEnter и onExit
+
+[См. так же](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-resolved-dependencies) about how resolved dependencies are inherited down to child states.
+
+#### Прикрепление пользовательских данных к объекту состояния
+Можно прикрепить пользовательские данные к обхекту состояния (рекомендуется использовать свойство `data` чтобы избежать конфликтов). 
+<pre>
+// Пример показывает объект-состояние и строку-состояние
+var contacts = { 
+    name: 'contacts',
+    templateUrl: 'contacts.html',
+    data: {
+        customData1: 5,
+        customData2: "blue"
+    }  
+}
+$stateProvider
+  .state(contacts)
+  .state('contacts.list', {
+    templateUrl: 'contacts.list.html',
+    data: {
+        customData1: 44,
+        customData2: "red"
+    } 
+  })
+</pre>
+Используя состояние из примера, доступ к данным можно получить так:
+<pre>
+function Ctrl($state){
+    console.log($state.current.data.customData1) // outputs 5;
+    console.log($state.current.data.customData2) // outputs "blue";
+}
+</pre>
+
+[См. так же](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-custom-data) about how custom data properties are inherited down to child states.
+
+### Колбеки onEnter и onExit
 Опционально могут задаваться колбэки 'onEnter' и 'onExit', когда состояние становится активным или соответственно 
 деактивируется. Колбэки так же имеют доступ ко всем разрешенным зависимостям.
 <pre>
@@ -124,8 +289,67 @@ $stateProvider.state("contacts", {
 </pre>
 
 ### События изменения состояния
-* `$stateChangeSuccess` - выбрасывается один раз при окончатльном переходе в состояние. 
-* `$stateChangeStart` - выбрасывается при начале перехода.
-* `$stateChangeError` - выбрасывается, если во время перехода появились ошибки.
 
-Все эти события выбрасываются на уровне `$rootScope`.
+Все события срабатывают на уровне `$rootScope`.
+
+* **$stateChangeStart** - срабатывает когда состояние **начинается**.
+<pre>
+$scope.$on('$stateChangeStart', 
+function(event, toState, toParams, fromState, fromParams){ ... })
+</pre>
+**Примечание:** Используйте event.preventDefault() для предотвращения случайных переходов.
+<pre>
+$scope.$on('$stateChangeStart', 
+function(event, toState, toParams, fromState, fromParams){ 
+    event.preventDefault(); 
+    // transitionTo() обещание будет отклонено
+    // с ошибкой 'transition prevented'
+})
+</pre>
+* **$stateNotFound** - срабатывает, когда запрошенное состояние **не может быть найдено** по имени во время перехода.
+Событие транслируется, позволяя любым обработчикам как-то обработать ошибку (обычно ленивую загрузку ненайденого состояния).
+Обработчикам передается специальный объект `unfoundState`, свойства которого можно вувидеть в примере.
+Используйте `event.preventDefault()` для отмены перехода (transitionTo() обещание будет отклонено с ошибкой
+'transition aborted'). [См так же о ленивой загрузке состояний ](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-lazy-load-states)
+<pre>
+// предположительно lazy.state где-то не определен
+$state.go("lazy.state", {a:1, b:2}, {inherit:false});
+
+// где-то еще
+$scope.$on('$stateNotFound', 
+function(event, unfoundState, fromState, fromParams){ 
+    console.log(unfoundState.to); // "lazy.state"
+    console.log(unfoundState.toParams); // {a:1, b:2}
+    console.log(unfoundState.options); // {inherit:false} + default options
+})
+</pre>
+* **$stateChangeSuccess** - срабатывает однажды при переходе состояния в **завершено**. 
+<pre>
+$scope.$on('$stateChangeSuccess', 
+function(event, toState, toParams, fromState, fromParams){ ... })
+</pre>
+* **$stateChangeError** - срабатывает если во время перехода **произошла ошибка**.
+<pre>
+$scope.$on('$stateChangeError', 
+function(event, toState, toParams, fromState, fromParams, error){ ... })
+</pre>
+
+### События загрузки вида
+
+* **$viewContentLoading** - Срабатывает когда вид **начинает** загружаться, **перед**  тем отрисовкой DOM.
+'$rootScope' распространяет это событие.
+<pre>
+$scope.$on('$viewContentLoading', 
+function(event, viewConfig){ 
+    // Доступ ко всем настройкам вида.
+    // и специальному свойству 'targetView'
+    // viewConfig.targetView 
+});
+</pre>
+
+* **$viewContentLoaded** - Происходит когда вид **загружен**, **после** отрисовки DOM. '$scope' этого вида распространяет
+это событие.
+<pre>
+$scope.$on('$viewContentLoaded', 
+function(event){ ... });
+</pre>
