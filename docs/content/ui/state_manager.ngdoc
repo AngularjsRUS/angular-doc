@@ -107,7 +107,7 @@ $stateProvider.state('contacts', {
 })
 </pre>
 
-Или, если контроллер уже существует `controller` определите его в модуле:
+Или, если контроллер уже существует определите его в модуле:
 <pre>
 $stateProvider.state('contacts', {
   template: ...,
