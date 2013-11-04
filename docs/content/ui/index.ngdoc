@@ -58,7 +58,7 @@ UI-Router использует [*состояния*](https://github.com/angular
 **(2)** Затем добавьте [директиву `ui-view`](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-view) в тег `<body />` вашего приложения.
 
 >
-```html
+<pre>
 <!-- index.html -->
 <body>
     <div ui-view></div>
@@ -66,7 +66,7 @@ UI-Router использует [*состояния*](https://github.com/angular
     <a ui-sref="state1">State 1</a>
     <a ui-sref="state2">State 2</a>
 </body>
-```
+</pre>
 
 **(3)** Заметьте, что мы так же использовали [директиву `ui-sref`](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-sref).
 В дополнение к управлению переходами эта директива автоматически создась `href`-атрибут для тега `<a />`
@@ -74,25 +74,25 @@ UI-Router использует [*состояния*](https://github.com/angular
 Обратити внимание, что в шаблонах может быть собственный `ui-view`! В этом вся фишка вложенных состояний и видов.
 
 >
-```html
+<pre>
 <!-- partials/state1.html -->
 <h1>State 1</h1>
 <hr/>
 <a ui-sref="state1.list">Show List</a>
 <div ui-view></div>
-```
-```html
+</pre>
+<pre>
 <!-- partials/state2.html -->
 <h1>State 2</h1>
 <hr/>
 <a ui-sref="state2.list">Show List</a>
 <div ui-view></div>
-```
+</pre>
 
 **(4)** Далее добавим несколько шаблонов-потомков. *Они* будут включенны в `ui-view` родительских шаблонов.
 
 >
-```html
+<pre>
 <!-- partials/state1.list.html -->
 <h3>List of State 1 Items</h3>
 <ul>
@@ -101,19 +101,19 @@ UI-Router использует [*состояния*](https://github.com/angular
 ```
 
 >
-```html
+<pre>
 <!-- partials/state2.list.html -->
 <h3>List of State 2 Things</h3>
 <ul>
   <li ng-repeat="thing in things">{{ thing }}</li>
 </ul>
-```
+</pre>
 
 **(5)** Наконец, свяжем всё это со `$stateProvider`. Настроим состояния в конфигурационном модуле, как показано далее:
 
 
 >
-```javascript
+<pre>
 myApp.config(function($stateProvider, $urlRouterProvider) {
   //
   // Любые неопределенные url перенаправлять на /state1
@@ -144,7 +144,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
         }
       })
     });
-```
+</pre>
 
 **(6)** Пример для быстрого старта в действии.
 >**[Запустить в Plunker](http://plnkr.co/edit/u18KQc?p=preview)**
@@ -164,7 +164,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 
 **(2)** Добавьте один или несктолько `ui-view` в приложение, задав им имена.
 >
-```html
+<pre>
 <!-- index.html -->
 <body>
     <div ui-view="viewA"></div>
@@ -173,11 +173,11 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     <a ui-sref="route1">Route 1</a>
     <a ui-sref="route2">Route 2</a>
 </body>
-```
+</pre>
 
 **(3)** Опишите состояния в конфигурационном модуле:
 >
-```javascript
+<pre>
 myApp.config(function($stateProvider, $routeProvider){
   $stateProvider
     .state('index', {
@@ -202,7 +202,7 @@ myApp.config(function($stateProvider, $routeProvider){
       }
     })
 });
-```
+</pre>
 
 **(4)** Пример для быстрого старта в действии.
 >**[Запустить в Plunker](http://plnkr.co/edit/SDOcGS?p=preview)**
