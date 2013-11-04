@@ -2,8 +2,6 @@
 @name UI-Router: Менеджер состояний
 @description
 
-##### Это подробное руководство проведет по всем аспектам UI-Router, его компонентам и возможностям.
-
 
 # Менеджер состояний
 
@@ -18,9 +16,9 @@
 ### Простейший вид состояния
 Состояние, в своей простейшей форме может быть добавлено, как показано здесь (обычно внутрь module.config):
 <pre>
-<!-- in index.html -->
+<!-- в index.html -->
 <body ng-controller="MainCtrl">
-<section ui-view></section>
+  <section ui-view></section>
 </body>
 </pre>
 <pre>
@@ -29,12 +27,13 @@ $stateProvider.state('contacts', {
   template: '<h1>My Contacts</h1>'
 })
 </pre>
+
 ### Где получить вставленый шаблон?
 
 Шаблон автоматически помещается в одиночный `ui-view` родительского состояния, когда совершается переход в состояние.
 Если это состояние верхнего уровня (не имеет родителя), то вставка происходит в index.html.
 
-Состояние 'contacts' пока не может быть активировано.Давайте посмотрим, как активировать состояния.
+Состояние 'contacts' пока не может быть активировано. Давайте посмотрим, как активировать состояния.
 
 ### Активация состояний
 
@@ -42,10 +41,8 @@ $stateProvider.state('contacts', {
 
 1. Вызвать `$state.go()`. Удобный высокоуровневый метод. [См. так же](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#stategoto--toparams--options)
 2. Щелкнуть на ссылку, содержащуюся в `ui-sref` директиве. [См. так же](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-sref)
-3. Перейти по `url`, связанному с состоянием. [[См. так же|URL Routing]].
+3. Перейти по `url`, связанному с состоянием. [См. так же](https://github.com/angular-ui/ui-router/wiki/URL-Routing).
 
-
-***
 
 ## Шаблоны
 
@@ -91,7 +88,7 @@ body>
     <i>Some content will load here!</i>
   </ui-view>
 </body>
-/pre>
+</pre>
 
 ### Контроллеры
 Можно определять контроллеры для шаблона. **Предупреждение:** Экземпляр контроллера **не будет** создан, 
@@ -152,7 +149,8 @@ $stateProvider.state('contacts', {
 * key – {string}: имя зависимости для внедрения в контроллер.
 * factory - {string|function}: 
     * Если строка, тогда это псевдоним для сервиса. 
-    * Если функция, тогда она внедрит и вернет значение как зависимость. Если результат обезание, оно решится до создания экземпляра контроллера и его значение будет внедрено в контроллер.
+    * Если функция, тогда она внедрит и вернет значение как зависимость. Если результат обезание, оно решится
+    до создания экземпляра контроллера и его значение будет внедрено в контроллер.
 
 **Примеры:**
 
@@ -161,114 +159,117 @@ $stateProvider.state('contacts', {
 
 <pre>
 $stateProvider.state('myState', {
-      resolve:{
-
-         // Пример использования функции, возвращающей значение
-         // Т.к. это не обещание, то решается немедленно
-         simpleObj:  function(){
-            return {value: 'simple!'};
-         },
-
-         // Пример функции, возвращающей обещание
-         // Это типичный случай использования resolve.
-         // Необходимо внедрить использующиеся сервисы, например $http
-         promiseObj:  function($http){
-            // $http returns a promise for the url data
-            return $http({method: 'GET', url: '/someUrl'});
-         },
-
-         // Другой пример обещания. Если необходимо сделать какую-то
-         // обработку результата используйте .then и ваше
-         // обещание будет свободно подцеплено. Это другой
-         // типичный случай использования resolve.
-         promiseObj2:  function($http){
-            return $http({method: 'GET', url: '/someUrl'})
-               .then (function (data) {
-                   return doSomeStuffFirst(data);
-               });
-         },        
-
-         // Пример использования сервиса по имени.
-         // Выглядит как сервис 'translations'
-         // внутри модуля и возвращающий его.
-         // Примечение: Сервис мог бы вернуть обещание
-         // и оно работало бы как в примере выше
-         translations: "translations",
-
-         // Пример внедрения сервиса в
-         // функцию resolve. Затем сервис возвращает
-         // обещание. Совет: Внедряйте $stateParams чтобы получить
-         // доступ к параметрам url.
-         translations2: function(translations, $stateParams){
-             // Предположим, что getLang это сервисный метод
-             // который использует $http для извлечения переводов.
-             // Так же предположим, что наш url такой "/:lang/home".
-             translations.getLang($stateParams.lang);
-         },
-
-         // Пример показывающий возврат пользовательского обещания
-         greeting: function($q, $timeout){
-             var deferred = $q.defer();
-             $timeout(function() {
-                 deferred.resolve('Hello!');
-             }, 1000);
-             return deferred.promise;
-         }
-      },
-
-      // Контроллер ожидает все из перечисленного выше
-      // чтобы быть полностью решенным до создания экземпляра. Например,
-      // экземпляр контроллера не создается пока обещание promiseObj 
-      // не будет решено. Затем объекты, внедренные в контроллер
-      // будут доступны для использования
-      controller: function($scope, simpleObj, promiseObj, promiseObj2, translations, translations2, greeting){
-          $scope.simple = simpleObj.value;
-
-          // Нужно быть уверенным, что promiseObj готов к использованию!
-          $scope.items = promiseObj.items;
-          $scope.items = promiseObj2.items;
-
-          $scope.title = translations.getLang("english").title;
-          $scope.title = translations2.title;
-
-          $scope.greeting = greeting;
-      }
-   })
+  resolve:{
+    
+    // Пример использования функции, возвращающей значение
+    // Т.к. это не обещание, то решается немедленно
+    simpleObj:  function(){
+      return {value: 'simple!'};
+    },
+    
+    // Пример функции, возвращающей обещание
+    // Это типичный случай использования resolve.
+    // Необходимо внедрить использующиеся сервисы, например $http
+    promiseObj:  function($http){
+      // $http returns a promise for the url data
+      return $http({method: 'GET', url: '/someUrl'});
+    },
+      
+    // Другой пример обещания. Если необходимо сделать какую-то
+    // обработку результата используйте .then и ваше
+    // обещание будет свободно подцеплено. Это другой
+    // типичный случай использования resolve.
+    promiseObj2:  function($http){
+      return $http({method: 'GET', url: '/someUrl'})
+        .then (function (data) {
+          return doSomeStuffFirst(data);
+        });
+    },
+     
+    // Пример использования сервиса по имени.
+    // Выглядит как сервис 'translations'
+    // внутри модуля и возвращающий его.
+    // Примечение: Сервис мог бы вернуть обещание
+    // и оно работало бы как в примере выше
+    translations: "translations",
+     
+    // Пример внедрения сервиса в
+    // функцию resolve. Затем сервис возвращает
+    // обещание. Совет: Внедряйте $stateParams чтобы получить
+    // доступ к параметрам url.
+    translations2: function(translations, $stateParams){
+      // Предположим, что getLang это сервисный метод
+      // который использует $http для извлечения переводов.
+      // Так же предположим, что наш url такой "/:lang/home".
+      translations.getLang($stateParams.lang);
+    },
+    
+    // Пример показывающий возврат пользовательского обещания
+    greeting: function($q, $timeout){
+      var deferred = $q.defer();
+      $timeout(function() {
+        deferred.resolve('Hello!');
+      }, 1000);
+      return deferred.promise;
+    }
+  },
+  
+  // Контроллер ожидает все из перечисленного выше
+  // чтобы быть полностью решенным до создания экземпляра. Например,
+  // экземпляр контроллера не создается пока обещание promiseObj
+  // не будет решено. Затем объекты, внедренные в контроллер
+  // будут доступны для использования
+  controller: function($scope, simpleObj, promiseObj, promiseObj2, translations, translations2, greeting){
+    $scope.simple = simpleObj.value;
+    
+    // Нужно быть уверенным, что promiseObj готов к использованию!
+    $scope.items = promiseObj.items;
+    $scope.items = promiseObj2.items;
+    
+    $scope.title = translations.getLang("english").title;
+    $scope.title = translations2.title;
+    
+    $scope.greeting = greeting;
+  }
+})
 </pre>
 
-[См. так же](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-resolved-dependencies) about how resolved dependencies are inherited down to child states.
+[См. так же](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-resolved-dependencies)
+о том как решение зависимостей применяется для наследования дочерних состояний.
 
-#### Прикрепление пользовательских данных к объекту состояния
-Можно прикрепить пользовательские данные к обхекту состояния (рекомендуется использовать свойство `data` чтобы избежать конфликтов). 
+### Прикрепление пользовательских данных к объекту состояния
+Можно прикрепить пользовательские данные к объекту состояния
+(рекомендуется использовать свойство `data` чтобы избежать конфликтов). 
 <pre>
 // Пример показывает объект-состояние и строку-состояние
-var contacts = { 
-    name: 'contacts',
-    templateUrl: 'contacts.html',
-    data: {
-        customData1: 5,
-        customData2: "blue"
-    }  
+var contacts = {
+  name: 'contacts',
+  templateUrl: 'contacts.html',
+  data: {
+    customData1: 5,
+    customData2: "blue"
+  }
 }
 $stateProvider
   .state(contacts)
   .state('contacts.list', {
     templateUrl: 'contacts.list.html',
     data: {
-        customData1: 44,
-        customData2: "red"
-    } 
+      customData1: 44,
+      customData2: "red"
+    }
   })
 </pre>
 Используя состояние из примера, доступ к данным можно получить так:
 <pre>
 function Ctrl($state){
-    console.log($state.current.data.customData1) // outputs 5;
-    console.log($state.current.data.customData2) // outputs "blue";
+  console.log($state.current.data.customData1) // outputs 5;
+  console.log($state.current.data.customData2) // outputs "blue";
 }
 </pre>
 
-[См. так же](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-custom-data) about how custom data properties are inherited down to child states.
+[См. так же](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#inherited-custom-data)
+о том как пользовательские данные применяются для наследования дочерних состояний.
 
 ### Колбеки onEnter и onExit
 Опционально могут задаваться колбэки 'onEnter' и 'onExit', когда состояние становится активным или соответственно 
@@ -295,43 +296,43 @@ $stateProvider.state("contacts", {
 
 * **$stateChangeStart** - срабатывает когда состояние **начинается**.
 <pre>
-$scope.$on('$stateChangeStart', 
+$scope.$on('$stateChangeStart',
 function(event, toState, toParams, fromState, fromParams){ ... })
 </pre>
 **Примечание:** Используйте event.preventDefault() для предотвращения случайных переходов.
 <pre>
-$scope.$on('$stateChangeStart', 
+$scope.$on('$stateChangeStart',
 function(event, toState, toParams, fromState, fromParams){ 
-    event.preventDefault(); 
-    // transitionTo() обещание будет отклонено
-    // с ошибкой 'transition prevented'
+  event.preventDefault();
+  // transitionTo() обещание будет отклонено
+  // с ошибкой 'transition prevented'
 })
 </pre>
 * **$stateNotFound** - срабатывает, когда запрошенное состояние **не может быть найдено** по имени во время перехода.
 Событие транслируется, позволяя любым обработчикам как-то обработать ошибку (обычно ленивую загрузку ненайденого состояния).
 Обработчикам передается специальный объект `unfoundState`, свойства которого можно вувидеть в примере.
 Используйте `event.preventDefault()` для отмены перехода (transitionTo() обещание будет отклонено с ошибкой
-'transition aborted'). [См так же о ленивой загрузке состояний ](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-lazy-load-states)
+'transition aborted'). [См так же о ленивой загрузке состояний](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions#how-to-lazy-load-states)
 <pre>
 // предположительно lazy.state где-то не определен
-$state.go("lazy.state", {a:1, b:2}, {inherit:false});
+state.go("lazy.state", {a:1, b:2}, {inherit:false});
 
 // где-то еще
-$scope.$on('$stateNotFound', 
-function(event, unfoundState, fromState, fromParams){ 
-    console.log(unfoundState.to); // "lazy.state"
-    console.log(unfoundState.toParams); // {a:1, b:2}
-    console.log(unfoundState.options); // {inherit:false} + default options
+$scope.$on('$stateNotFound',
+function(event, unfoundState, fromState, fromParams){
+  console.log(unfoundState.to); // "lazy.state"
+  console.log(unfoundState.toParams); // {a:1, b:2}
+  console.log(unfoundState.options); // {inherit:false} + default options
 })
 </pre>
 * **$stateChangeSuccess** - срабатывает однажды при переходе состояния в **завершено**. 
 <pre>
-$scope.$on('$stateChangeSuccess', 
+$scope.$on('$stateChangeSuccess',
 function(event, toState, toParams, fromState, fromParams){ ... })
 </pre>
 * **$stateChangeError** - срабатывает если во время перехода **произошла ошибка**.
 <pre>
-$scope.$on('$stateChangeError', 
+$scope.$on('$stateChangeError',
 function(event, toState, toParams, fromState, fromParams, error){ ... })
 </pre>
 
@@ -340,17 +341,17 @@ function(event, toState, toParams, fromState, fromParams, error){ ... })
 * **$viewContentLoading** - Срабатывает когда вид **начинает** загружаться, **перед**  тем отрисовкой DOM.
 '$rootScope' распространяет это событие.
 <pre>
-$scope.$on('$viewContentLoading', 
-function(event, viewConfig){ 
-    // Доступ ко всем настройкам вида.
-    // и специальному свойству 'targetView'
-    // viewConfig.targetView 
+$scope.$on('$viewContentLoading',
+function(event, viewConfig){
+  // Доступ ко всем настройкам вида.
+  // и специальному свойству 'targetView'
+  // viewConfig.targetView
 });
 </pre>
 
 * **$viewContentLoaded** - Происходит когда вид **загружен**, **после** отрисовки DOM. '$scope' этого вида распространяет
 это событие.
 <pre>
-$scope.$on('$viewContentLoaded', 
+$scope.$on('$viewContentLoaded',
 function(event){ ... });
 </pre>
