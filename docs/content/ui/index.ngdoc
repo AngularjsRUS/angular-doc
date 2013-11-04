@@ -26,9 +26,11 @@ UI-Router использует [*состояния*](https://github.com/angular
  - через Bower: выполнив $ bower install angular-ui-router в консоли
  - либо через **[Component](https://github.com/component/component)**: выполнив `$ component install angular-ui/ui-router` в консоли
 
-**(2)** Включить `angular-ui-router.js` (или `angular-ui-router.min.js`) в `index.html`, после полключения самого Ангуляра (при подключении через Component: пропустите этот шаг)
+**(2)** Включить `angular-ui-router.js` (или `angular-ui-router.min.js`) в `index.html`,
+после полключения самого Ангуляра (при подключении через Component: пропустите этот шаг)
 
-**(3)** Добавить `'ui.router'` в список зависимостей основного модуля (при подключении через Component: замените `'ui.router'` на `require('angular-ui-router')`)
+**(3)** Добавить `'ui.router'` в список зависимостей основного модуля (при подключении через Component: 
+замените `'ui.router'` на `require('angular-ui-router')`)
 
 В итоге схема должна выглядеть следующим образом:
 <pre>
@@ -98,7 +100,7 @@ UI-Router использует [*состояния*](https://github.com/angular
 <ul>
   <li ng-repeat="item in items">{{ item }}</li>
 </ul>
-```
+</pre>
 
 >
 <pre>
