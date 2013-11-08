@@ -20,16 +20,16 @@ UI-Router использует [*состояния*](https://github.com/angular
 
 ## Быстрый старт
 
-**(1)** UI-Router подключается одним из 4 способов:
+**1.** UI-Router подключается одним из 4 способов:
  - клонировать и собрать [билд](https://github.com/angular-ui/ui-router/blob/master/README.md#developing) из репозитория
  - [скачать релиз](http://angular-ui.github.io/ui-router/release/angular-ui-router.js) (или [минифицированный](http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js))
  - через Bower: выполнив $ bower install angular-ui-router в консоли
  - либо через **[Component](https://github.com/component/component)**: выполнив `$ component install angular-ui/ui-router` в консоли
 
-**(2)** Включить `angular-ui-router.js` (или `angular-ui-router.min.js`) в `index.html`,
+**2.** Включить `angular-ui-router.js` (или `angular-ui-router.min.js`) в `index.html`,
 после полключения самого Ангуляра (при подключении через Component: пропустите этот шаг)
 
-**(3)** Добавить `'ui.router'` в список зависимостей основного модуля (при подключении через Component: 
+**3.** Добавить `'ui.router'` в список зависимостей основного модуля (при подключении через Component: 
 замените `'ui.router'` на `require('angular-ui-router')`)
 
 В итоге схема должна выглядеть следующим образом:
@@ -41,7 +41,7 @@ UI-Router использует [*состояния*](https://github.com/angular
     <script src="js/angular-ui-router.min.js"></script>
     <script>
         var myApp = angular.module('myApp', ['ui.router']);
-        // For Component users, it should look like this:
+        // Для компонентов пользователя это должно выглядеть так:
         // var myApp = angular.module('myApp', [require('angular-ui-router')]);
     </script>
     ...
@@ -55,11 +55,9 @@ UI-Router использует [*состояния*](https://github.com/angular
 **Вложенные состояния и виды**
 Основная мощь UI-Router заключается в возможности вкладывать состояния и виды друг в друга
 
-**(1)** Сначала выполните [инструкции для быстрого](#get-started), приведенные выше.
+**1.** Сначала выполните [инструкции для быстрого](#get-started), приведенные выше.
 
-**(2)** Затем добавьте [директиву `ui-view`](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-view) в тег `<body />` вашего приложения.
-
->
+**2.** Затем добавьте [директиву `ui-view`](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-view) в тег `<body />` вашего приложения.
 <pre>
 <!-- index.html -->
 <body>
@@ -70,12 +68,10 @@ UI-Router использует [*состояния*](https://github.com/angular
 </body>
 </pre>
 
-**(3)** Заметьте, что мы так же использовали [директиву `ui-sref`](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-sref).
+**3.** Заметьте, что мы так же использовали [директиву `ui-sref`](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-sref).
 В дополнение к управлению переходами эта директива автоматически создась `href`-атрибут для тега `<a />`
 если соответствующее состояние имеет URL-адрес. Дадее мы добавили шаблоны. Они включатся в `ui-view` внутри `index.html`.
 Обратити внимание, что в шаблонах может быть собственный `ui-view`! В этом вся фишка вложенных состояний и видов.
-
->
 <pre>
 <!-- partials/state1.html -->
 <h1>State 1</h1>
@@ -91,9 +87,7 @@ UI-Router использует [*состояния*](https://github.com/angular
 <div ui-view></div>
 </pre>
 
-**(4)** Далее добавим несколько шаблонов-потомков. *Они* будут включенны в `ui-view` родительских шаблонов.
-
->
+**4.** Далее добавим несколько шаблонов-потомков. *Они* будут включенны в `ui-view` родительских шаблонов.
 <pre>
 <!-- partials/state1.list.html -->
 <h3>List of State 1 Items</h3>
@@ -101,8 +95,6 @@ UI-Router использует [*состояния*](https://github.com/angular
   <li ng-repeat="item in items">{{ item }}</li>
 </ul>
 </pre>
-
->
 <pre>
 <!-- partials/state2.list.html -->
 <h3>List of State 2 Things</h3>
@@ -111,10 +103,7 @@ UI-Router использует [*состояния*](https://github.com/angular
 </ul>
 </pre>
 
-**(5)** Наконец, свяжем всё это со `$stateProvider`. Настроим состояния в конфигурационном модуле, как показано далее:
-
-
->
+**5.** Наконец, свяжем всё это со `$stateProvider`. Настроим состояния в конфигурационном модуле, как показано далее:
 <pre>
 myApp.config(function($stateProvider, $urlRouterProvider) {
   //
@@ -148,11 +137,9 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
     });
 </pre>
 
-**(6)** Пример для быстрого старта в действии.
->**[Запустить в Plunker](http://plnkr.co/edit/u18KQc?p=preview)**
+**6.** Пример для быстрого старта в действии. **[Запустить в Plunker](http://plnkr.co/edit/u18KQc?p=preview)**
 
-**(7)** Черновик интерфейса
->**[Подробнее](https://github.com/angular-ui/ui-router/wiki)**
+**7.** Черновик интерфейса. **[Подробнее](https://github.com/angular-ui/ui-router/wiki)**
 
 
 ## Множественные и именованные виды
@@ -162,10 +149,9 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 **Профессиональный совет:** *Хотя множественность видов мощная особенность, но зачатую более эффективно
 управлять интерфейсом с помощью вложенных видов и связывание этих видов с вложенными состояниями*
 
-**(1)** Выполните [инструкции для быстрого старта](#get-started), приведенные выше.
+**1.** Выполните [инструкции для быстрого старта](#get-started), приведенные выше.
 
-**(2)** Добавьте один или несктолько `ui-view` в приложение, задав им имена.
->
+**2.** Добавьте один или несктолько `ui-view` в приложение, задав им имена.
 <pre>
 <!-- index.html -->
 <body>
@@ -177,8 +163,7 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
 </body>
 </pre>
 
-**(3)** Опишите состояния в конфигурационном модуле:
->
+**3.** Опишите состояния в конфигурационном модуле:
 <pre>
 myApp.config(function($stateProvider, $routeProvider){
   $stateProvider
@@ -206,8 +191,7 @@ myApp.config(function($stateProvider, $routeProvider){
 });
 </pre>
 
-**(4)** Пример для быстрого старта в действии.
->**[Запустить в Plunker](http://plnkr.co/edit/SDOcGS?p=preview)**
+**4.** Пример для быстрого старта в действии. **[Запустить в Plunker](http://plnkr.co/edit/SDOcGS?p=preview)**
 
 
 ## Дополнительно (на английском)
@@ -220,7 +204,7 @@ myApp.config(function($stateProvider, $routeProvider){
 
 
 
-## СОобщить о проблеме
+## Сообщить о проблеме
 
 Help us make UI-Router better! If you think you might have found a bug, or some other weirdness, start by making sure
 it hasn't already been reported. You can [search through existing issues](https://github.com/angular-ui/ui-router/search?q=wat%3F&type=Issues)
@@ -242,13 +226,13 @@ keeps development streamlined, and helps us focus on building great software.
 
 ## Помощь
 
-**(1)** Смотри раздел **[Разработка](#developing)** ниже, для получение девелоперской версии UI-Router и запуска на локальной машине.
+**1.** Смотри раздел **[Разработка](#developing)** ниже, для получение девелоперской версии UI-Router и запуска на локальной машине.
 
-**(2)** Проверь [список нововведений](https://github.com/angular-ui/ui-router/issues/milestones) который можно найти в шапке проекта, чтобы идея соответствовала тому, куда мы идем.
+**2.** Проверь [список нововведений](https://github.com/angular-ui/ui-router/issues/milestones) который можно найти в шапке проекта, чтобы идея соответствовала тому, куда мы идем.
 
-**(3)** Если не уверен, [открой RFC](https://github.com/angular-ui/ui-router/issues/new?title=RFC:%20My%20idea) чтобы получить отзыв о вашей идее.
+**3.** Если не уверен, [открой RFC](https://github.com/angular-ui/ui-router/issues/new?title=RFC:%20My%20idea) чтобы получить отзыв о вашей идее.
 
-**(4)** Наконец, код коммитов и открытых пулл-реквестов. Код и коммиты должны следовать правилам:
+**4.** Наконец, код коммитов и открытых пулл-реквестов. Код и коммиты должны следовать правилам:
 
 - Новые функции должны *всегда* покрываться тестами (или возвращение тестов для исправления багов), и *никогда* нельзя уничтожать существующие тесты
 - Коммиты должны описывать одно логическое изменение; если особенность проходит несколько итераций, объедините коммиты в один
