@@ -33,3 +33,241 @@ UI-Router использует [*состояния*](https://github.com/angular
 замените `'ui.router'` на `require('angular-ui-router')`)
 
 В итоге схема должна выглядеть следующим образом:
+<pre>
+<!doctype html>
+<html ng-app="myApp">
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="js/angular-ui-router.min.js"></script>
+    <script>
+        var myApp = angular.module('myApp', ['ui.router']);
+        // For Component users, it should look like this:
+        // var myApp = angular.module('myApp', [require('angular-ui-router')]);
+    </script>
+    ...
+</head>
+<body>
+    ...
+</body>
+</html>
+</pre>
+
+**Вложенные состояния и виды**
+Основная мощь UI-Router заключается в возможности вкладывать состояния и виды друг в друга
+
+**(1)** Сначала выполните [инструкции для быстрого](#get-started), приведенные выше.
+
+**(2)** Затем добавьте [директиву `ui-view`](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-view) в тег `<body />` вашего приложения.
+
+>
+<pre>
+<!-- index.html -->
+<body>
+    <div ui-view></div>
+    <!-- Добавим так же кое-какую навигацию: -->
+    <a ui-sref="state1">State 1</a>
+    <a ui-sref="state2">State 2</a>
+</body>
+</pre>
+
+**(3)** Заметьте, что мы так же использовали [директиву `ui-sref`](https://github.com/angular-ui/ui-router/wiki/Quick-Reference#ui-sref).
+В дополнение к управлению переходами эта директива автоматически создась `href`-атрибут для тега `<a />`
+если соответствующее состояние имеет URL-адрес. Дадее мы добавили шаблоны. Они включатся в `ui-view` внутри `index.html`.
+Обратити внимание, что в шаблонах может быть собственный `ui-view`! В этом вся фишка вложенных состояний и видов.
+
+>
+<pre>
+<!-- partials/state1.html -->
+<h1>State 1</h1>
+<hr/>
+<a ui-sref="state1.list">Show List</a>
+<div ui-view></div>
+</pre>
+<pre>
+<!-- partials/state2.html -->
+<h1>State 2</h1>
+<hr/>
+<a ui-sref="state2.list">Show List</a>
+<div ui-view></div>
+</pre>
+
+**(4)** Далее добавим несколько шаблонов-потомков. *Они* будут включенны в `ui-view` родительских шаблонов.
+
+>
+<pre>
+<!-- partials/state1.list.html -->
+<h3>List of State 1 Items</h3>
+<ul>
+  <li ng-repeat="item in items">{{ item }}</li>
+</ul>
+</pre>
+
+>
+<pre>
+<!-- partials/state2.list.html -->
+<h3>List of State 2 Things</h3>
+<ul>
+  <li ng-repeat="thing in things">{{ thing }}</li>
+</ul>
+</pre>
+
+**(5)** Наконец, свяжем всё это со `$stateProvider`. Настроим состояния в конфигурационном модуле, как показано далее:
+
+
+>
+<pre>
+myApp.config(function($stateProvider, $urlRouterProvider) {
+  //
+  // Любые неопределенные url перенаправлять на /state1
+  $urlRouterProvider.otherwise("/state1");
+  //
+  // Теперь определим состояния
+  $stateProvider
+    .state('state1', {
+      url: "/state1",
+      templateUrl: "partials/state1.html"
+    })
+    .state('state1.list', {
+      url: "/list",
+      templateUrl: "partials/state1.list.html",
+      controller: function($scope) {
+        $scope.items = ["A", "List", "Of", "Items"];
+      }
+    })
+    .state('state2', {
+      url: "/state2",
+      templateUrl: "partials/state2.html"
+    })
+    .state('state2.list', {
+      url: "/list",
+        templateUrl: "partials/state2.list.html",
+        controller: function($scope) {
+          $scope.things = ["A", "Set", "Of", "Things"];
+        }
+      })
+    });
+</pre>
+
+**(6)** Пример для быстрого старта в действии.
+>**[Запустить в Plunker](http://plnkr.co/edit/u18KQc?p=preview)**
+
+**(7)** Черновик интерфейса
+>**[Подробнее](https://github.com/angular-ui/ui-router/wiki)**
+
+
+## Множественные и именованные виды
+
+Еще одной интересной особенностью является возможность иметь несколько `ui-view` в шаблоне
+
+**Профессиональный совет:** *Хотя множественность видов мощная особенность, но зачатую более эффективно
+управлять интерфейсом с помощью вложенных видов и связывание этих видов с вложенными состояниями*
+
+**(1)** Выполните [инструкции для быстрого старта](#get-started), приведенные выше.
+
+**(2)** Добавьте один или несктолько `ui-view` в приложение, задав им имена.
+>
+<pre>
+<!-- index.html -->
+<body>
+    <div ui-view="viewA"></div>
+    <div ui-view="viewB"></div>
+    <!-- Also a way to navigate -->
+    <a ui-sref="route1">Route 1</a>
+    <a ui-sref="route2">Route 2</a>
+</body>
+</pre>
+
+**(3)** Опишите состояния в конфигурационном модуле:
+>
+<pre>
+myApp.config(function($stateProvider, $routeProvider){
+  $stateProvider
+    .state('index', {
+      url: "",
+      views: {
+        "viewA": { template: "index.viewA" },
+        "viewB": { template: "index.viewB" }
+      }
+    })
+    .state('route1', {
+      url: "/route1",
+      views: {
+        "viewA": { template: "route1.viewA" },
+        "viewB": { template: "route1.viewB" }
+      }
+    })
+    .state('route2', {
+      url: "/route2",
+      views: {
+        "viewA": { template: "route2.viewA" },
+        "viewB": { template: "route2.viewB" }
+      }
+    })
+});
+</pre>
+
+**(4)** Пример для быстрого старта в действии.
+>**[Запустить в Plunker](http://plnkr.co/edit/SDOcGS?p=preview)**
+
+
+## Дополнительно (на английском)
+
+* [Introduction Video](http://egghead.io/lessons/angularjs-introduction-ui-router)
+* [In-Depth Overview](https://github.com/angular-ui/ui-router/wiki)
+* [API Quick Reference](https://github.com/angular-ui/ui-router/wiki/Quick-Reference)
+* [Sample App](http://angular-ui.github.com/ui-router/sample/) ([Source](https://github.com/angular-ui/ui-router/tree/master/sample))
+* [FAQ](https://github.com/angular-ui/ui-router/wiki/Frequently-Asked-Questions)
+
+
+
+## СОобщить о проблеме
+
+Help us make UI-Router better! If you think you might have found a bug, or some other weirdness, start by making sure
+it hasn't already been reported. You can [search through existing issues](https://github.com/angular-ui/ui-router/search?q=wat%3F&type=Issues)
+to see if someone's reported one similar to yours.
+
+If not, then [create a plunkr](http://plnkr.co/edit/u18KQc?p=preview) that demonstrates the problem (try to use as little code
+as possible: the more minimalist, the faster we can debug it).
+
+Next, [create a new issue](https://github.com/angular-ui/ui-router/issues/new) that briefly explains the problem,
+and provides a bit of background as to the circumstances that triggered it. Don't forget to include the link to
+that plunkr you created!
+
+Finally, if you're unsure how a feature is used, or are encountering some unexpected behavior that you aren't sure
+is a bug, it's best to talk it out in the
+[Google Group](https://groups.google.com/forum/#!categories/angular-ui/router) or on
+[StackOverflow](http://stackoverflow.com/questions/ask?tags=angularjs,angular-ui-router) before reporting it. This
+keeps development streamlined, and helps us focus on building great software.
+
+
+## Помощь
+
+**(1)** Смотри раздел **[Разработка](#developing)** ниже, для получение девелоперской версии UI-Router и запуска на локальной машине.
+
+**(2)** Проверь [список нововведений](https://github.com/angular-ui/ui-router/issues/milestones) который можно найти в шапке проекта, чтобы идея соответствовала тому, куда мы идем.
+
+**(3)** Если не уверен, [открой RFC](https://github.com/angular-ui/ui-router/issues/new?title=RFC:%20My%20idea) чтобы получить отзыв о вашей идее.
+
+**(4)** Наконец, код коммитов и открытых пулл-реквестов. Код и коммиты должны следовать правилам:
+
+- *Always* have test coverage for new features (or regression tests for bug fixes), and *never* break existing tests
+- Коммиты должны описывать одно логическое изменение; если особенность проходит несколько итераций, объедините коммиты в один
+- Стиль кода должен соответствовать стилю кода в проекте
+
+
+## Разработка
+
+UI-Router использует <code>grunt >= 0.4.x</code>, убедитесь, что обновили его и читайте
+[руководство по переходу](http://gruntjs.com/upgrading-from-0.3-to-0.4).
+
+Зависимости для сборки из исходников и запуска тестов:
+
+* [grunt-cli](https://github.com/gruntjs/grunt-cli) - run: `$ npm install -g grunt-cli`
+* Затем инсталируете зависимости разработчика: `$ npm install`
+
+Существует ряд исполнителей в grunt-файле, который используется для построения решений, документов и т.д.
+
+* `grunt`: Производство нормальной сборки, зауск jshint и karma тестов
+* `grunt build`: Производство нормальной сборки
+* `grunt dist`: Производство чистой сборки и генерация документации
+* `grunt dev`: Запуск сервера разработчика (простое приложение) и наблюдение за изменениями, сборка и запуск karma-тестов при изменении.
