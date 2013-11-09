@@ -36,10 +36,10 @@
 #### ANYTHING MISSING? Please add it to this list to be documented.
 
 ***
-# Module Configuration
+# Настройка модуля
 
-### Configure your states in your module's config method. 
-Be sure to include `ui.router` as a module dependency.
+### Настройка состояний в конфигурационном методе модуля. 
+Убедитесь, что включили `ui.router` в список зависимостейy.
 <pre>
 angular.module("myApp", ["ui.router"]).config(function($stateProvider){
     $stateProvider.state(stateName, stateConfig);
@@ -51,29 +51,30 @@ angular.module("myApp", ["ui.router"]).config(function($stateProvider){
 # $stateProvider
 
 ## `$stateProvider.state(stateName, stateConfig)`
-Creates a new application state. For alternate usage, see [Object-based States](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#object-based-states)
+Создает новое состояние приложения. Для альтернативного использования, см. [Объектно-ориентированные состояния](https://github.com/angular-ui/ui-router/wiki/Nested-States-%26-Nested-Views#object-based-states)
 
-The parameters for `.state()` are:
+Параметры `.state()`:
 
 ## `stateName` 
 **String**
 
-A unique state name, e.g. "home", "about", "contacts". To create a parent/child state use a dot, e.g. "about.sales", "home.newest". Read more about nested states: [[Nested States & Nested Views]]
+Уникальное имя состояния, например, "home", "about", "contacts". Чтобы создать дочернее состояние используйте точку,
+например, "about.sales", "home.newest". См. так же [Вложенные состояния и виды]]
 
 <pre>
-// The state() method takes a unique stateName (String) and a stateConfig (Object)
+// Метод state() принимает уникальное имя состояния stateName (строка) и настройку stateConfig (объект)
 $stateProvider.state(stateName, stateConfig);
 
-// stateName can be a single top-level name (must be unique).
+// Имя состояния может быть одиночным именем верхнего уровня (должно быть уникальным).
 $stateProvider.state("home", {});
 
-// Or it can be a nested state name. This state is a child of the above "home" state.
+// Или может быть именем вложенного состояния. Это состояние потомок состояния "home", описанного выше.
 $stateProvider.state("home.newest", {});
 
-// Nest states as deeply as needed.
+// Вложенность может быть настолько глубокой, насколько нужно.
 $stateProvider.state("home.newest.abc.xyz.inception", {});
 
-// state() returns $stateProvider, so you can chain state declarations.
+// state() возвращает $stateProvider, чтобы можно было объединить их в цепочку.
 $stateProvider.state("home", {}).state("about", {}).state("contacts", {});
 </pre>
 
