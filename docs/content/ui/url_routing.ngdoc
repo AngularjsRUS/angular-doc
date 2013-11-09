@@ -209,7 +209,7 @@ app.config(function($urlRouterProvider){
 </pre>
 
 #### `rule()` для пользовательских url-обработчиков
-Parameters:
+Параметры:
 * `handler` **Function** Функция, принимающая сервисы $injector и $location в качестве аргументов.
 Необходимо следить за тем, чтобы она возвращала строку с корректным url.
 
@@ -231,7 +231,7 @@ url-шаблоны для каждой локации. Большинству п
 непосредственно, однако это может быть полезно, чтобы выработать UrlMatcher объект и передать его в качестве url
 в настройку состояния.
 
-Пожалуйста, обратитесь к комментарию в документации внутри [$urlMatcherFactory file](https://github.com/angular-ui/ui-router/blob/master/src/urlMatcherFactory.js) чтобы узнать больше.
+Пожалуйста, обратитесь к комментарию в документации внутри [urlMatcherFactory.js](https://github.com/angular-ui/ui-router/blob/master/src/urlMatcherFactory.js) чтобы узнать больше.
 
 <pre>
 var urlMatcher = $urlMatcherFactory.compile("/home/:id?param1");
