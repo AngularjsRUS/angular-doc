@@ -21,6 +21,7 @@ $stateProvider
 
 ### Параметры URL
 
+#### Основные параметры
 Часто URL-адреса имеют изменяемые части, которые называют параметрами. Параметры определяют несколько свойств.
 Основной параметр выглядит так:
 <pre>
@@ -29,7 +30,7 @@ $stateProvider
         url: "/contacts/:contactId",
         templateUrl: 'contacts.detail.html',
         controller: function ($stateParams) {
-            // If we got here from a url of /contacts/42
+            // Если получаем адрес из url /contacts/42
             expect($stateParams).toBe({contactId: 42});
         }]
     })
@@ -40,14 +41,45 @@ $stateProvider
 // идентично предыдущему примеру
 url: "/contacts/{contactId}" 
 </pre>
-A bonus to using curly brackets is the ability to set a Regular Expression rule for the parameter:
+
+**Примеры:**
+ * `'/hello/'` - Совпадает только если путь равен '/hello/'. Слеши на конце специально не обрабатываются, и шаблоны должны соответствовать всему пути, а не только началу.
+ * `'/user/:id'` - Совпадают '/user/bob' или '/user/1234!!!' или даже '/user/', но не '/user' или '/user/bob/details'. Второй сегмент пути будет определен как параметр 'id'.
+ * `'/user/{id}'` - Как в предыдущем примере, но с использованием фигурных скобок.
+
+#### Regex параметры
+При использовании фигурных скобок можно задать правило для параметра:
 <pre>
 // будет соответствовать только contactId из восьми цифр
 url: "/contacts/{contactId:[0-9]{1,8}}"
 </pre>
 
-### URL роутинг для вложенных состояний
+**Примеры:**
+ * `'/user/{id:[^/]*}'` - То же что и `'/user/{id}'` из предыдущего примера.
+ * `'/user/{id:[0-9a-fA-F]{1,8}}'` - Похоже на предыдущий пример, но совпадет только если параметр id число от 1 до 8.
+ * `'/files/{path:.*}'` - Совпадет любой URL, начинающийся с '/files/' и определит остаток пути как параметр 'path'.
+ * `'/files/*path'` - То же самое. Специальный синтаксис для захвата всего оставшегося пути.
 
+** Внимание: ** Не ставьте захватывающих скобок в регулярные выражения, т. к. UrlMatcher в ui-router
+обрамляет ими всё регулярное выражение. Эффективно вводить вторую группу соответствия тому же параметру,
+которая собьет нумерацию потомков в URL. Можно использовать не соответствующие группы, т. е. (?:...)
+будет работать.
+
+#### Параметры запроса
+Можно указать параметры как параметры запроса, записав их после '?':
+<pre>
+url: "/contacts?myParam"
+// совпадет с url "/contacts?myParam=value"
+</pre>
+Если необходимо более одного праметра, запишите их после '&':
+<pre>
+url: "/contacts?myParam1&myParam2"
+// совпадет с url "/contacts?myParam1=value1&myParam2=wowcool"
+</pre>
+
+### URL маршрутизация для вложенных состояний
+
+#### Добавляемая маршрутизация (по умолчанию)
 Когда URL-роутинг используется вместе в вложенными состояниями, по умолчанию пути объединяются через цепочку 
 наследований.
 
@@ -62,9 +94,14 @@ $stateProvider
      ...
   });
 </pre>
-Затем при переходе по URL «/contacts/list» будет установлено состояние «contacts.list». 
+Так пути станут:
+* **Состояние 'contacts'** совпадет с`"/contacts"` 
+* **Состояние 'contacts.list'** совпадет с `"/contacts/list"`. Пути будут объединены.
 
-Если необходимо чтобы URL полностью совпадал, то нужно предварить URL строку специальным символом '^'.
+
+#### Абсолютная маршрутизация (^)
+Если необходимо совпадение всего url, добавьте перед url префикс '^'.
+
 <pre>
 $stateProvider
   .state('contacts', {
@@ -76,11 +113,17 @@ $stateProvider
      ...
   });
 </pre>
-Теперь состояние «contacts.list» будет установлено при переходе на «/list».
+Так пути станут:
+* **Состояние 'contacts'** совпадет с`"/contacts"` 
+* **Состояние 'contacts.list'** совпадет с `"/list"`. Пути **не будут** объединены, т. к. используется `^`.
+
 
 ### Сервис $stateParams
 Как было показано ранее, сревис $stateParams это объект, который будет иметь один ключ на URL-параметр. $StateParams
 это идеальный способо предоставить контроллерам или другим сервисам отдельные части URL-адреса.
+
+Замечание: При использовании сервиса $stateParams в контроллере состояния, он будет в области видимости так, 
+что только релевантные параметры, определенные в этом состоянии будут доступны объекту сервиса.
 <pre>
 // Если имеется url для состояния:
 url: '/users/:id/details/{type}/{repeat:[0-9]+}?from&to'
@@ -96,4 +139,103 @@ url: '/users/:id/details/{type}/{repeat:[0-9]+}?from&to'
 
 // Объект $stateParams станет:
 { id:'123', type:'default', repeat:'0', from='there', to='here' }
+</pre>
+
+
+
+### $UrlRouterProvider
+$urlRouterProvider следит за $location. При изменении $location проходит по каждому элементу списка правил,
+пока не будет найдено совпадение. $urlRouterProvider используется за кулисами и в любое время можно задать
+`url` в настройке состояния. Все URL компилируются в объект UrlMatcher (см. $urlMatcherFactory ниже).
+
+$urlRouterProvider имеет несколько методов, делающих его полезным непосредственно в модуле конфигурации .
+
+#### `when()` для перенаправления
+Параметры:
+* `what` **String | RegExp | UrlMatcher** Путь, с которого нужно перенаправить. 
+* `handler` **String | Function** Путь, куда нужно перенаправить. 
+
+**`handler` в виде строки**
+
+Если обработчик является строкой, он рассматривается как перенаправление, и интерполируется в соответствии с синтаксисом
+сравнения (т. е. как String.replace() для RegExp, или как UrlMatcher шаблон в другом случае).
+
+<pre>
+app.config(function($urlRouterProvider){
+    // пустой маршрут перенаправляется на /index   
+    $urlRouterProvider.when('', '/index');
+
+    // Так же можно использовать regex для параметра сравнения
+    $urlRouterProvider.when('/aspx/i', '/index');
+})
+</pre>
+
+**`handler` в виде функции**
+
+Если обработчик является функцией, значит она внедряется. Она внедряется при совпадении $location. 
+Объект сравнения можно внедрить как $match
+
+Обработчик может вернуть:
+* **falsy** показывает, что правило ничего не нашло, тогда $urlRouter попытается найти совпадения для другого правила.
+* **String**, рассматривается как строка с перенаправлением и передается в $location.url()
+* **nothing** или **truthy** собщает $urlRouter'у что url был обработан
+
+Фактический код, используемый для регистрации состояний, имеющих url-адреса за кулисами.
+<pre>
+$urlRouterProvider.when(state.url, ['$match', '$stateParams', function ($match, $stateParams) {
+    if ($state.$current.navigable != state || !equalForKeys($match, $stateParams)) {
+        $state.transitionTo(state, $match, false);
+    }
+}]);
+</pre>
+
+
+#### `otherwise()` для неправильных путей
+Параметры:
+* `path` **String | Function** url-адрес на который нужно перенаправить или функция с правилом `rule`,
+которая возвращает url-адрес. В функцию передаются два параметра: `$injector` и `$location`.
+
+<pre>
+app.config(function($urlRouterProvider){
+    // если путь не найден или url не определен
+    // otherwise позаботится о перенаправлении пользователя на определенный url
+    $urlRouterProvider.otherwise('/index');
+
+    // Пример использования функции-правила в качестве параметра
+    $urlRouterProvider.otherwise(function($injector, $location){
+        ... some advanced code...
+    });
+})
+</pre>
+
+#### `rule()` для пользовательских url-обработчиков
+Parameters:
+* `handler` **Function** Функция, принимающая сервисы $injector и $location в качестве аргументов.
+Необходимо следить за тем, чтобы она возвращала строку с корректным url.
+
+<pre>
+app.config(function($urlRouterProvider){
+    // Пример того как отменить учет регистра в url-адресах
+    $urlRouterProvider.rule(function ($injector, $location) {
+        var path = $location.path(), normalized = path.toLowerCase();
+        if (path != normalized) return normalized;
+    });
+})
+</pre>
+
+
+### $urlMatcherFactory и UrlMatchers
+Определяет синтаксис для url-шаблонов и параметров заменителей. Этот сервис используется за кулисами с помощью
+$urlRouterProvider для кэширования скомпилированных объектов UrlMatcher, вместо того, чтобы повторно разбирать
+url-шаблоны для каждой локации. Большинству пользователей не нужно будет использовать $urlMatcherFactory
+непосредственно, однако это может быть полезно, чтобы выработать UrlMatcher объект и передать его в качестве url
+в настройку состояния.
+
+Пожалуйста, обратитесь к комментарию в документации внутри [$urlMatcherFactory file](https://github.com/angular-ui/ui-router/blob/master/src/urlMatcherFactory.js) чтобы узнать больше.
+
+<pre>
+var urlMatcher = $urlMatcherFactory.compile("/home/:id?param1");
+$stateProvider.state('myState', {
+    url: urlMatcher 
+});
 </pre>
