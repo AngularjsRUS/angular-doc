@@ -75,7 +75,7 @@ function $RootScopeProvider(){
      * @name ng.$rootScope.Scope
      *
      * @description
-     * Корневая область видимости может быть созвращена с использованием ключа {@link ng.$rootScope $rootScope} 
+     * Корневая область видимости может быть возвращена с использованием ключа {@link ng.$rootScope $rootScope} 
      * из сервиса {@link AUTO.$injector $injector}. Дочерние области создаются с использованием метода 
      * {@link ng.$rootScope.Scope#$new $new()}. (Другие области создаются автоматически, при компиляции HTML-шаблона.)
      * 
