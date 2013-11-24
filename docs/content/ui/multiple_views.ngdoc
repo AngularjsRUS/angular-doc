@@ -131,7 +131,7 @@ $stateProvider
         ////////////////////////////////////////////////////////////////////////////
 
         // Абсолютное позиционирование вида 'info' в состоянии 'contacts.detail'.
-        // <div ui-view='info'/> within contacts.detail.html
+        // <div ui-view='info'/> внутри contacts.detail.html
         "info@contacts.detail" : { }
 
         // Абсолютное позиционирование вида 'detail' в состоянии 'contacts'.
