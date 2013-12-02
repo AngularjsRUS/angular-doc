@@ -4,13 +4,42 @@
 
 <ul doc-tutorial-nav="6"></ul>
 
-В этом шаге мы добавим миниатюры изображений (thumbnail images) для телефонов в список телефонов, а также ссылки, 
-который на данный момент никуда не будут вести. В последующих шагах, мы будем использовать эти ссылки 
+На этом шаге мы добавим миниатюры изображений (thumbnail images) в список телефонов, а также ссылки, 
+которые на данный момент никуда не будут вести. В последующих шагах, мы будем использовать эти ссылки 
 для отображения дополнительной информации о телефонах в каталоге.
 
 
-<div doc-tutorial-reset="6"></div>
+<div class="tabbable" show="true">
 
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux" value="gitUnix">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 6.</p>
+        <pre>git checkout -f step-6</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-6/app">сервере Angular</a>.
+        </p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="tab-pane well" title="Git на Windows" value="gitWin">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 6.</p>
+        <pre>git checkout -f step-6</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-6/app">сервере Angular</a>
+        </p>
+      </li>
+    </ol>
+  </div>
+
+</div>
 
 Теперь вы должны увидеть ссылки и изображения телефонов в списке.
 
