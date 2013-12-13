@@ -129,10 +129,10 @@ function annotate(fn) {
  * @methodOf AUTO.$injector
  *
  * @description
- * Return an instance of the service.
+ * Возвращает экземпляр сервиса
  *
- * @param {string} name The name of the instance to retrieve.
- * @return {*} The instance.
+ * @param {string} name Имя, по которому ищется экземпляр.
+ * @return {*} Экземпляр.
  */
 
 /**
