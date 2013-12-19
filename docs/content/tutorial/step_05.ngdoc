@@ -205,22 +205,18 @@ You should now see the following output in the Karma tab:
 
 
 
-# Experiments
+# Попробуем самостоятельно
 
-* At the bottom of `index.html`, add a `{{phones | json}}` binding to see the list of phones
-  displayed in json format.
+* В конце файла "index.html" добавьте "{{phones | json}}", чтобы увидеть список телефонов в формате json.
 
-* In the `PhoneListCtrl` controller, pre-process the http response by limiting the number of phones
-to the first 5 in the list. Use the following code in the $http callback:
+* В контроллере "PhoneListCtrl" обработайте http ответ на запрос, ограничив кол-во выводимых телефонов 5-ю. Добавьте следующий код в функцию обратного вызова $http:
 
          $scope.phones = data.splice(0, 5);
 
+# Итоги
 
-# Summary
-
-Now that you have learned how easy it is to use angular services (thanks to Angular's dependency
-injection), go to {@link step_06 step 6}, where you will add some
-thumbnail images of phones and some links.
+Теперь Вы научились как легко использовать сервисы Angular (спасибо denandency injection).
+На {@link step_06 следующем шаге} мы добавим превьюшки телефонов и ссылки на них. 
 
 
 <ul doc-tutorial-nav="5"></ul>
