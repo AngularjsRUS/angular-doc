@@ -68,7 +68,7 @@
           </p>
           <pre>npm install -g karma</pre>
       </li>
-      <li><p>Вам также потребуется Git, который вы можите получить на сайте
+      <li><p>Вам также потребуется Git, который вы можете получить на сайте
              <a href="http://git-scm.com/download">the Git site</a>.
           </p>
       </li>
