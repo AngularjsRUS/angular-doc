@@ -117,11 +117,11 @@ json-файлу, как сделано в этом учебнике, но и м�
 
 __`test/unit/controllersSpec.js`:__
 
-Because we started using dependency injection and our controller has dependencies, constructing the
-controller in our tests is a bit more complicated. We could use the `new` operator and provide the
-constructor with some kind of fake `$http` implementation. However, the recommended (and easier) way
-is to create a controller in the test environment in the same way that angular does it in the
-production code behind the scenes, as follows:
+Так как мы начали использовать инъекцию завимимостией и у нашего контроллера есть завимисомти, создание
+контроллера в наших тестах будет более сложным. Мы могли бы использовать оператор `new` и предоставить
+констркутор с какой-нибудь фейковой реализацией `$http`. Однако рекомендованным (и более простым) способом
+является создание контроллера в тестовой среде таким же способом, как angular делает это в production
+среде за кулисами, вот примерно так:
 
 <pre>
 describe('PhoneCat controllers', function() {
@@ -139,21 +139,22 @@ describe('PhoneCat controllers', function() {
     }));
 </pre>
 
-Note: Because we loaded Jasmine and `angular-mocks.js` in our test environment, we got two helper
-methods {@link api/angular.mock.module module} and {@link api/angular.mock.inject inject} that we'll
-use to access and configure the injector.
+Внимание: Так как мы загружаем Jasmine и `angular-mocks.js` в нашем тестовом окружении, мы получили
+2 хелпер-метода {@link api/angular.mock.module module} и {@link api/angular.mock.inject inject},
+которые будем использовать для конфигурации инжектора и доступа к нему.
 
-We created the controller in the test environment, as follows:
+Мы создали контроллер в тестовой среде таким способом:
 
-* We used the `inject` helper method to inject instances of
+*  Мы использовали хелпер `inject` для внедрение экземпляров 
 {@link api/ng.$rootScope $rootScope},
-{@link api/ng.$controller $controller} and
-{@link api/ng.$httpBackend $httpBackend} services into the Jasmine's `beforeEach`
-function. These instances come from an injector which is recreated from scratch for every single
-test. This guarantees that each test starts from a well known starting point and each test is
-isolated from the work done in other tests.
+{@link api/ng.$controller $controller} и
+{@link api/ng.$httpBackend $httpBackend} 
+сервисов в функцию `beforeEach` Jasmine.
+Эти экземпляры от инжектора, который пересоздается с нуля для каждого теста.
+Это гарантирует, что каждый тест начинается с хорошо известной точки и каждый тест изолирован
+от результата работы других тестов.
 
-* We created a new scope for our controller by calling `$rootScope.$new()`
+* Мы создали новый scope для нашего контроллера вызовом `$rootScope.$new()`
 
 * We called the injected `$controller` function passing the `PhoneListCtrl` function and the created
 scope as parameters.
@@ -171,8 +172,8 @@ native APIs and the global state associated with them — both of which make tes
 HTTP request and tell it what to respond with. Note that the responses are not returned until we call
 the `$httpBackend.flush` method.
 
-Now, we will make assertions to verify that the `phones` model doesn't exist on `scope` before
-the response is received:
+Теперь сделаем пару тестов, чтобы убедиться, что модель `phones` не существует в `scope` до того
+как получен ответ:
 
 <pre>
     it('should create "phones" model with 2 phones fetched from xhr', function() {
@@ -189,7 +190,7 @@ promise returned by the `$http` service to be resolved with the trained response
 
 * We make the assertions, verifying that the phone model now exists on the scope.
 
-Finally, we verify that the default value of `orderProp` is set correctly:
+Наконец, мы проверяем, что значение по умолчанию для `orderProp` выставляется верно:
 
 <pre>
     it('should set the default value of orderProp model', function() {
@@ -199,7 +200,7 @@ Finally, we verify that the default value of `orderProp` is set correctly:
 });
 </pre>
 
-You should now see the following output in the Karma tab:
+Теперь вы должны видеть следующий вывод на вкладке Karma:
 
        Chrome 22.0: Executed 2 of 2 SUCCESS (0.028 secs / 0.007 secs)
 
