@@ -38,12 +38,12 @@ Angular поставляется с набором директив, полез�
      }
    </script>
    <div ng-controller="Ctrl1">
-     Hello <input ng-model='name'> <hr/>
-     &lt;span ng:bind="name"&gt; <span ng:bind="name"></span> <br/>
-     &lt;span ng_bind="name"&gt; <span ng_bind="name"></span> <br/>
-     &lt;span ng-bind="name"&gt; <span ng-bind="name"></span> <br/>
-     &lt;span data-ng-bind="name"&gt; <span data-ng-bind="name"></span> <br/>
-     &lt;span x-ng-bind="name"&gt; <span x-ng-bind="name"></span> <br/>
+      Hello <input ng-model='name'> <hr/>
+      <span ng-bind="name"></span> <br/>
+      <span ng:bind="name"></span> <br/>
+      <span ng_bind="name"></span> <br/>
+      <span data-ng-bind="name"></span> <br/>
+      <span x-ng-bind="name"></span> <br/>
    </div>
   </doc:source>
   <doc:scenario>
@@ -52,6 +52,13 @@ Angular поставляется с набором директив, полез�
     });
   </doc:scenario>
 </doc:example>
+
+<div class="alert alert-success">
+**Лучшие практики:** Предпочтительнее использовать формат с {@link http://en.wikipedia.org/wiki/Letter_case#Computers дефисами(dash-delimited)} (т.е. `ng-bind` для `ngBind`).
+Если хотите, чтобы HTML был валидным, используйте `data`- префикс (т.е.
+`data-ng-bind` для `ngBind`).
+Другие формы записи возникли по тем или иным причинам из прошлого, но мы рекомендуем их избегать.
+</div>
 
 # Обработка строк (связывание текста и атрибутов)
 
