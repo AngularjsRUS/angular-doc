@@ -8,8 +8,37 @@
 В этом уроке, вы напишете страничку с подробным описанием телефона, которая будет появляться когда
 пользователь кликает по телефону из списка.
 
+<div class="tabbable" show="true">
 
-<div doc-tutorial-reset="8"></div>
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux" value="gitUnix">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 7.</p>
+        <pre>git checkout -f step-7</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-7/app">сервере Angular</a>.
+        </p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="tab-pane well" title="Git на Windows" value="gitWin">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 7.</p>
+        <pre>git checkout -f step-7</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-7/app">сервере Angular</a>
+        </p>
+      </li>
+    </ol>
+  </div>
+
+</div>
 
 Теперь, когда вы выбираете телефон из списка, появляется страничка с подробной информацией о нём.
 
