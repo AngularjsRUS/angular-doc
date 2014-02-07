@@ -6,8 +6,37 @@
 
 В этом уроке, вы добавите переключатель картинок на страницу деталей телефона.
 
+<div class="tabbable" show="true">
 
-<div doc-tutorial-reset="10"></div>
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux" value="gitUnix">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 10.</p>
+        <pre>git checkout -f step-10</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-10/app">сервере Angular</a>.
+        </p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="tab-pane well" title="Git на Windows" value="gitWin">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 10.</p>
+        <pre>git checkout -f step-10</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-10/app">сервере Angular</a>
+        </p>
+      </li>
+    </ol>
+  </div>
+
+</div>
 
 Страница с описанием телефона отображает одну большую фотографию выбранного телефона и несколько миниатюр.
 Было бы здорово, если бы мы могли отображать на месте большого изображения увеличенную копию любой из миниатюр с
