@@ -7,8 +7,38 @@
 
 В этом уроке вы узнаете о том как улучшить способы получения данных в приложении.
 
+<div class="tabbable" show="true">
 
-<div doc-tutorial-reset="11"></div>
+  <div class="tab-pane well" id="git-mac" title="Git на Mac/Linux" value="gitUnix">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 11.</p>
+        <pre>git checkout -f step-11</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-11/app">сервере Angular</a>.
+        </p>
+      </li>
+    </ol>
+  </div>
+
+  <div class="tab-pane well" title="Git на Windows" value="gitWin">
+    <ol>
+      <li>
+        <p>Откатите ваш рабочий код до шага 11.</p>
+        <pre>git checkout -f step-11</pre>
+      </li>
+      <li>
+        <p>Перезагрузите страницу или проверьте приложение на 
+           <a href="http://angular.github.com/angular-phonecat/step-11/app">сервере Angular</a>
+        </p>
+      </li>
+    </ol>
+  </div>
+
+</div>
+
 
 Последним улучшением нашего приложения станет написание сервиса, который будет выступать в роли
 {@link http://ru.wikipedia.org/wiki/REST REST-клиента}. Его использование упростит работу с
