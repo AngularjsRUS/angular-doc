@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 #
 # Script to initialize angular app
+set -e
 
 # @log startup time
 START_SERVER_TEIM=$(date +%s)
