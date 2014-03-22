@@ -182,7 +182,7 @@ describe('PhoneCat App', function() {
   Если вы хотите связать `query` модель с `<title>` элементом, вы должны __переместить__ объявление
   `ngController` в html элемент, потому что он является общим родителем для body и title элементов:
 
-          <html ng-app ng-controller="PhoneListCtrl">
+          <html ng-app="phonecatApp" ng-controller="PhoneListCtrl">
 
   Обязательно __удалите__ декларацию `ng-controller` из body элемента.
 
