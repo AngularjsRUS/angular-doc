@@ -39,7 +39,7 @@ api/ng.directive:ngPluralize ngPluralize}.
 **Поддерживаемые языки в Angular**
 Angular знает правила форматов чисел и дат, установленные в разных файлах, каждый файл для конкретной местности. 
 Вы можете найти список поддерживаемых локалей {@link
-https://github.com/angular/angular.js/tree/master/i18n/locale здесь}
+https://github.com/angular/angular.js/tree/master/src/ngLocale здесь}
 
 # Поддержка региональных настроек в Angular
 
