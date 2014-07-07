@@ -28,7 +28,7 @@
           <li><b>Если вы используете node.js:</b>
               <ol>
                 <li>В <i>отдельной</i> вкладе терминала или <i>новом</i> окне терминала, выполните команду
-                    <code>./scripts/web-server.js</code>. Она запустит веб-сервер.
+                    <code>npm start</code>. Она запустит веб-сервер.
                 </li>
                 <li>Откройте окно браузера и в строке навигации введите следующий адрес
                     <a href="http://localhost:8000/app/index.html">http://localhost:8000/app/index.html</a>
