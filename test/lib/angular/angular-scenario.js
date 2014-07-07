@@ -3646,7 +3646,7 @@ if ( !jQuery.support.submitBubbles ) {
 			});
 			// return undefined since we don't need an event listener
 		},
-		
+
 		postDispatch: function( event ) {
 			// If form was submitted by the user, bubble the event up the tree
 			if ( event._submit_bubble ) {
@@ -16110,25 +16110,25 @@ function $ParseProvider() {
  *   you can treat promises attached to a scope as if they were the resulting values.
  * - Q has many more features that $q, but that comes at a cost of bytes. $q is tiny, but contains
  *   all the important functionality needed for common async tasks.
- * 
+ *
  *  # Testing
- * 
+ *
  *  <pre>
  *    it('should simulate promise', inject(function($q, $rootScope) {
  *      var deferred = $q.defer();
  *      var promise = deferred.promise;
  *      var resolvedValue;
- * 
+ *
  *      promise.then(function(value) { resolvedValue = value; });
  *      expect(resolvedValue).toBeUndefined();
- * 
+ *
  *      // Simulate resolving of promise
  *      deferred.resolve(123);
  *      // Note that the 'then' function does not get called synchronously.
  *      // This is because we want the promise API to always be async, whether or not
  *      // it got called synchronously or asynchronously.
  *      expect(resolvedValue).toBeUndefined();
- * 
+ *
  *      // Propagate promise resolution to 'then' functions using $apply().
  *      $rootScope.$apply();
  *      expect(resolvedValue).toEqual(123);
@@ -18204,8 +18204,8 @@ function $HttpProvider() {
             <input type="text" ng-model="url" size="80"/>
             <button ng-click="fetch()">fetch</button><br>
             <button ng-click="updateModel('GET', 'http-hello.html')">Sample GET</button>
-            <button ng-click="updateModel('JSONP', 'http://angularjs.org/greet.php?callback=JSON_CALLBACK&name=Super%20Hero')">Sample JSONP</button>
-            <button ng-click="updateModel('JSONP', 'http://angularjs.org/doesntexist&callback=JSON_CALLBACK')">Invalid JSONP</button>
+            <button ng-click="updateModel('JSONP', 'https://angularjs.org/greet.php?callback=JSON_CALLBACK&name=Super%20Hero')">Sample JSONP</button>
+            <button ng-click="updateModel('JSONP', 'https://angularjs.org/doesntexist&callback=JSON_CALLBACK')">Invalid JSONP</button>
             <pre>http status code: {{status}}</pre>
             <pre>http response data: {{data}}</pre>
           </div>
@@ -18247,14 +18247,14 @@ function $HttpProvider() {
             expect(binding('data')).toMatch(/Hello, \$http!/);
           });
 
-          it('should make a JSONP request to angularjs.org', function() {
+          xit('should make a JSONP request to angularjs.org', function() {
             element(':button:contains("Sample JSONP")').click();
             element(':button:contains("fetch")').click();
             expect(binding('status')).toBe('200');
             expect(binding('data')).toMatch(/Super Hero!/);
           });
 
-          it('should make JSONP request to invalid URL and invoke the error handler',
+          xit('should make JSONP request to invalid URL and invoke the error handler',
               function() {
             element(':button:contains("Invalid JSONP")').click();
             element(':button:contains("fetch")').click();
