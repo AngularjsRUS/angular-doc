@@ -124,18 +124,23 @@ describe('PhoneCat App', function() {
   describe('Phone list view', function() {
 
     beforeEach(function() {
-      browser().navigateTo('../../app/index.html');
+      browser.get('app/index.html');
     });
 
 
     it('should filter the phone list as user types into the search box', function() {
-      expect(repeater('.phones li').count()).toBe(3);
 
-      input('query').enter('nexus');
-      expect(repeater('.phones li').count()).toBe(1);
+      var phoneList = element.all(by.repeater('phone in phones'));
+      var query = element(by.model('query'));
 
-      input('query').enter('motorola');
-      expect(repeater('.phones li').count()).toBe(2);
+      expect(phoneList.count()).toBe(3);
+
+      query.sendKeys('nexus');
+      expect(phoneList.count()).toBe(1);
+
+      query.clear();
+      query.sendKeys('motorola');
+      expect(phoneList.count()).toBe(2);
     });
   });
 });
