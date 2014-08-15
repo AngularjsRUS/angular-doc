@@ -22,7 +22,6 @@
              что все внесенные изменения в вашей рабочей директории, будут потеряны.
           </p>
       </li>
-
       <li>Что бы увидеть запущенное приложение в браузере, сделайте одно из следующих действий:
         <ul>
           <li><b>Если вы используете node.js:</b>
@@ -101,9 +100,9 @@ __`app/index.html`:__
 <head>
   <meta charset="utf-8">
   <title>My HTML File</title>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <script src="lib/angular/angular.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
 </head>
 <body>
 
@@ -121,9 +120,9 @@ __`app/index.html`:__
 
           <html ng-app>
 
-  `ng-app` аттрибут является аngular-директивой (название `ngApp`; Angular использует
-  `имя-с-тире` для имен аттрибутов и `camelCase` для соответствующих имен директив),
-  используемый как флаг (указательный елемент), который сообщает Angular-у корневой элемент нашего приложения.
+  `ng-app` атрибут является аngular-директивой (название `ngApp`; Angular использует
+  `имя-с-тире` для имен атрибутов и `camelCase` для соответствующих имен директив),
+  используемый как флаг (указательный элемент), который сообщает Angular-у корневой элемент нашего приложения.
   Это позволяет разработчикам приложений сказать Angular-у, что вся HTML-страница или только некоторые ее
   части должны рассматриваться как Angular-приложение.
 
