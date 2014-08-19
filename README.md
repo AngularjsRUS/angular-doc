@@ -1,4 +1,4 @@
-AngularJS [![Build Status](https://travis-ci.org/maksimr/angular-doc.png?branch=master)](https://travis-ci.org/maksimr/angular-doc)
+AngularJS [![Build Status](https://travis-ci.org/AngularjsRUS/angular-doc.png?branch=master)](https://travis-ci.org/AngularjsRUS/angular-doc)
 =========
 
 AngularJS позволяет вам писать web приложение на стороне клиента, так как если бы у вас
@@ -46,7 +46,7 @@ AngularJS учит браузер как делать внедрение зав�
 **Перевод**
 
 Если вы хотите помочь с переводом то можете использовать кнопку `Улучшить перевод`
-на сайте или перейти на Gitube в папку [docs/content](https://github.com/maksimr/angular-doc/tree/master/docs/content) выбрать раздел и файл, например
+на сайте или перейти на Gitube в папку [docs/content](https://github.com/AngularjsRUS/angular-doc/tree/master/docs/content) выбрать раздел и файл, например
 `tutorial/index.ngdoc`. После того как открылся файл нажмите 'Edit', все теперь
 можно добавлять или улучшать перевод! Формат `ngdoc` - это расширенный [`markdown`](http://daringfireball.net/projects/markdown/).
 
@@ -58,7 +58,7 @@ AngularJS учит браузер как делать внедрение зав�
 **Улучшение проекта**
 
 Если у вас есть идеи как можно улучшить проект **не стесняйтесь** делайте pull-request'ы,
-пишите в [`issue`](https://github.com/maksimr/angular-doc/issues) или на почту!
+пишите в [`issue`](https://github.com/AngularjsRUS/angular-doc/issues) или на почту!
 
 **Соглашения по оформлению commit'ов и pull-request'ов**
 
@@ -100,7 +100,7 @@ AngularJS учит браузер как делать внедрение зав�
 * Сайт на heroku: http://angular-doc.herokuapp.com
 * Сайт на cloudbees:  http://doc.angularjs.cloudbees.net/index.html
 
-Если статус [![Build Status](https://travis-ci.org/maksimr/angular-doc.png?branch=master)](https://travis-ci.org/maksimr/angular-doc) зеленый (passing),
+Если статус [![Build Status](https://travis-ci.org/AngularjsRUS/angular-doc.png?branch=master)](https://travis-ci.org/maksimr/angular-doc) зеленый (passing),
 то последняя сборка на travis прошла успешно.
 
 **Локальная сборка документации**
