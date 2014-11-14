@@ -10,10 +10,15 @@
   opacity:1;
 }
 
+.nav-list {
+  padding: 0;
+}
+
 .nav-list li {
   height:20px;
   overflow:hidden;
-  margin-right: -5px;
+  margin: 0!important;
+  padding: 2px 15px;
 }
 
 .slide-reveal-setup {
