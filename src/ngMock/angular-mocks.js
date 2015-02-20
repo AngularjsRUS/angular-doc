@@ -1459,8 +1459,8 @@ angular.mock.$RootElementProvider = function() {
  * @name ngMock
  * @description
  *
- * `ngMock` это модуль Angular, который используется совместно с модулем `ng` для добавлнения конфигурации
- * модульного тестирования, а за одно полезной имитации в {@link AUTO.$injector $injector}.
+ * `ngMock` это модуль Angular, который используется совместно с модулем `ng` для добавления конфигурации
+ * модульного тестирования, а заодно полезной имитации в {@link AUTO.$injector $injector}.
  */
 angular.module('ngMock', ['ng']).provider({
   $browser: angular.mock.$BrowserProvider,
