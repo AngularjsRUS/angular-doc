@@ -20,7 +20,7 @@
 
 * Используйте {@link expression выражение} с оператором присваивания в шаблоне:
 
-         <button ng-click="{{foos='ball'}}">Click me</button>
+         <button ng-click="{{foo='ball'}}">Click me</button>
 
 * Используйте директиву {@link api/ng.directive:ngInit ngInit} в шаблонах (только для учебных приложений. Для реальных приложений не рекомендуется):
 
