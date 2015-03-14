@@ -6,20 +6,18 @@
  * @function
  *
  * @description
- * Creates a new array or string containing only a specified number of elements. The elements
- * are taken from either the beginning or the end of the source array or string, as specified by
- * the value and sign (positive or negative) of `limit`.
+ * 
+ * Метод создает новый массив или строку, содержащую только указанное число элементов. Элементы беруться как с начала 
+ * так и с конца исходного массива или строки, в зависимости от знака (позитивного или негативного) лимита.
  *
- * Note: This function is used to augment the `Array` type in Angular expressions. See
- * {@link ng.$filter} for more information about Angular arrays.
+ * Примечание: Этот метод используется для лимитирования массива (с типом `Array`). Смотрите * {@link ng.$filter} для 
+ * более детальной информации об Angular массивах.
  *
- * @param {Array|string} input Source array or string to be limited.
- * @param {string|number} limit The length of the returned array or string. If the `limit` number 
- *     is positive, `limit` number of items from the beginning of the source array/string are copied.
- *     If the number is negative, `limit` number  of items from the end of the source array/string 
- *     are copied. The `limit` will be trimmed if it exceeds `array.length`
- * @returns {Array|string} A new sub-array or substring of length `limit` or less if input array
- *     had less than `limit` elements.
+ * @param {Array|string} input Исходный массив или строка, которая будет лимитирована.
+ * @param {string|number} limit Длина возвращенного массива или строки. Если `limit` число 
+ *     положительное, то заданное число элементов будет взято из массива/строки по порядку начиная с первого элемента.
+ *     Если негативное, то по той-же схеме с последнего элемента. Предел будет обрезан если превышает `array.length`
+ * @returns {Array|string} Новый подмассив или подстрока ограниченная значением `limit`.
  *
  * @example
    <doc:example>
