@@ -15,7 +15,7 @@
   * {@link concepts#view вид или представление (view)} - то что видит пользователь
   * {@link concepts#directives директивы (directives)} - расширение HTML-синтаксиса
   * {@link concepts#filters фильтры (filters)} - форматируют данные в соответствии с региональными установками пользователя
-  * {@link concepts#injector ижектор (injector)} - собирает приложение
+  * {@link concepts#injector инжектор (injector)} - собирает приложение
   * {@link concepts#module модуль (module)} - настраивает инжектор
   * {@link concepts#angular_namespace `$`} - пространство имен Angular
 
