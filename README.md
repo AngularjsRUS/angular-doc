@@ -30,7 +30,7 @@ AngularJS учит браузер как делать внедрение зав�
 
 Дополнительный материал:
 * Видео курс по AngularJS(eng): http://egghead.io
-* С чего начать изучение AngularJS: http://stepansuvorov.com/blog/2012/12/%D1%81-%D1%87%D0%B5%D0%B3%D0%BE-%D0%BD%D0%B0%D1%87%D0%B0%D1%82%D1%8C-%D0%B8%D0%B7%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5-angularjs
+* С чего начать изучение AngularJS: http://goo.gl/IczFFD
 * AngularJS — фреймворк для динамических веб-приложений от Google: http://habrahabr.ru/post/149060
 * 7 причин, почему AngularJS крут: http://habrahabr.ru/post/142590
 * Ключевое отличие AngularJS от Knockout: http://habrahabr.ru/post/165275
