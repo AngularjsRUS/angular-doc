@@ -267,8 +267,8 @@ Angular изменяет обычный поток выполнения JavaScri
           });
 
           // модель -> вид
-          ctrl.$render = function(value) {
-            elm.html(value);
+          ctrl.$render = function() {
+            elm.html(ctrl.$viewValue);
           };
 
           // загрузка начального значения из DOM
