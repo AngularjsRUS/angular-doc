@@ -150,8 +150,8 @@ Angular изменяет обычный поток выполнения JavaScri
     }
   </file>
   <file name="style.css">
-    .show-scope .doc-example-live.ng-scope,
-    .show-scope .doc-example-live .ng-scope  {
+    .show-scope.ng-scope,
+    .show-scope .ng-scope  {
       border: 1px solid red;
       margin: 3px;
     }
