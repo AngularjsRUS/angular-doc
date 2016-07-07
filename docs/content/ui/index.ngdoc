@@ -4,7 +4,7 @@
 
 # UI-Router
 
-## Решение де-факто для гибкой маршрутизации вложенных видов.
+## Решение де-факто для гибкой маршрутизации вложенных view.
 >* Последний релиз 0.0.2: [сжатый](http://angular-ui.github.io/ui-router/release/angular-ui-router.min.js) / [без сжатия](http://angular-ui.github.io/ui-router/release/angular-ui-router.js)
 >* Последняя сборка: [сжатый](http://angular-ui.github.io/ui-router/build/angular-ui-router.min.js) / [без сжатия](http://angular-ui.github.io/ui-router/build/angular-ui-router.js)
 
